@@ -43,6 +43,8 @@
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
 \usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
@@ -67,7 +69,7 @@
 
 %%% The "real" document content comes below...
 
-\title{HW4}
+\title{Micro HW1}
 \author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
 
 %\date{} % Activate to display a given date or no date (if empty),
@@ -88,10 +90,32 @@ Let us construct our vectors $\Delta p , \Delta y$. $\Delta p = \colvec{3}{\Delt
 It can and we will construct an example which demonstrates the possibility. Let the set of possible production vectors be $\{ (-5,-1,30) , (-1,-8,32)\}$. For the price vector $(1,1,1)$ the profit maximizing production vector is $(-5,-1,30)$ while for the price vector $(2,1,1)$ the profit maximizing production vector is $(-1,-8,32)$. In this case, $p_1$ rises while  $p_2,p_3$ stay the same, yet $y_3$ rises from $30$ to $32$.
 
 \subsection{If $p_1,p_2$ both increase and $p_3$ stays the same, can $y_3$ go up?}
+The example in the previous subsection holds also for this case if we make a small adjustment. For the price vector $(1,1,1)$, the profit maximizing production vector is $(-5,-1,30)$ while for the price vector $(2,1.001,1)$ the profit maximizing production function is $(-1,-8,32)$. Thus, in this case, $p_1,p_2$ increase while $p_3$ stays the same, and the firm's output, $y_3$, goes up from $30$ to $32$.
+
 \subsubsection{What if both $p_1,p_2$ rise by $10\%$?}
+Note that production choice only depends on the ratio of the prices, not on their absolute magnitude. Therefore, $y(1.1 p_1,1.1 p_2,p_3) = y(p_1,p_2,p_3 /1.1) $. Thus, this situation is equivalent to the case of $p_3$ falling while $p_1,p_2$ stay the same. By the law of supply, $y_3 \leq 0$ so $y_3$ weakly decreases and, therefore, cannot go up.
 
 \section{Question 2}
+Let us first observe Dataset 1. Note that in the case of $p=(5,5),$ the profit obtained from producing $(-20,40)$ is $100$ while the profit obtained from producing $(-50,60)$ at that price is $50$. However, the firm chose to produce $(-50,60)$ at this price - a clear violation of the weak axiom of profit maximization! Therefore, Dataset 1 is inconsistent with a profit maximizing firm.
+
+Dataset 2, upon observation, does not suffer from such a violation and thus is consistent with a profit-maximizing firm. 
+\subsection{Describe the smallest production set that can rationalize the data.}
+The smallest production set that can rationalize the data is the set containing only the realized choices: $\{ (-20,40),(-40,70),(-70,90)\}$.
+
+\subsection{Draw the smallest convex production set with free disposal and the shutdown property that can rationalize the data.}
+\includegraphics{freedispshutdown}
+
+The above chart shows the realized datapoints, along with the shutdown production option of producing $(0,0)$. The shaded area in the chart show regions attainable by producing at one of the realized levels, or not producing, and then utilizing free disposal. This area is also specified to be convex, which is achieved via 'connecting the dots' between the realized data.
+
+\subsection{Draw the largest production set that can rationalize the data.}
+\includegraphics{largestprod}
+The above chart shows the realized datapoints (in red), along with (black) lines going through those points that are perpendicular to the price vectors (shown in blue). The shaded region, which includes the lines and the points, represents the largest production set that can rationalize the data.
 
 \section{Question 3}
-
+Define $y(p) = y_1(p) + \dots + y_n(p)$ as the aggregate level of production for the industry at price level $p$, and define $\pi (p) = p \cdot y(p)$. We know that each firm in the industry is profit maximizing and price-taking, and therefore individually each firm satisfies the weak axiom. Thus,
+\begin{align*}
+\pi (p) &= p \cdot y(p) = p \cdot (y_1(p) + \dots + y_n(p)) = p \cdot y_1(p) + \dots + p \cdot y_n(p) \\ &\geq p \cdot y_1(p^{'}) + \dots p \cdot y_n(p^{'}) 
+= p \cdot (y_1(p^{'}) + \dots y_n(p^{'})) = p \cdot y(p^{'}).
+\end{align*}
+Therefore, the industry must also satisfy the weak axiom. It can, in a sense of maximizating profit via choosing optimal production vectors, be rationalized as if the industry as a whole was acting as a single profit-maximizing firm. (Note, however, that if the industry as a whole truly was a single firm maximizing profit, then that firm may gain market power and not act as a price-taker. So we should be careful not to take the analogy too far.)
 \end{document}

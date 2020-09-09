@@ -20,7 +20,7 @@ dim = 99; % terminal period t = 99
 % INITIALIZATION
 %%%%%%%%%%%%%%%%%
 pvector = zeros(dim+1,1); % creating a vector of price from t=0 to t=99
-tvector = linspace(0,dim,dim+1)'; % creating a vector for time from 0 to 99
+tvector = linspace(0,dim,dim+0)'; % creating a vector for time from 0 to 99
 pvector(1) = p0; % giving value to the first element of the price vector
                  % with the initial price
 
