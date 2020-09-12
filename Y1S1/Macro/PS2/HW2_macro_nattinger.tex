@@ -119,6 +119,8 @@ We will write $J = E\Lambda E^{-1}$ where $E$ is the matrix of eigenvectors and 
 Since the magnitude of the first eigenvalue is greater than one, and the magnitude of the second eigenvalue is less than one, the system has a saddle path. The slope of the saddle path at the SS is equal to the slope of the second eigenvector, $\frac{0.17634}{0.9848} = 0.1761.$
 
 \subsection{Draw a phase diagram demonstrating how the system responds to an unexpected (permanent) productivity shock.}
+\includegraphics{phase}
+The above figure shows the phase diagram as computed via Matlab. The dot-dashed lines show the original, pre-shock, curves for $\Delta k = 0$ (black), $\Delta c = 0$ (blue), and the saddle path (magenta), while the solid lines show the same curves post shock. The system begins at its old steady state (the red x), and then after the shock the system must jump up in $c$ to the new saddle path (jumps to the red o). Then the system will follow the saddle path, tracing out the red line, approaching the new steady state (red $+$) in the limit as $t \rightarrow \infty$.
 
 \subsection{Compute numerically and plot trajectories of $k_t,c_t$ if the productivity shock occurs at $t_0 = 5$ and $z^{'} = z+0.1$.}
 
@@ -176,24 +178,89 @@ Now we will instead use the shooting method to find the actual $c_{t_0}$ needed 
 We are given three scenarios. For each scenario, we will state the SPP, CP, and CE.
 
 \subsection{Modified 2-period OG model}
-In this question we consider a model quite similar to the 2-period OG model we studied in class, but with a few differences as described in the problem set.
+In this question we consider a model quite similar to the 2-period OG model we studied in class, but with a few differences as described in the problem set. Since N is constant, WLOG we can set $N=1$. Note that in this question we have two types of consumers. The first are given an allocation in their first period, and the second are given an allocation in the second period. We will number these consumers with the identifiers $1,2$, respectively.
 
 SPP: The social planner maximizes the utilities of the agents given the resource constraint:
-\begin{align*}
-&\max_{c_t^{t},c_{t+1}^{t}} N \text{ ln } c_{t}^{t} + N\text{ ln } c_{t+1}^{t}\\
-&\text{s.t. } N  c_{t}^{t} + N  c_{t+1}^{t} \leq \frac{N}{2}w_1 + \frac{N}{2} w_2
+\begin{align*} 
+&\max_{c_t^{1,t},c_{t}^{1,t-1},c_t^{2,t},c_{t}^{2,t-1}} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t}^{1,t-1} + \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t}^{2,t-1}\\
+&\text{s.t. }  c_{t}^{1,t} +  c_{t}^{1,t-1} + c_{t}^{2,t} +  c_{t}^{2,t-1} \leq \frac{1}{2}w_1 + \frac{1}{2} w_2.
 \end{align*}
 
 CP: Each consumer maximizes their own utility over the two periods, subject to their income constraints.
+The first type of consumer solves the following maximization problem:
 \begin{align*}
-&\max_{c_t^{t},c_{t+1}^{t}} N \text{ ln } c_{t}^{t} + N\text{ ln } c_{t}^{t}\\
-&\text{s.t. } N  c_{t}^{t} + N  c_{t}^{t} \leq \frac{N}{2}w_1 + \frac{N}{2} w_2
+&\max_{c_t^{1,t},c_{t+1}^{1,t},M_{t+1}^{1,t}} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t+1}^{1,t}\\
+&\text{s.t. }  p_t c_{t}^{1,t} + M_{t+1}^{1,t} \leq w_1 \\
+& \text{and } p_{t+1} c_{t+1}^{1,t} \leq M_{t+1}^{1,t}.
+\end{align*}
+The next type of consumer solves the following:
+\begin{align*}
+&\max_{c_t^{2,t},c_{2,t+1}^{t},M_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
+&\text{s.t. }  p_t c_{t}^{2,t}  \leq M_{t+1}^{2,t} \\
+& \text{and } p_{t+1} c_{t+1}^{2,t} + M_{t+1}^{2,t}\leq w_2.
+\end{align*}
+
+We also have the special case of the initial period. The old in this first period only live for a single period. Those who are given an allocation in this period solve the following maximization problem:
+\begin{align*}
+&\max_{c_{1}^{2,0},M_1^{2,0}} \text{ ln } c_{1}^{2,0} \\
+&\text{s.t. }  p_1 c_{1}^{2,0} + M_{1}^{2,0} \leq w_2.
+\end{align*}
+Meanwhile, the initial old with no resources solve the following maximization problem:
+\begin{align*}
+&\max_{c_{1}^{0},M_{1}^{1,0}} \text{ ln } c_{1}^{1,0} \\
+&\text{s.t. }  p_1 c_{1}^{1,0} + \leq M_{1}^{1,0} .
+\end{align*}
+
+CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:
+\begin{align*}
+c_{t}^{1,t} +  c_{t}^{1,t-1} + c_{t}^{2,t} +  c_{t}^{2,t-1} &= \frac{1}{2}w_1 + \frac{1}{2} w_2 \\
+M_{t+1}^{1,t} + M_{t+1}^{2,t} &= M.
+\end{align*}
+
+\subsection{3-period OG model}
+We consider an OG model consisting of agents that live 3-periods. This time, generation sizes are no longer necessarily fixed.
+
+SPP: The social planner maximizes the utilities of the agents given the resource constraint: 
+\begin{align*}
+&\max_{c_t^{t},c_{t}^{t-1},c_{t}^{t-1}} N_{t}\text{ ln } c_{t}^{t} + N_{t-1}\text{ ln } c_{t}^{t-1} + N_{t-2}\text{ ln } c_{t}^{t-2}\\
+&\text{s.t. }  N_{t}c_{t}^{t} +  N_{t-1}c_{t}^{t-1} + N_{t-2}c_{t}^{t-2}\leq N_{t}w_1 + N_{t-1}w_2 + N_{t-2}w_3.
 \end{align*}
 
 
-\subsection{3-period OG model}
+CP: Outside of the initialization, agents solve the following maximization problem:
+\begin{align*}
+&\max_{c_t^{t},c_{t+1}^{t},c_{t+2}^{t},M_{t+1}^{t},M_{t+2}^{t}} \text{ ln } c_{t}^{t} + \text{ ln } c_{t+1}^{t}+ \text{ ln } c_{t+2}^{t}\\
+&\text{s.t. }  p_t c_{t}^{t} + M_{t+1}^t \leq w_1 \\
+& \text{and } p_{t+1} c_{t+1}^t  + M_{t+2}^t \leq  w_2 + M_{t+1}^t \\
+& \text{and } p_{t+2} c_{t+2}^t \leq w_3 + M_{t+2}^t.
+\end{align*}
+
+We next must consider the initial case. There are 2 'special' generations (i.e. generations which live less than 3 periods). First we will consider the 2-period generation. They solve the following maximization problem:
+\begin{align*}
+&\max_{c_{1}^{0},c_{2}^{0},M_{2}^{0}}  \text{ ln } c_{1}^{0}+ \text{ ln } c_{2}^{0}\\
+& \text{s.t. } p_{1} c_{1}^0  + M_{2}^0 \leq  w_2 \\
+& \text{and } p_{2} c_{2}^0 \leq w_3 + M_{2}^0.
+\end{align*}
+Finally, we also consider the 1-period generation. They solve the following:
+\begin{align*}
+&\max_{c_{1}^{-1},M_{1}^{-1}}  \text{ ln } c_{1}^{-1}\\
+& \text{s.t. } p_{1} c_{1}^{-1} \leq w_3.
+\end{align*}
+
+CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:
+\begin{align*}
+N_{t}c_{t}^{t} +  N_{t-1}c_{t}^{t-1} + N_{t-2}c_{t}^{t-2} &= N_{t}w_1 + N_{t-1}w_2 + N_{t-2}w_3.\\
+M_{t+1}^{t} + M_{t+1}^{t-1} &= M.
+\end{align*}
 
 \subsection{Cake eating problem}
+We now consider a single agent, given an allocation in period 1, with perfect storage. In this case, the SPP, CP, and CE all collapse to a single optimization problem
 
+The single agent solves the following maximization problem:
+
+\begin{align*}
+&\max_{c_{i}, i \in \mathbb{N}}  \sum_{t=1}^{\infty}\beta^{t} u(c_t)\\
+& \text{s.t. } \sum_{t=1}^{\infty} c_t = k_1.
+\end{align*}
 
 \end{document}
