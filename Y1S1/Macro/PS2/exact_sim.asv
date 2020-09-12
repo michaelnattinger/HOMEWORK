@@ -1,0 +1,25 @@
+%function ssim = exact_sim(mod,param,lin,y0,T)
+[ny,ny0] = size(y0);
+simsim = zeros(ny,T,ny0);
+for i=1:ny0
+    simsim(:,1,i) = y0(:,i); % Initial values
+end
+
+% solve for equations we can use to project exactly into the future
+nn = fieldnames(lin.yp);
+for j = 1:length(nn)
+lin.ypnum.(nn{j}) = lin.yp.(nn{j}); % init
+for i = 1:length(mod.pn)            % plug in parameters
+eval(['lin.ypnum.(nn{j}) = subs(lin.ypnum.(nn{j}), ' mod.pn{i} ',param.(mod.pn{i}));']);
+end
+end
+for i=1:ny0 % for each sim corresponding to each initial value...
+for tt=2:T  % for each point in time...
+for j=1:ny  % for each variable, iterate forward
+simsim(j,tt,i) = double(subs(lin.ypnum.(nn{j}),mod.y,simsim(:,tt-1,i)'));
+if simsim(j,tt,i)<0.001
+    simsim(j,tt,i) = 0.001;
+end
+end
+end
+end
