@@ -100,7 +100,7 @@ k_{t+1} = zk_{t}^{\alpha} + (1-\delta) k_t - c_t \label{eqn:kap}
 First we write $k_{t+1} = g(k_t,c_t), c_{t+1} = h(k_t,c_t)$. From (\ref{eqn:kap}) and (\ref{eqn:con}) we have:
 \begin{align*}
 k_{t+1} &= zk_{t}^{\alpha} + (1-\delta) k_t - c_t = g(k_t,c_t), \\
-c_{t+1} &= \beta c_t(1 - \delta + \alpha z (zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 1} ).
+c_{t+1} &= \beta c_t(1 - \delta + \alpha z (zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 1} ) = h(k_t,c_t).
 \end{align*}
 Now, we can write down our Jacobian $J$:
 \begin{align*}
@@ -254,13 +254,14 @@ M_{t+1}^{t} + M_{t+1}^{t-1} &= M.
 \end{align*}
 
 \subsection{Cake eating problem}
-We now consider a single agent, given an allocation in period 1, with perfect storage. In this case, the SPP, CP, and CE all collapse to a single optimization problem
+We now consider a single agent, given an allocation in period 1, with perfect storage. In this case, the SPP, CP, and CE all collapse to a single optimization problem.
 
 The single agent solves the following maximization problem:
 
 \begin{align*}
-&\max_{c_{i}, i \in \mathbb{N}}  \sum_{t=1}^{\infty}\beta^{t} u(c_t)\\
-& \text{s.t. } \sum_{t=1}^{\infty} c_t = k_1.
+&\max_{ c_{i}, i \in \mathbb{N}}  \sum_{t=1}^{\infty}\beta^{t} u(c_t)\\
+& \text{s.t. } \sum_{t=1}^{\infty} c_t = k_1\\
+& \text{and } c_i \geq 0 \forall i \in \mathbb{N}.
 \end{align*}
 
 \end{document}
