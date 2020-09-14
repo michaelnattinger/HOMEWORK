@@ -93,7 +93,8 @@ It can and we will construct an example which demonstrates the possibility. Let 
 The example in the previous subsection holds also for this case if we make a small adjustment. For the price vector $(1,1,1)$, the profit maximizing production vector is $(-5,-1,30)$ while for the price vector $(2,1.001,1)$ the profit maximizing production function is $(-1,-8,32)$. Thus, in this case, $p_1,p_2$ increase while $p_3$ stays the same, and the firm's output, $y_3$, goes up from $30$ to $32$.
 
 \subsubsection{What if both $p_1,p_2$ rise by $10\%$?}
-Prices are homogenous of degree 0. Therefore, $y(1.1 p_1,1.1 p_2,p_3) = y(p_1,p_2,p_3 /1.1) $. Thus, this situation is equivalent to the case of $p_3$ falling while $p_1,p_2$ stay the same, or if $p_3 = 0,$ all prices are unchanged. In the first case, by the law of supply, $y_3 \leq 0$ so $y_3$ weakly decreases and, therefore, cannot go up. In the second case the prices are unchanged so the firm's production decision must be the same, so $y_3$ is unchanged.
+Prices are homogenous of degree 0. Therefore, $Y^{*}(1.1 p_1,1.1 p_2,p_3) = Y^{*}(p_1,p_2,p_3 /1.1) $. Thus, this situation is equivalent to the case of $p_3$ falling while $p_1,p_2$ stay the same.\footnote{Note: this is true if $p_3>0$. However, if $p_3 = 0$, then $ Y^{*}(p_1,p_2,p_3 /1.1)= Y^{*}(p_1,p_2,p_3)  $. Then there is a possible case where the firm is indifferent between two production vectors of equal profit and, thus, may switch between those production vectors. For example, if a firm's possible production vectors are $\{  (-1,-1,4) , (-1,-1,5)\}$ and the firm produces $(-1,-1,4)$ at the price vector of $(1,1,0)$, then for the price vector of $(1.1,1.1,0)$ the firm is still indifferent between production vectors and so may choose to produce $(-1,-1,5).$} Thus, by the law of supply, $y_3 \leq 0$ so $y_3$ weakly decreases and, therefore, cannot go up.
+%Prices are homogenous of degree 0. Therefore, $y(1.1 p_1,1.1 p_2,p_3) = y(p_1,p_2,p_3 /1.1) $. Thus, this situation is equivalent to the case of $p_3$ falling while $p_1,p_2$ stay the same, or if $p_3 = 0,$ all prices are unchanged. In the first case, by the law of supply, $y_3 \leq 0$ so $y_3$ weakly decreases and, therefore, cannot go up. In the second case the prices are unchanged so the firm's production decision must be the same, so $y_3$ is unchanged.
 
 \section{Question 2}
 Let us first observe Dataset 1. Note that in the case of $p=(5,5),$ the profit obtained from producing $(-20,40)$ is $100$ while the profit obtained from producing $(-50,60)$ at that price is $50$. However, the firm chose to produce $(-50,60)$ at this price - a clear violation of the weak axiom of profit maximization! Therefore, Dataset 1 is inconsistent with a profit maximizing firm.
@@ -105,7 +106,7 @@ The smallest production set that can rationalize the data is the set containing 
 \subsection{Draw the smallest convex production set with free disposal and the shutdown property that can rationalize the data.}
 \includegraphics{freedispshutdown}
 
-The above chart shows the realized datapoints, along with the shutdown production option of producing $(0,0)$. The shaded area in the chart show regions attainable by producing at one of the realized levels, or not producing, and then utilizing free disposal. This area is also specified to be convex, which is achieved via 'connecting the dots' between the realized data. Then, of course, we can achieve any of the points below the lines connecting the realized production sets via free disposal.
+The above chart shows the realized datapoints, along with the shutdown production option of producing $(0,0)$. It also shows the lines connecting the points, which must be in the set as the set is specified to be convex. The shaded area in the chart show regions attainable by producing at one of the realized levels, not producing, or producing along the lines connecting the realized points, and then utilizing free disposal.
 
 \subsection{Draw the largest production set that can rationalize the data.}
 \includegraphics{largestprod}
@@ -114,8 +115,24 @@ The above chart shows the realized datapoints (in red), along with (black) lines
 \section{Question 3}
 Define $y(p) = y_1(p) + \dots + y_n(p)$ as the aggregate level of production for the industry at price level $p$, and define $\pi (p) = p \cdot y(p)$. We know that each firm in the industry is profit maximizing and price-taking, and therefore individually each firm satisfies the weak axiom. Thus,
 \begin{align*}
-\pi (p) &= p \cdot y(p) = p \cdot (y_1(p) + \dots + y_n(p)) = p \cdot y_1(p) + \dots + p \cdot y_n(p) \\ &\geq p \cdot y_1(p^{'}) + \dots p \cdot y_n(p^{'}) 
+\pi (p) &= p \cdot y(p) = p \cdot (y_1(p) + \dots + y_n(p)) = p \cdot y_1(p) + \dots + p \cdot y_n(p) \\ &\geq p \cdot y_1(p^{'}) + \dots + p \cdot y_n(p^{'}) 
 = p \cdot (y_1(p^{'}) + \dots y_n(p^{'})) = p \cdot y(p^{'}).
 \end{align*}
 Therefore, the industry must also satisfy the weak axiom. It can, in a sense of maximizating profit via choosing optimal production vectors, be rationalized as if the industry as a whole was acting as a single profit-maximizing firm. (Note, however, that if the industry as a whole truly was a single firm maximizing profit, then that firm may gain market power and not act as a price-taker. So we should be careful not to take the analogy too far.)
+
+%Let our industry consist of 1 firm. We have then $\pi (p) = p \cdot y(p) = p \cdot y_1(p) \geq  p \cdot y_1p^{'} =  p \cdot y(p^{'})$.
+%
+%Now, assume that WAPM holds for an industry consisting of n firms. Then we have the following:
+%\begin{align*}
+%\pi (p) &= p \cdot y(p) = p \cdot (y_1(p) + \dots + y_{n+1}(p)) = p \cdot y_1(p) + \dots + p \cdot y_n(p) + p \cdot y_{n+1}(p) \\ &\geq p \cdot y_1(p^{'}) + \dots + p \cdot y_n(p^{'}) + p \cdot y_{n+1}(p) \geq p \cdot y_1(p^{'}) + \dots + p \cdot y_n(p^{'}) + p \cdot y_{n+1}(p^{'}) \\
+%&= p \cdot (y_1(p^{'}) + \dots y_{n+1}(p^{'})) = p \cdot y(p^{'}).
+%\end{align*}
+%So WAPM holds for an industry consisting of n firms. Thus, by induction, WAPM holds for the industry.
+%
+%Define $y(p) = \sum\limits_{i \in \mathbb{L}}y_i(p)$ as the aggregate level of production for the industry, where the industry consists of firms in set $\mathbb{L}$, at price level $p$, and define $\pi (p) = p \cdot y(p)$. We know that each firm in the industry is profit maximizing and price-taking, and therefore individually each firm satisfies the weak axiom. Thus,
+%\begin{align*}
+%\pi (p) &= p \cdot y(p) = p \cdot (\sum_{i \in \mathbb{L}} y_i(p)) = \sum_{i \in \mathbb{L}} p \cdot y_i(p) \\ &\geq  \sum_{i \in \mathbb{L}} p \cdot y_i(p^{'}) 
+%= p \cdot ( \sum_{i \in \mathbb{L}}y_i(p^{'}) ) = p \cdot y(p^{'}).
+%\end{align*}
+%Therefore, the industry must also satisfy the weak axiom. It can, in a sense of maximizating profit via choosing optimal production vectors, be rationalized as if the industry as a whole was acting as a single profit-maximizing firm.
 \end{document}
