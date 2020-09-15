@@ -47,113 +47,101 @@
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
-%%% END Article customizations
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
 
-%%% The "real" document content comes below...
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
-\title{Econometrics HW1}
-\author{Michael B. Nattinger}
-
-%\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
-
-%\date{} % Activate to display a given date or no date (if empty),
-         % otherwise the current date is printed 
+\title{Econometrics HW2}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
 
 \begin{document}
 \maketitle
 
 \section{Question 1}
-For two events $A,B \in S$, prove that $A \cup B = (A \cap B) \cup ((A \cap B^{c}) \cup (B \cap A^{c}))$.
+Suppose that $Y = X^{3}$ and $f_X(x) = 42x^5(1-x), x \in (0,1).$ We are asked to find the PDF of $Y$.
 
-\underline{pf} Let $A,B \in S.$ Then, 
+We will begin by finding the CDF of $Y$:
 \begin{align*}
-A \cup B &= \left((A \cap B) \cup (A \cap B^{c}) \right) \cup \left( (B \cap A) \cup (B \cap A^{c}) \right)  \text{(Partition theorem)}\\
-	     &= (A \cap B) \cup \left( (A \cap B^{c}) \cup (B \cap A) \cup (B \cap A^{c}) \right)  \text{(Associativity} \\
-	     &= \left( (A \cap B) \cup  (B \cap A) \right) \cup \left( (A \cap B^{c}) \cup (B \cap A^{c}) \right)  \text{(Associativity}\\
-	     &= (A \cap B) \cup \left( (A \cap B^{c}) \cup (B \cap A^{c}) \right)  \text{(Commutativity}.
+P(Y\leq y) &= P(X^{3} \leq y) = P(X \leq y^{1/3}) = \int_0^{y^{1/3}} f_X(x)dx =  \int_0^{y^{1/3}}42x^5 - 42x^6dx \\
+&= (7x^6 - 6x^7)|^{y^{1/3}}_{0} = (7y^2 - 6y^{7/3}) - 0 = 7y^2 - 6y^{7/3}.
 \end{align*}
+Thus, $F_Y(y) =  7y^2 - 6y^{7/3}$. $f_Y(y) = \frac{d}{dy} F_Y(y) =  \frac{d}{dy} 7y^2 - 6y^{7/3} = 14y - \frac{42}{3}y^{4/3}$.
+
+We will check that this integrates to 1:
+$\int_{-\infty}^{\infty} f_Y(y)dy = \int_0^1f_Y(y)dy = F_Y(y)|^{1}_{0} = (7 - 6) - (0) = 1. $
 
 \section{Question 2}
-Prove that $P(A \cup B) = P(A) + P(B) - P(A \cap B).$
+Let $x \in [0,1]$ and define $F_X,f_X,a$ as described in the problem. We then have 3 cases:
 
-\underline{pf} 
-\begin{align*}
-P(A \cup B) &= P(( (A \cap B) \cup (A \cap B^{c})) \cup B)  \text{(Partition theorem)}\\
- 		 &= P(( (A \cap B) \cup (A \cap B^{c})) \cup ((B \cap A) \cup ( B \cap A^{c})))  \text{(Partition theorem)}\\
-		 &= P(((A \cap B) \cup (B \cap A)) \cup ( (A \cap B^{c}) \cup (B \cap A^{c}))) \text{(Associativity)} \\
-		 &= P((A \cap B) \cup ((A \cap B^{c}) \cup (B \cap A^{c})))  \text{(Commutativity)}\\
-		 &= P(A \cap B)+P(A \cap B^{c})+P(A^{c} \cap B)  \text{(Disjoint events)}\\
-		 &= P(A \cap B)+P(A \cap B^{c})+P(A^{c} \cap B) + P(A \cap B) - P(A \cap B) \\
-		 &= P((A \cap B) \cup (A \cap B^{c}))+P((A^{c} \cap B) \cup (A \cap B)) - P(A \cap B) \text{(Disjoint events)} \\
-		 &= P(A)+P(B) - P(A \cap B) \text{(Partition theorem)}.
-\end{align*}
+\begin{itemize}
+\item $x<0.5$: In this case, $\int^{x}_0 f_X(t)dt = \int^{x}_01.2 dx = 1.2x.$
+\item $x=0.5$: In this case,  $\int^{x}_0 f_X(t)dt = \int^{0.5}_0 1.2dt + \int^{0.5}_0.5 a dt = 0.6 + 0 = 0.2+0.8(x).$
+\item $x>0.5$:In this case,  $\int^{x}_0 f_X(t)dt = \int^{0.5}_0 1.2dt + \int^{0.5}_0.5 a dt + \int^{x}_{0.5} 0.8 dt = 0.6 + 0 + 0.8x - 0.4 = 0.2+0.8(x).$
+\end{itemize}
+
+Thus, $F_X(x) = \int_0^x f_X(t)dt$ $\forall x \in [0,1].$
 
 \section{Question 3}
-Suppose that the unconditional probablity of a disease is $0.0025$. A screening test for this disease has a detection rate of $0.9$, and has a false positive rate of $0.01$. Given that the screening test returns positive, what is the conditional probability of having the disease?
+We will begin by finding the CDF of Y. $P(Y\leq y) = P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y}\leq X \leq \sqrt{y})$. Note: $Y$ is weakly positive.
 
-\underline{pf} Let $A = \{ \text{having the disease}\}, B = \{ \text{testing positive}\}$. By (repeated iterations of) Bayes' Law, $P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}$. It is given to us in the question that $P(B|A) = 0.9, P(A) = 0.0025, P(B|A^{c}) = 0.01.$ We can next calculate $P(B) = P(B|A)P(A) + P(B|A^{c})P(A^{c}) = P(B|A)P(A) + P(B|A^{c})(1-P(A)) = (0.9)(0.0025) + (0.01)(0.9975) = 0.012225.$ Thus, $P(A|B) = \frac{(0.9)(0.0025)}{0.012225} = 0.184.$
+For $y \in [0,1],$
+\begin{align*}
+P(-\sqrt{y}\leq X \leq \sqrt{y}) &= \int_{-\sqrt{y}}^{\sqrt{y}} (2/9) (x+1) dx = ((1/9)x^2  + (2/9)x)|_{-\sqrt{y}}^{\sqrt{y}}\\
+ &= ((1/9)y + (2/9)\sqrt{y}) -((1/9)y - (2/9)\sqrt{y}) = (4/9) \sqrt{y} \\
+\Rightarrow f_Y(y) &= \frac{d}{dy} (4/9)\sqrt{y} = (2/9)y^{-1/2}.
+\end{align*}
+
+For $y \in (1,4],$
+\begin{align*}
+P(-\sqrt{y}\leq X \leq \sqrt{y}) &= \int_{-1}^{\sqrt{y}} (2/9) (x+1) dx = ((1/9)x^2  + (2/9)x)|_{-1}^{\sqrt{y}}\\
+ &= ((1/9)y + (2/9)\sqrt{y}) -((-1/9) - (2/9)) = (1/9)y + (2/9)\sqrt{y} + (1/3) \\
+\Rightarrow f_Y(y) &= \frac{d}{dy} \left((1/9)y + (2/9)\sqrt{y} + (1/3)\right)  = (1/9) +(1/9)y^{-1/2}
+\end{align*}
 
 \section{Question 4}
-Suppose that a pair of events $A$ and $B$ are mutually exclusive, i.e. $A \cap B = \emptyset,$ and that $P(A)>0$ and $P(B) > 0.$ Prove that A and B are not independent.
+We will find the median of the given distribution.
 
-\underline{pf} Let $A,B \in S$ with $P(A)>0, P(B)>0.$ Assume for the purpose of contradiction $A$ and $B$ are independent. Then, $P(A \cap B) = P(A)P(B)>0.$ However, note that since $A \cap B = \emptyset,$ $P(A\cap B) = 0,$ which is a contradiction. Thus, $A$ and $B$ are not independent.
+\begin{align*}
+P(X\leq m) &= \int_{-\infty}^m \frac{1}{\pi (1+x^2)} dx = \text{tan}^{-1} x |_{\infty}^{m} =  \text{tan}^{-1}(m) -  \text{tan}^{-1}(\infty) = \text{tan}^{-1}(m) + \frac{\pi}{2} \\
+\Rightarrow P(X \leq m) &= 0.5 \rightarrow  \text{tan}^{-1}(m) + \frac{\pi}{2} = 0.5 \Rightarrow m = \text{tan}(0.5 - \frac{\pi}{2})\\
+\Rightarrow m &= -1.83.
+\end{align*}
 
 \section{Question 5}
-Let $A,B,C$ be three events with positive probabilities. Then $A$ and $B$ are independent given $C$ if $P(A \cap B|C) = P(A|C)P(B|C).$ Consider the experiment of tossing two dice. Let $A = \{$First die is 6$\}, B = \{$Second die is 6$\}, $ and $C = \{$Both dice are the same$\}.$
-
-\subsection{Show that $A$ and $B$ are independent (unconditionally), but $A$ and $B$ are dependent given $C$.}
-\underline{pf} We have that $P(A) = P(D1 = 6, D2 =1) + P(D1 = 6, D2 =2) + P(D1 = 6, D2 =3) + P(D1 = 6, D2 =4) + P(D1 = 6, D2 =5) + P(D1 = 6, D2 =6) = \frac{1}{6} = P(B)$ by symmetry. Note also that $P(A\cap B) = P(D1 = 6, D2 = 6) = \frac{1}{36} = \frac{1}{6} *\frac{1}{6} = P(A)P(B)$ so $A$ and $B$ are independent (unconditionally).
-
-Now note that $P(A \cap B|C) = P(D1=6, D2=6|\text{Both dice are the same}) = \frac{1}{6}$, but $P(A|C) = P(D1 = 6|\text{Both dice are the same}) = \frac{1}{6} = P(B|C)$ by symmetry. Then, $P(A|C)P(B|C) = \frac{1}{36} \neq \frac{1}{6} = P(A \cap B|C)$. Thus, $A$ and $B$ are dependent given $C$.
-
-\subsection{Let there be two urns, one with nine black balls and one white ball, and the other with one black ball and nine white balls. First randomly (with equal probability) select one urn. Then take two draws with replacement from the selected urn. Let $A$ and $B$ be drawing a black ball in the first and the second draw, respsctively, and let $C$ be the event that urn $1$ is selected. Show that $A$ and $B$ are not independent, but are conditionally independent given $C$.}
-
-\underline{pf} $P(A\cap B|C) = P(\text{first draw is black and second draw is black}|C) = (0.9)(0.9)$ as we are picking with replacement. $P(A|C)= P(\text{first draw is black}|C) = 0.9 = P(B|C)$ as we are replacing in between draws. Then, $P(A \cap B |C) = 0.81 = (0.9)(0.9) = P(A|C)P(B|C)$ so $A$ and $B$ are conditionally independent given $C$. By the same logic, $A$ and $B$ are also conditionally independent given $C^{c}$.
-
-Note that $P(A) = P(A|C)P(C) +P(A|C^{c})P(C^{c}) = (0.9)(0.5) + (0.1)(0.5) = 0.5 = P(B)$, by symmetry. However, $P(A \cap B) = P(A \cap B|C) P(C) + P(A \cap B|C^{c})P(C^{c}) = P(A|C)P(B|C)P(C) + P(A|C^{c})P(B|C^{c})P(C^{c}) = (0.9)(0.9)(0.5) + (0.1)(0.1)(0.5) = 0.41 \neq 0.25 = (0.5)(0.5) = P(A)P(B)$, so $A$ and $B$ are not independent.
+We will begin by finding $E|X - a|,a\in\mathbb{R}$. We have that $E|X - a| = \int_{-\infty}^{\infty}|t-a|f_X(t)dt =  \int_{-\infty}^{a} (a-t)f_X(t)dt+ \int_{a}^{\infty} (t-a)f_X(t)dt =  \int_{-\infty}^{a} af_X(t)dt -  \int_{-\infty}^{a} t f_X(t)dt +  \int_{a}^{\infty} tf_X(t)dt - \int_{a}^{\infty} a f_X(t)dt$
 
 \section{Question 6}
-A CDF $F_X$ is stochastically greater than a CDF $F_Y$ if $ F_X(t) \leq F_Y(t)$ for all $t$ and $F_X(t) < F_Y(t)$ for some $t$. Prove that if $X\sim F_X$ and $Y\sim F_Y$, then $P(X>t) \geq P(Y>t)$ for every $t$ and $P(X>t)>P(Y>t)$ for some $t$, that is, $X$ tends to be bigger than $Y$.
+\subsection{Show that if a density function is symmetric about a point a, then $\alpha_3= 0.$}
+Let $X$ be a random variable, with a density function symmetric about point $a$.  Define $Y = X-a$, a random variable. Notice that $E[Y^3] = E[(-Y)^3]$ by the symmetry of the distribution of $X$. This implies that $E[Y^3] = 0$. Also, by symmetry, $E[X] = a$ so $\mu_3 = E(X - E[X])^3 = 0.$ Thus $\alpha_3 = 0.$
+\subsection{Calculate $\alpha_3$ for $f(x) = e^{-x},x\geq0$}
+By the chain rule, $E[X] = \int_{0}^{\infty} te^{-t}dt = -te^{-t}  - e^{-t} |_{0}^{\infty} = 1.$
 
-\underline{pf} Let $t^{'} \in \mathbb{R}$ be arbitrary. $P(X>t^{'}) = 1 - F_X(t^{'}) \geq 1 - F_Y(t^{'}) = P(Y>t^{'})$ so $P(X>t) \geq P(Y>t)$ for every $t$. 
+$E(X^2) = \int_{0}^{\infty} t^2 e^{-x} dt = (-t^2 e^t)|^{\infty}_{0} + 2 \int_{0}^{\infty}  te^{-t}dt = 2.$ Thus, $\mu_2 = E(X^2) - E(X)^2 = 2-1 = 1.$
 
-As stated in the question, $\exists t^{*} \in \mathbb{R}$ such that $F_X(t^{*} ) < F_Y(t^{*} )$. Then, $P(X>t^{*}) = 1 - F_X(t^{*}) > 1 - F_Y(t^{*}) = P(Y>t^{*})$ so $P(X>t)>P(Y>t)$ for some $t$.
+$E(X - E(X))^3 =  \int_{0}^{\infty} (t-1)^3 e^{-x} dt = \int_{0}^{\infty} (t^3 - 3t^2 + 3t - 1) e^{-x} dt\\ =  \int_{0}^{\infty} t^3 e^{-x} dt -3 \int_{0}^{\infty}t^2 e^{-x}dt + 3  \int_{0}^{\infty}t e^{-x}dt - \int_{0}^{\infty}e^{-x}dt  = \int_{0}^{\infty} t^3 e^{-x} dt -3 (2) + 3  (1) - (1) \\ = (-t^3 e^(-t))|_{0}^{\infty} + 3\int_0^{\infty} t^2 e^{-t}dt -4 = 0 + 3(2) -4 = 2 = \mu_3.$
 
-\section{Question 7}
-Show that the function
-\begin{equation*}
-F_X(x) = 
-\begin{cases}
-0 \text{ if $x <0$} \\
-1 - e^{-x} \text{ if $x\geq 0$}
-\end{cases}
-\end{equation*}
-is a CDF, and find $f_X(x)$ and $F_{X}^{-1}(y)$.
+Thus, $\alpha_3 = \frac{2}{1^{3/2}} = 2.$
 
-\underline{pf} To prove $F_X(x)$ is a CDF we will show that it fulfills the three main properties of a CDF.
-\begin{itemize}
-\item $\lim_{x \rightarrow \infty}F_X(x) = lim_{x \rightarrow \infty} 1 - e^{-x} = 1 - 0 =1.$ $\lim_{x \rightarrow -\infty} = 0.$
-\item Clearly, for $x<0$ $F_X(x)$ is constant so it is nondecreasing. For $x \geq 0,$ $\frac{d}{dx} F_X(x) = \frac{d}{dx} 1 - e^{-x} = e^{-x} > 0$ so $F_X(x)$ is nondecreasing. 
-\item For $x<0,$ x is constant so clearly $F_X(x)$ is right-continuous. For $x \geq 0$, $F_X(x) = 1 - e^{-x}$. Since exp is continuous on $\mathbb{R}$, $F_X(x)$ is right-continuous.
-\end{itemize}
-Therefore, $F_X(x)$ is a CDF.
-
-For $x<0$, $F_X(x)$ is constant so $f_X(x)=0$. For $x\geq 0$, $F_X(x) = 1 - e^{-x}$ so $f_X(x) = \frac{d}{dx} \left(1 - e^{-x} \right) = e^{-x}$. Thus, 
-\begin{equation*}
-f_X(x) = 
-\begin{cases}
-0 &\text{, $x<0$} \\
-e^{-x} &\text{, $x\geq 0$}.
-\end{cases}
-\end{equation*}
-
-Define $G(y) := %\begin{cases}
-%-\infty &\text{, $y=0$} \\
-%- ln(1-y) &\text{, $y>0$}
-- ln(1-y) \text{, $y>0$}
-%\end{cases}
-$. Then, for arbitrary $x \geq 0$, $G(F_x(x)) = G(1 - e^{-x}) = -ln(1-(1-e^{-x})) = -ln(e^{-x}) = x,$ so $G(y) = F_{X}^{-1}(y)$.\footnote{Note that $F_X(x)$ is only invertible for $x \in [0,\infty ) \Rightarrow 1>F_X(x) > 0$ when $F_X(x)$ is invertible.}
+\subsection{Calculate $\alpha_4$ for the listed densities and comment on the peakedness of the distributions.}
 \end{document}
