@@ -104,7 +104,7 @@ c_{t+1} &= \beta c_t(1 - \delta + \alpha z (zk_{t}^{\alpha} + (1-\delta) k_t - c
 \end{align*}
 Now, we can write down our Jacobian $J$:
 \begin{align*}
-J =& \begin{pmatrix} dk_{t+1}/dk_t & dk_{t+1}/dc_t \\ dc_{t+1}/dk_t & dc_{t+1}/dc_t \end{pmatrix} \\ =& \begin{pmatrix} \alpha a k_t^{\alpha - 1} + (1-\delta) & -1 \\ (\beta c_t)(\alpha z (\alpha - 1)(zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 2})(\alpha z k_{t}^{\alpha -1} + (1-\delta)) & dc_{t+1}/dc_t \end{pmatrix} \\
+J =& \begin{pmatrix} dk_{t+1}/dk_t & dk_{t+1}/dc_t \\ dc_{t+1}/dk_t & dc_{t+1}/dc_t \end{pmatrix} \\ =& \begin{pmatrix} \alpha z k_t^{\alpha - 1} + (1-\delta) & -1 \\ (\beta c_t)(\alpha z (\alpha - 1)(zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 2})(\alpha z k_{t}^{\alpha -1} + (1-\delta)) & dc_{t+1}/dc_t \end{pmatrix} \\
 \text{where } dc_{t+1}/dc_t =& \beta (1 - \delta + \alpha z (zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 1} ) - \beta c_t \alpha z(\alpha - 1) (zk_{t}^{\alpha} + (1-\delta) k_t - c_t)^{\alpha - 2}.
 \end{align*}
 Then, for $\tilde{x_t}:= x_t - \bar{x} $, we can write our first-order taylor approximation to the system:
@@ -143,8 +143,8 @@ Our non-explosive solution must have $c_1 = 0$. Re-writing in terms of our origi
 \begin{align*}
 k_t &= e_{1,2} c_2 \lambda_{2}^{t} \\
 c_t &= e_{2,2} c_2 \lambda_{2}^{t} \\
-\Rightarrow k_{t}^{g} &= e_{1,2} c_2 \lambda_{2}^{t} + \bar{k} \\
-\Rightarrow c_{t}^{g} &= e_{2,2} c_2 \lambda_{2}^{t} + \bar{c}.
+\Rightarrow k_{t}^{g} &= e_{1,2} c_2 \lambda_{2}^{t} + \bar{k}^{'} \\
+\Rightarrow c_{t}^{g} &= e_{2,2} c_2 \lambda_{2}^{t} + \bar{c}^{'}.
 \end{align*}
 Note that we have 2 boundary conditions but only one constant to solve for. We will use our boundary condition for $k$ and solve for an implied initial value of  $c$. We have the following:
 
@@ -155,8 +155,8 @@ c_{t_0} &= 0.1734 (-1.0607) (0.8548)^{5} + 1.2602 = 1.1762.
 
 We can now write our general solution:
 \begin{align*}
-k_{t}^{g} &= e_{1,2} c_2 \lambda_{2}^{t} + \bar{k}  = -1.0447 (0.8548)^t + \bar{k}\\
-c_{t}^{g} &= e_{2,2} c_2 \lambda_{2}^{t} + \bar{c}  = -0.1840 (0.8548)^t + \bar{c}.
+k_{t}^{g} &= e_{1,2} c_2 \lambda_{2}^{t} + \bar{k}  = -1.0447 (0.8548)^t + \bar{k}^{'}\\
+c_{t}^{g} &= e_{2,2} c_2 \lambda_{2}^{t} + \bar{c}  = -0.1840 (0.8548)^t + \bar{c}^{'}.
 \end{align*}
 
 We will now use our particular solution to compute and plot $k_t,c_t$.
@@ -203,12 +203,12 @@ The next type of consumer solves the following:
 We also have the special case of the initial period. The old in this first period only live for a single period. Those who are given an allocation in this period solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{2,0},M_1^{2,0}} \text{ ln } c_{1}^{2,0} \\
-&\text{s.t. }  p_1 c_{1}^{2,0} + M_{1}^{2,0} \leq w_2.
+&\text{s.t. }  p_1 c_{1}^{2,0} \leq w_2 + M_{1}^{2,0} .
 \end{align*}
 Meanwhile, the initial old with no resources solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{0},M_{1}^{1,0}} \text{ ln } c_{1}^{1,0} \\
-&\text{s.t. }  p_1 c_{1}^{1,0} + \leq M_{1}^{1,0} .
+&\text{s.t. }  p_1 c_{1}^{1,0} \leq M_{1}^{1,0} .
 \end{align*}
 
 CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:
@@ -243,8 +243,8 @@ We next must consider the initial case. There are 2 'special' generations (i.e. 
 \end{align*}
 Finally, we also consider the 1-period generation. They solve the following:
 \begin{align*}
-&\max_{c_{1}^{-1},M_{1}^{-1}}  \text{ ln } c_{1}^{-1}\\
-& \text{s.t. } p_{1} c_{1}^{-1} \leq w_3.
+&\max_{c_{1}^{-1}}  \text{ ln } c_{1}^{-1}\\
+& \text{s.t. } p_{1} c_{1}^{-1} \leq w_3 + M.
 \end{align*}
 
 CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:

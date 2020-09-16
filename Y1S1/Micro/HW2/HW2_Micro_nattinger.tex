@@ -84,9 +84,9 @@
 Let $q_1 = f(z_1), q_2 = f(z_2)$. $(q_1,-z_1),(q_2,-z_2) \in Y$ by definition and by convexity $t(q_1,-z_1)+(1-t)(q_2,-z_2)\in Y,t\in(0,1)$. By definition, $f(t(z_1)+(1-t)(z_2)) \geq tq_1 + (1-t) q_2 = tf(z_1) + (1-t)f(z_2)$ so f is concave.
 
 \subsection{Prove that if $f$ is concave, the cost function is convex in $q$.}
-We can fix $w \in \mathbb{R}^k$ Let $q_1,q_2 \in \mathbb{R}$ Let $z_1,z_2$ be $\argmin\limits_{z:f(x)\geq q_1} w \cdot z, \argmin\limits_{z:f(x)\geq q_2} w \cdot z.$
+We can fix $w \in \mathbb{R}_{+}^{k}$ Let $q_1,q_2 \in \mathbb{R}_{+}$ Let $z_1\in Z^{*}_{1},z_2 \in Z^{*}_{2}$ where $Z^{*}_{1}=\argmin\limits_{z:f(z)\geq q_1} w \cdot z, Z^{*}_{2} = \argmin\limits_{z:f(z)\geq q_2} w \cdot z.$
 
-By the concavity of $f$, for $t \in (0,1)$ we have $f(tz_1 + (1-t)z_2) \geq tf(z_1) + (1-t)f(z_2) \geq tq_1 + (1-t)q_2.$  Therefore $ t c(q_1,w) + (1-t)c(q_2,w) \leq c(tq_1+ (1-t) q_2,w)$ because we can produce at least $tq_1 + (1-t)q_2$ goods by using $(t(z_1) + (1-t)(z_2))$ inputs.
+By the concavity of $f$, for $t \in (0,1)$ we have $f(tz_1 + (1-t)z_2) \geq tf(z_1) + (1-t)f(z_2) \geq tq_1 + (1-t)q_2.$ Thus, we can produce at least $tq_1 + (1-t)q_2$ by using $tz_1 + (1-t)z_2$ inputs, so the minimum cost of producing $tq_1 + (1-t)q_2$ goods cannot be higher than the cost of those inputs, $w\cdot (tz_1 + (1-t)z_2) = t(w \cdot z_1) + (1-t) (w \cdot z_2)) = tc(q_1,w) + (1-t)c(q_2,w)$. Therefore, $ t c(q_1,w) + (1-t)c(q_2,w) \geq c(tq_1+ (1-t) q_2,w)$.
 
 \section{Question 2}
 \subsection{Draw Y}
@@ -94,16 +94,32 @@ By the concavity of $f$, for $t \in (0,1)$ we have $f(tz_1 + (1-t)z_2) \geq tf(z
 The shaded area in the above figure is $Y$ graphed in Matlab, for a sample value of $B=1$.
 
 \subsection{Solve the firm's profit maximization problem to find $\pi (p)$ and $Y^{*}(p).$}
-The firm chooses production to maximize profit: $\max\limits_{-y_1,y_2 \in \mathbb{R}_{+}} p \cdot (y_1,y_2)^{'}$ s.t. $y_2 \leq B(-y_1)^{2/3}$. Since profits are strictly increasing in $y_2$ the profit maximizing firm will set $y_2 =  B(-y_1)^{2/3}$. We will also write $-y_1 = z$. Our optimization problem thus becomes: $\max\limits_{q\in\mathbb{R}_{+}} p \cdot (-q, Bq^{2/3})^{'}.$ Taking the firm's first order conditions, we find that $0 = \frac{d \pi(q)}{dq} = 0 \Rightarrow \frac{d }{dq}\left(  -p_1 q + p_2 Bq^{2/3}\right)  = 0 \Rightarrow -p_1 + (2/3)p_2 B q^{-1/3} = 0 \Rightarrow q = \left(\frac{Bp_2}{ (3/2) p_1} \right)^{3}.$ This production yields the maximum profits given $p$, which we can compute as:\\ $\pi(p) = p_1\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} + p_2 B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2},$ since $Y^{*}(p) = \left(\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3},B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}\right)^{'}$.
+The firm chooses production to maximize profit: $\max\limits_{-y_1,y_2 \in \mathbb{R}_{+}} p \cdot (y_1,y_2)^{'}$ s.t. $y_2 \leq B(-y_1)^{2/3}$. Since profits are strictly increasing in $y_2$ the profit maximizing firm will set $y_2 =  B(-y_1)^{2/3}$. We will also write $-y_1 = z$. Our optimization problem thus becomes: $\max\limits_{q\in\mathbb{R}_{+}} p \cdot (-q, Bq^{2/3})^{'}.$ Taking the firm's first order conditions, we find that $0 = \frac{d \pi(q)}{dq} = 0 \Rightarrow \frac{d }{dq}\left(  -p_1 q + p_2 Bq^{2/3}\right)  = 0 \Rightarrow -p_1 + (2/3)p_2 B q^{-1/3} = 0 \Rightarrow q = \left(\frac{Bp_2}{ (3/2) p_1} \right)^{3}.$ This production yields the maximum profits given $p$, which we can compute as:\\ $\pi(p) = -p_1\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} + p_2 B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2} = \frac{4B^3p_{2}^{3}}{27p_{1}^{2}}$ and $Y^{*}(p) = \left(-\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3},B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}\right)^{'}$.
 
 \subsection{Verify that $\pi(p)$ is homogeneous of degree 1, and $y(p)$ is homogeneous of degree 0.}
 $\pi(\lambda p) = \lambda p_1\left(\frac{B\lambda p_2}{ (3/2) \lambda p_1} \right)^{3} + \lambda p_2 B\left(\frac{B\lambda p_2}{ (3/2) \lambda p_1} \right)^{2} = \lambda (p_1\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} + p_2 B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}) = \lambda \pi(p)$ so $\pi(p)$ is homogeneous of degree 1. \\
-$y(\lambda p) = \left(\left(\frac{B \lambda p_2}{ (3/2) \lambda p_1} \right)^{3},B\left(\frac{B\lambda p_2}{ (3/2) \lambda p_1} \right)^{2}\right)^{'} = \left(\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3},B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}\right)^{'} = y(p) $ so $y(p)$ is homogeneous of degree 0.
+$y(\lambda p) = \left(-\left(\frac{B \lambda p_2}{ (3/2) \lambda p_1} \right)^{3},B\left(\frac{B\lambda p_2}{ (3/2) \lambda p_1} \right)^{2}\right)^{'} = \left(-\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3},B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}\right)^{'} = y(p) $ so $y(p)$ is homogeneous of degree 0.
 
 \subsection{Verify that $y_1(p) = \frac{\partial \pi}{\partial p_1}$ and $y_2(p) = \frac{\partial \pi}{\partial p_2}$.}
 \begin{align*}
-\frac{\partial \pi}{\partial p_1} &= \frac{\partial }{\partial p_1}\left( p_1\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} + p_2 B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2}\right) \\
-&= \left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} - 3p_1\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2} \left(\frac{Bp_2}{ (3/2)p_{1}^2}\right) - 2p_2 B\left(\frac{Bp_2}{ (3/2) p_1} \right)\left(\frac{Bp_2}{ (3/2) p_{1}^2}\right)
+\frac{\partial \pi}{\partial p_1} &= \frac{\partial }{\partial p_1}\left( \frac{4B^3p_{2}^{3}}{27p_{1}^{2}} \right) =(-2) \left( \frac{4B^3p_{2}^{3}}{27p_{1}^{3}} \right) = -\left(\frac{Bp_2}{ (3/2) p_1} \right)^{3} = y_1(p) \\
+\frac{\partial \pi}{\partial p_1} &=  \frac{\partial }{\partial p_1}\left( \frac{4B^3p_{2}^{3}}{27p_{1}^{2}} \right) = 3\frac{4B^3p_{3}^{3}}{27p_{1}^{2}} = B\left(\frac{Bp_2}{ (3/2) p_1} \right)^{2} = y_2(p)
+\end{align*}
+
+\subsection{Calculate $D_p y(p)$ and verify it is symmetric, positive semidefinite, and $[D_py]p = 0$}
+\begin{align*}
+D_p y(p) = \begin{pmatrix} \frac{\partial y_1(p)}{\partial p_1}& \frac{\partial y_2(p)}{\partial p_1} \\ \frac{\partial y_1(p)}{\partial p_2} & \frac{\partial y_2(p)}{\partial p_2} \end{pmatrix} = \begin{pmatrix} \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} & - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}}\\ -\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}}& \frac{8B^3 p_2}{9 p_{1}^{2}} \end{pmatrix}
+\end{align*}
+Upon observation. it is clear that $D_p y(p)$ is symmetric. Furthermore, the first element of $D_p y(p)$, $\frac{8B^3p_{2}^{3}}{9p_{1}^{4}}$, is positive because $B,p_1,p_2$ are all positive. Next we will check the matrix's determinant:
+
+\begin{align*}
+\text{det} D_p y(p) = \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} \frac{8B^3 p_2}{9 p_{1}^{2}} - \left(  - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}} \right) \left(-\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}} \right) = \frac{128B^6 p_{2}^{4}}{81p_{1}^{6}}.
+\end{align*}
+
+The determinant is positive, so $D_p y(p)$ is positive semidefinite.
+
+\begin{align*}
+[D_p y(p)]p = \begin{pmatrix} \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} & - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}}\\ -\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}}& \frac{8B^3 p_2}{9 p_{1}^{2}} \end{pmatrix} \colvec{2}{p_1}{p_2}=   \begin{pmatrix} \frac{8B^3p_{2}^{3}}{9p_{1}^{3}} - \frac{8B^3p_{2}^{3}}{9p_{1}^{3}}\\ -\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{2}} + \frac{8B^3 p_{2}^{2}}{9 p_{1}^{2}} \end{pmatrix} = \vec{0}.
 \end{align*}
 
 \section{Question 3}
