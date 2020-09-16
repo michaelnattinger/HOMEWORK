@@ -3,7 +3,7 @@ clear; close all; clc
 param  = parameters();
 [mod,ss,lin] = calcmodss(param,0,[]);
 param2 = param;
-param2.pz = param.pz+0.1;
+param2.pz = param2.pz+0.1;
 tic
 [mod2,ss2,lin2,tay_sim,ex_sim,sh_sim] = calcmodss(param2,1,[ss.y.k ss.y.c]');
 toc
