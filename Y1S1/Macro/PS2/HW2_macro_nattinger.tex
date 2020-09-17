@@ -116,7 +116,7 @@ We will write $J = E\Lambda E^{-1}$ where $E$ is the matrix of eigenvectors and 
 \begin{equation*}
  J = \begin{pmatrix} 0.9850 & 0.9848 \\ -0.1725 & 0.1734 \end{pmatrix}  \begin{pmatrix} 1.2060 & 0 \\ 0 & 0.8548 \end{pmatrix}  \begin{pmatrix} 0.9850 & 0.9848 \\ -0.1725 & 0.1734 \end{pmatrix}^{-1}
 \end{equation*}
-Since the magnitude of the first eigenvalue is greater than one, and the magnitude of the second eigenvalue is less than one, the system has a saddle path. The slope of the saddle path at the SS is equal to the slope of the second (i.e., nonexplosive) eigenvector, $\frac{0.17634}{0.9848} = 0.1761.$
+Since the magnitude of the first eigenvalue is greater than one, and the magnitude of the second eigenvalue is less than one, the system has a saddle path. The slope of the saddle path at the SS is equal to the slope of the second (i.e., nonexplosive) eigenvector, $\frac{0.1734}{0.9848} = 0.1761.$
 
 \subsection{Draw a phase diagram demonstrating how the system responds to an unexpected (permanent) productivity shock.}
 \includegraphics{phase}
@@ -190,20 +190,20 @@ CP: Each consumer maximizes their own utility over the two periods, subject to t
 The first type of consumer solves the following maximization problem:
 \begin{align*}
 &\max_{c_t^{1,t},c_{t+1}^{1,t},M_{t+1}^{1,t}} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t+1}^{1,t}\\
-&\text{s.t. }  p_t c_{t}^{1,t} + M_{t+1}^{1,t} \leq w_1 \\
+&\text{s.t. }  p_t c_{t}^{1,t} + M_{t+1}^{1,t} \leq p_t w_1 \\
 & \text{and } p_{t+1} c_{t+1}^{1,t} \leq M_{t+1}^{1,t}.
 \end{align*}
-The next type of consumer solves the following:
+The next type of consumer solves the following:\footnote{Note that here I write $M_{t+1}^{2,t}$ on the right hand side to maintain that it will be positive, making the market clearing in the monetary market work as written.}
 \begin{align*}
-&\max_{c_t^{2,t},c_{2,t+1}^{t},M_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
+&\max_{c_t^{2,t},c_{t+1}^{2,t},M_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
 &\text{s.t. }  p_t c_{t}^{2,t}  \leq M_{t+1}^{2,t} \\
-& \text{and } p_{t+1} c_{t+1}^{2,t} + M_{t+1}^{2,t}\leq w_2.
+& \text{and } p_{t+1} c_{t+1}^{2,t} + M_{t+1}^{2,t}\leq p_{t+1}w_2.
 \end{align*}
 
 We also have the special case of the initial period. The old in this first period only live for a single period. Those who are given an allocation in this period solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{2,0},M_1^{2,0}} \text{ ln } c_{1}^{2,0} \\
-&\text{s.t. }  p_1 c_{1}^{2,0} \leq w_2 + M_{1}^{2,0} .
+&\text{s.t. }  p_1 c_{1}^{2,0} \leq p_1 w_2 + M_{1}^{2,0} .
 \end{align*}
 Meanwhile, the initial old with no resources solve the following maximization problem:
 \begin{align*}
@@ -230,27 +230,27 @@ SPP: The social planner maximizes the utilities of the agents given the resource
 CP: Outside of the initialization, agents solve the following maximization problem:
 \begin{align*}
 &\max_{c_t^{t},c_{t+1}^{t},c_{t+2}^{t},M_{t+1}^{t},M_{t+2}^{t}} \text{ ln } c_{t}^{t} + \text{ ln } c_{t+1}^{t}+ \text{ ln } c_{t+2}^{t}\\
-&\text{s.t. }  p_t c_{t}^{t} + M_{t+1}^t \leq w_1 \\
-& \text{and } p_{t+1} c_{t+1}^t  + M_{t+2}^t \leq  w_2 + M_{t+1}^t \\
-& \text{and } p_{t+2} c_{t+2}^t \leq w_3 + M_{t+2}^t.
+&\text{s.t. }  p_t c_{t}^{t} + M_{t+1}^t \leq p_t w_1 \\
+& \text{and } p_{t+1} c_{t+1}^t  + M_{t+2}^t \leq  p_{t+1} w_2 + M_{t+1}^t \\
+& \text{and } p_{t+2} c_{t+2}^t \leq p_{t+2} w_3 + M_{t+2}^t.
 \end{align*}
 
 We next must consider the initial case. There are 2 'special' generations (i.e. generations which live less than 3 periods). First we will consider the 2-period generation. They solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{0},c_{2}^{0},M_{2}^{0}}  \text{ ln } c_{1}^{0}+ \text{ ln } c_{2}^{0}\\
 & \text{s.t. } p_{1} c_{1}^0  + M_{2}^0 \leq  w_2 \\
-& \text{and } p_{2} c_{2}^0 \leq w_3 + M_{2}^0.
+& \text{and } p_{2} c_{2}^0 \leq p_2 w_3 + M_{2}^0.
 \end{align*}
 Finally, we also consider the 1-period generation. They solve the following:
 \begin{align*}
 &\max_{c_{1}^{-1}}  \text{ ln } c_{1}^{-1}\\
-& \text{s.t. } p_{1} c_{1}^{-1} \leq w_3 + \frac{1}{N_0}.
+& \text{s.t. } p_{1} c_{1}^{-1} \leq p_1 w_3 + 1.
 \end{align*}
 
 CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:
 \begin{align*}
 N_{t}c_{t}^{t} +  N_{t-1}c_{t}^{t-1} + N_{t-2}c_{t}^{t-2} &= N_{t}w_1 + N_{t-1}w_2 + N_{t-2}w_3.\\
-M_{t+1}^{t} + M_{t+1}^{t-1} &= N_0.
+N_{t-1} M_{t}^{t-1} + N_{t-2}M_{t}^{t-2} &= N_{-1}.
 \end{align*}
 
 \subsection{Cake eating problem}
