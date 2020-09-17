@@ -186,7 +186,7 @@ SPP: The social planner maximizes the utilities of the agents given the resource
 &\text{s.t. }  c_{t}^{1,t} +  c_{t}^{1,t-1} + c_{t}^{2,t} +  c_{t}^{2,t-1} \leq \frac{1}{2}w_1 + \frac{1}{2} w_2.
 \end{align*}
 
-CP: Each consumer maximizes their own utility over the two periods, subject to their income constraints. Assuming some full commitment technology, we will define risk-free bonds $B_{t+1}^{2,t}$ which can be borrowed by the second type of agent in period $t$ and repaid in period $t+1$. We similarly define $B_{t+1}^{1,t}$ as the bonds leant by the first agent, which are repaid to that agent in the second period. Each bond costs $q_t$ to buy or sell, and the bonds are repaid as one unit of the consumption good.
+CP: Each consumer maximizes their own utility over the two periods, subject to their income constraints. Assuming some full commitment technology, we will define risk-free bonds $B_{t+1}^{2,t}$ which can be sold by the second type of agent in period $t$ and repaid in period $t+1$. We similarly define $B_{t+1}^{1,t}$ as the bonds bought by the first agent in period $t$, which are repaid to that agent in the second period. Each bond costs $q_t$ to buy or sell, and the bonds are repaid as one unit of the consumption good.
 The first type of consumer solves the following maximization problem:
 \begin{align*}
 &\max_{c_t^{1,t},c_{t+1}^{1,t},M_{t+1}^{1,t},B_{t+1}^{1,t}} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t+1}^{1,t}\\
@@ -196,7 +196,7 @@ The first type of consumer solves the following maximization problem:
 The next type of consumer solves the following:
 \begin{align*}
 &\max_{c_t^{2,t},c_{t+1}^{2,t},B_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
-&\text{s.t. }  p_t c_{t}^{2,t}  \leq q_tB_{2,t+1}^{t} \\
+&\text{s.t. }  p_t c_{t}^{2,t}  \leq q_tB_{t+1}^{2,t} \\
 & \text{and } p_{t+1} c_{t+1}^{2,t} + p_{t+1}B_{2,t+1}^{t}\leq p_{t+1}w_2.
 \end{align*}
 
