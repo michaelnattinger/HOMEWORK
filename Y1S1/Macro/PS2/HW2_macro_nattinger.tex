@@ -120,7 +120,7 @@ Since the magnitude of the first eigenvalue is greater than one, and the magnitu
 
 \subsection{Draw a phase diagram demonstrating how the system responds to an unexpected (permanent) productivity shock.}
 \includegraphics{phase}
-The above figure shows the phase diagram as computed via Matlab. The dot-dashed lines show the original, pre-shock, curves for $\Delta k = 0$ (black), $\Delta c = 0$ (blue), and the saddle path (magenta), while the solid lines show the same curves post shock. The system begins at its old steady state (the red x), and then after the shock the system must jump up in $c$ to the new saddle path (jumps to the red o). Then the system will follow the saddle path, tracing out the red line, approaching the new steady state (red $+$) in the limit as $t \rightarrow \infty$. Note: the plotted saddle path is the saddle path implied by the taylor approximation.
+The above figure shows the phase diagram as computed via Matlab. The dot-dashed lines show the original, pre-shock, curves for $\Delta k = 0$ (black), $\Delta c = 0$ (blue), and the saddle path (magenta), while the solid lines show the same curves post shock. The system begins at its old steady state (the red x), and then after the shock the system must jump up in $c$ to the new saddle path (jumps to the red o). Then the system will follow the saddle path, tracing out the red line, approaching the new steady state (red $+$) in the limit as $t \rightarrow \infty$. Note: the plotted saddle path is the saddle path implied by the taylor approximation. Vector field arrows are also drawn for completeness.
 
 \subsection{Compute numerically and plot trajectories of $k_t,c_t$ if the productivity shock occurs at $t_0 = 5$ and $z^{'} = z+0.1$.}
 
@@ -178,7 +178,7 @@ Now we will instead use the shooting method to find the actual $c_{t_0}$ needed 
 We are given three scenarios. For each scenario, we will state the SPP, CP, and CE.
 
 \subsection{Modified 2-period OG model}
-In this question we consider a model quite similar to the 2-period OG model we studied in class, but with a few differences as described in the problem set. Since N is constant, WLOG we can set $N=1$. Note that in this question we have two types of consumers. The first are given an allocation in their first period, and the second are given an allocation in the second period. We will number these consumers with the identifiers $1,2$, respectively.
+In this question we consider a model quite similar to the 2-period OG model we studied in class, but with a few differences as described in the problem set. Since N is constant, WLOG we can set $N=1$.\footnote{This is without loss of generality because we can divide our equations through by $N$ whenever $N$ would show up, and $N$ will disappear from the equations, yielding a result equivalent to setting $N=1$.} Note that in this question we have two types of consumers. The first are given an allocation in their first period, and the second are given an allocation in the second period. We will number these consumers with the identifiers $1,2$, respectively.
 
 SPP: The social planner maximizes the utilities of the agents given the resource constraint:
 \begin{align*} 
@@ -186,39 +186,40 @@ SPP: The social planner maximizes the utilities of the agents given the resource
 &\text{s.t. }  c_{t}^{1,t} +  c_{t}^{1,t-1} + c_{t}^{2,t} +  c_{t}^{2,t-1} \leq \frac{1}{2}w_1 + \frac{1}{2} w_2.
 \end{align*}
 
-CP: Each consumer maximizes their own utility over the two periods, subject to their income constraints.
+CP: Each consumer maximizes their own utility over the two periods, subject to their income constraints. Assuming some full commitment technology, we will define risk-free bonds $B_{t+1}^{2,t}$ which can be borrowed by the second type of agent in period $t$ and repaid in period $t+1$. We similarly define $B_{t+1}^{1,t}$ as the bonds leant by the first agent, which are repaid to that agent in the second period. Each bond costs $q_t$ to buy or sell, and the bonds are repaid as one unit of the consumption good.
 The first type of consumer solves the following maximization problem:
 \begin{align*}
-&\max_{c_t^{1,t},c_{t+1}^{1,t},M_{t+1}^{1,t}} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t+1}^{1,t}\\
-&\text{s.t. }  p_t c_{t}^{1,t} + M_{t+1}^{1,t} \leq p_t w_1 \\
-& \text{and } p_{t+1} c_{t+1}^{1,t} \leq M_{t+1}^{1,t}.
+&\max_{c_t^{1,t},c_{t+1}^{1,t},M_{t+1}^{1,t},D_{1,t+1}^t} \text{ ln } c_{t}^{1,t} + \text{ ln } c_{t+1}^{1,t}\\
+&\text{s.t. }  p_t c_{t}^{1,t} + M_{t+1}^{1,t}  + q_tD_{1,t+1}^{t}\leq p_t w_1 \\
+& \text{and } p_{t+1} c_{t+1}^{1,t} \leq M_{t+1}^{1,t}+ p_{t+1}D_{1,t+1}^{t}
 \end{align*}
-The next type of consumer solves the following:\footnote{Note that here I write $M_{t+1}^{2,t}$ on the right hand side to maintain that it will be positive, making the market clearing in the monetary market work as written.}
+The next type of consumer solves the following:
 \begin{align*}
-&\max_{c_t^{2,t},c_{t+1}^{2,t},M_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
-&\text{s.t. }  p_t c_{t}^{2,t}  \leq M_{t+1}^{2,t} \\
-& \text{and } p_{t+1} c_{t+1}^{2,t} + M_{t+1}^{2,t}\leq p_{t+1}w_2.
+&\max_{c_t^{2,t},c_{t+1}^{2,t},D_{t+1}^{2,t}} \text{ ln } c_{t}^{2,t} + \text{ ln } c_{t+1}^{2,t}\\
+&\text{s.t. }  p_t c_{t}^{2,t}  \leq q_tD_{2,t+1}^{t} \\
+& \text{and } p_{t+1} c_{t+1}^{2,t} + p_{t+1}D_{2,t+1}^{t}\leq p_{t+1}w_2.
 \end{align*}
 
 We also have the special case of the initial period. The old in this first period only live for a single period. Those who are given an allocation in this period solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{2,0},M_1^{2,0}} \text{ ln } c_{1}^{2,0} \\
-&\text{s.t. }  p_1 c_{1}^{2,0} \leq p_1 w_2 + M_{1}^{2,0} .
+&\text{s.t. }  p_1 c_{1}^{2,0} \leq p_1 w_2 + M.
 \end{align*}
 Meanwhile, the initial old with no resources solve the following maximization problem:
 \begin{align*}
 &\max_{c_{1}^{0},M_{1}^{1,0}} \text{ ln } c_{1}^{1,0} \\
-&\text{s.t. }  p_1 c_{1}^{1,0} \leq M_{1}^{1,0} .
+&\text{s.t. }  p_1 c_{1}^{1,0} \leq M.
 \end{align*}
 
-CE: For the competitive equilibtium, prices will adjust so that markets clear, both in the goods market and money market:
+CE: For the competitive equilibrium, prices will adjust so that markets clear, in the goods market, money market, and bond market:
 \begin{align*}
 c_{t}^{1,t} +  c_{t}^{1,t-1} + c_{t}^{2,t} +  c_{t}^{2,t-1} &= \frac{1}{2}w_1 + \frac{1}{2} w_2 \\
-M_{t+1}^{1,t} + M_{t+1}^{2,t} &= M.
+M_{t+1}^{1,t}  &= M\\
+D_{t+1}^{1,t} &= D_{t+1}^{2,t}.
 \end{align*}
 
 \subsection{3-period OG model}
-We consider an OG model consisting of agents that live 3-periods. This time, generation sizes are no longer necessarily fixed.
+We consider an OG model consisting of agents that live 3 periods. This time, generation sizes are no longer necessarily fixed.
 
 SPP: The social planner maximizes the utilities of the agents given the resource constraint: 
 \begin{align*}
