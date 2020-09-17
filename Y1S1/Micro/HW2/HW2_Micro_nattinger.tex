@@ -123,5 +123,22 @@ The determinant is positive, so $D_p y(p)$ is positive semidefinite.
 \end{align*}
 
 \section{Question 3}
+\subsection{What conditions must hold for this profit function to be rationalizable?}
+From lecture, the profit function is rationalizable if and only if it is homogenous of degree 1 and convex.
+\subsection{Show that $y \in Y^{O}$ must have $y_1 \leq 0$.}
+%Let $(p_1,p_2)\in \mathbb{R}^{2}_{++}$. 
+Let $(y_1,y_2) \in Y^{O}$. Then $p_1 y_1 + p_2 y_2 \leq Ap_{1}^{-2} p_{2}^{3}$ $\forall p_1,p_2 \in \mathbb{R}$. Assume for the purpose of contradiction that $y_1>0.$ Now fix $p_2>0$, we can make $p_1y_1 +p_2y_2$ unboundedly large by increasing $p_1$ while $Ap_{1}^{-2}p_{2}^{3}$ goes to 0, so we can force a contradiction. Thus $y_1\leq 0$.
 
+\subsection{Solve the minimization problem and describe the production set $Y^{O}$.}
+We want to solve the following problem: $\min_{r>0} Ar^{2} - \frac{y_1}{r}$. Taking first order conditions, $2Ar + \frac{y_1}{r^{2}} = 0 \Rightarrow r =\left(\frac{-y_1}{2A}\right)^{1/3}$. So, $\min_{r>0} Ar^{2} - \frac{y_1}{r} = A\left(\frac{-y_1}{2A}\right)^{2/3} - \frac{y_1}{\left(\frac{-y_1}{2A}\right)^{1/3}} = 2^{-2/3}A^{1/3}(-y_1)^{2/3} + 2^{1/3}A^{1/3}(-y_1)^{2/3} = ( 2^{-2/3} +  2^{1/3})A^{1/3}(-y_1)^{2/3}$ . 
+
+Therefore, $Y^{O} = \{ (y_1,y_2) : y_2 \leq  ( 2^{-2/3} +  2^{1/3})A^{1/3}(-y_1)^{2/3}\}$.
+
+\subsection{Verify that $Y = Y^{O}$ would generate the data we started with.}
+
+Let $p_1,p_2 \in \mathbb{R}_{++}.$ We want to find $\max_{(y_1,y_2) \in Y} p_1y_1 + p_2y_2$. We know that profits are increasing in $y_2$ so $y_2 =  ( 2^{-2/3} +  2^{1/3})A^{1/3}(-y_1)^{2/3}$. From the previous question we know that $\pi(p) = \frac{4B^3p_{2}^{3}}{27p_{1}^{2}}$ where $B = ( 2^{-2/3} +  2^{1/3})A^{1/3}$. Simplifying, 
+\begin{align*}
+\pi(p) = \frac{4(27/4) A p_{2}^{3}}{27p_{1}^{2}} = Ap_{1}^{-2}p_{2}^{3}
+\end{align*}
+Thus, $Y$ generates $\pi(p) = Ap_{1}^{-2}p_{2}^{3}$.
 \end{document}
