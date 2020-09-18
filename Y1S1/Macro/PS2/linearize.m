@@ -1,4 +1,3 @@
-%function lin = linearize(mod,ss)
 %Linearize about the steady state
 %Michael B Nattinger 9/9/2020
 lin.yp = solve(mod.f,mod.yp); % solve for yp

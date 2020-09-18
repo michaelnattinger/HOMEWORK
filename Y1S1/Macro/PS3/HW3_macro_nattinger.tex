@@ -1,0 +1,224 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+We study a similar environment to the OG model we studied in class. We now assume no commitment technology and we assume allocations $w_1,w_2$ in each generation's second period. 
+\subsection{State and solve the planner's problem.}
+The planner maximizes utility subject to the resource constraints:
+\begin{align}
+\begin{split}
+&\max_{c_{t}^{t-1},c_{t}^{t}} \text{ln } c_{t}^{t-1} + \text{ln } c_{t}^{t}\\  \label{eqn:planner}
+&\text{s.t. } c_{t}^{t-1} + c_{t}^{t} \leq w_1 + w_2.
+\end{split}
+\end{align}
+
+Since utility is strictly increasing in consumption, the resource constraint will hold with equality so we can solve for $c_t^t$ in terms of $c_t^{t+1}:$ $c_t^t = w_1 + w_2 - c_t^{t+1}.$ Then we can rewrite the maximization problem as the following:
+
+\begin{align*}
+&\max_{c_{t}^{t-1}} \text{ln } c_{t}^{t-1} + \text{ln } (w_1 + w_2 - c_t^{t-1})\\
+&\Rightarrow \frac{1}{c_{*,t}^{t-1}} - \frac{1}{w_1 + w_2 - c_t^{*,t-1}} = 0\\
+&\Rightarrow c_t^{*,t-1} = \frac{w_1 + w_2}{2} \\
+&\Rightarrow c_t^{*,t} = \frac{w_1 + w_2}{2}.
+\end{align*}
+
+Thus, the social planner will set $c_t^{*,t-1} = c_t^{*,t} = \frac{w_1 + w_2}{2}$.
+
+\subsection{State the representative household's problem in period $t \geq 0$.}
+The households maximize utility subject to their budget constraints:
+\begin{align*}
+\begin{split}
+&\max_{c_{t}^{t},c_{t+1}^{t},M_{t+1}^t} \text{ln } c_{t}^{t} + \text{ln } c_{t+1}^{t}\\ 
+&\text{s.t. } p_t c_{t}^{t} + M_{t+1}^{t} \leq p_t w_1 \\
+&\text{and } p_{t+1} c_{t+1}^{t} \leq p_{t+1} w_2 + M_{t+1}^{t}
+\end{split}
+\end{align*}
+Rewriting the budget constraints,
+\begin{align}
+\begin{split}
+&\max_{c_{t}^{t},c_{t+1}^{t},M_{t+1}^t} \text{ln } c_{t}^{t} + \text{ln } c_{t+1}^{t}\\  \label{eqn:hh}
+&\text{s.t. } c_{t}^{t} + \frac{M_{t+1}^{t}}{p_t} \leq w_1 \\
+&\text{and }  c_{t+1}^{t} \leq w_2 + \frac{M_{t+1}^{t}}{p_{t+1}}
+\end{split}
+\end{align}
+
+
+The initial old generation
+ lives only one period and maximizes their utility in that period subject to their budget constraint in that period.
+\begin{align*}
+\begin{split}
+&\max_{c_{1}^{0}} \text{ln } c_{1}^{0}\\ 
+&\text{and } p_{1} c_{1}^{0} \leq p_{1} w_2 + M
+\end{split}
+\end{align*}
+Again rewriting the budget constraint,
+\begin{align*}
+\begin{split}
+&\max_{c_{1}^{0}} \text{ln } c_{1}^{0}\\ 
+&\text{s.t. } c_{1}^{0} \leq w_2 + \frac{M}{p_1}.
+\end{split}
+\end{align*}
+
+\subsection{Define and solve for an autarkic equilibrium, assuming it exists.}
+In the Autarkic equilibrium, money is not traded across individuals - there is no belief that money will have value in the future. Thus, individuals will not trade their endowment in the first period for money, so $M_{t+1}^t = 0$ and $M$ has no value for the initial old agent. Since utility is strictly increasing in consumption, the budget constraints will hold with equality so we have the following solution: $c_t^{**,t} = w_1, c_{t+1}^{**,t} = w_2$ $\forall i \in \mathbb{N} \cup \{0\}.$
+
+\subsection{Define and solve for a competitive equilibrium assuming valued money but with $w_2 = 0.$}
+Now we will solve for a competitive equilibrium assuming agents will expect money will carry value into the future, and assuming $w_2 = 0.$ Our agents then solve the following:
+\begin{align*}
+\begin{split}
+&\max_{c_{t}^{t},c_{t+1}^{t},M_{t+1}^t} \text{ln } c_{t}^{t} + \text{ln } c_{t+1}^{t}\\  
+&\text{s.t. } c_{t}^{t} + \frac{M_{t+1}^{t}}{p_t} \leq w_1 \\
+&\text{and }  c_{t+1}^{t} \leq \frac{M_{t+1}^{t}}{p_{t+1}}
+\end{split}
+\end{align*}
+Utility is strictly increasing with consumption so the budget constraints will hold with equality - that is, $c_{t+1}^{t} = \frac{M_{t+1}^{t}}{p_{t+1}}, c_{t}^{t} + \frac{M_{t+1}^{t}}{p_t} = w_1 \Rightarrow c_{t}^{t} = w_1 - \frac{M_{t+1}^{t}}{p_t}  $. We then have:
+\begin{align*}
+\begin{split}
+&\max_{M_{t+1}^t} \text{ln } \left(w_1 - \frac{M_{t+1}^{t}}{p_t}\right) + \text{ln } \frac{M_{t+1}^{t}}{p_{t+1}}
+\end{split}
+\end{align*}
+
+Taking first order conditions:
+\begin{align*}
+0 &= -(p_t^{***})^{-1}\frac{1}{w_1 - M_{t+1}^{***,t} / p_t^{***}} + (p_{t+1}^{***})^{-1}\frac{1}{M_{t+1}^{***,t}/p_{t+1}^{***}}\\
+\Rightarrow  M_{t+1}^{***,t} &= \frac{p_t^{***} w_1}{2}\\
+\Rightarrow c_t^{***,t} &= \frac{w_1}{2}, c_{t+1}^{***,t} = \frac{p_t^{***}}{p_{t+1}^{***}}\frac{w_1}{2}
+\end{align*}
+
+In the first period, the initial old solves the following:
+\begin{align*}
+\begin{split}
+&\max_{c_{1}^{0}} \text{ln } c_{1}^{0}\\ 
+&\text{s.t. } c_{1}^{0} \leq \frac{M}{p_1}.
+\end{split}
+\end{align*}
+Utility is increasing in consumption so the budget constraint holds with equality: $c_{1}^{***,0} = \frac{M}{p_1^{***}}$.
+
+In the competitive equilibrium, our money market must clear so $M_{t+1}^{***,t} = M \Rightarrow \frac{p_t^{***} w_1}{2} = M \Rightarrow p_t^{***} = \frac{2M}{w_1}$ $\forall t \in \mathbb{N}.$ This value is constant so $p_i^{***} = p_j^{***}$ $\forall i,j \in \mathbb{N}.$ By Walras' law, this also clears the goods market, which we can verify: $c_t^{***,t} + c_t^{***,t-1} = w_1 \Rightarrow \frac{w_1}{2} + \frac{p_{t-1}^{***}}{p_t^{***}}\frac{w_1}{2} = w_1 \Rightarrow w_1 = w_1.$
+
+Therefore, $c_t^{***,t} = c_{t+1}^{***,t} = \frac{w_1}{2}$, $p_t^{***} =  \frac{2M}{w_1}$, $M_{t+1}^{***,t} = M.$
+
+\subsection{Compare the solutions to the planner's problem, the autarky equilibrium, and the stationary monetary competitive equilibrium with valued money, all with $w_2 = 0.$}
+The solution to the planner's problem was  $c_t^{*,t-1} = c_t^{*,t} = \frac{w_1 + w_2}{2}$, so for $w_2 = 0$ the solution is $c_t^{*,t-1} = c_t^{*,t} = \frac{w_1}{2} = c_t^{***,t-1} = c_t^{***,t}$ so the solutions for the planner's problem and stationary monetary competitive equilibrium with valued money are equivalent. Note however that, for $w_2 = 0$, $c_t^{**,t} = w_1, c_{t+1}^{**,t} = 0$ which is a strictly worse solution for the agents as this yields $-\infty$ utility in the second period for the agents. Thus, the autarky equilibrium does not yield the same result as the planner's problem.
+
+\subsection{What happens to consumption, money demand, and prices in a competitive equilibrium with valued money if the initial money supply is halved?}
+Denote with primes the new values of the variables in the equilibrium with halved money supply.
+\begin{equation*}
+c_t^{',***,t} = c_{t+1}^{',***,t} = \frac{w_1}{2}, M_{t+1}^{',***,t} = \frac{M}{2}, p_t^{',***} =  \frac{M}{w_1}.
+\end{equation*}
+If the initial money supply is halved, the consumption allocations are unchanged, and the prices and money demand adjust accordingly.
+
+\section{Question 2}
+Plot the trade offer curves for the following utility functions where the endowment is $(w_1,w_2)$ for goods 1 and 2, respectively:
+\subsection{$U = 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2, (w_1,w_2) = (0,2)$}
+The agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 0.$ We will solve for a convenient expression for $c_1,c_2$:
+\begin{align*}
+\Rightarrow& 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2 \geq 0 \Rightarrow -10 c_1 + 4 c_{1}^2 + (c_2 - 2)^2 \leq 4 \\
+\Rightarrow& 4(c_1 - \frac{5}{4})^2 +  (c_2 - 2)^2 \leq 4 + \frac{25}{4} = \frac{41}{4} \\
+\Rightarrow& \frac{16}{41}(c_1 - \frac{5}{4})^2 +  \frac{4}{41}(c_2 - 2)^2 \leq 1.
+\end{align*}
+It is clear that our expression for $c_1,c_2$ is of the form of a filled ellipse centered at $(\frac{5}{4},2)$ with semi-major axis in the $c_2$ direction with length $\frac{\sqrt{41}}{2}$ and semi-minor axis in the $c_1$ direction with length $\frac{\sqrt{41}}{4}.$ This ellipse is plotted below. Note: $c_1,c_2\geq 0.$
+
+\includegraphics{p1}
+
+\subsection{$U = \min \{ 2c_1 + c_2, c_1 + 2 c_2\}, (w_1,w_2) = (1,0)$}
+Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 1$. We will solve for a convenient expression for $c_1,c_2$:
+\begin{align*}
+2c_1 + c_2 &\geq 1 \\
+c_1 + 2c_2 &\geq 1 \\
+\Rightarrow  c_2&\geq 1 - 2c_1 \\
+\Rightarrow c_2&\geq \frac{1-c_1}{2}
+\end{align*}
+Thus, our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+
+\includegraphics{p2}
+
+\subsection{$U = \min \{ 2c_1 + c_2, c_1 + 2 c_2\}, (w_1,w_2) = (1,10)$}
+Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 12$. We will solve for a convenient expression for $c_1,c_2$:
+\begin{align*}
+2c_1 + c_2 &\geq 12 \\
+c_1 + 2c_2 &\geq 12 \\
+\Rightarrow  c_2&\geq 12 - 2c_1 \\
+\Rightarrow c_2&\geq \frac{12-c_1}{2}
+\end{align*}
+As in the previous subsection, we find that our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+
+\includegraphics{p3}
+
+\end{document}
