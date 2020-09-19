@@ -103,9 +103,9 @@ Let $x \in [0,1]$ and define $F_X,f_X,a$ as described in the problem. We then ha
 Thus, $F_X(x) = \int_0^x f_X(t)dt$ $\forall x \in [0,1].$
 
 \section{Question 3}
-We will begin by finding the CDF of Y. $P(Y\leq y) = P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y}\leq X \leq \sqrt{y})$. Note: $Y$ is weakly positive. Also, $Y\leq 4$ because $|X| \leq 2. $
+We will begin by finding the CDF of Y. $P(Y\leq y) = P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y}\leq X \leq \sqrt{y})$. Note: $Y$ is weakly positive. Also, $Y\leq 4$ because $|X| \leq 2. $ We then have, for $y=0, P(Y\leq y) = F(y) = 0 \Rightarrow f_Y(0) = 0.$
 
-For $y \in [0,1],$
+For $y \in (0,1],$
 \begin{align*}
 P(-\sqrt{y}\leq X \leq \sqrt{y}) &= \int_{-\sqrt{y}}^{\sqrt{y}} (2/9) (x+1) dx = ((1/9)x^2  + (2/9)x)|_{-\sqrt{y}}^{\sqrt{y}}\\
  &= ((1/9)y + (2/9)\sqrt{y}) -((1/9)y - (2/9)\sqrt{y}) = (4/9) \sqrt{y} \\
