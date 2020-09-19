@@ -103,7 +103,7 @@ Let $x \in [0,1]$ and define $F_X,f_X,a$ as described in the problem. We then ha
 Thus, $F_X(x) = \int_0^x f_X(t)dt$ $\forall x \in [0,1].$
 
 \section{Question 3}
-We will begin by finding the CDF of Y. $P(Y\leq y) = P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y}\leq X \leq \sqrt{y})$. Note: $Y$ is weakly positive. Also, $Y\leq 4$ because $|X| \leq 2. $ We then have, for $y=0, P(Y\leq y) = F(y) = 0 \Rightarrow f_Y(0) = 0.$
+We will begin by finding the CDF of Y. $P(Y\leq y) = P(X^2 \leq y) = P(|X| \leq \sqrt{y}) = P(-\sqrt{y}\leq X \leq \sqrt{y})$. Note: $Y$ is weakly positive. Also, $Y\leq 4$ because $|X| \leq 2. $ We then have, for $y=0, P(Y\leq 0) = F(0) = 0 \Rightarrow f_Y(0) = 0.$
 
 For $y \in (0,1],$
 \begin{align*}
@@ -123,7 +123,7 @@ P(-\sqrt{y}\leq X \leq \sqrt{y}) &= \int_{-1}^{\sqrt{y}} (2/9) (x+1) dx = ((1/9)
 We will find the median of the given distribution.
 
 \begin{align*}
-P(X\leq m) &= \int_{-\infty}^m \frac{1}{\pi (1+x^2)} dx = \frac{1}{\pi}(\text{tan}^{-1} x |_{\infty}^{m}) =  \frac{1}{\pi}\left(\text{tan}^{-1}(m) -  \text{tan}^{-1}(\infty)\right) = \frac{1}{\pi}\left(\text{tan}^{-1}(m) + \frac{\pi}{2}\right) \\
+P(X\leq m) &= \int_{-\infty}^m \frac{1}{\pi (1+x^2)} dx = \frac{1}{\pi}(\text{tan}^{-1} x |_{\infty}^{m}) = \frac{1}{\pi}\left(\text{tan}^{-1}(m) + \frac{\pi}{2}\right) \\
 \Rightarrow P(X \leq m) &= 0.5 \rightarrow \frac{1}{\pi}\left( \text{tan}^{-1}(m) + \frac{\pi}{2}\right) = 0.5 \Rightarrow m = \text{tan}\left(\frac{\pi}{2} - \frac{\pi}{2}\right)\\
 \Rightarrow m &= 0.
 \end{align*}
@@ -135,7 +135,7 @@ P(X\leq m) &= \int_{-\infty}^m \frac{1}{\pi (1+x^2)} dx = \frac{1}{\pi}(\text{ta
 
 We will begin by finding $E|X - a|,a\in\mathbb{R}$. We have that $E|X - a| = \int_{-\infty}^{\infty}|t-a|f_X(t)dt =  \int_{-\infty}^{a} (a-t)f_X(t)dt+ \int_{a}^{\infty} (t-a)f_X(t)dt $. Taking the derivative with respect to a, $ \frac{d}{da} E|X - a| = ((a-t)f_X(t)|_{a}) + \int_{-\infty}^{a}f_X(t)dt + ((t-a)f_X(t)|_{a}) - \int_{a}^{\infty} f_X(t)dt =  \int_{-\infty}^{a}f_X(t)dt  - \int_{a}^{\infty} f_X(t)dt $. At the minimum, the derivitave with respect to a is $0$ so $ \int_{-\infty}^{a}f_X(t)dt  = \int_{a}^{\infty} f_X(t)dt \Rightarrow P(X\leq a) = P(X \geq a) = 0.5$ so $\min\limits_{a}E|X-a| = E|X-m|$ where $m$ is the median of $X$..
 
-Taking the derivative with respect to a, $\frac{d}{da} E|X - a| =  2F(a) + 2af(a) -1 + \frac{d}{da} (- E[X|X<a] + E[X|X\geq a]) = 2F(a) + 2af(a) -1 + (-xf(x)|_{a} + xf(x)|_{a}) = 2F(a) + 2af(a) -1$.
+%Taking the derivative with respect to a, $\frac{d}{da} E|X - a| =  2F(a) + 2af(a) -1 + \frac{d}{da} (- E[X|X<a] + E[X|X\geq a]) = 2F(a) + 2af(a) -1 + (-xf(x)|_{a} + xf(x)|_{a}) = 2F(a) + 2af(a) -1$.
 
 \section{Question 6}
 \subsection{Show that if a density function is symmetric about a point a, then $\alpha_3= 0.$}
