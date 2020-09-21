@@ -187,38 +187,70 @@ If the initial money supply is halved, the consumption allocations are unchanged
 \section{Question 2}
 Plot the trade offer curves for the following utility functions where the endowment is $(w_1,w_2)$ for goods 1 and 2, respectively:
 \subsection{$U = 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2, (w_1,w_2) = (0,2)$}
-The agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 0.$ We will solve for a convenient expression for $c_1,c_2$:
+%The agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 0.$ We will solve for a convenient expression for $c_1,c_2$:
+%\begin{align*}
+%\Rightarrow& 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2 \geq 0 \Rightarrow -10 c_1 + 4 c_{1}^2 + (c_2 - 2)^2 \leq 4 \\
+%\Rightarrow& 4(c_1 - \frac{5}{4})^2 +  (c_2 - 2)^2 \leq 4 + \frac{25}{4} = \frac{41}{4} \\
+%\Rightarrow& \frac{16}{41}(c_1 - \frac{5}{4})^2 +  \frac{4}{41}(c_2 - 2)^2 \leq 1.
+%\end{align*}
+%It is clear that our expression for $c_1,c_2$ is of the form of a filled ellipse centered at $(\frac{5}{4},2)$ with semi-major axis in the $c_2$ direction with length $\frac{\sqrt{41}}{2}$ and semi-minor axis in the $c_1$ direction with length $\frac{\sqrt{41}}{4}.$ This ellipse is plotted below. Note: $c_1,c_2\geq 0.$
+%
+%\includegraphics{p1}
+Note that our utility curves take the form of ellipses. Fixing U,
 \begin{align*}
-\Rightarrow& 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2 \geq 0 \Rightarrow -10 c_1 + 4 c_{1}^2 + (c_2 - 2)^2 \leq 4 \\
-\Rightarrow& 4(c_1 - \frac{5}{4})^2 +  (c_2 - 2)^2 \leq 4 + \frac{25}{4} = \frac{41}{4} \\
-\Rightarrow& \frac{16}{41}(c_1 - \frac{5}{4})^2 +  \frac{4}{41}(c_2 - 2)^2 \leq 1.
+\Rightarrow& 10 c_1 - 4 c_{1}^2 + 4c_2 - c_{2}^2 = U \Rightarrow -10 c_1 + 4 c_{1}^2 + (c_2 - 2)^2 = 4-U \\
+\Rightarrow& 4\left(c_1 - \frac{5}{4}\right)^2 +  (c_2 - 2)^2 = 4 + \frac{25}{4} - U = \frac{41}{4} - U.
 \end{align*}
-It is clear that our expression for $c_1,c_2$ is of the form of a filled ellipse centered at $(\frac{5}{4},2)$ with semi-major axis in the $c_2$ direction with length $\frac{\sqrt{41}}{2}$ and semi-minor axis in the $c_1$ direction with length $\frac{\sqrt{41}}{4}.$ This ellipse is plotted below. Note: $c_1,c_2\geq 0.$
+Thus, our utility curves take the form of ellipses centered at (5/4,2), with semi-major and semi-minor axis lengths shrinking to 0 as $U \rightarrow \frac{41}{4}$. Note also that $\frac{\partial U}{\partial c_1} = 0 \Rightarrow c_1^{*} = 5/4, \frac{\partial U}{\partial c_2} = 0 \Rightarrow c_2^{*} = 2$ so not only are our ellipses centered at  (5/4,2), but the global maximum of utility is at that point.
 
-\includegraphics{p1}
+Our initial allocation is $ (w_1,w_2) = (0,2).$ Our budget constraint is the following: $p_1 c_1 + p_2 c_2 = p_1 w_1 + p_2 w_2 = 2p_2 \Rightarrow c_2 = \frac{2p_2 - p_1 c_1}{p_2} = 2 - \frac{p_1}{p_2}c_1.$ We can plug this into our utility and we have the following:
+\begin{align*}
+U &= 10c_1 - 4c_1^2 + 4\left(2 -  \frac{p_1}{p_2}c_1 \right)- \left(2 -  \frac{p_1}{p_2}c_1 \right)^2 \\
+\Rightarrow U &= 10c_1 - 4c_1^2 + 8 - 4\frac{p_1}{p_2}c_1 - 4 + 4\frac{p_1}{p_2}c_1 - \left( \frac{p_1}{p_2}c_1 \right)^2 \\
+\Rightarrow U &= 10c_1 - 4c_1^2 + 4 - \left( \frac{p_1}{p_2}c_1 \right)^2
+\end{align*}
+We can then take a first order condtion with regard to $c_1$: $\frac{\partial U}{\partial c_1} = 0 \Rightarrow \frac{\partial}{\partial c_1} 10c_1 - 4c_1^2 + 4 - \left( \frac{p_1}{p_2}c_1 \right)^2 = 0 \Rightarrow 10 - 8c_1^{**} - 2 \left(\frac{p_1}{p_2}\right)^2c_1^{*} = 0 \Rightarrow c_1^{**} = \frac{10}{8 - 2(p_1/p_2)^2}$
+Thus, given a price ratio $p_1/p_2$ we can calculate $c_1^{**} = \frac{10}{8 - 2(p_1/p_2)^2}, c_2 = 2 - \frac{p_1}{p_2}c_1^{**}$.
+
+Below are plots of the budget constraint given different price ratios, and their resulting optimal consumption points and indifference curves at the optimal utility. This traces out the offer curve, with the offer curve being formally drawn with the initial allocation at the origin.
+
+\includegraphics{indiff1}
+In the above plot, the black curves indicate indifference curves for the highest possible utility given the price ratio. The blue curves indicate the budget constraints at those ratios, and the red symbols indicate the optimal points on the budget constraints. The red symbols trace out the curve of optimal choices from the agents which, when graphed in deviations from initial allocation, is the offer curve (below).
+
+\includegraphics{off1}
 
 \subsection{$U = \min \{ 2c_1 + c_2, c_1 + 2 c_2\}, (w_1,w_2) = (1,0)$}
-Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 1$. We will solve for a convenient expression for $c_1,c_2$:
-\begin{align*}
-2c_1 + c_2 &\geq 1 \\
-c_1 + 2c_2 &\geq 1 \\
-\Rightarrow  c_2&\geq 1 - 2c_1 \\
-\Rightarrow c_2&\geq \frac{1-c_1}{2}
-\end{align*}
-Thus, our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+We begin at our initial allocation, $(w_1,w_2) = (1,0).$ If $p_1 = 0$ then we can increase $c_1$ as much as we would like, so we will consume an infinite amount of it. As $p_1/p_2$ rises, we will stay at our initial allocation until $p_1/p_2$ reaches $1/2$. At this point we will be indifferent between trading for the second consumption good, so we can travel along the curve $c_1 + 2c_2 = w_1 + 2w_2 = 1$ until $c_1 = c_2 = \frac{1}{3}$. As $p_1/p_2$ increases further from there, the optimal choice is to equalize $c_1,c_2$ until $p_1/p_2 = 2$. At this point we will be indifferent between equalizing $c_1,c_2$ (so so $c_1 = c_2 = 2/3$)and traveling to the left along the curve $2c_1 + c_2 = 2w_1 +w_2 = 2$. For $p_1/p_2>2$, we will always trade all of our allocation for $c_2$. This is plotted below.
 
-\includegraphics{p2}
+\includegraphics{indiff2}
+
+\includegraphics{off2}
+%Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 1$. We will solve for a convenient expression for $c_1,c_2$:
+%\begin{align*}
+%2c_1 + c_2 &\geq 1 \\
+%c_1 + 2c_2 &\geq 1 \\
+%\Rightarrow  c_2&\geq 1 - 2c_1 \\
+%\Rightarrow c_2&\geq \frac{1-c_1}{2}
+%\end{align*}
+%Thus, our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+
+%\includegraphics{p2}
 
 \subsection{$U = \min \{ 2c_1 + c_2, c_1 + 2 c_2\}, (w_1,w_2) = (1,10)$}
-Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 12$. We will solve for a convenient expression for $c_1,c_2$:
-\begin{align*}
-2c_1 + c_2 &\geq 12 \\
-c_1 + 2c_2 &\geq 12 \\
-\Rightarrow  c_2&\geq 12 - 2c_1 \\
-\Rightarrow c_2&\geq \frac{12-c_1}{2}
-\end{align*}
-As in the previous subsection, we find that our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+We begin at our initial allocation, $(w_1,w_2) = (1,10).$ If $p_2 = 0$ then we can increase $c_1$ as much as we would like so we will consume an infinite amount. As $p_2/p_1$ rises, we will consume only good 2 until $p_2/p_1$ reaches $1/2$. At this point we will be indifferent between trading for the first consumption good, so we can travel along the curve $2c_1 + c_2 = 2w_1 + w_2 = 12$ until $c_1 = c_2 = 4$. As $p_2/p_1$ increases further from there, the optimal choice is to equalize $c_1,c_2$ until $p_2/p_1 = 2$. At this point we will be indifferent between equalizing $c_1,c_2$ (so so $c_1 = c_2 = 7$) and traveling to the right along the curve $c_1 +2c_2 = w_1 +2w_2 = 21$. For $p_2/p_1>2$, we will always trade all of our allocation for $c_1$. This is plotted below.
 
-\includegraphics{p3}
+\includegraphics{indiff3}
+
+\includegraphics{off3}
+%Our agent will trade to (weakly) increase their utility: $U(c_1,c_2)\geq U(w_1,w_2) = 12$. We will solve for a convenient expression for $c_1,c_2$:
+%\begin{align*}
+%2c_1 + c_2 &\geq 12 \\
+%c_1 + 2c_2 &\geq 12 \\
+%\Rightarrow  c_2&\geq 12 - 2c_1 \\
+%\Rightarrow c_2&\geq \frac{12-c_1}{2}
+%\end{align*}
+%As in the previous subsection, we find that our agent will trade to any point which is on or above both curves. This is plotted below. Note: $c_1,c_2\geq 0.$
+%
+%\includegraphics{p3}
 
 \end{document}
