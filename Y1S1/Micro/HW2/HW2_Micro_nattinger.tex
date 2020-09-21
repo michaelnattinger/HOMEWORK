@@ -113,10 +113,10 @@ D_p y(p) = \begin{pmatrix} \frac{\partial y_1(p)}{\partial p_1}& \frac{\partial 
 Upon observation. it is clear that $D_p y(p)$ is symmetric. Furthermore, the first element of $D_p y(p)$, $\frac{8B^3p_{2}^{3}}{9p_{1}^{4}}$, is positive because $B,p_1,p_2$ are all positive. Next we will check the matrix's determinant:
 
 \begin{align*}
-\text{det} D_p y(p) = \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} \frac{8B^3 p_2}{9 p_{1}^{2}} - \left(  - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}} \right) \left(-\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}} \right) = \frac{128B^6 p_{2}^{4}}{81p_{1}^{6}}.
+\text{det} D_p y(p) = \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} \frac{8B^3 p_2}{9 p_{1}^{2}} - \left(  - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}} \right) \left(-\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}} \right) = 0.
 \end{align*}
 
-The determinant is positive, so $D_p y(p)$ is positive semidefinite.
+The determinant is nonnegative, so $D_p y(p)$ is positive semidefinite.
 
 \begin{align*}
 [D_p y(p)]p = \begin{pmatrix} \frac{8B^3p_{2}^{3}}{9p_{1}^{4}} & - \frac{8B^3p_{2}^{2}}{9p_{1}^{3}}\\ -\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{3}}& \frac{8B^3 p_2}{9 p_{1}^{2}} \end{pmatrix} \colvec{2}{p_1}{p_2}=   \begin{pmatrix} \frac{8B^3p_{2}^{3}}{9p_{1}^{3}} - \frac{8B^3p_{2}^{3}}{9p_{1}^{3}}\\ -\frac{8B^3p_{2}^{2}}{ 9 p_{1}^{2}} + \frac{8B^3 p_{2}^{2}}{9 p_{1}^{2}} \end{pmatrix} = \vec{0}.
@@ -127,7 +127,7 @@ The determinant is positive, so $D_p y(p)$ is positive semidefinite.
 From lecture, the profit function is rationalizable if and only if it is homogenous of degree 1 and convex.
 \subsection{Show that $y \in Y^{O}$ must have $y_1 \leq 0$.}
 %Let $(p_1,p_2)\in \mathbb{R}^{2}_{++}$. 
-Let $(y_1,y_2) \in Y^{O}$. Then $p_1 y_1 + p_2 y_2 \leq Ap_{1}^{-2} p_{2}^{3}$ $\forall p_1,p_2 \in \mathbb{R}$. Assume for the purpose of contradiction that $y_1>0.$ Now fix $p_2>0$, we can make $p_1y_1 +p_2y_2$ unboundedly large by increasing $p_1$ while $Ap_{1}^{-2}p_{2}^{3}$ goes to 0, so we can force a contradiction. Thus $y_1\leq 0$.
+Let $(y_1,y_2) \in Y^{O}$. Then $p_1 y_1 + p_2 y_2 \leq Ap_{1}^{-2} p_{2}^{3}$ $\forall p_1,p_2 \in \mathbb{R}$. Assume for the purpose of contradiction that $y_1>0.$ Now fix $p_2>0$ and $y_2 \in \mathbb{R}$, we can make $p_1y_1 +p_2y_2$ unboundedly large by increasing $p_1$ while $Ap_{1}^{-2}p_{2}^{3}$ goes to 0, so we can force a contradiction. Thus $y_1\leq 0$.
 
 \subsection{Solve the minimization problem and describe the production set $Y^{O}$.}
 We want to solve the following problem: $\min_{r>0} Ar^{2} - \frac{y_1}{r}$. Taking first order conditions, $2Ar + \frac{y_1}{r^{2}} = 0 \Rightarrow r =\left(\frac{-y_1}{2A}\right)^{1/3}$. So, $\min_{r>0} Ar^{2} - \frac{y_1}{r} = A\left(\frac{-y_1}{2A}\right)^{2/3} - \frac{y_1}{\left(\frac{-y_1}{2A}\right)^{1/3}} = 2^{-2/3}A^{1/3}(-y_1)^{2/3} + 2^{1/3}A^{1/3}(-y_1)^{2/3} = ( 2^{-2/3} +  2^{1/3})A^{1/3}(-y_1)^{2/3}$ . 
