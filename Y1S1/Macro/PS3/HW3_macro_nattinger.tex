@@ -135,8 +135,8 @@ Again rewriting the budget constraint,
 \end{split}
 \end{align*}
 
-\subsection{Define and solve for an autarkic equilibrium, assuming it exists.}
-In the Autarkic equilibrium, money is not traded across individuals - there is no belief that money will have value in the future. Thus, individuals will not trade their endowment in the first period for money, so $M_{t+1}^t = 0$ and $M$ has no value for the initial old agent. Since utility is strictly increasing in consumption, the budget constraints will hold with equality so we have the following solution: $c_t^{**,t} = w_1, c_{t+1}^{**,t} = w_2$ $\forall i \in \mathbb{N} \cup \{0\}.$
+\subsection{Define and solve for an autarkic equilibrium, assuming it exists.} %Change - money market still has to clear but 1/p_t is 0
+In the Autarkic equilibrium, there is no belief that money will have value in the future. Thus, individuals will not trade any of their endowment for money, so  $M$ has no value for the initial old agent. Since utility is strictly increasing in consumption, the budget constraints will hold with equality so we have the following solution: $c_t^{**,t} = w_1, c_{t+1}^{**,t} = w_2$ $\forall i \in \mathbb{N} \cup \{0\}.$ Note that the money market must still clear, so $M_{t+1}^t = M$, but $\frac{M_{t+1}^t}{p_{t}} = \frac{M_{t+1}^t}{p_{t+1}} = 0.$
 
 \subsection{Define and solve for a competitive equilibrium assuming valued money but with $w_2 = 0.$}
 Now we will solve for a competitive equilibrium assuming agents will expect money will carry value into the future, and assuming $w_2 = 0.$ Our agents then solve the following:
@@ -180,7 +180,7 @@ The solution to the planner's problem was  $c_t^{*,t-1} = c_t^{*,t} = \frac{w_1 
 \subsection{What happens to consumption, money demand, and prices in a competitive equilibrium with valued money if the initial money supply is halved?}
 Denote with primes the new values of the variables in the equilibrium with halved money supply.
 \begin{equation*}
-c_t^{',***,t} = c_{t+1}^{',***,t} = \frac{w_1}{2}, M_{t+1}^{',***,t} = \frac{M}{2}, p_t^{',***} =  \frac{M}{w_1}.
+c_t^{',***,t} = c_{t+1}^{',***,t} = \frac{w_1}{2}, M_{t+1}^{',***,t} = \frac{M}{2}, p_t^{',***,t} =  \frac{M}{w_1}.
 \end{equation*}
 If the initial money supply is halved, the consumption allocations are unchanged, and the prices and money demand adjust accordingly.
 
@@ -209,8 +209,8 @@ U &= 10c_1 - 4c_1^2 + 4\left(2 -  \frac{p_1}{p_2}c_1 \right)- \left(2 -  \frac{p
 \Rightarrow U &= 10c_1 - 4c_1^2 + 8 - 4\frac{p_1}{p_2}c_1 - 4 + 4\frac{p_1}{p_2}c_1 - \left( \frac{p_1}{p_2}c_1 \right)^2 \\
 \Rightarrow U &= 10c_1 - 4c_1^2 + 4 - \left( \frac{p_1}{p_2}c_1 \right)^2
 \end{align*}
-We can then take a first order condtion with regard to $c_1$: $\frac{\partial U}{\partial c_1} = 0 \Rightarrow \frac{\partial}{\partial c_1} 10c_1 - 4c_1^2 + 4 - \left( \frac{p_1}{p_2}c_1 \right)^2 = 0 \Rightarrow 10 - 8c_1^{**} - 2 \left(\frac{p_1}{p_2}\right)^2c_1^{*} = 0 \Rightarrow c_1^{**} = \frac{10}{8 - 2(p_1/p_2)^2}$
-Thus, given a price ratio $p_1/p_2$ we can calculate $c_1^{**} = \frac{10}{8 - 2(p_1/p_2)^2}, c_2 = 2 - \frac{p_1}{p_2}c_1^{**}$.
+We can then take a first order condtion with regard to $c_1$: $\frac{\partial U}{\partial c_1} = 0 \Rightarrow \frac{\partial}{\partial c_1} 10c_1 - 4c_1^2 + 4 - \left( \frac{p_1}{p_2}c_1 \right)^2 = 0 \Rightarrow 10 - 8c_1^{**} - 2 \left(\frac{p_1}{p_2}\right)^2c_1^{*} = 0 \Rightarrow c_1^{**} = \frac{10}{8 + 2(p_1/p_2)^2}$
+Thus, given a price ratio $p_1/p_2$ we can calculate $c_1^{**} = \frac{10}{8 + 2(p_1/p_2)^2}, c_2^{**} = 2 - \frac{p_1}{p_2}c_1^{**}$.
 
 Below are plots of the budget constraint given different price ratios, and their resulting optimal consumption points and indifference curves at the optimal utility. This traces out the offer curve, with the offer curve being formally drawn with the initial allocation at the origin.
 

@@ -1,0 +1,134 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{Prove that the firm's objective function has strictly increasing differences in $q$ and $-\tau$. Prove that this implies a monotone selection rule.}
+The firm's objective function is $g(q,t):= (1-\tau)pq - c(q)$ where $t = -\tau$. For $q^{'}>q,t^{'} = (-\tau^{'})>(-\tau) = t$,
+\begin{align*}
+g(q^{'},t^{'}) - g(q,t^{'}) &=  (1-\tau^{'})pq^{'} - c(q^{'}) - (1-\tau^{'})pq + c(q)\\
+&=   (1+(-\tau^{'}))p(q^{'} - q) - (c(q^{'}) -c(q))\\
+&> (1+(-\tau))p(q^{'} - q) - (c(q^{'}) -c(q))\\
+&= g(q^{'},t) - g(q,t)
+\end{align*}
+So $g$ has increasing differences in $q,-\tau$. Now, let $q,q^{'}$ be optimal at $t = -\tau,t^{'} = -\tau^{'}$. Then, if $q>q^{'}$,
+\begin{equation*}
+0 \geq g(q,t^{'}) - g(q^{'},t^{'})> g(q,t) - g(q^{'},t) \geq 0
+\end{equation*}
+which violates our increasing differences. So, our optimal choice at $t^{'}$ must be at least as large as our choice at $t$.
+
+Why is this stronger? This stronger because all possible optimal choices for production at $t^{'}$ must be at least as large as all possible optimal choices for production at $t$.  This is not necessarily guaranteed by baby Topkis if there are more than one possible choices for production at $t^{'},t$.
+\subsection{Suppose the firm is not a price-taker in the output market. It faces an inverse demand function $P(q)$, where $P(q)$ is the price the firm can sell $q$ units of output. Show that the firm's objective function no longer has increasing differences in $q,-\tau$.}
+The firm's new objective function is $h(x,\tau) = (1-\tau)P(q)q - c(q)$. $\frac{\partial h}{\partial -\tau} = P(q)q$. If price is decreasing in $q$, which is not unreasonable for this scenario, then $P^{'}(q)<0$ so $h$ does not necessarily have increasing differences in $q,-\tau$.
+
+\subsection{Show that if $c$ is strictly increasing, the firm's objective function still has strictly single-crossing differences; prove that an increase in $\tau$ cannot result in an increase in output.}
+Let $h(q^{'},t) - h(q,t)>0$ for $t = -\tau <-\tau^{'} = t^{'} $. Then, 
+\begin{align*}
+0<(1+t)P(q^{'})q^{'} - c(q^{'}) - (1+t)P(q)q + c(q) &= (1+t)(P(q^{'})q^{'} - P(q)q) - (c(q^{'}) - c(q))\\
+&< (1+t^{'})(P(q^{'})q^{'} - P(q)q) - (c(q^{'}) - c(q))\\
+&= h(q^{'},t^{'}) - h(q,t^{'})
+\end{align*}
+so $h$ has strictly single-crossing differences, and $ h(q^{'},t^{'}) > h(q,t^{'})$. If $q$ is optimal at $t$ and $q^{'}$ is optimal at $t^{'}$, and $t<t^{'}$ and if $q<q^{'}$, then
+\begin{align*}
+0\geq  h(q,t^{'}) - h(q^{'},t^{'})  \geq   h(q,t) - h(q^{'},t) \geq 0
+\end{align*}
+ is a contradiction so $q$ cannot decrease from an increase in $t$, so $q$ cannot increase from a decrease in $\tau$.
+\section{Question 2}
+The firm maximizes $\pi = p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^z - w_ll - w_mm - w_rr - w_ee$ with $z = 1.1$
+\subsection{What effect does a reduction in $w_e$ have on the firm's demand for each input?}
+The partials of the firm's objective function with regards to each input are as follows:
+\begin{align*}
+\frac{\partial \pi}{\partial l} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.5m^{0.3}l^{-0.5}) - w_l, \\
+\frac{\partial \pi}{\partial m} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.3l^{0.5}m^{-0.7}) - w_m, \\
+\frac{\partial \pi}{\partial r} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.7r^{-0.3}e^{0.1}) - w_r, \\
+\frac{\partial \pi}{\partial z} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.1r^{0.7}e^{-0.9}) - w_e. 
+\end{align*}
+Each partial is increasing in the other inputs so the objective function is supermodular in $(l,m,r,e)$. Also, each input is weakly increasing in $-w_e$ so a decrease in $w_e$ will lead to an increase in the use of all inputs via Topkis' theorem.
+\subsection{Over time, $z$ changes to $0.9$. With this new value for $z$, what effect will the wage subsidy have on the firm's demand for each input?}
+With $z = 0.9$ the following are the partials to the firm's objective function:
+\begin{align*}
+\frac{\partial \pi}{\partial l} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.5m^{0.3}l^{-0.5}) - w_l, \\
+\frac{\partial \pi}{\partial m} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.3l^{0.5}m^{-0.7}) - w_m, \\
+\frac{\partial \pi}{\partial r} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.7r^{-0.3}e^{0.1}) - w_r, \\
+\frac{\partial \pi}{\partial z} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.1r^{0.7}e^{-0.9}) - w_e. 
+\end{align*}
+Let us focus first on $\frac{\partial \pi}{\partial l}.$ This is decreasing in $r,e$. However, it is stil increasing in $m: \frac{\partial \pi}{\partial l} = 0.9p(l^{0.5} + r^{0.7}e^{0.1}m^{-0.3})^{-0.1}(0.5(m^{0.3})^{0.9}l^{-0.5}) - w_l$. We can similarly manipulate the other partials and it is evident that our objective function is supermodular in $(l,m,-r,-e)$ and $(l,m,-r,-e)$ are all weakly increasing in $w_e$ so Topkis' theorem implies that a decrease in $w_e$ will lead to a reduction in $l,m$ and an increase in $e,r$.
+\subsection{If the supply of managers is fixed in the short-run, would the subsidy's effect on unskilled labor be larger in the short-run or long-run?}
+Since we found in the previous section that our objective function is supermodular in $(l,m,-r,-e)$, then we can apply Le Chatelier's principle and find that the effect on unskilled labor is larger in the long-run than the short-run.
+\end{document}

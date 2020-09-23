@@ -1,0 +1,208 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics HW3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Let a random point be distributed uniformly on the square with vertices $(1,1),(1,-1),(-1,1),(-1,-1)$.
+\subsection{Determine $P(X^2+Y^2<1)$.}
+\begin{align*}
+P(X^2+Y^2<1) &= \int_{-1}^{1}\int_{-\sqrt{1-y^2}}^{\sqrt{1-y^2}}\frac{1}{4}dxdy = \frac{1}{2}\int_{-1}^{1} \sqrt{1 - y^2 }dy = \frac{1}{2}((1/2)\text{arcsin }x  + (1/2)x\sqrt{1 - x^2}|_{-1}^{1}) \\
+&= \frac{\pi}{4}.
+\end{align*}
+\subsection{Determine $P(|X+Y|<2)$}
+\begin{align*}
+P(|X+Y|<2) &= \int_{-1}^{1}\int_{-1}^{1}\frac{1}{4}dxdy = \frac{1}{2}\int_{-1}^{1}2dy =  1.
+\end{align*}
+\section{Question 2}
+\subsection{What conditions should $a,b$ satisfy in order for $f(x,y)$ to be a bivariate PDF?}
+For $f(x,y)$ to be a bivariate PDF, it must integrate to one:
+
+\begin{align*}
+1 &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y) dxdy = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}g(x)h(y)dxdy = \int_{-\infty}^{\infty}g(x)dx\int_{-\infty}^{\infty}h(y)dy \\ &= ab.
+\end{align*}
+So, for $f(x,y)$ to be a bivariate pdf, $ab =1.$
+\subsection{Find the marginal PDF of $X$ and $Y$.}
+\begin{align*}
+f_X(x) &= \int_{-\infty}^{\infty}g(x)h(y) dy = g(x)\int_{-\infty}^{\infty}h(y) dy = b g(x),\\
+f_Y(y) &= \int_{-\infty}^{\infty}g(x)h(y) dx = h(y)\int_{-\infty}^{\infty}g(x) dx = a h(y).
+\end{align*}
+\subsection{Show that $X,Y$ are independent.}
+$f_{X,Y}(x,y) = g(x)h(y) =(ab)g(x)h(y) =  bg(x)ah(y) = f_X(x)f_Y(y)$ so $X,Y$ are independent.
+\section{Question 3}
+\subsection{Find $c$ such that $f(x,y)$ is a joint PDF.}
+We will find the value of $c$ such that the integral of $f(x,y)$ on its support is $1$.
+\begin{align*}
+\int_{0}^{1}\int_{0}^{1 - y} cxy dxdy &= c\int_{0}^{1}y(1-y)^2/2 dy = (c/2)\int_{0}^{1}y-2y^2 +y^3 dy = (c/2)(y^2/2 - (2/3)y^3 + y^4/4|_{0}^{1})\\
+&= (c/2)((1/2) - (2/3) + (1/4) ) = c/24.
+\end{align*}
+Thus, for the integral of $f(x,y)$ on its support to be equal to 1, $c = 24.$
+
+\subsection{Find the marginal distributions of $X$ and $Y$.}
+\begin{align*}
+f_X(x) &= \int_{0}^{1-x}24xy dy = 24x(y^2/2|_{0}^{1-x}) = 12x(1-x)^2,\\
+f_Y(y) &= \int_{0}^{1-y}24xy dx = 24y(x^2/2|_{0}^{1-y}) = 12y(1-y)^2.
+\end{align*}
+Note: This is for $x,y \in [0,1].$ For all other $x,y$, $f_X(x) = f_Y(y) = 0.$
+\subsection{Are $X,Y$ independent?}
+$X,Y$ are not independent. $f_{X,Y}(x,y) = 24xy \neq  (12x(1-x)^2)  (12y(1-y)^2) = f_X(x)f_Y(y).$ Note that our result from question 2 does not hold for this question because the region on which the joint PDF is nonzero is a function of $X,Y$. So, the joint distribution can not be separately factored into $X,Y$ components.
+\section{Question 4}
+We will show that any random variable is uncorrelated with a constant. 
+%Let $k\in\mathbb{R}$ and let $X$ be a random variable. $Cov(X,k) = E(Xk) - E(X)E(k) = kE(X) - kE(X) = 0.$ 
+\begin{align*}
+P(k \leq y,X \leq x) &= \begin{cases} 0, y<k \\ P(X \leq x), y\geq k
+\end{cases}
+&= P(k \leq y)P(X \leq x)
+\end{align*} so $X,k$ independent and, therefore, $X,k$ are uncorrelated.
+\section{Question 5}
+From the independence of $X,Y$, $E(XY) =EXEY = \mu_X\mu_Y.$
+\begin{align*}
+\sigma_{XY}^2 &= E[(XY)^2] - E[XY]^2 = E[X^2Y^2] - \mu_X^2 \mu_Y^2  = E[X^2]E[Y^2] - \mu_X^2 \mu_Y^2 \\ &= (\sigma_X^2 + \mu_X^2)(\sigma_Y^2 + \mu_Y^2)  - \mu_X^2 \mu_Y^2 \\
+Cov(XY,Y) &= E((XY)Y) - E(XY)EY = E(XY^2) - \mu_X\mu_Y^2 = EXE(Y^2) - \mu_X\mu_Y^2\\
+&= \mu_X(\sigma_Y^2 + \mu_Y^2) - \mu_X\mu_Y^2 = \mu_X\sigma_Y^2 \\
+Corr(XY,Y) &= \frac{Cov(XY,Y)}{\sqrt{\sigma_{XY}^{2}\sigma_{Y}^{2}}} = \frac{\mu_X\sigma_Y^2}{\sqrt{((\sigma_X^2 + \mu_X^2)(\sigma_Y^2 + \mu_Y^2)  - \mu_X^2 \mu_Y^2)\sigma_Y^2}}\\
+&=\frac{\mu_X\sigma_Y}{\sqrt{\sigma_X^2\sigma_Y^2 + \mu_X^2\sigma_Y^2 + \mu_Y^2\sigma_X^2}}.
+\end{align*}
+
+\section{Question 6}
+Let $(X_1,\dots,X_n)^{'}$ be a random vector. We will prove via induction. First, let $n=2$. Then, $Var(X_1+X_2) = Var(X_1) + Var(X_2) + 2Cov(X_1,X_2)$.
+
+Next, assume that $Var\left( \sum_{i=1}^{n}X_i\right) = \left( \sum_{i=1}^n Var(X_i)\right) + 2\left( \sum_{1\leq i < j \leq n} Cov(X_i,X_j)\right)$. Then,
+\begin{align*}
+Var\left( \sum_{i=1}^{n+1}X_i\right) &= Var\left( \sum_{i=1}^{n}X_i\right) + Var(X_{n+1}) + 2Cov\left(\left( \sum_{i=1}^{n}X_i\right),X_{n+1}\right) \\
+&=  \left( \sum_{i=1}^n Var(X_i)\right) + 2\left( \sum_{1\leq i < j \leq n} Cov(X_i,X_j)\right) + Var(X_{n+1}) + 2Cov\left(\left( \sum_{i=1}^{n}X_i\right),X_{n+1}\right) \\
+& = \left( \sum_{i=1}^{n+1} Var(X_i)\right) +  2\left( \sum_{1\leq i < j \leq n} Cov(X_i,X_j)\right) + 2Cov\left(\left( \sum_{i=1}^{n}X_i\right),X_{n+1}\right).
+\end{align*}
+
+Next, note that, for random variables $X,Y,Z$,
+\begin{align*}
+Cov(X+Y,Z) &= E[(X+Y)Z] - E(X+Y)E(Z) = E[XZ+YZ] - (EX+EY)EZ\\
+&= E(XZ) - EXEZ + E(YZ) - EYEZ = Cov(X,Z) + Cov(Y,Z).
+\end{align*}
+
+We then have,
+\begin{align*}
+Var\left( \sum_{i=1}^{n+1}X_i\right) &= \left( \sum_{i=1}^{n+1} Var(X_i)\right) +  2\left( \sum_{1\leq i < j \leq n} Cov(X_i,X_j)\right) + 2\sum_{i=1}^{n}Cov\left( X_i,X_{n+1}\right)\\
+&=  \left( \sum_{i=1}^{n+1} Var(X_i)\right) +  2\left( \sum_{1\leq i < j \leq n+1} Cov(X_i,X_j)\right).
+\end{align*}
+
+Therefore, by induction, $Var\left( \sum_{i=1}^{n}X_i\right) =  \left( \sum_{i=1}^{n} Var(X_i)\right) +  2\left( \sum_{1\leq i < j \leq n} Cov(X_i,X_j)\right)$.
+
+\section{Question 7}
+Let $X,Y$ be jointly normal.
+\subsection{Derive the marginal distribution of $X,Y$ and observe that both are normal distributions.}
+\begin{align*}
+f_X(x) &= \int_{-\infty}^{\infty}f(x,y)dy \\ &=\int_{-\infty}^{\infty}\frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}\text{exp}\left( -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2))\right) dy \\
+&= \frac{1}{\sqrt{2\pi}\sigma_X}\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_Y}\text{exp}\left( -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) + (y/\sigma_Y - \rho x/\sigma_X)^2 - (\rho^2x^2/\sigma_X^2))\right) dy \\
+&= \frac{\text{exp}\left(  -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) -  (\rho^2x^2/\sigma_X^2))\right)}{\sqrt{2\pi}\sigma_X} \\
+&*\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\text{exp}\left( -(2(1-\rho^2))^{-1}( (y/\sigma_Y - \rho x/\sigma_X)^2 )\right) dy\\
+&= \frac{\text{exp}\left(  -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) -  (\rho^2x^2/\sigma_X^2))\right)}{\sqrt{2\pi}\sigma_X} = \frac{\text{exp}\left(  -(x^2/(2\sigma_X^2)\right)}{\sqrt{2\pi}\sigma_X}  .
+\end{align*}
+Note that this is the form of a normal distribution with mean $0$ and variance $\sigma_X^2$. By symmetry, $f_{Y}(y) =  \frac{\text{exp}\left(  -(y^2/(2\sigma_Y^2)\right)}{\sqrt{2\pi}\sigma_Y} $ is also a standard distribution with mean 0 and variance $\sigma_Y^2.$
+\subsection{Derive the conditional distribution of $Y$ given $X=x$. Observe that it is also a normal distribution.}
+\begin{align*}
+f_{Y|X}(y|x) &= \frac{f_{X,Y}(x,y)}{f_X(x)}\\ &= \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}\text{exp}\left( -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2))\right) \\ &*\left(\frac{\text{exp}\left(  -(x^2/(2\sigma_X^2)\right)}{\sqrt{2\pi}\sigma_X} \right)^{-1} \\
+&=  \frac{\text{exp}(-(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2))+ (x^2/(\sigma_X^2)))}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2) - ((1-\rho^2)(x^2/\sigma_X^2))))}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2(1-\rho^2))^{-1}((x^2/\sigma_X^2)(\rho^2 ) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2)))}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2(1-\rho^2))^{-1}((x^2/\sigma_X^2)(\rho^2 ) + (y/\sigma_Y - \rho x/\sigma_X)^2- \rho^2x^2/\sigma_X^2 ))}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2(1-\rho^2))^{-1}(y/\sigma_Y - \rho x/\sigma_X)^2}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2)^{-1}(y/(\sqrt{1-\rho^2}\sigma_Y) - \rho x/(\sqrt{1-\rho^2}\sigma_X))^2}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
+&= \frac{\text{exp}(-(2)^{-1}((y - (\rho x (\sigma_Y/\sigma_X)))/(\sqrt{1-\rho^2}\sigma_Y))^2}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}
+\end{align*}
+This is also a normal distribution, with mean $\rho x (\sigma_Y/\sigma_X)$ and variance $\sigma_Y(1-\rho^2)$.
+\subsection{Derive the joint distribution of $(X,Z)$ where $Z = (Y/\sigma_Y) - (\rho X/\sigma_X)$, and then show that $X,Z$ are independent.}
+Note that our mapping from $\colvec{2}{X}{Y} \rightarrow \colvec{2}{X}{Y/\sigma_Y - \rho X/\sigma_X } $ has an inverse mapping $\colvec{2}{X}{Z} \rightarrow \colvec{2}{X}{\sigma_YZ + \sigma_Y(\rho X/\sigma_X)}$ with Jacobian determinant $\left|\begin{pmatrix} 1& 0\\ \rho \sigma_Y / \sigma_X & \sigma_Y \end{pmatrix}\right| = \sigma_Y$. Thus, the joint density of $X,Z$ is $f_{X,Z}(x,z) = f_{X,Y}(x,\sigma_Y Z + \rho X \sigma_Y / \sigma_X)\sigma_Y$:
+\begin{align*}
+f_{X,Z}(x,z) &= \frac{1}{2\pi\sigma_X \sqrt{1 - \rho^2}} \text{exp}\left(-\frac{1}{2(1-\rho^2)} \left(\frac{x^2}{\sigma_X^2} - 2\frac{x(z+\rho x/\sigma_X)\rho}{\sigma_X} + (z + (\rho x/\sigma_X))^2 \right) \right) \\
+&=\frac{1}{2\pi\sigma_X \sqrt{1 - \rho^2}} \text{exp}\left(-\frac{1}{2(1-\rho^2)} \left(\frac{x^2}{\sigma_X^2} - 2\frac{xz\rho}{\sigma_X} - 2\frac{x^2\rho^2}{\sigma_X^2} + z^2 + 2z(\rho x/\sigma_X) + (\rho x/\sigma_X)^2 \right) \right)\\
+&=\frac{1}{2\pi\sigma_X \sqrt{1 - \rho^2}} \text{exp}\left(- \frac{x^2}{2\sigma_X^2} - \frac{z^2}{2(1 - \rho^2)} \right) \\
+&=\frac{1}{\sqrt{2\pi}\sigma_X } \text{exp}\left(- \frac{x^2}{2\sigma_X^2} \right) \frac{1}{\sqrt{2\pi (1 - \sigma_X^2)}} \text{exp}\left(- \frac{z^2}{2(1-\delta^2)} \right).
+\end{align*}
+This clearly separates into separate distributions for $X,Z$ so $X,Z$ are independent.
+
+\section{Question 8}
+If $X,Y$ are independent random variables, then $P(X\leq x \cap Y\leq y) = P(X \leq x)P(Y\leq y).$ Then, we have the following:
+\begin{align*}
+P(Z\leq z \cap W\leq w) &= P(g_1(X) \leq z \cap g_2(Y) \leq w)\\
+&= P(X \leq b_1^{-1}(x) \cap Y \leq g_2^{-1}(w)) \\
+&= P(X \leq b_1^{-1}(x) )P(Y \leq g_2^{-1}(w))\\
+&= P(Z\leq z)P(W\leq w).
+\end{align*}
+Thus, $Z,W$ are independent.
+\end{document}
