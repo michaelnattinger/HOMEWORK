@@ -87,7 +87,7 @@ g(q^{'},t^{'}) - g(q,t^{'}) &=  (1-\tau^{'})pq^{'} - c(q^{'}) - (1-\tau^{'})pq +
 &> (1+(-\tau))p(q^{'} - q) - (c(q^{'}) -c(q))\\
 &= g(q^{'},t) - g(q,t)
 \end{align*}
-So $g$ has increasing differences in $q,-\tau$. Now, let $q,q^{'}$ be optimal at $t = -\tau,t^{'} = -\tau^{'}$. Then, if $q>q^{'}$,
+So $g$ has increasing differences in $q,-\tau$. Now, let $q,q^{'}$ be optimal at $t = -\tau,t^{'} = -\tau^{'}$ with $t<t^{'}$. Then, if $q>q^{'}$,
 \begin{equation*}
 0 \geq g(q,t^{'}) - g(q^{'},t^{'})> g(q,t) - g(q^{'},t) \geq 0
 \end{equation*}
@@ -95,7 +95,7 @@ which violates our increasing differences. So, our optimal choice at $t^{'}$ mus
 
 Why is this stronger? This stronger because all possible optimal choices for production at $t^{'}$ must be at least as large as all possible optimal choices for production at $t$.  This is not necessarily guaranteed by baby Topkis if there are more than one possible choices for production at $t^{'},t$.
 \subsection{Suppose the firm is not a price-taker in the output market. It faces an inverse demand function $P(q)$, where $P(q)$ is the price the firm can sell $q$ units of output. Show that the firm's objective function no longer has increasing differences in $q,-\tau$.}
-The firm's new objective function is $h(x,t) = (1-\tau)P(q)q - c(q)$, where $t=(-\tau)$. $\frac{\partial h}{\partial t} = P(q)q$. If price is decreasing in $q$, which is not unreasonable for this scenario, then $P^{'}(q)<0$ so $h$ does not necessarily have increasing differences in $q,-\tau$.
+The firm's new objective function is $h(x,t) = (1-\tau)P(q)q - c(q)$, where $t=(-\tau)$. $\frac{\partial h}{\partial t} = P(q)q$. If price is decreasing in $q$, which is not unreasonable for this scenario, then $h$ does not necessarily have increasing differences in $q,-\tau$.
 
 \subsection{Show that if $c$ is strictly increasing, the firm's objective function still has strictly single-crossing differences; prove that an increase in $\tau$ cannot result in an increase in output.}
 Let $h(q^{'},t) - h(q,t)>0$ for $t = -\tau <-\tau^{'} = t^{'} $. Then, 
@@ -119,7 +119,7 @@ The partials of the firm's objective function with regards to each input are as 
 \frac{\partial \pi}{\partial r} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.7r^{-0.3}e^{0.1}) - w_r, \\
 \frac{\partial \pi}{\partial z} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.1r^{0.7}e^{-0.9}) - w_e. 
 \end{align*}
-Each partial is increasing in the other inputs so the objective function is supermodular in $(l,m,r,e)$. Also, each input is weakly increasing in $-w_e$ so a decrease in $w_e$ will lead to an increase in the use of all inputs via Topkis' theorem.
+Each partial is increasing in the other inputs so the objective function is supermodular in $(l,m,r,e)$. Also, each input is weakly increasing in $-w_e$ so a decrease in $w_e$ will lead to an increase in the use of all inputs via Topkis' theorem in the sense of strong set order. Since the production function is concave, the objective function will have a unique maximum so the use of all inputs will increase.
 \subsection{Over time, $z$ changes to $0.9$. With this new value for $z$, what effect will the wage subsidy have on the firm's demand for each input?}
 With $z = 0.9$ the following are the partials to the firm's objective function:
 \begin{align*}
@@ -128,7 +128,7 @@ With $z = 0.9$ the following are the partials to the firm's objective function:
 \frac{\partial \pi}{\partial r} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.7r^{-0.3}e^{0.1}) - w_r, \\
 \frac{\partial \pi}{\partial z} &= 0.9p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{-0.1}(0.1r^{0.7}e^{-0.9}) - w_e. 
 \end{align*}
-Let us focus first on $\frac{\partial \pi}{\partial l}.$ This is decreasing in $r,e$. However, it is stil increasing in $m: \frac{\partial \pi}{\partial l} = 0.9p(l^{0.5} + r^{0.7}e^{0.1}m^{-0.3})^{-0.1}(0.5(m^{0.3})^{0.9}l^{-0.5}) - w_l$. We can similarly manipulate the other partials and it is evident that our objective function is supermodular in $(l,m,-r,-e)$ and $(l,m,-r,-e)$ are all weakly increasing in $w_e$ so Topkis' theorem implies that a decrease in $w_e$ will lead to a reduction in $l,m$ and an increase in $e,r$.
+Let us focus first on $\frac{\partial \pi}{\partial l}.$ This is decreasing in $r,e$. However, it is stil increasing in $m: \frac{\partial \pi}{\partial l} = 0.9p(l^{0.5} + r^{0.7}e^{0.1}m^{-0.3})^{-0.1}(0.5(m^{0.3})^{0.9}l^{-0.5}) - w_l$. We can similarly manipulate the other partials and it is evident that our objective function is supermodular in $(l,m,-r,-e)$ and $(l,m,-r,-e)$ are all weakly increasing in $w_e$ so Topkis' theorem implies that a decrease in $w_e$ will lead to a reduction in $l,m$ and an increase in $e,r$, as just as before our objective function will have a unique maximum.
 \subsection{If the supply of managers is fixed in the short-run, would the subsidy's effect on unskilled labor be larger in the short-run or long-run?}
 Since we found in the previous section that our objective function is supermodular in $(l,m,-r,-e)$, then we can apply Le Chatelier's principle and find that the effect on unskilled labor is larger in the long-run than the short-run.
 \end{document}

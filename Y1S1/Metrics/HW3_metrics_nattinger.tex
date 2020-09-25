@@ -87,7 +87,7 @@ P(X^2+Y^2<1) &= \int_{-1}^{1}\int_{-\sqrt{1-y^2}}^{\sqrt{1-y^2}}\frac{1}{4}dxdy 
 \end{align*}
 \subsection{Determine $P(|X+Y|<2)$}
 \begin{align*}
-P(|X+Y|<2) &= \int_{-1}^{1}\int_{-1}^{1}\frac{1}{4}dxdy = \frac{1}{2}\int_{-1}^{1}2dy =  1.
+P(|X+Y|<2) &= \int_{-1}^{1}\int_{-1}^{1}\frac{1}{4}dxdy = \int_{-1}^{1}\frac{1}{2}dy =  1.
 \end{align*}
 \section{Question 2}
 \subsection{What conditions should $a,b$ satisfy in order for $f(x,y)$ to be a bivariate PDF?}
@@ -96,7 +96,7 @@ For $f(x,y)$ to be a bivariate PDF, it must integrate to one:
 \begin{align*}
 1 &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y) dxdy = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}g(x)h(y)dxdy = \int_{-\infty}^{\infty}g(x)dx\int_{-\infty}^{\infty}h(y)dy \\ &= ab.
 \end{align*}
-So, for $f(x,y)$ to be a bivariate pdf, $ab =1.$
+So, for $f(x,y)$ to be a bivariate PDF, $ab =1.$
 \subsection{Find the marginal PDF of $X$ and $Y$.}
 \begin{align*}
 f_X(x) &= \int_{-\infty}^{\infty}g(x)h(y) dy = g(x)\int_{-\infty}^{\infty}h(y) dy = b g(x),\\
@@ -120,7 +120,7 @@ f_Y(y) &= \int_{0}^{1-y}24xy dx = 24y(x^2/2|_{0}^{1-y}) = 12y(1-y)^2.
 \end{align*}
 Note: This is for $x,y \in [0,1].$ For all other $x,y$, $f_X(x) = f_Y(y) = 0.$
 \subsection{Are $X,Y$ independent?}
-$X,Y$ are not independent. $f_{X,Y}(x,y) = 24xy \neq  (12x(1-x)^2)  (12y(1-y)^2) = f_X(x)f_Y(y).$ Note that our result from question 2 does not hold for this question because the region on which the joint PDF is nonzero is a function of $X,Y$. So, the joint distribution can not be separately factored into $X,Y$ components.
+$X,Y$ are not independent. $f_{X,Y}(x,y) = 24xy \neq  (12x(1-x)^2)  (12y(1-y)^2) = f_X(x)f_Y(y).$ Note that our result from question 2 does not hold for this question because the region on which the joint PDF is nonzero is a function of $X,Y$. So, the joint distribution can not be separately factored into $X,Y$ marginals as the support for the marginal for each random variable is a function of the realization of the other random variable.
 \section{Question 4}
 We will show that any random variable is uncorrelated with a constant. 
 %Let $k\in\mathbb{R}$ and let $X$ be a random variable. $Cov(X,k) = E(Xk) - E(X)E(k) = kE(X) - kE(X) = 0.$ 
@@ -173,7 +173,7 @@ f_X(x) &= \int_{-\infty}^{\infty}f(x,y)dy \\ &=\int_{-\infty}^{\infty}\frac{1}{2
 &*\int_{-\infty}^{\infty}\frac{1}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\text{exp}\left( -(2(1-\rho^2))^{-1}( (y/\sigma_Y - \rho x/\sigma_X)^2 )\right) dy\\
 &= \frac{\text{exp}\left(  -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) -  (\rho^2x^2/\sigma_X^2))\right)}{\sqrt{2\pi}\sigma_X} = \frac{\text{exp}\left(  -(x^2/(2\sigma_X^2)\right)}{\sqrt{2\pi}\sigma_X}  .
 \end{align*}
-Note that this is the form of a normal distribution with mean $0$ and variance $\sigma_X^2$. By symmetry, $f_{Y}(y) =  \frac{\text{exp}\left(  -(y^2/(2\sigma_Y^2)\right)}{\sqrt{2\pi}\sigma_Y} $ is also a standard distribution with mean 0 and variance $\sigma_Y^2.$
+Note that this is the form of a normal distribution with mean $0$ and variance $\sigma_X^2$. By symmetry, $f_{Y}(y) =  \frac{\text{exp}\left(  -(y^2/(2\sigma_Y^2)\right)}{\sqrt{2\pi}\sigma_Y} $ is also a normal distribution with mean 0 and variance $\sigma_Y^2.$
 \subsection{Derive the conditional distribution of $Y$ given $X=x$. Observe that it is also a normal distribution.}
 \begin{align*}
 f_{Y|X}(y|x) &= \frac{f_{X,Y}(x,y)}{f_X(x)}\\ &= \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}\text{exp}\left( -(2(1-\rho^2))^{-1}((x^2/\sigma_X^2) - 2\rho xy/(\sigma_X\sigma_Y) + (y^2/\sigma_Y^2))\right) \\ &*\left(\frac{\text{exp}\left(  -(x^2/(2\sigma_X^2)\right)}{\sqrt{2\pi}\sigma_X} \right)^{-1} \\
@@ -185,7 +185,7 @@ f_{Y|X}(y|x) &= \frac{f_{X,Y}(x,y)}{f_X(x)}\\ &= \frac{1}{2\pi\sigma_X\sigma_Y\s
 &= \frac{\text{exp}(-(2)^{-1}(y/(\sqrt{1-\rho^2}\sigma_Y) - \rho x/(\sqrt{1-\rho^2}\sigma_X))^2}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}\\
 &= \frac{\text{exp}(-(2)^{-1}((y - (\rho x (\sigma_Y/\sigma_X)))/(\sqrt{1-\rho^2}\sigma_Y))^2}{\sqrt{2\pi}\sigma_Y\sqrt{1-\rho^2}}
 \end{align*}
-This is also a normal distribution, with mean $\rho x (\sigma_Y/\sigma_X)$ and variance $\sigma_Y(1-\rho^2)$.
+This is also a normal distribution, with mean $\rho x (\sigma_Y/\sigma_X)$ and variance $\sigma_Y^2(1-\rho^2)$.
 \subsection{Derive the joint distribution of $(X,Z)$ where $Z = (Y/\sigma_Y) - (\rho X/\sigma_X)$, and then show that $X,Z$ are independent.}
 Note that our mapping from $\colvec{2}{X}{Y} \rightarrow \colvec{2}{X}{Y/\sigma_Y - \rho X/\sigma_X } $ has an inverse mapping $\colvec{2}{X}{Z} \rightarrow \colvec{2}{X}{\sigma_YZ + \sigma_Y(\rho X/\sigma_X)}$ with Jacobian determinant $\left|\begin{pmatrix} 1& 0\\ \rho \sigma_Y / \sigma_X & \sigma_Y \end{pmatrix}\right| = \sigma_Y$. Thus, the joint density of $X,Z$ is $f_{X,Z}(x,z) = f_{X,Y}(x,\sigma_Y Z + \rho X \sigma_Y / \sigma_X)\sigma_Y$:
 \begin{align*}
@@ -200,8 +200,8 @@ This clearly separates into separate distributions for $X,Z$ so $X,Z$ are indepe
 If $X,Y$ are independent random variables, then $P(X\leq x \cap Y\leq y) = P(X \leq x)P(Y\leq y).$ Then, we have the following:
 \begin{align*}
 P(Z\leq z \cap W\leq w) &= P(g_1(X) \leq z \cap g_2(Y) \leq w)\\
-&= P(X \leq b_1^{-1}(x) \cap Y \leq g_2^{-1}(w)) \\
-&= P(X \leq b_1^{-1}(x) )P(Y \leq g_2^{-1}(w))\\
+&= P(X \leq g_1^{-1}(z) \cap Y \leq g_2^{-1}(w)) \\
+&= P(X \leq g_1^{-1}(z) )P(Y \leq g_2^{-1}(w))\\
 &= P(Z\leq z)P(W\leq w).
 \end{align*}
 Thus, $Z,W$ are independent.

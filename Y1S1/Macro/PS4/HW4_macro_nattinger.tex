@@ -1,0 +1,153 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS4}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{State and solve the SPP}
+The social planner maximizes total utility subject to the resource constraint. This problem is represented as:
+\begin{align*}
+&\max_{c_{i}^{i-1},c_i^i, i \in \mathbb{N}} U(c_1^0) + \sum_{t=1}^{\infty} U(c_t^t,c_{t+1}^t)\\
+&\text{s.t. } (1+n)c_t^t +c_t^{t-1} \leq (1+n)w_1 + w_2 \text{ } \forall t \in \mathbb{N}
+\end{align*}
+The resource constraint inequality will bind as utility is strictly increasing in consumption. Then, we can substitute $c_t^t = w_1+(w_2-c_t^{t-1})/(1+n)$ into our optimization problem, as well as our functional form for utility, and we are left with the following:
+\begin{align*}
+&\max_{c_{i}^{i-1}, i \in \mathbb{N}} \text{ln }c_1^0 + \sum_{t=1}^{\infty} \text{ln }(w_1+(w_2-c_t^{t-1})/(1+n) + \text{ln }c_{t}^{t-1}
+\end{align*}
+Taking first order conditions with respect to $c_t^{t-1}$, $\frac{-1}{(1+n)w_1+w_2-c_t^{t-1}} + \frac{1}{c_t^{t-1}} = 0 \\ \Rightarrow c_t^{t-1} = \frac{w_1(1+n)+w_2}{2}, c_t^t = \frac{(1+n)w_1+w_2}{2} \text{ } \forall t \in \mathbb{N}.$ 
+\subsection{Set up the competitive equilibrium}
+The competitive equilibrium is a set of allocations and prices such that agents optimize and markets clear. Note that I will write agents' budget constraints as binding as utility is strictly increasing in consumption. The first old agent solves the following:
+\begin{align*}
+&\max_{c_1^0} \text{ln } c_1^0 \\
+&\text{s.t. } p_1c_1^0 = p_1w_2 + \bar{M}_1.
+\end{align*}
+All other agents live for 2 periods, so they instead solve:
+\begin{align*}
+&\max_{c_1^0} \text{ln } c_t^t + \text{ln } c_{t+1}^t \\
+&\text{s.t. } p_tc_t^t + M^t_{t+1}= p_tw_1 \\
+&\text{and } p_{t+1}c_{t+1}^t = (1+z)M_{t+1}^t  + p_{t+1}w_2.
+\end{align*}
+In the competitive equilibrium, the goods market and money market clear:
+\begin{align*}
+(n+1)c_t^t +c_t^{t-1} &= (n+1)w_1 + w_2, \\
+M_{t+1}^t  &= (1+z)^{t-1}\bar{M}_1,
+\end{align*}
+where the money supply is the amount given to the initial old, growing exogenously at a rate of $(1+z)$ in each period thereafter.
+\subsection{Solve for an autarkic equilibrium}
+Money has no value in this equilibrium. Thus, our agents' problems change to be the following:
+\begin{align*}
+&\max_{c_1^0} \text{ln } c_1^0 \\
+&\text{s.t. } c_1^0 = w_2 .
+\end{align*}
+All other agents live for 2 periods, so they instead solve:
+\begin{align*}
+&\max_{c_1^0} \text{ln } c_t^t + \text{ln } c_{t+1}^t \\
+&\text{s.t. } c_t^t = w_1 \\
+&\text{and } c_{t+1}^t = w_2.
+\end{align*}
+In the competitive equilibrium, the goods market and money market clear:
+\begin{align*}
+(n+1)c_t^t +c_t^{t-1} &= (n+1)w_1 + w_2, \\
+(n+1)^t M_{t+1}^t  &= (1+z)^{t-1}\bar{M}_1,
+\end{align*}
+Thus, $c_t^t = w_1, c_t^{t-1} = w_2, M_{t+1}^t = (1+z)^{t-1}\bar{M}_1 $ $\forall t \in \mathbb{N}.$
+\subsection{Solve for a steady state (non-autarkic) monetary equilibrium}
+The initial old's consumption is determined by their budget constraint: $c_1^0 = w_2 + \frac{\bar{M_1}}{p_1}$.
+
+For all other agents, we can solve for $c_t^t,c_{t+1}^{t}$ as a function of $M_{t+1}^t$ and prices using their budget constraints:
+\begin{align*}
+c_t^t &= w_1 - \frac{M_{t+1}^t}{p_t}\\
+c_{t+1}^t &= (1+z)\frac{M^t_{t+1}}{p_{t+1}} + w_2.
+\end{align*}
+Plugging this into the maximization problem we have the following optimization problem and first order condition with respect to $M^t_{t+1}:$
+\begin{align*}
+&\max_{M_{t+1}^t} \text{ln } \left(w_1 - \frac{M_{t+1}^t}{p_t}\right) + \text{ln } \left((1+z)\frac{M^t_{t+1}}{p_{t+1}} + w_2\right) \\
+\Rightarrow 0 &=  -\left(\frac{1}{p_t}\right)\frac{1}{w_1 - M^t_{t+1}/p_t} +\left(\frac{1}{p_{t+1}}\right) \frac{1}{M^t_{t+1}/p_{t+1} + w_2/(1+z)} \\
+\Rightarrow M^t_{t+1} &= \left( p_tw_1 - \frac{p_{t+1}}{1+z}w_2\right)/2\\
+\Rightarrow c_t^t &= w_1 - \frac{1}{2p_t}\left(  p_tw_1 - \frac{p_{t+1}}{1+z}w_2\right) = \frac{w_1}{2} + \frac{p_{t+1}}{2p_t(1+z)}w_2 \\
+&= \frac{w_1}{2} + \frac{1}{2q_t(1+z)}w_2 \\
+\Rightarrow c_{t+1}^t &= w_2 + \frac{1+z}{2p_{t+1}}\left(  p_tw_1 - \frac{p_{t+1}}{1+z}w_2\right) = \frac{w_2}{2} + \frac{p_t(1+z)}{2p_{t+1}}w_1 \\
+&= \frac{w_2}{2} + \frac{q_t(1+z)}{2}w_1 ,
+\end{align*}
+where $q_t:= \frac{p_t}{p_{t+1}}$.
+
+To clear goods, we find:
+\begin{align*}
+(1+n)w_1 + w_2 &= (1+n)\left(\frac{w_1}{2} + \frac{1}{2q_t(1+z)}w_2\right)+ \frac{w_2}{2} + \frac{q_{t-1}(1+z)}{2}w_1
+\end{align*}
+\end{document}
