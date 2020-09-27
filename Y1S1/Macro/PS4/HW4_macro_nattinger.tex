@@ -89,7 +89,7 @@ The resource constraint inequality will bind as utility is strictly increasing i
 \begin{align*}
 &\max_{c_{i}^{i-1}, i \in \mathbb{N}} \text{ln }c_1^0 + \sum_{t=1}^{\infty} \text{ln }(w_1+(w_2-c_t^{t-1})/(1+n) + \text{ln }c_{t}^{t-1}
 \end{align*}
-Taking first order conditions with respect to $c_t^{t-1}$, $\frac{-1}{(1+n)w_1+w_2-c_t^{t-1}} + \frac{1}{c_t^{t-1}} = 0 \\ \Rightarrow c_t^{t-1} = \frac{w_1(1+n)+w_2}{2}, c_t^t = \frac{(1+n)w_1+w_2}{2} \text{ } \forall t \in \mathbb{N}.$ 
+Taking first order conditions with respect to $c_t^{t-1}$, $\frac{-1}{(1+n)w_1+w_2-c_t^{t-1}} + \frac{1}{c_t^{t-1}} = 0 \\ \Rightarrow c_t^{t-1} = \frac{w_1(1+n)+w_2}{2}, c_t^t = \frac{w_1(1+n)+w_2}{2(1+n)} \text{ } \forall t \in \mathbb{N}.$ 
 \subsection{Set up the competitive equilibrium}
 The competitive equilibrium is a set of allocations and prices such that agents optimize and markets clear. Note that I will write agents' budget constraints as binding as utility is strictly increasing in consumption. The first old agent solves the following:
 \begin{align*}
@@ -105,7 +105,7 @@ All other agents live for 2 periods, so they instead solve:
 In the competitive equilibrium, the goods market and money market clear:
 \begin{align*}
 (n+1)c_t^t +c_t^{t-1} &= (n+1)w_1 + w_2, \\
-M_{t+1}^t  &= (1+z)^{t-1}\bar{M}_1,
+(1+n)^tM_{t+1}^t  &= (1+z)^{t-1}\bar{M}_1,
 \end{align*}
 where the money supply is the amount given to the initial old, growing exogenously at a rate of $(1+z)$ in each period thereafter.
 \subsection{Solve for an autarkic equilibrium}
@@ -125,7 +125,7 @@ In the competitive equilibrium, the goods market and money market clear:
 (n+1)c_t^t +c_t^{t-1} &= (n+1)w_1 + w_2, \\
 (n+1)^t M_{t+1}^t  &= (1+z)^{t-1}\bar{M}_1,
 \end{align*}
-Thus, $c_t^t = w_1, c_t^{t-1} = w_2, M_{t+1}^t = (1+z)^{t-1}\bar{M}_1 $ $\forall t \in \mathbb{N}.$
+Thus, $c_t^t = w_1, c_t^{t-1} = w_2, M_{t+1}^t = (1+z)^{t-1}\bar{M}_1/(n+1)^t $ $\forall t \in \mathbb{N}.$
 \subsection{Solve for a steady state (non-autarkic) monetary equilibrium}
 The initial old's consumption is determined by their budget constraint: $c_1^0 = w_2 + \frac{\bar{M_1}}{p_1}$.
 
@@ -150,4 +150,53 @@ To clear goods, we find:
 \begin{align*}
 (1+n)w_1 + w_2 &= (1+n)\left(\frac{w_1}{2} + \frac{1}{2q_t(1+z)}w_2\right)+ \frac{w_2}{2} + \frac{q_{t-1}(1+z)}{2}w_1
 \end{align*}
+
+In the steady state, $q$ is constant so $q_t = q_{t-1} = \bar{q}.$ We can then solve the goods clearing equation to find $\bar{q}$:
+\begin{align*}
+0 &=\frac{(1+z)w_1}{2}\bar{q}^2 -\frac{(1+n)w_1 + w_2}{2}\bar{q} + \frac{(1+n)w_2}{2(1+z)}\\
+\Rightarrow \bar{q} &= \frac{\frac{(1+n)w_1 + w_2}{2} \pm \sqrt{(\frac{(1+n)w_1 + w_2}{2})^2 -(1+n)w_1w_2 } }{(1+z)w_1}\\
+&= \frac{1+n}{2(1+z)} + \frac{w_2}{2(1+z)w_1} \pm \frac{\sqrt{(1+n)^2w_1^2/4 - (1+n)w_1w_2/2 + w_2^2/4} }{(1+z)w_1} \\
+&= \frac{1+n}{2(1+z)} + \frac{w_2}{2(1+z)w_1} \pm \frac{\sqrt{(\frac{(1+n)w_1 - w_2}{2})^2} }{(1+z)w_1} \\
+&= \frac{1+n}{2(1+z)} + \frac{w_2}{2(1+z)w_1} \pm \frac{(1+n)w_1 - w_2}{2(1+z)w_1}\\
+&\Rightarrow \bar{q} = \frac{1+n}{(1+z)} \text{ or } \bar{q} = \frac{w_2}{(1+z)w_1}. %second one is autarkic eqlm
+\end{align*}
+First we will consider $\bar{q} = \frac{w_2}{(1+z)w_1}.$ This yields $c_t^t = w_1, c_{t+1}^t = w_2$ which is our autarkic equilibrium.
+
+Now, we consider $\bar{q} = \frac{1+n}{(1+z)}$. This yields $c_t^t = \frac{w_1}{2} + \frac{w_2}{2(1+n)}, c_{t+1}^t = \frac{w_2}{2} + \frac{w_1(1+n)}{2}$. This is different than the autarkic equilibrium, so money is valued. However, before we proceed, we need to verify that this solution results in nonnegative $M_{t+1}^t$. We can first solve for $p_t$ via the household budget constraint in the first period, utilizing money market clearing:
+\begin{align*}
+c_t^t &= w_1 - \frac{M_{t+1}^t}{p_t} \\
+ \Rightarrow \frac{w_1}{2} + \frac{w_2}{2(1+n)} &= w_1 - \frac{M_{t+1}^t}{p_t} \\
+\Rightarrow \frac{M_{t+1}^t}{p_t} &= \frac{w_1}{2}- \frac{w_2}{2(1+n)}
+\end{align*}
+Since $w_1>w_2$ and $p_t>0$, $M_{t+1}^t>0.$
+
+We can use money market clearing to solve for $M_{t+1}^t,$ and then solve for $p_t$:
+\begin{align*}
+M_{t+1}^t &= \frac{(1+z)^{t-1}}{(1+n)^t}\bar{M}_1\\
+p_t &= \left( \frac{1+z}{1+n}\right)^{t-1} \frac{2\bar{M}_1}{w_1(1+n) - w_2}
+\end{align*}
+
+\subsection{Does the stationary monetary equilibrium pareto dominate autarky?}
+Note that our allocation from the stationary monetary equilibrium matches that of the social planner's allocation. The social planner's allocation is pareto optimal, and thus so is our stationary monetary equilibrium. Since the autarky allocation was a possible choice for our social planner, but was not chosen, the social planner allocation, and therefore the equivalent stationary monetary equilibrium, dominates the autarky equilibrium.
+
+Furthermore, our utility function is log, which is strictly concave. Comparing:
+\begin{align*}
+\text{SPP,CME: }& c_t^t = \frac{w_1}{2} + \frac{w_2}{2(1+n)},  c_{t+1}^t = \frac{w_2}{2} + \frac{w_1(1+n)}{2}, c_1^0 = w_2 + \frac{\bar{M_1}}{p_1},\\
+\text{Aut: }& c_t^t = w_1, c_{t+1}^t = w_2, c_1^0 = w_2 \\
+&\text{ln }  (\frac{w_1}{2} + \frac{w_2}{2(1+n)}) + \text{ln } (\frac{w_2}{2} + \frac{w_1(1+n)}{2}) > \text{ln } w_1+ \text{ln } w_2\\
+&\text{ln }  w_2 + \frac{\bar{M_1}}{p_1} > \text{ln } w_2.
+\end{align*}
+Thus, our stationary monetary equilibrium pareto dominates the autarkic equilibrium.
+
+The government can implement this equilibrium by setting the initial price to be at the stationary equilibrium level,
+
+\begin{align*}
+p_1 =  \frac{2\bar{M}_1}{w_1(1+n) - w_2}.
+\end{align*}
+
+\subsection{Does money exhibit super-neutrality in this model?}
+
+Yes, inflation has no effect on consumption. We can see this through the real return on saving, $(1+z)\frac{p_t}{p_{t+1}} = (1+n)$. This is independent of the inflation rate, so the agents will not factor in the inflation rate into their saving-consuming decision. The reason this occurs is that the additional money that is created in each period is given to the agents that saved in the prior period, so while the money they have is worth $\frac{1}{1+z}$ of the money they saved, the amount of money they have in the second period is $(1+z)$ more than the amount of money they saved, so the effect of the expansion of money supply exactly offsets from the perspective of the agents. 
+
+This is also shown from the equilibrium consumption allocations being dependent only on $w_1,w_2,$ and the population growth rate, for all equilibria.
 \end{document}
