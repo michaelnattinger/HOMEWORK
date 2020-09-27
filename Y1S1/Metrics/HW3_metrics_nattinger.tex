@@ -202,6 +202,7 @@ If $X,Y$ are independent random variables, then $P(X\leq x \cap Y\leq y) = P(X \
 P(Z\leq z \cap W\leq w) &= P(g_1(X) \leq z \cap g_2(Y) \leq w)\\
 &= P(X \leq g_1^{-1}(z) \cap Y \leq g_2^{-1}(w)) \\
 &= P(X \leq g_1^{-1}(z) )P(Y \leq g_2^{-1}(w))\\
+&= P(g_1(X) \leq g_1(g_1^{-1}(z)) )P(g_2(Y) \leq g_2(g_2^{-1}(w)))\\
 &= P(Z\leq z)P(W\leq w).
 \end{align*}
 Thus, $Z,W$ are independent.
