@@ -95,20 +95,20 @@ which is a contradiction. So, our optimal choice at $t^{'}$ must be at least as 
 
 Why is this stronger? This stronger because all possible optimal choices for production at $t^{'}$ must be at least as large as all possible optimal choices for production at $t$.  This is not necessarily guaranteed by baby Topkis if there are more than one possible choices for production at $t^{'},t$.
 \subsection{Suppose the firm is not a price-taker in the output market. It faces an inverse demand function $P(q)$, where $P(q)$ is the price the firm can sell $q$ units of output. Show that the firm's objective function no longer has increasing differences in $q,-\tau$.}
-The firm's new objective function is $h(q,t) = (1-\tau)P(q)q - c(q)$, where $t=(-\tau)$. $\frac{\partial h}{\partial t} = P(q)q$. If price is decreasing in $q$, which is not unreasonable for this scenario, then $h$ does not necessarily have increasing differences in $q,-\tau$.
+The firm's new objective function is $h(q,t) = (1-\tau)P(q)q - c(q)$, where $t=(-\tau)$. $\frac{\partial h}{\partial t} = P(q)q$. If price is decreasing in $q$ faster than $q$ is itself increasing,  then $h$ does not have increasing differences in $q,-\tau$ because $\frac{\partial h}{\partial t}$ is decreasing in $q$.
 
 \subsection{Show that if $c$ is strictly increasing, the firm's objective function still has strictly single-crossing differences; prove that an increase in $\tau$ cannot result in an increase in output.}
-Let $h(q^{'},t) - h(q,t)>0$ for $t = -\tau <-\tau^{'} = t^{'} $. Then, 
+Let $h(q^{'},t) - h(q,t)\geq0$ for $t = -\tau <-\tau^{'} = t^{'} $. Then, 
 \begin{align*}
-0<(1+t)P(q^{'})q^{'} - c(q^{'}) - (1+t)P(q)q + c(q) &= (1+t)(P(q^{'})q^{'} - P(q)q) - (c(q^{'}) - c(q))\\
+0\leq(1+t)P(q^{'})q^{'} - c(q^{'}) - (1+t)P(q)q + c(q) &= (1+t)(P(q^{'})q^{'} - P(q)q) - (c(q^{'}) - c(q))\\
 &< (1+t^{'})(P(q^{'})q^{'} - P(q)q) - (c(q^{'}) - c(q))\\
 &= h(q^{'},t^{'}) - h(q,t^{'})
 \end{align*}
-so $h$ has strictly single-crossing differences, and $ h(q^{'},t^{'}) > h(q,t^{'})$. If $q$ is optimal at $t$ and $q^{'}$ is optimal at $t^{'}$, and $t<t^{'}$ and if $q<q^{'}$, then
+so $h$ has strictly single-crossing differences, and $ h(q^{'},t^{'}) > h(q,t^{'})$. If $q$ is optimal at $t$ and $q^{'}$ is optimal at $t^{'}$, and $t<t^{'}$ and if $q>q^{'}$, then
 \begin{align*}
-0\geq  h(q,t^{'}) - h(q^{'},t^{'})  \geq   h(q,t) - h(q^{'},t) \geq 0
+h(q,t^{'}) - h(q^{'},t^{'})  \leq 0 \leq   h(q,t) - h(q^{'},t)
 \end{align*}
- is a contradiction so $q$ cannot decrease from an increase in $t$, so $q$ cannot increase from a decrease in $\tau$.
+ is a contradiction as single-crossing differences implies $h(q,t^{'}) - h(q^{'},t^{'})>0$, so $q$ cannot decrease from an increase in $t$, and $q$ cannot increase from a decrease in $\tau$.
 \section{Question 2}
 The firm maximizes $\pi = p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^z - w_ll - w_mm - w_rr - w_ee$ with $z = 1.1$
 \subsection{What effect does a reduction in $w_e$ have on the firm's demand for each input?}
@@ -119,7 +119,7 @@ The partials of the firm's objective function with regards to each input are as 
 \frac{\partial \pi}{\partial r} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.7r^{-0.3}e^{0.1}) - w_r, \\
 \frac{\partial \pi}{\partial e} &= 1.1p(l^{0.5}m^{0.3} + r^{0.7}e^{0.1})^{0.1}(0.1r^{0.7}e^{-0.9}) - w_e. 
 \end{align*}
-Each partial is increasing in the other inputs so the objective function is supermodular in $(l,m,r,e)$. Also, each input is weakly increasing in $-w_e$ so a decrease in $w_e$ will lead to an increase in the use of all inputs via Topkis' theorem in the sense of strong set order. Since the production function is concave, the objective function will have a unique maximum so the use of all inputs will increase.
+Each partial is increasing in the other inputs so the objective function is supermodular in $(l,m,r,e)$. Also, each input is weakly increasing in $-w_e$ so a decrease in $w_e$ will lead to an increase in the use of all inputs via Topkis' theorem in the sense of strong set order. Since the production function is concave, the objective function will have a unique maximum so the use of all inputs will increase.\footnote{Note: the use of the inputs will strictly increase here as the use of $e$ will strictly increase from the reduction in $w_e$, and the use of the other inputs will strictly increase as a result of the increase in $e$. Similar logic will hold in the second part of the question, with the signs of some of the inputs flipped as described in the solution to that question.}
 \subsection{Over time, $z$ changes to $0.9$. With this new value for $z$, what effect will the wage subsidy have on the firm's demand for each input?}
 With $z = 0.9$ the following are the partials to the firm's objective function:
 \begin{align*}
