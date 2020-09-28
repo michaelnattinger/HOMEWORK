@@ -1,0 +1,120 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics HW4}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{Show that $\bar{X}_{n+1} = (n\bar{X}_n + X_{n+1})/(n+1).$}
+\begin{align*}
+\bar{X}_{n+1} &= \frac{1}{n+1}\sum_{i=1}^{n+1} X_i = \frac{1}{n+1}\left(\left(\sum_{i=1}^n X_i\right) +X_{n+1}\right) \\ 
+&=  \frac{1}{n+1}\left(n\bar{X}_n +X_{n+1}\right).
+\end{align*}
+\subsection{Show that $s_{n+1}^2 = ((n-1)s_n^2 + (n/(n+1))(X_{n+1} - \bar{X}_n)^2)/n.$}
+%\begin{align*}
+%s_{n+1}^2 &= \frac{1}{n}\sum_{i=1}^{n+1}(X_i - \bar{X}_{n+1})^2 =  \frac{1}{n}\sum_{i=1}^{n+1}(X_i - \frac{1}{n+1}\left(n\bar{X}_n +X_{n+1}\right))^2 \\
+%&=\frac{1}{n}\left(\left(\sum_{i=1}^{n}(X_i - \frac{1}{n+1}\left(n\bar{X}_n +X_{n+1}\right))^2\right) + (X_{n+1} - \frac{1}{n+1}(n\bar{X}_n + X_{n+1}) )^2\right) \\
+%&=\frac{1}{n}\left(\left(\sum_{i=1}^{n}(X_i - \frac{n}{n+1}\bar{X}_n -X_{n+1})^2\right) + (\frac{n}{n+1}(X_{n+1} - \bar{X}_n ) )^2\right) 
+%\end{align*}
+\begin{align*}
+s_{n+1}^2 &= \frac{1}{n}\sum_{i=1}^{n+1}(X_i - \bar{X}_{n+1})^2 = \frac{1}{n}\sum_{i=1}^{n+1}(X_i - \bar{X}_{n} + \bar{X}_{n}+ \bar{X}_{n+1})^2\\
+&= \frac{1}{n}\left( (n-1)\sum_{i=1}^{n+1}(X_i - \bar{X}_{n+1})^2 +n(\bar{X}_{n} - \bar{X}_{n+1}) + 2(\sum_{i=1}^n (X_j - \bar{X}_{n})(\bar{X}_{n} - \bar{X}_{n+1})) + (X_{n+1} - \bar{X}_{n+1})\right) \\
+&= \frac{1}{n}\left( (n-1)\sum_{i=1}^{n+1}(X_i - \bar{X}_{n+1})^2 +n(\bar{X}_{n} - \bar{X}_{n+1})^2 + (X_{n+1} - \bar{X}_{n+1})^2\right) \\
+&= \frac{1}{n}\left( (n-1)s_{n}^2 +n\bar{X}_{n}^2 - 2n\bar{X}_{n}\bar{X}_{n+1} +n \bar{X}_{n+1}^2 + X_{n+1}^2 - 2X_{n+1}\bar{X}_{n+1}+\bar{X}_{n+1}^2\right)\\
+&= \frac{1}{n}\left( (n-1)s_{n}^2 + \frac{n}{n+1}(X_{n+1} - \bar{X}_{n})^2\right).
+\end{align*}
+\section{Question 2}
+Define $\hat{\mu}_k:= \frac{1}{n}\sum_{i=1}^{n}X_i^k.$ We will show that this is unbiased.
+\begin{align*}
+E[\hat{\mu}_k] &= E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right] = \frac{1}{n}\sum_{i=1}^nE[X_i^k]\\
+ &=\frac{1}{n}\sum_{i=1}^n\mu_k \\
+&= \mu_k.
+\end{align*}
+Thus, $\hat{\mu}_k$ is an unbiased estimator for $\mu_k$.
+\section{Question 3}
+Define $\hat{M}_k:= \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k$. This estimator is biased, which can be seen from the fact that $\hat{M}_2 = \hat{\sigma}^2 \neq s_{n}^2$, so $\hat{M}_2$ is not an unbiased estimator for $M_2 = \sigma^2$. There exists no general formula for an unbiased estimator of $M_k.$
+\section{Question 4}
+%\begin{align*}
+%E[(\hat{\mu}_k - \mu)^2] = E\left[\left(  \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k - \mu\right)^2\right]
+%\end{align*}
+%other way?
+\begin{align*}
+E[(\hat{\mu}_k - E[\hat{\mu}_k])^2] &=  E\left[\left( \frac{1}{n}\sum_{i=1}^{n}X_i^k\right)^2\right] - E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right]^2 \\
+&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^k\right)^2\right] - \mu_k^2
+\end{align*}
+
+\end{document}
