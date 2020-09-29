@@ -114,7 +114,87 @@ Define $\hat{M}_k:= \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k$. This estimator i
 %other way?
 \begin{align*}
 E[(\hat{\mu}_k - E[\hat{\mu}_k])^2] &=  E\left[\left( \frac{1}{n}\sum_{i=1}^{n}X_i^k\right)^2\right] - E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right]^2 \\
-&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^k\right)^2\right] - \mu_k^2
+&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^k\right)^2\right] - \mu_k^2 \\
+&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^{2k}\right)+\sum_{1\leq i<j\leq n}X_i^k X_j^k\right] - \mu_k^2\\
+&= \frac{1}{n^2}\left(\left(\sum_{i=1}^{n}E(X_i^{2k})\right) + \left(\sum_{1\leq i<j\leq n}E(X_i^k X_j^k)\right) -  \mu_k^2\right) \\
+&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\sum_{1\leq i<j\leq n}E(X_i^k)E(X_j^k)\right) -  \mu_k^2\right) \\
+&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\frac{n!}{2(n-2)!}\right)\mu_k^2 -  \mu_k^2\right)  = \frac{1}{n}\mu_{2k} + \left(\frac{n-1}{2n} - \frac{1}{n}\right)\mu_k^2\\
+&= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2\\
+\Rightarrow Var(\hat{\mu}_k) &= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2
 \end{align*}
-
+\section{Question 5}
+Note that $f(x) = x^2$ is convex. By Jensen's inequality,
+\begin{align*}
+E[s_n]^2 \leq E[s_n^2] = \sigma^2,
+\end{align*}
+so $E[s_n]\leq \sigma$ as both are nonnegative.
+\section{Question 6}
+\begin{align*}
+\hat{\sigma}^2 &= \frac{1}{n}\sum_{i=1}^{n}(X_i - \bar{X}_{n})^2 = \frac{1}{n}\sum_{i=1}^{n}(X_i^2 -2X_i\bar{X}_{n} +  \bar{X}_{n}^2) \\
+&= \frac{1}{n}\left(\sum_{i=1}^{n}X_i^2 -2\bar{X}_{n}\sum_{i=1}^nX_i +  \bar{X}_{n}^2\sum_{i=1}^n1\right) \\
+&= \frac{1}{n}\left(\sum_{i=1}^{n}X_i^2 -2n\bar{X}_{n}^2 +  n\bar{X}_{n}^2\right) = \frac{1}{n}\left(\sum_{i=1}^{n}X_i^2 -n\bar{X}_{n}^2 \right) .\\
+\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2 &= \frac{1}{n}\sum_{i=1}^{n}X_i^2 - 2X_i\mu + \mu^2-  \bar{X}_{n}^2 + 2\mu\bar{X}_{n}- \mu^2\\
+&= \frac{1}{n}\sum_{i=1}^{n}X_i^2  -  \bar{X}_{n}^2 + 2\mu(\bar{X}_{n} - X_i) \\
+&= \frac{1}{n}\left(\sum_{i=1}^{n}X_i^2  -  \bar{X}_{n}^2\sum_{i=1}^{n}(1) +\sum_{i=1}^{n}2\mu(\bar{X}_{n} - X_i) \right)\\
+&= \frac{1}{n}\left(\sum_{i=1}^{n}X_i^2 -n\bar{X}_{n}^2 \right) = \hat{\sigma}^2.
+\end{align*}
+\section{Question 7}
+%\begin{align*}
+%Cov(\hat{\sigma}^2,\bar{X}_n) &= E[\hat{\sigma}^2\bar{X}_n] - E[\hat{\sigma}^2]E[\bar{X}_n] \\
+%&=  E\left[\left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2\right)\left( \frac{1}{n}\sum_{i=1}^{n}X_i\right)\right] - \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} E\left[\left(\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2\right)\left(\sum_{i=1}^{n}X_i\right)\right] - \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} E\left[\sum_{i=1}^{n}\sum_{j=1}^{n}X_j(X_i - \mu)^2- X_j( \bar{X}_{n} - \mu)^2\right] - \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} E\left[\sum_{i=1}^{n}\sum_{j=1}^{n}X_j(X_i - \mu)^2\right]-\frac{1}{n^2}E\left[ \sum_{i=1}^{n}\sum_{j=1}^{n}X_j( \bar{X}_{n} - \mu)^2\right] - \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} E\left[\sum_{i \neq j}^{n}X_j(X_i - \mu)^2\right]+\frac{1}{n^2} E\left[\sum_{i=1}^{n}X_i(X_i - \mu)^2\right]-\frac{1}{n}E\left[\sum_{j=1}^{n}X_j( \bar{X}_{n} - \mu)^2\right] - \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} E\left[\sum_{i \neq j}^{n}X_j(X_i - \mu)^2\right]+\frac{1}{n^2} E\left[\sum_{i=1}^{n}X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{1}{n^2} \sum_{i \neq j}EX_jE(X_i - \mu)^2+\frac{1}{n^2} \sum_{i=1}^{n}E\left[X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{n!}{2n^2(n-2)!} \mu\sigma^2+\frac{1}{n^2} \sum_{i=1}^{n}E\left[X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu \\
+%&= \frac{n-1}{2n} \mu\sigma^2+\frac{1}{n^2} \sum_{i=1}^{n}E\left[X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu 
+%\end{align*}
+\begin{align*}
+Cov(\hat{\sigma}^2,\bar{X}_n) &= Cov\left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\frac{1}{n}\sum_{i=1}^{n}X_i\right) \\
+&= \frac{1}{n^2}Cov\left(\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\sum_{i=1}^{n}X_i\right) \\
+&= \frac{1}{n^2}\sum_{i=1}^{n}Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) %&= \frac{1}{n^2}\sum_{i=1}^{n}\left(Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) + Cov\left( \right) \right)
+\end{align*}
+This question is far from solved.
+\section{Question 8}
+\subsection{Find $E[\bar{X}_n]$}
+\begin{align*}
+E[\bar{X}_n] &= E\left[\frac{1}{n} \sum_{i=1}^{n} X_i \right] = \frac{1}{n}\sum_{i=1}^{n} E\left[X_i \right] \\
+&= \frac{1}{n}\sum_{i=1}^{n} \mu_i.
+\end{align*}
+\subsection{Find $Var(\bar{X}_n)$.}
+\begin{align*}
+Var(\bar{X}_n) &= E[\bar{X}_n^2] - (E\bar{X}_n)^2 = E\left[\left(\frac{1}{n} \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
+&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
+&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i^2\right) + 2\left(\sum_{1\leq i<j \leq n} X_iX_j\right)  \right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
+&= \frac{1}{n^2}\left( \sum_{i=1}^{n} EX_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} EX_iX_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
+&= \frac{1}{n^2}\left( \sum_{i=1}^{n} \sigma_i^2 + \mu_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} \mu_i \mu_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2.
+\end{align*}
+\section{Question 9}
+\begin{align*}
+E[Q] &= E\left[ \sum_{i=1}^r X_i^2 \right] = \sum_{i=1}^n E\left[ X_i^2 \right]  \\
+&=  \sum_{i=1}^r \mu_X^2 + \sigma_X^2 = \sum_{i=1}^n 0^2 + 1^2\\
+&=  r.
+\end{align*}
+\begin{align*}
+Var(Q) &= E[Q^2] - E[Q]^2 = E\left[\left(\sum_{i=1}^r X_i^2 \right)^2\right] - r^2\\
+&= \sum_{i=1}^r E\left[X_i^4\right] + 2\sum_{1\leq i < j \leq r}E\left[ X_i^2X_j^2\right] -r^2 \\
+&= \sum_{i=1}^r 3 + 2\sum_{1\leq i < j \leq r}(1)(1) -r^2 \\
+&= 3r + 2\left( \frac{r!}{2(r-2)!}\right) -r^2 = 3r + r(r-1) -r^2 \\
+&= 2r.
+\end{align*}
+Note: we calculated $E[x^4]=3$ for a standard normal in the previous problem set.
+\section{Question 10}
+We will first show that a sum of independent normal random variables is normal. Let $Z_i\sim N(\mu_i,\sigma_i^2) \forall i \in [1,\dots,n]$ for some $n \in \mathbb{N}.$ Then the MGF of $Z_i$ is $M_{Z_i}(t) = exp(\mu_i t + \frac{\sigma_i^2t^2}{2})$.\footnote{$M_{Z_i}(t) = \int_{-\infty}^{\infty}exp(xt)\frac{1}{\sqrt{2\pi\sigma_i^2}}exp(-(x-\mu_i)^2/(2\sigma_i^2))dx.$ Define $z = (x-\mu_i)/\sigma_i.$ Then $M_{Z_i}(t) =exp(\mu_it)\int_{-\infty}^{\infty}exp(z\sigma t)\frac{1}{\sqrt{2\pi\sigma_i^2}} exp(-z^2/2) (dx/dz)dz = exp(\mu_it)\int_{-\infty}^{\infty}exp(z\sigma t)\frac{1}{\sqrt{2\pi}} exp(-z^2/2)dz  = exp(\mu_it)exp(\sigma_i^2t^2/2) = exp(\mu_it + \frac{\sigma_i^2t^2}{2}).$} Then,\footnote{$M_{\sum_{i=1}^n{Z_i}}(t) = E[exp(\sum_{i=1}^n tZ_i)] = E[\prod_{i=1}^{n}exp(tZ_i)] = \prod_{i=1}^{n}E[exp(tZ_i)] = \prod_{i=1}^{n}M_{Z_i}(t)$}
+\begin{align*}
+M_{\sum_{i=1}^n{Z_i}}(t) = \prod_{i=1}^nM_{Z_i}(t) = exp\left( \sum_{i=1}^n \left(\mu_it + \frac{\sigma_i^2t}{2}\right)\right) = exp\left( \left(\sum_{i=1}^n \mu_i\right)t + \left( \sum_{i=1}^n \sigma_i^2\right)\frac{t^2}{2}\right).
+\end{align*}
+So $\sum_{i=1}^nZ_i$ is of the form of a normal random variable with mean $\sum_{i=1}^n\mu_i$ and variance $\sum_{i=1}^n\sigma_i^2$.
+\subsection{Find $E[\bar{X}_n - \bar{Y}_n]$}
+From the above, $\bar{X}_n,\bar{Y}_n$ are of the form of normal variables with means $\mu_X,\mu_Y$ and variances $\frac{1}{n_1}\sigma_X^2,\frac{1}{n_2}\sigma_Y^2$. Then, $\bar{X}_n-\bar{Y}_n$ is also normal with mean $\mu_X-\mu_Y$.
+\subsection{Find $Var[\bar{X}_n - \bar{Y}_n]$}
+From the above, $\bar{X}_n-\bar{Y}_n$ is normal with variance $\frac{1}{n_1}\sigma_X^2 + \frac{1}{n_2}\sigma_Y^2$.
+\subsection{Find the distribution of $\bar{X}_n - \bar{Y}_n$}
+From the above, $\bar{X}_n - \bar{Y}_n$ is of the form of a normal random variable with mean $\mu_X-\mu_Y$ and variance $\frac{1}{n_1}\sigma_X^2 + \frac{1}{n_2}\sigma_Y^2$.
 \end{document}

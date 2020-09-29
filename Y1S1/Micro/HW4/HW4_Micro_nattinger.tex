@@ -1,0 +1,105 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW4}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Let $A,B \subset X$, and let $x,y\in A\cap B.$ Let $x \in C(A),y \in C(B)$. Then, $x \succeq y,y \succeq x$ because $y\in A,x \in B$. Then, $\forall z\in A$, $y\succeq x \succeq z \Rightarrow y \in C(A)$ by transitivity. Similarly, $\forall z \in B, x\succeq y \succeq z \Rightarrow x \in C(B)$ by transitivity. Therefore, $C(\cdot)$ satisfies WARP.
+  
+\section{Question 2}
+Let $C(\cdot)$ satisfy WARP. 
+
+Let $x,y \in A.$ Then either $x\in C(\{ x,y\})$ or $y\in C(\{ x,y\})$ because $C$ is nonempty so $x\succeq y$ or $y \succeq x$. Thus, $\succeq$ is complete.
+
+Let $x,y,z \in X$ such that $x\succeq y,y\succeq z.$ Then, $\exists A,B\subset X s.t. x,y\in A, x \in C(A);y,z\in B, y \in C(B).$ Assume for the purpose of contradiction that $z\succ x$. Then, $z\in C(A\cup B), y\in C(B) \Rightarrow y \in C(A \cup B)$ by WARP, and similarly by WARP $x \in C(A\cup B).$ Then, $x\sim z$ which is a contradiction.
+
+Let $A\subset X$ and define the choice rule implied by $\succeq$ to be $C^I(A) := \{x\in A : x \succeq y \forall y \in A \}$. Let $x \in C^I(A).$ Then, $\forall y \in A, x \succeq Y \Rightarrow x \in C(A) \Rightarrow C(A)\subseteq C^I(A)$. Now let $x \in C(A).$ Since $x\in C(A)$ then $x\in A$. Then, $A$ is nonempty. For any $y \in A, x,y\in A$ and $x\in C(A)$ imply $ x\succeq y \Rightarrow x \in C^I(A) \Rightarrow C^I(A) \subseteq C(A)\Rightarrow C^I(A) = C(A).$ 
+\section{Question 3}
+\subsection{Show that the induced choice rule is nonempty.}
+We fix finite $X$. Let $A \subseteq A$ have one element, $a$. Then, $C(A) = a$ because $a\succeq a$.
+
+Now assume $A_{n+1}\subseteq X$ has $n+1$ elements, and that $C(A_n)$ is nonempty for any $A_n \subset X$ where $A_n$ contains $n$ elements. Then, for any $a \in A_{n+1}, C(A_{n+1} \setminus \{ a\})$ is nonempty so let $c \in  C(A_{n+1} \setminus \{ a\}).$ Then, either $a \succeq c \Rightarrow a \in C(A_{n+1})$ or $c\succeq a \Rightarrow c \in C(A_{n+1})$ by completeness. In either case, $C(A_{n+1})$ is nonempty.
+\subsection{Show that a utility representation exists.}
+Assume $X$ has one element, $x$. Then we can set $u(x) = 1$ so immediately $\forall x,y \in X, u(x) = u(y) = 1$ and $x = y$ so $\succeq$ can be represented by a utility representation with range $\{ 1\}$.
+
+Assume that for all $X_n$ with $n$ elements, $\succeq$ can be represented by a utility representation with range $\{ 1 ,\dots, n\}$. Now, let $X_{n+1}$ have $n+1$ elements. Then, let $x\in C(X_{n+1}).$ $X_{n+1}\setminus x$ can be represented by a utility representation with range  $\{ 1 ,\dots, n\}$. Denote this representation as $u$. For each element $y$ of $X_{n+1}\setminus \{x\}$, either $x \succ y$ or $y \succeq x.$ Now define $v$ as the following:
+\begin{equation*}
+v(z) = \begin{cases}u(z), z \in X_{n+1}\setminus \{x\} \\  n+1, z=x \end{cases}
+\end{equation*} 
+Now, let $a,b\in X_{n+1}.$ If $a,b \in X_{n+1} \setminus \{x\}$, $v(a)=u(a),v(b)=u(b)$ so $a\succeq b$ iff $u(a)\geq u(b).$ Otherwise, one or both of $a,b$ is $x$. WLOG, say $a=x$.  Then $a\in C(X_{n+1})$ so $a\succeq b$, $v(a)\geq v(b)$ so the iff required for preferences to be represented by a utility function is trivially satisfied. Therefore, $v$ is a utility representation with range $\{ 1,\dots,n+1\}$. Therefore, a utility representation exists.
+\end{document}
