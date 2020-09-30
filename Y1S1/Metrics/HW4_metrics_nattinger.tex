@@ -106,21 +106,25 @@ E[\hat{\mu}_k] &= E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right] = \frac{1}{n}\sum
 \end{align*}
 Thus, $\hat{\mu}_k$ is an unbiased estimator for $\mu_k$.
 \section{Question 3}
-Define $\hat{M}_k:= \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k$. This estimator is biased, which can be seen from the fact that $\hat{M}_2 = \hat{\sigma}^2 \neq s_{n}^2$, so $\hat{M}_2$ is not an unbiased estimator for $M_2 = \sigma^2$. There exists no general formula for an unbiased estimator of $M_k.$
+Define $\hat{m}_k:= \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k$. This estimator is biased, which can be seen from the fact that $\hat{m}_2 = \hat{\sigma}^2 \neq s_{n}^2$, so $\hat{m}_2$ is not an unbiased estimator for $m_2 = \sigma^2$. There exists no general formula for an unbiased estimator of $m_k,k>3$ to the best of my knowledge.
 \section{Question 4}
 %\begin{align*}
 %E[(\hat{\mu}_k - \mu)^2] = E\left[\left(  \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^k - \mu\right)^2\right]
 %\end{align*}
 %other way?
+%\begin{align*}
+%%E[(\hat{\mu}_k - E[\hat{\mu}_k])^2] &=  E\left[\left( \frac{1}{n}\sum_{i=1}^{n}X_i^k\right)^2\right] - E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right]^2 \\
+%%&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^k\right)^2\right] - \mu_k^2 \\
+%%&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^{2k}\right)+\sum_{1\leq i<j\leq n}X_i^k X_j^k\right] - \mu_k^2\\
+%%&= \frac{1}{n^2}\left(\left(\sum_{i=1}^{n}E(X_i^{2k})\right) + \left(\sum_{1\leq i<j\leq n}E(X_i^k X_j^k)\right) -  \mu_k^2\right) \\
+%%&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\sum_{1\leq i<j\leq n}E(X_i^k)E(X_j^k)\right) -  \mu_k^2\right) \\
+%%&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\frac{n!}{2(n-2)!}\right)\mu_k^2 -  \mu_k^2\right)  = \frac{1}{n}\mu_{2k} + \left(\frac{n-1}{2n} - \frac{1}{n}\right)\mu_k^2\\
+%%&= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2\\
+%%\Rightarrow Var(\hat{\mu}_k) &= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2
+%\end{align*}
 \begin{align*}
-E[(\hat{\mu}_k - E[\hat{\mu}_k])^2] &=  E\left[\left( \frac{1}{n}\sum_{i=1}^{n}X_i^k\right)^2\right] - E\left[\frac{1}{n}\sum_{i=1}^{n}X_i^k\right]^2 \\
-&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^k\right)^2\right] - \mu_k^2 \\
-&= \frac{1}{n^2}E\left[\left(\sum_{i=1}^{n}X_i^{2k}\right)+\sum_{1\leq i<j\leq n}X_i^k X_j^k\right] - \mu_k^2\\
-&= \frac{1}{n^2}\left(\left(\sum_{i=1}^{n}E(X_i^{2k})\right) + \left(\sum_{1\leq i<j\leq n}E(X_i^k X_j^k)\right) -  \mu_k^2\right) \\
-&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\sum_{1\leq i<j\leq n}E(X_i^k)E(X_j^k)\right) -  \mu_k^2\right) \\
-&= \frac{1}{n^2}\left(n\mu_{2k} + \left(\frac{n!}{2(n-2)!}\right)\mu_k^2 -  \mu_k^2\right)  = \frac{1}{n}\mu_{2k} + \left(\frac{n-1}{2n} - \frac{1}{n}\right)\mu_k^2\\
-&= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2\\
-\Rightarrow Var(\hat{\mu}_k) &= \frac{1}{n}\mu_{2k} + \left(\frac{n-3}{2n}\right)\mu_k^2
+Var(\hat{\mu}_k) &= \frac{1}{n^2}\sum_{i=1}^n Var(X_i^k) = \frac{1}{n}(E[X_i^{2k}] - E[X_i^k]^2)\\
+&= \frac{1}{n}(\mu_{2k} - \mu_k^2).
 \end{align*}
 \section{Question 5}
 Note that $f(x) = x^2$ is convex. By Jensen's inequality,
@@ -151,12 +155,23 @@ so $E[s_n]\leq \sigma$ as both are nonnegative.
 %&= \frac{n!}{2n^2(n-2)!} \mu\sigma^2+\frac{1}{n^2} \sum_{i=1}^{n}E\left[X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu \\
 %&= \frac{n-1}{2n} \mu\sigma^2+\frac{1}{n^2} \sum_{i=1}^{n}E\left[X_i(X_i - \mu)^2\right]  - \frac{1}{n}E\left[\bar{X}_n(\bar{X}_n - \mu)^2 \right]- \frac{n-1}{n}\sigma^2\mu 
 %\end{align*}
+%\begin{align*}
+%Cov(\hat{\sigma}^2,\bar{X}_n) &= Cov\left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\frac{1}{n}\sum_{i=1}^{n}X_i\right) \\
+%&= \frac{1}{n^2}Cov\left(\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\sum_{i=1}^{n}X_i\right) \\
+%&= \frac{1}{n^2}\sum_{i=1}^{n}Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) %&= \frac{1}{n^2}\sum_{i=1}^{n}\left(Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) + Cov\left( \right) \right)
+%\end{align*}
+%This question is far from solved.
 \begin{align*}
-Cov(\hat{\sigma}^2,\bar{X}_n) &= Cov\left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\frac{1}{n}\sum_{i=1}^{n}X_i\right) \\
-&= \frac{1}{n^2}Cov\left(\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2,\sum_{i=1}^{n}X_i\right) \\
-&= \frac{1}{n^2}\sum_{i=1}^{n}Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) %&= \frac{1}{n^2}\sum_{i=1}^{n}\left(Cov\left(\sum_{j=1}^{n}(X_j - \mu)^2- ( \bar{X}_{n} - \mu)^2,X_i\right) + Cov\left( \right) \right)
+Cov(\hat{\sigma}^2,\bar{X}_n) &= E[\hat{\sigma}^2( \bar{X}_n - E\bar{X}_n)] \\
+&= E\left[ \left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2\right) ( \bar{X}_n - \mu)\right]\\
+&= \frac{1}{n^2}E\left[ \left(\sum_{i=1}^{n}(X_i - \mu)^2\right) \left( \sum_{i=1}^n X_i - \mu \right) \right] - E[ ( \bar{X}_n - \mu)^3] \\
+&= \frac{1}{n^2} \left(\sum_{i=1}^{n}E\left[(X_i - \mu)^3\right]\right) +  \frac{1}{n^2} \left( \sum_{1\leq i<j \leq n}\left[ (X_i - \mu)^2(X_j - \mu) \right]\right) - E[ ( \bar{X}_n - \mu)^3] \\
+&= \frac{1}{n} E\left[(X_i - \mu)^3\right]  - E[ ( \bar{X}_n - \mu)^3] \\
+&= \frac{1}{n} E\left[(X_i - \mu)^3\right]  \\ &-  \frac{1}{n^3}\left(\sum_{i=1}^nE[(X_i - \mu)^3] + 3\sum_{i \neq j}E[(X_i - \mu)^2(X_j - \mu)] + 3\sum_{i\neq j\neq k}E[(X_i - \mu)(X_j - \mu)(X_k - \mu)]\right)\\
+&= \frac{1}{n} E\left[(X_i - \mu)^3\right]  -  \frac{1}{n^2}E[(X_i - \mu)^3] \\
+&= \left( \frac{1}{n} - \frac{1}{n^2}\right)E[(X_i - \mu )^3]
 \end{align*}
-This question is far from solved.
+This quantity will be $0$ when $X_i$ has no skewness.
 \section{Question 8}
 \subsection{Find $E[\bar{X}_n]$}
 \begin{align*}
@@ -164,12 +179,16 @@ E[\bar{X}_n] &= E\left[\frac{1}{n} \sum_{i=1}^{n} X_i \right] = \frac{1}{n}\sum_
 &= \frac{1}{n}\sum_{i=1}^{n} \mu_i.
 \end{align*}
 \subsection{Find $Var(\bar{X}_n)$.}
+%\begin{align*}
+%Var(\bar{X}_n) &= E[\bar{X}_n^2] - (E\bar{X}_n)^2 = E\left[\left(\frac{1}{n} \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
+%&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
+%&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i^2\right) + 2\left(\sum_{1\leq i<j \leq n} X_iX_j\right)  \right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
+%&= \frac{1}{n^2}\left( \sum_{i=1}^{n} EX_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} EX_iX_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
+%&= \frac{1}{n^2}\left( \sum_{i=1}^{n} \sigma_i^2 + \mu_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} \mu_i \mu_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2.
+%\end{align*}
 \begin{align*}
-Var(\bar{X}_n) &= E[\bar{X}_n^2] - (E\bar{X}_n)^2 = E\left[\left(\frac{1}{n} \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
-&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i\right)^2\right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2 \\
-&= \frac{1}{n^2}E\left[\left( \sum_{i=1}^{n} X_i^2\right) + 2\left(\sum_{1\leq i<j \leq n} X_iX_j\right)  \right]  - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
-&= \frac{1}{n^2}\left( \sum_{i=1}^{n} EX_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} EX_iX_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2\\
-&= \frac{1}{n^2}\left( \sum_{i=1}^{n} \sigma_i^2 + \mu_i^2\right) + \frac{2}{n^2}\left(\sum_{1\leq i<j \leq n} \mu_i \mu_j\right)    - \left(\frac{1}{n}\sum_{i=1}^{n}  \mu_i\right)^2.
+Var(\bar{X}_n) &= \frac{1}{n^2}Var(\sum_{i=1}^n X_i) = \frac{1}{n^2}\sum_{i=1}^n Var(X_i) \\
+&=  \frac{1}{n^2}\sum_{i=1}^n \sigma_i^2.
 \end{align*}
 \section{Question 9}
 \begin{align*}
@@ -184,7 +203,7 @@ Var(Q) &= E[Q^2] - E[Q]^2 = E\left[\left(\sum_{i=1}^r X_i^2 \right)^2\right] - r
 &= 3r + 2\left( \frac{r!}{2(r-2)!}\right) -r^2 = 3r + r(r-1) -r^2 \\
 &= 2r.
 \end{align*}
-Note: we calculated $E[x^4]=3$ for a standard normal in the previous problem set.
+Note: we calculated $E[X^4]=3$ for $X \sim N(0,1)$ in the previous problem set.
 \section{Question 10}
 We will first show that a sum of independent normal random variables is normal. Let $Z_i\sim N(\mu_i,\sigma_i^2) \forall i \in [1,\dots,n]$ for some $n \in \mathbb{N}.$ Then the MGF of $Z_i$ is $M_{Z_i}(t) = exp(\mu_i t + \frac{\sigma_i^2t^2}{2})$.\footnote{$M_{Z_i}(t) = \int_{-\infty}^{\infty}exp(xt)\frac{1}{\sqrt{2\pi\sigma_i^2}}exp(-(x-\mu_i)^2/(2\sigma_i^2))dx.$ Define $z = (x-\mu_i)/\sigma_i.$ Then $M_{Z_i}(t) =exp(\mu_it)\int_{-\infty}^{\infty}exp(z\sigma t)\frac{1}{\sqrt{2\pi\sigma_i^2}} exp(-z^2/2) (dx/dz)dz = exp(\mu_it)\int_{-\infty}^{\infty}exp(z\sigma t)\frac{1}{\sqrt{2\pi}} exp(-z^2/2)dz  = exp(\mu_it)exp(\sigma_i^2t^2/2) = exp(\mu_it + \frac{\sigma_i^2t^2}{2}).$} Then,\footnote{$M_{\sum_{i=1}^n{Z_i}}(t) = E[exp(\sum_{i=1}^n tZ_i)] = E[\prod_{i=1}^{n}exp(tZ_i)] = \prod_{i=1}^{n}E[exp(tZ_i)] = \prod_{i=1}^{n}M_{Z_i}(t)$}
 \begin{align*}
