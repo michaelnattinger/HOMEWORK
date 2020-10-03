@@ -91,13 +91,13 @@ Let $x,y,z \in X$ such that $x\succeq y,y\succeq z.$ Then, $\exists A,B\subset X
 Let $A\subset X$ and define the choice rule implied by $\succeq$ to be $C^I(A) := \{x\in A : x \succeq y \forall y \in A \}$. Let $x \in C^I(A).$ Then, $\forall y \in A, x \succeq Y \Rightarrow x \in C(A) \Rightarrow C(A)\subseteq C^I(A)$. Now let $x \in C(A).$ Since $x\in C(A)$ then $x\in A$. Then, $A$ is nonempty. For any $y \in A, x,y\in A$ and $x\in C(A)$ imply $ x\succeq y \Rightarrow x \in C^I(A) \Rightarrow C^I(A) \subseteq C(A)\Rightarrow C^I(A) = C(A).$ 
 \section{Question 3}
 \subsection{Show that the induced choice rule is nonempty.}
-We fix finite $X$. Let $A \subseteq A$ have one element, $a$. Then, $C(A) = a$ because $a\succeq a$.
+We fix finite $X$. Let $A \subseteq X$ have one element, $a$. Then, $C(A) = a$ because $a\succeq a$.
 
 Now assume $A_{n+1}\subseteq X$ has $n+1$ elements, and that $C(A_n)$ is nonempty for any $A_n \subset X$ where $A_n$ contains $n$ elements. Then, for any $a \in A_{n+1}, C(A_{n+1} \setminus \{ a\})$ is nonempty so let $c \in  C(A_{n+1} \setminus \{ a\}).$ Then, either $a \succeq c \Rightarrow a \in C(A_{n+1})$ or $c\succeq a \Rightarrow c \in C(A_{n+1})$ by completeness. In either case, $C(A_{n+1})$ is nonempty.
 \subsection{Show that a utility representation exists.}
 Assume $X$ has one element, $x$. Then we can set $u(x) = 1$ so immediately $\forall x,y \in X, u(x) = u(y) = 1$ and $x = y$ so $\succeq$ can be represented by a utility representation with range $\{ 1\}$.
 
-Assume that for all $X_n$ with $n$ elements, $\succeq$ can be represented by a utility representation with range $\{ 1 ,\dots, n\}$. Now, let $X_{n+1}$ have $n+1$ elements. Then, let $x\in C(X_{n+1}).$ $X_{n+1}\setminus x$ can be represented by a utility representation with range  $\{ 1 ,\dots, n\}$. Denote this representation as $u$. For each element $y$ of $X_{n+1}\setminus \{x\}$, either $x \succ y$ or $y \succeq x.$ Now define $v$ as the following:
+Assume that for all $X_n$ with $n$ elements, $\succeq$ can be represented by a utility representation with range $\{ 1 ,\dots, n\}$. Now, let $X_{n+1}$ have $n+1$ elements. Then, let $x\in C(X_{n+1}).$ $X_{n+1}\setminus \{x \}$ can be represented by a utility representation with range  $\{ 1 ,\dots, n\}$. Denote this representation as $u$. For each element $y$ of $X_{n+1}\setminus \{x\}$, $x \succeq y$. Now define $v$ as the following:
 \begin{equation*}
 v(z) = \begin{cases}u(z), z \in X_{n+1}\setminus \{x\} \\  n+1, z=x \end{cases}
 \end{equation*} 

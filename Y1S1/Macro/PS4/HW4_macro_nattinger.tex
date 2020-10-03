@@ -87,7 +87,7 @@ The social planner maximizes total utility subject to the resource constraint. T
 \end{align*}
 The resource constraint inequality will bind as utility is strictly increasing in consumption. Then, we can substitute $c_t^t = w_1+(w_2-c_t^{t-1})/(1+n)$ into our optimization problem, as well as our functional form for utility, and we are left with the following:
 \begin{align*}
-&\max_{c_{i}^{i-1}, i \in \mathbb{N}} \text{ln }c_1^0 + \sum_{t=1}^{\infty} \text{ln }(w_1+(w_2-c_t^{t-1})/(1+n) + \text{ln }c_{t}^{t-1}
+&\max_{c_{i}^{i-1}, i \in \mathbb{N}} \text{ln }c_1^0 + \sum_{t=2}^{\infty} \text{ln }(w_1+(w_2-c_t^{t-1})/(1+n) + \text{ln }c_{t}^{t-1}
 \end{align*}
 Taking first order conditions with respect to $c_t^{t-1}$, $\frac{-1}{(1+n)w_1+w_2-c_t^{t-1}} + \frac{1}{c_t^{t-1}} = 0 \\ \Rightarrow c_t^{t-1} = \frac{w_1(1+n)+w_2}{2}, c_t^t = \frac{w_1(1+n)+w_2}{2(1+n)} \text{ } \forall t \in \mathbb{N}.$ 
 \subsection{Set up the competitive equilibrium}
@@ -176,10 +176,12 @@ M_{t+1}^t &= \frac{(1+z)^{t-1}}{(1+n)^t}\bar{M}_1\\
 p_t &= \left( \frac{1+z}{1+n}\right)^{t-1} \frac{2\bar{M}_1}{w_1(1+n) - w_2}
 \end{align*}
 
-\subsection{Does the stationary monetary equilibrium pareto dominate autarky?}
-Note that our allocation from the stationary monetary equilibrium matches that of the social planner's allocation. The social planner's allocation is pareto optimal, and thus so is our stationary monetary equilibrium. Since the autarky allocation was a possible choice for our social planner, but was not chosen, the social planner allocation, and therefore the equivalent stationary monetary equilibrium, dominates the autarky equilibrium.
+Our gross real rate of return is $\bar{q} = \frac{1+n}{(1+z)}$. If the population grows faster than money then the net return will be positive. Essentially, what is happening is that, if the population size is increasing at a rate that is higher than the money supply growth rate then there will be fewer currency per agents in each generation. Since consumption while each generation is old does not depend on time in the steady state, the agents must be buying the same amount of the consumable good with less units of currency in each generation, so the price level must be declining in each period to exactly offset the effect of the shrinking per-capita money supply.
 
-Furthermore, our utility function is log, which is strictly concave. Comparing:
+\subsection{Does the stationary monetary equilibrium pareto dominate autarky?}
+%Note that our allocation from the stationary monetary equilibrium matches that of the social planner's allocation. The social planner's allocation is pareto optimal, and thus so is our stationary monetary equilibrium. Since the autarky allocation was a possible choice for our social planner, but was not chosen, the social planner allocation, and therefore the equivalent stationary monetary equilibrium, dominates the autarky equilibrium.
+
+Our utility function is log, which is strictly concave. Comparing:
 \begin{align*}
 \text{SPP,CME: }& c_t^t = \frac{w_1}{2} + \frac{w_2}{2(1+n)},  c_{t+1}^t = \frac{w_2}{2} + \frac{w_1(1+n)}{2}, c_1^0 = w_2 + \frac{\bar{M_1}}{p_1},\\
 \text{Aut: }& c_t^t = w_1, c_{t+1}^t = w_2, c_1^0 = w_2 \\

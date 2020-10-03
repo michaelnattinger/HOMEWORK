@@ -1,0 +1,97 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS5}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Working-age agents maximize their value subject to their budget constraint:
+\begin{align*}
+V_j(k) = \max_{k',l}\{ u^W_j(c,l) + \beta V_j(k_{t+1})\}
+\text{s.t. } c = (1-\tau) w e l + (1+r)k - k' 
+\end{align*}
+We will take first order conditions to solve for $l$ as desired.
+\begin{align*}
+\frac{\partial V_j}{\partial l} &= 0\\ \Rightarrow (c^\gamma(1-l)^{1-\gamma})^{-\sigma}\left( \gamma c^{1-\gamma}\frac{\partial c}{\partial l}(1-l)^{1-\gamma} - c^{\gamma}(1-l)^{-\gamma}(1-\gamma)\right) &= 0 \\
+\Rightarrow \gamma\left( \frac{1-l}{c}\right)^{1-\gamma}(1-\tau)w e &= \left( \frac{1-l}{c}\right)^{-\gamma}(1-\gamma) \\
+\Rightarrow \frac{\gamma}{1-\gamma}(1-l)(1-\tau)we_j &= c = (1-\tau)we_jl + (1+r)k - k' \\
+\Rightarrow \frac{\gamma}{1-\gamma}(1-\tau)we_j  &= \left(\frac{\gamma}{1-\gamma}+1\right)(1-\tau)we_jl + (1+r)k - k' \\
+\Rightarrow \frac{\gamma}{1-\gamma}(1-\tau)we_j - [ (1+r)k - k'] &= \left(\frac{1}{1-\gamma}\right)(1-\tau)we_jl \\
+\Rightarrow \frac{\gamma(1-\tau)we_j - (1-\gamma)[(1+r)k - k']}{(1-\tau)we_j} &=  l
+\end{align*}
+
+\end{document}

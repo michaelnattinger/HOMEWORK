@@ -165,7 +165,7 @@ so $E[s_n]\leq \sigma$ as both are nonnegative.
 Cov(\hat{\sigma}^2,\bar{X}_n) &= E[\hat{\sigma}^2( \bar{X}_n - E\bar{X}_n)] \\
 &= E\left[ \left(\frac{1}{n}\sum_{i=1}^{n}(X_i - \mu)^2- ( \bar{X}_{n} - \mu)^2\right) ( \bar{X}_n - \mu)\right]\\
 &= \frac{1}{n^2}E\left[ \left(\sum_{i=1}^{n}(X_i - \mu)^2\right) \left( \sum_{i=1}^n X_i - \mu \right) \right] - E[ ( \bar{X}_n - \mu)^3] \\
-&= \frac{1}{n^2} \left(\sum_{i=1}^{n}E\left[(X_i - \mu)^3\right]\right) +  \frac{1}{n^2} \left( \sum_{1\leq i<j \leq n}\left[ (X_i - \mu)^2(X_j - \mu) \right]\right) - E[ ( \bar{X}_n - \mu)^3] \\
+&= \frac{1}{n^2} \left(\sum_{i=1}^{n}E\left[(X_i - \mu)^3\right]\right) +  \frac{1}{n^2} \left( \sum_{i\neq j }E\left[ (X_i - \mu)^2(X_j - \mu) \right]\right) - E[ ( \bar{X}_n - \mu)^3] \\
 &= \frac{1}{n} E\left[(X_i - \mu)^3\right]  - E[ ( \bar{X}_n - \mu)^3] \\
 &= \frac{1}{n} E\left[(X_i - \mu)^3\right]  \\ &-  \frac{1}{n^3}\left(\sum_{i=1}^nE[(X_i - \mu)^3] + 3\sum_{i \neq j}E[(X_i - \mu)^2(X_j - \mu)] + 3\sum_{i\neq j\neq k}E[(X_i - \mu)(X_j - \mu)(X_k - \mu)]\right)\\
 &= \frac{1}{n} E\left[(X_i - \mu)^3\right]  -  \frac{1}{n^2}E[(X_i - \mu)^3] \\
@@ -192,8 +192,8 @@ Var(\bar{X}_n) &= \frac{1}{n^2}Var(\sum_{i=1}^n X_i) = \frac{1}{n^2}\sum_{i=1}^n
 \end{align*}
 \section{Question 9}
 \begin{align*}
-E[Q] &= E\left[ \sum_{i=1}^r X_i^2 \right] = \sum_{i=1}^n E\left[ X_i^2 \right]  \\
-&=  \sum_{i=1}^r \mu_X^2 + \sigma_X^2 = \sum_{i=1}^n 0^2 + 1^2\\
+E[Q] &= E\left[ \sum_{i=1}^r X_i^2 \right] = \sum_{i=1}^r E\left[ X_i^2 \right]  \\
+&=  \sum_{i=1}^r \mu_X^2 + \sigma_X^2 = \sum_{i=1}^r 0^2 + 1^2\\
 &=  r.
 \end{align*}
 \begin{align*}
