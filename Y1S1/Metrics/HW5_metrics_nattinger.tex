@@ -1,0 +1,143 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics HW5}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{$a_n = 1/n$}
+Let $\epsilon>0$. Let $N$ be the smallest integer such that $N>1/\epsilon.$ Then, $|a_n -0| = 1/n<\epsilon $ $\forall n>N.$
+\subsection{$a_n = \frac{1}{n}sin(n\pi/2)$}
+Let $\epsilon>0$. Let $N$ be the smallest integer such that $N>1/\epsilon.$ Then, $|a_n -0| = |\frac{1}{n}sin(n\pi/2)|\leq \frac{1}{n}<\epsilon$ $\forall n>N$.
+
+\section{Question 2}
+\subsection{Does $X_n\rightarrow_p 0$ as $n \rightarrow 0$?}
+Let $\epsilon>0$. Let $N$ be the smallest integer such that $N>\epsilon.$ Then, for $n>N,$ $P(|X_n|\geq \epsilon) = 2/n$  so $\lim\limits_{n\rightarrow \infty}P(|X_n|\geq \epsilon) = \lim\limits_{n\rightarrow \infty} 2/n =  0 $, so $X_n \rightarrow_p 0.$%$P(|X_n - 0|\geq \epsilon) = 0 as n\rightarrow \infty$
+\subsection{Calculate $E(X_n)$.}
+$E(X_n) = -n(1/n) +0(1-2/n) + n(1/n) = 0.$
+\subsection{Calculate $Var(X_n)$.}
+$Var(X_n) = E(X_n^2) - E(X_n)^2 = (n^2)(1/n) + (0^2)(1-2/n) + (n^2)(1/n) -0^2 = 2n.$
+\subsection{Calculate $X_n$ for the next distribution.}
+$E(X_n) = (0)(1-1/n) + (n)(1/n) =1.$
+\subsection{Conclude that $\dots$.}
+Note that $\lim\limits_{n\rightarrow \infty}E(X_n) = \lim\limits_{n\rightarrow \infty}1 = 1.$ Now let $\epsilon >0$. Note that $\lim\limits_{n\rightarrow \infty}P(|X_n-0|<\epsilon) = \lim\limits_{n\rightarrow \infty}1/n$ for $n>N$ where $N$ is the smallest integer such that $N>1/\epsilon$. Thus, $\lim\limits_{n\rightarrow \infty}P(|X_n-0|<\epsilon) = \lim\limits_{n\rightarrow \infty}1/n = 0$ so $X_n \rightarrow_p 0$, yet $E(X_n) \rightarrow 1.$
+
+\section{Question 3}
+\subsection{Show that $\bar{Y}^{*}$}
+$E(\bar{Y}^{*}) = E(\frac{1}{n}\sum_{i=1}^nw_iY_i) = \frac{1}{n}\sum_{i=1}^nw_iE(Y_i) =  \frac{1}{n}\sum_{i=1}^nw_i\mu =  \frac{\mu}{n}\sum_{i=1}^nw_i = \mu.$
+\subsection{Calculate $Var(\bar{Y}^{*})$} %Do what Alex did here
+$Var(\bar{Y}^{*}) =\frac{1}{n^2}Var(\sum_{i=1}^nw_iY_i)= \frac{1}{n^2}\sum_{i=1}^nw_i^2Var(Y_i) = \sigma_Y^2\frac{1}{n^2}\sum_{i=1}^nw_i^2$ where $\sigma_Y^2$ is the variance of each draw of $Y$.% E[\frac{1}{n}\sum_{i=1}^nw_iY_i]^2 - \mu^2 = \frac{1}{n^2}E[\sum_{i=1}^nw_i^2Y_i^2 +\sum_{i\neq j}w_iY_iw_jY_j] - \mu^2$
+\subsection{Show the first sufficient condition.}
+Let $\frac{1}{n^2}\sum_{i=1}^n w_i^2 \rightarrow 0.$ Let $\epsilon>0$. By Chebyshev's inequality, $P(|\bar{Y}^{*}-\mu|\geq \epsilon) \leq \frac{\sigma_Y^2\sum_{i=1}^nw_i^2}{n^2\epsilon^2} \rightarrow_{n\rightarrow \infty}0 $ so $\lim_{n\rightarrow \infty} P(|\bar{Y}^{*}-\mu|\geq \epsilon) = 0.$
+
+\subsection{Show the second sufficient condition.}
+Now, let $\max_{i\leq n}w_i/n \rightarrow 0$. Let $\epsilon>0$. By Chebyshev's inequality, $P(|\bar{Y}^{*}-\mu|\geq \epsilon) \leq \frac{\sigma_Y^2\sum_{i=1}^nw_i^2}{n^2} $\\$\leq \frac{\sigma_Y^2\sum_{i=1}^nw_i \max_{j\leq n}w_j}{n^2} = \frac{\sigma_Y^2\max_{j\leq n}w_j}\sum_{i=1}^nw_i {n^2} =  \frac{\sigma_Y^2\max_{j\leq n}w_j}{n} \rightarrow_{n\rightarrow \infty} 0. $
+
+\section{Question 4}
+\subsection{$\frac{1}{n}\sum_{i=1}^n X_i^2$}
+Assuming the moment exists, by the WLLN $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarrow_p E[X_i^2]$.
+\subsection{$\frac{1}{n}\sum_{i=1}^n X_i^3$}
+Assuming the moment exists, by the WLLN $\frac{1}{n}\sum_{i=1}^n X_i^3 \rightarrow_p E[X_i^3]$.
+\subsection{$\max_{i\leq n}X_i$ }
+We cannot say anything using WLLN or CMT. In general this may not converge.
+\subsection{$\frac{1}{n}\sum_{i=1}^n X_i^2 - (\frac{1}{n}\sum_{i=1}^n X_i)^2$}
+Assuming the necessary moments exist, by WLLN, $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarrow_p E[X_i^2], \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by continuity and the CMT, $\frac{1}{n}\sum_{i=1}^n X_i^2 - (\frac{1}{n}\sum_{i=1}^n X_i)^2 \rightarrow_p Var(X_i)$.
+\subsection{$\frac{\sum_{i=1}^n X_i^2 }{\sum_{i=1}^n X_i }$}
+Assuming the moments exist, by WLLN, $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarrow_p E[X_i^2], \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by continuity and the CMT,  $\frac{\sum_{i=1}^n X_i^2 }{\sum_{i=1}^n X_i }\rightarrow_p E[X_i^2]/E[X_i]. $
+\subsection{$\mathbb{1}(\sum_{i=1}^n X_i )$}
+By WLLN, $ \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by CMT $\mathbb{1}(\sum_{i=1}^n X_i ) \rightarrow_p \mathbb{1}(E[X_i]>0) $ unless $E[x_i]=0$ in which case the indicator function is not continuous at that point, and CMT cannot be applied.
+\section{Question 5}
+Note that $\hat{\mu} = exp(log(\hat{\mu})) = exp(log((\pi_{i=1}^n X_i)^{1/n})) = exp((1/n)\sum_{i=1}^nlog(X_i)).$ Due to continuity of log, exp on $(0,\infty)$, the WLLN and CMT gives us $\hat{\mu} =  exp((1/n)\sum_{i=1}^nlog(X_i)) \rightarrow_p exp(E(log(X_i))) = \mu$.
+\section{Question 6}
+\subsection{Find the natural moment estimator for $\mu_k$}
+Define $\hat{\mu}_k := \frac{1}{n}\sum_{i=1}^nX_i^k.$ By WLLN this is a consistent estimator for $\mu_k$.
+\subsection{Find the asymptotic distribution of $\sqrt{n}(\hat{\mu}_k - \mu)$ as $n\rightarrow \infty$.}
+Assuming the necessary moments exist, by CLT $Var(X_i^k) = E(X_i^{2k}) - (E(X_i^k))^2$ so \\$\sqrt{n}(\hat{\mu}_k - \mu_k) \rightarrow_d N(0,\mu_{2k} - \mu_k^2)$.
+
+\section{Question 7}
+\subsection{Find a consistent estimator}
+By continuity, assuming the moment exists, $\hat{m}_k = (\hat{\mu}_k)^{1/k}$ is a consistent estimator for $m_k$.
+\subsection{Find the distribution} %delta method
+Using the delta method, $\sqrt{n}(g(\hat{m}_k - m_k)) \rightarrow_{d}N(0,V)$ where $V = ((1/k)  (\mu_k)^{\frac{1-k}{k}})^2(\mu_{2k} - \mu_k^2) =\frac{1}{k^2} \mu_k^{2\frac{1-k}{k}}(\mu_{2k} - \mu_k^2 )$.
+\section{Question 8}
+\subsection{Use the Delta Method}
+Using the Delta Method, $\sqrt{n}(\hat{\beta} - \beta) \rightarrow_d N(0,V)$ where $V= 2\mu v^2$.
+\subsection{What happens when $\mu$ is 0?}
+If $\mu=0$ we get a degenerate normal with no variance; in the limit the distribution collapses into a unit point mass at 0.
+\subsection{Improve your answer.} 
+$\sqrt{n}\hat{\mu} \rightarrow_d N(0,v^2) \Rightarrow\sqrt{n}\hat{\mu}/v \rightarrow_d N(0,1)  \Rightarrow n\hat{\mu}^2/v^2 \rightarrow_d \chi^2_1  \Rightarrow n\hat{\mu}^2 \rightarrow_d v^2\chi^2_1 $
+\end{document}

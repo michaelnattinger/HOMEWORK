@@ -86,12 +86,60 @@ V_j(k) = \max_{k',l}\{ u^W_j(c,l) + \beta V_j(k_{t+1})\}
 \end{align*}
 We will take first order conditions to solve for $l$ as desired.
 \begin{align*}
-\frac{\partial V_j}{\partial l} &= 0\\ \Rightarrow (c^\gamma(1-l)^{1-\gamma})^{-\sigma}\left( \gamma c^{1-\gamma}\frac{\partial c}{\partial l}(1-l)^{1-\gamma} - c^{\gamma}(1-l)^{-\gamma}(1-\gamma)\right) &= 0 \\
+\frac{\partial V_j}{\partial l} &= 0\\ \Rightarrow (c^\gamma(1-l)^{1-\gamma})^{-\sigma}\left( \gamma c^{\gamma-1}\frac{\partial c}{\partial l}(1-l)^{1-\gamma} - c^{\gamma}(1-l)^{-\gamma}(1-\gamma)\right) &= 0 \\
 \Rightarrow \gamma\left( \frac{1-l}{c}\right)^{1-\gamma}(1-\tau)w e &= \left( \frac{1-l}{c}\right)^{-\gamma}(1-\gamma) \\
 \Rightarrow \frac{\gamma}{1-\gamma}(1-l)(1-\tau)we_j &= c = (1-\tau)we_jl + (1+r)k - k' \\
 \Rightarrow \frac{\gamma}{1-\gamma}(1-\tau)we_j  &= \left(\frac{\gamma}{1-\gamma}+1\right)(1-\tau)we_jl + (1+r)k - k' \\
 \Rightarrow \frac{\gamma}{1-\gamma}(1-\tau)we_j - [ (1+r)k - k'] &= \left(\frac{1}{1-\gamma}\right)(1-\tau)we_jl \\
-\Rightarrow \frac{\gamma(1-\tau)we_j - (1-\gamma)[(1+r)k - k']}{(1-\tau)we_j} &=  l
+\Rightarrow \frac{\gamma(1-\tau)we_j - (1-\gamma)[(1+r)k - k']}{(1-\tau)we_j} &=  l.
 \end{align*}
 
+\section{Question 2}
+Completed Matlab code is supplied with this solution. Note that it automatically loops through the non-social security and social security versions.
+\section{Question 3}
+\begin{itemize}
+\item
+The outermost loop iterates the entire procedure until either the maximum number of iterations is achieved, or until the model has converged (i.e. updated (labor) capital is within the tolerance of the old (labor) capital).
+\item
+The next loop goes through each old agent generation, one at a time. It begins with the oldest generation and procedes backwards in age, one generation at a time.
+\item 
+The next for loop iterates through assets that the agent will be given to hold today.
+\item
+The next loop loops through the assets that the agent will consider to hold tomorrow. The loop calculates the value from each combination of assets held today and tomorrow. There is an if clause at the end of this loop that stores the current optimal choice of savings conditional on the level of initial capital for this generation, which is updated if the program finds a new, better combination.
+\item Next, the program loops through the working households. it proceeds in a similar fashion, looping through possible asset combinations for today and tomorrow, calculating the value of each combination, and updating the optimal choice of saving for each initial capital level whenever it finds a combination that is better than the current best choice.
+\item Next, the program calculates and stores the optimal capital savings level for each generation, by working forwards, one generation at a time, starting from the first generation and finding the optimal savings of each generation given the capital level they are given by the previous generation (the first generation starts with no capital). Then the code calculates the labor supplied by each working-age generation.
+\item Outside of this loop, the program aggregates the labor supply and updates the guess on capital and labor demand according to the update rule (weighted average of old (labor, capital) guess and (labor, capital) supply implied by that guess).
+\end{itemize}
+\section{Question 4}
+
+\includegraphics{fig1}
+
+\includegraphics{fig2}
+
+The value function over $k$ for a retired agent at $j=50$ is increasing and concave.  The savngs function for a worker at age $20$ is increasing in $k$, but the net savings $k'-k$ is decreasing in $k$.
+
+\section{Question 5}
+
+\subsection{Is the economy efficient?}
+The interest rate (return on capital, $r=0.032$ without SS or $r=0.019$ with SS) is higher than the implicit return on social security (population growth rate, $n = 0.011$) so the economy is efficient.
+\subsection{How does the economy compare with and without SS?}
+
+The below table shows the difference in steady state values under social security and without.
+\begin{center}
+\input{table}
+\end{center}
+
+Capital increases as the agents must now save privately for retirement, rather than relying on the social security transfer. Labor increases a little bit without social security, as the workers no longer need to pay taxes on the wages they earn, and also because the higher capital increases the marginal productivity of labor.
+
+\subsection{Wealth profiles by age group}
+
+\includegraphics{fig3}
+
+Without social security, the agents are incentivized to save more so they will have more wealth to live off of once they retire. As a result, the agents' net worth is higher throughout their lives.
+
+\subsection{Newborn preference}
+The newborn would prefer to be born in a world without social security, as the value in period 1 is $-52.76$ without social security, but only $-54.61$ with social security. The difference is because the agent is taxed in the first period under social security, but is does not recieve the benefit of the social security transfer until much later.
+
+\subsection{Which is optimal overall?}
+Aggregate welfare decreases by moving to the world without social security, to $-36.0$ without from $-35.1$ with social security. Thus, the majority of people would not vote for social security to be removed.
 \end{document}
