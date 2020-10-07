@@ -1,0 +1,197 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW5}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{Part a}
+As $\alpha<1$, the marginal utility of consuming good $i$ goes to $\infty$ as $x_i$ goes to 0, so we will consume a positive amount of each good. As such, we can ignore the nonnegativity constraint. We proceed to solve the problem by taking first order conditions of the lagrangian:
+\begin{align*}
+\alpha x_i^{\alpha-1} =& p_i\lambda \Rightarrow x_i = \left(\frac{p_i\lambda}{\alpha}\right)^{\frac{1}{\alpha-1}}
+\end{align*}
+As preferences are LNS we know that the budget constraint holds with equality:
+\begin{align*}
+w &= \frac{p_1^{\frac{\alpha}{\alpha-1}}\lambda^{\frac{1}{\alpha-1}}}{\alpha^{\frac{1}{\alpha-1}}} + \frac{p_2^{\frac{\alpha}{\alpha-1}}\lambda^{\frac{1}{\alpha-1}}}{\alpha^{\frac{1}{\alpha-1}}} \Rightarrow \left(\frac{\lambda}{\alpha}\right)^{\frac{1}{\alpha-1}} = \frac{w}{p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}}\\
+\Rightarrow x_i &= p_i^{\frac{1}{\alpha-1}} \frac{w}{p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}}\\
+\Rightarrow v(p,w) &= \left( p_1^{\frac{1}{\alpha-1}} \frac{w}{p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}}\right)^{\alpha} + \left( p_2^{\frac{1}{\alpha-1}} \frac{w}{p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}}\right)^{\alpha} \\
+&= w^{\alpha} \frac{p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}}{\left( p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}}\right)^{\alpha}}\\
+&= w^{\alpha}\left( p_1^{\frac{\alpha}{\alpha-1}}+p_2^{\frac{\alpha}{\alpha-1}} \right)^{1-\alpha}.
+\end{align*}
+\subsection{Part B}
+Utility is linear in the consumption of each good. Furthermore, the marginal utility of consuming each good is 1, so the consumer will maximize utility by consuming their entire budget in the cheaper good. So, 
+\begin{align*}
+x_1 &= \begin{cases} \frac{w}{p_1} : p_1<p_2\\0: p_2>p_1 \\a: p_2=p_1  \end{cases} \\
+x_2 &= \begin{cases} \frac{w}{p_2} : p_1>p_2\\0: p_2<p_1 \\ a: p_2=p_1 \end{cases} \\
+v(p,w) &=  \begin{cases} \frac{w}{p_1} : p_1<p_2\\ \frac{w}{p_2}: p_1\geq p_2 \end{cases} 
+\end{align*}
+where $a,b\in \mathbb{R}_+ $ such that $a+b=w/p_1$.
+\subsection{Part C}
+The consumer will again choose to spend their entire budget on the cheapest good. This is because the marginal utility of consumption of the goods are $\alpha x_i^{\alpha-1}$ and $\alpha>1.$
+\begin{align*}
+x_1 &= \begin{cases} \frac{w}{p_1} : p_1<p_2\\0: p_2>p_1 \\ a: p_2=p_1 \end{cases} \\
+x_2 &= \begin{cases} \frac{w}{p_2} : p_1>p_2\\0: p_2<p_1 \\ b: p_2=p_1 \end{cases} \\
+v(p,w) &=  \begin{cases} \left(\frac{w}{p_1}\right)^{\alpha} : p_1<p_2\\ \left(\frac{w}{p_2}\right)^{\alpha}: p_1\geq p_2 \end{cases} 
+\end{align*}
+where $a,b\in \mathbb{R}_+ $ such that $a+b=w/p_1$.
+\subsection{Part D}
+The consumer will gain no extra utility by consuming more of one good than the other. So, the consumer will always consume an equal amount of the two goods, and will always spend their entire budget. Thus,
+\begin{align*}
+x_1 = x_2 &= \frac{w}{p_1+p_2}\\
+v(p,w) &=\frac{w}{p_1+p_2}
+\end{align*}
+\subsection{Part E}
+The consumer will always consume the same amount of $(x_1+x_2)$ as they do $(x_3 + x_4)$. Within each pair $(x_1,x_2),(x_3,x_4)$ the consumer will buy only the cheapest of the pair. Let $x_m,x_n$ be the consumption of cheaper of the first and second good, and the cheaper of the third and fourth good respectively, with prices $p_m,p_n$. Then,\\ $x_m = x_n = \frac{w}{p_m + p_n},v(p,w) = \frac{w}{p_m + p_n}.$
+\subsection{Part F}
+The consumer will always consume equal amounts of either goods 1 and 2, or goods 3 and 4, whichever is jointly cheaper. The consumer will spend their entire amount on the cheaper bundle and will not consume any of the other bundle. Thus,\\
+$x(p,w) = \begin{cases} \left( \frac{w}{p_1+p_2},\frac{w}{p_1+p_2},0,0\right) : p_1+p_2<p_3+p_4 \\ \left( 0,0,\frac{w}{p_3+p_4},\frac{w}{p_3+p_4}\right) : p_1+p_2>p_3+p_4 \end{cases}$,
+$v(p,w) = \frac{w}{\min \{ p_1+p_2,p_3+p_4\}}$.
+\section{Question 2}
+\subsection{Part A}
+\begin{itemize}
+\item 
+The consumer will consume the cheapest good only, and will spend their entire budget on that good. $x_i(p,w) = \begin{cases}w/p_i: p_i = \min\limits_j p_j\\ 0: \text{otherwise}\end{cases}.$
+\item
+We will optimize log utility to separate the terms. We will always consume a nonzero amount of each good as otherwise we will have 0 utility, so we can ignore nonnegativity conditions and take first order conditions of the lagrangian with respect to each good:
+\begin{align*}
+\frac{a_i}{x_i} = \lambda p_i \Rightarrow p_ix_i = \frac{a_i}{\lambda}.
+\end{align*}
+Plugging into our budget constraint, $w = \sum_i (a_i/\lambda) \Rightarrow  \lambda = 1/w.$ Plugging back into the first order conditions we now have:
+\begin{align*}
+x_i = \frac{wa_i}{p_i}.
+\end{align*}
+\item
+The consumer will consume such that they equalize $\frac{x_i}{a_i} = \frac{x_j}{a_j} \forall i,j \in \{1,\dots,k\}.$ From our budget constraint we have $w = \sum_i p_ix_i = \sum_i p_i\frac{x_i}{a_i}a_i = \frac{x_j}{a_j}\sum_i p_ia_i \Rightarrow x_j = \frac{w a_j}{\sum_i p_ia_i}.$
+\end{itemize}
+\subsection{Part B}
+Let $s>1$. Then, we will apply the hint and maximize $\sum_i a_i^{1/s}x_i^{\frac{s-1}{s}}$.  As $\frac{s-1}{s}<1$ our marginal utility of consuming each good is infinite when our consumption of the good is 0, so the optimal consumption of each good is nonzero. Thus, we ignore non-negativity constraints and the first order conditions of our lagrangian yield the following:
+\begin{align*}
+\frac{s-1}{s}a_i^{1/s}x_i^{\frac{-1}{s}} = p_i\lambda \\
+\Rightarrow x_i = \left(\frac{s-1}{s}\right)^sa_i\lambda^{-s}p_i^{-s}.
+\end{align*}
+Plugging into our budget conditions,
+\begin{align*}
+w &= \sum_j p_j \left(\frac{s-1}{s}\right)^sa_jp_j^{-s}\\
+&=  \lambda^{-s}\left(\frac{s-1}{s}\right)^s \sum_j p_j^{1-s}a_j\\
+\Rightarrow  \lambda^{-s}\left(\frac{s-1}{s}\right)^{s} &= \frac{w}{\sum_j p_j^{1-s}a_j}.
+\end{align*}
+Plugging this expression into the first order conditions we get:
+\begin{align*}
+x_i =  \frac{w a_i p_i^{-s}}{\sum_j p_j^{1-s}a_j}.
+\end{align*}
+If, instead, $s<1$, we will minimize $\sum_i a_i^{1/s}x_i^{\frac{s-1}{s}}$ or, equivalently, maximize $-\sum_i a_i^{1/s}x_i^{\frac{s-1}{s}}$. Taking first order conditions of the lagrangian is the same procedure as in the previous case, with a negative sign on one side permeating throughout which cancels eventually in the final substitution. The final result is thus the same, $x_i =  \frac{w a_i p_i^{-s}}{\sum_j p_j^{1-s}a_j}.$
+\subsection{Part C}
+\begin{itemize}
+\item $\lim_{s\rightarrow \infty} x_i = \lim_{s\rightarrow \infty} \frac{w a_i p_i^{-s}}{\sum_j p_j^{1-s}a_j} =  \lim_{s\rightarrow \infty} \frac{w a_i}{p_i\sum_j \left( \frac{p_j}{p_i}\right)^{1-s}a_j}$
+
+From this expression we can see that, if $p_i$ is the lowest price then the ratio $\left( \frac{p_j}{p_i}\right)^{1-s}\rightarrow 0,i\neq j,\left( \frac{p_j}{p_i}\right)^{1-s}\rightarrow 1, i=j.$ Thus, $\lim_{s\rightarrow \infty} x_i = \frac{w}{p_i}$. Similarly, if $p_i$ is not the lowest price then $\left( \frac{p_j}{p_i}\right)^{1-s}\rightarrow \infty,i\neq j.$ Thus, the denominator goes to infinity so $\lim_{s\rightarrow \infty} x_i = 0$ for the not-cheapest good. These expressions match linear utility.
+\item $\lim_{s\rightarrow 1} x_i = \frac{w a_i p_i^{-1}}{\sum_j a_j} =w a_i p_i^{-1}$. This expression matches Cobb-Douglas demand.
+\item $\lim_{s\rightarrow 0} x_i =  \frac{w a_i }{\sum_j p_ja_j} .$ This expression matches Leontief demand.
+\end{itemize}
+\subsection{Part D}
+\begin{align*}
+\frac{x_1(p,w)}{x_2(p,w)} &= \frac{ \frac{w a_1 p_1^{-s}}{\sum_j p_j^{1-s}a_j}}{ \frac{w a_2 p_2^{-s}}{\sum_j p_j^{1-s}a_j}} \\
+&=\frac{a_1p_2^s}{a_2p_1^s} = \frac{a_1}{a_2}\left( \frac{p_1}{p_2}\right)^{-s}\\
+\Rightarrow \xi_{1,2} &=  -\left((-s) \frac{a_1}{a_2}  \left( \frac{p_1}{p_2}\right)^{-s-1}\right) \frac{\frac{p_1}{p_2}}{ \frac{a_1}{a_2}\left( \frac{p_1}{p_2}\right)^{-s}}\\
+&= s.
+\end{align*}
+Thus, $s$ is precisely the elasticity of substitution. As $s\rightarrow \infty,$ substitutability is infinite (i.e. perfect substitutes); as $s\rightarrow 1,$ substitutability is at its unit value (i.e. neither substitutes nor compliments); as $s\rightarrow 0$, substitutability is $0$ (i.e. perfect compliments).
+
+\section{Question 3}
+\subsection{Part A}
+Let $p,p'$ be such that $p_j = p'_j \forall j\neq i, p_i<p_j.$ Let the consumer be a net seller of good $i$ at price $p$, and let the consumer be a net buyer of good $i$ at price $p'$. Therefore, $x_i(p,e)<e_i, x_i(p',e)>e_i.$
+
+We are given that the consumers' problem has a unique solution, . Also note that $ (x_i(p,e) - e_i)<0 \Rightarrow p\cdot (x(p,e)-e) > p'\cdot (x(p,e)-e) $ so when the price of good $i$ went up, the old bundle was affordable but not chosen. Thus, $u(x(p',e))>u(x(p,e)).$
+
+Next we know that $ (x_i(p',e) - e_i)>0 \Rightarrow  p' \cdot (x(p',e)-e) > p \cdot (x(p',e)-e) $ so the new bundle was affordable under the old prices, but not selected. Thus, $u(x(p',e))<u(x(p,e)),$ a contradiction.
+\subsection{Part B}
+We will follow the lecture closely. Note that, for this problem, $w = p\cdot e.$ We start with:
+\begin{align*}
+v(p,w) &= \min_{\lambda,\mu\geq 0}\max_{x}\{ u(x) + \lambda(w - p\cdot x) + \mu \cdot x \},\\
+\Phi(\lambda,\mu,p,w) &= \max_{x} \{ u(x) + \lambda(w - p\cdot x) + \mu \cdot x \}, \\
+v(p,w) &= \min_{\lambda,\mu\geq0}\Phi(\lambda,\mu,p,w) 
+\end{align*}
+By continuously applying the envelope theorem,
+\begin{align*}
+\frac{\partial v}{\partial p_i} &=\frac{\partial \Phi}{\partial p_i}|_{\lambda = \lambda^{*},\mu = \mu^{*}} \\
+\frac{\partial \Phi}{\partial p_i} &= \frac{\partial \mathbb{L}}{\partial p_i}|_{x = x^{*}} \\
+\Rightarrow \frac{\partial v}{\partial p_i} &= \frac{\partial }{\partial p_i} \left( u(x) +\lambda(w - p\cdot x) + \sum_{i}\mu_ix_i \right)|_{\lambda = \lambda^{*},\mu =\mu^{*},x=x^{*}} = \lambda (e_i - x_i)|_{\lambda = \lambda^{*},\mu = \mu^{*}} \\&= \lambda^{*}(e_i - x_i(p,w) )
+\end{align*}
+$\lambda^{*}> 0$ so  $\frac{\partial v}{\partial p_i}$ is positive if $(e_i - x_i(p,w) )>0$ and negative if $(e_i - x_i(p,w) )<0.$
+\subsection{Part C}
+This is not necessarily the case - if the price changes enough so that the consumer becomes a seller of the good, the price increase will then increase their net wealth to spend on other goods, so it may be that this increase in wealth is sufficiently large to increase the consumer's utility.
+\end{document}

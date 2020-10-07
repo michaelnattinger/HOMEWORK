@@ -47,6 +47,7 @@
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
 
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
@@ -105,7 +106,7 @@ $Var(\bar{Y}^{*}) =\frac{1}{n^2}Var(\sum_{i=1}^nw_iY_i)= \frac{1}{n^2}\sum_{i=1}
 Let $\frac{1}{n^2}\sum_{i=1}^n w_i^2 \rightarrow 0.$ Let $\epsilon>0$. By Chebyshev's inequality, $P(|\bar{Y}^{*}-\mu|\geq \epsilon) \leq \frac{\sigma_Y^2\sum_{i=1}^nw_i^2}{n^2\epsilon^2} \rightarrow_{n\rightarrow \infty}0 $ so $\lim_{n\rightarrow \infty} P(|\bar{Y}^{*}-\mu|\geq \epsilon) = 0.$
 
 \subsection{Show the second sufficient condition.}
-Now, let $\max_{i\leq n}w_i/n \rightarrow 0$. Let $\epsilon>0$. By Chebyshev's inequality, $P(|\bar{Y}^{*}-\mu|\geq \epsilon) \leq \frac{\sigma_Y^2\sum_{i=1}^nw_i^2}{n^2} $\\$\leq \frac{\sigma_Y^2\sum_{i=1}^nw_i \max_{j\leq n}w_j}{n^2} = \frac{\sigma_Y^2\max_{j\leq n}w_j}\sum_{i=1}^nw_i {n^2} =  \frac{\sigma_Y^2\max_{j\leq n}w_j}{n} \rightarrow_{n\rightarrow \infty} 0. $
+Now, let $\max_{i\leq n}w_i/n \rightarrow 0$. Let $\epsilon>0$. By Chebyshev's inequality, $P(|\bar{Y}^{*}-\mu|\geq \epsilon) \leq \frac{\sigma_Y^2\sum_{i=1}^nw_i^2}{n^2} $\\$\leq \frac{\sigma_Y^2\sum_{i=1}^nw_i \max_{j\leq n}w_j}{n^2} = \frac{\sigma_Y^2\max_{j\leq n}w_j\sum_{i=1}^nw_i}{n^2} =  \frac{\sigma_Y^2\max_{j\leq n}w_j}{n} \rightarrow_{n\rightarrow \infty} 0. $
 
 \section{Question 4}
 \subsection{$\frac{1}{n}\sum_{i=1}^n X_i^2$}
@@ -113,13 +114,13 @@ Assuming the moment exists, by the WLLN $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarr
 \subsection{$\frac{1}{n}\sum_{i=1}^n X_i^3$}
 Assuming the moment exists, by the WLLN $\frac{1}{n}\sum_{i=1}^n X_i^3 \rightarrow_p E[X_i^3]$.
 \subsection{$\max_{i\leq n}X_i$ }
-We cannot say anything using WLLN or CMT. In general this may not converge.
+We cannot say anything using WLLN or CMT. %In general this may not converge.
 \subsection{$\frac{1}{n}\sum_{i=1}^n X_i^2 - (\frac{1}{n}\sum_{i=1}^n X_i)^2$}
 Assuming the necessary moments exist, by WLLN, $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarrow_p E[X_i^2], \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by continuity and the CMT, $\frac{1}{n}\sum_{i=1}^n X_i^2 - (\frac{1}{n}\sum_{i=1}^n X_i)^2 \rightarrow_p Var(X_i)$.
 \subsection{$\frac{\sum_{i=1}^n X_i^2 }{\sum_{i=1}^n X_i }$}
 Assuming the moments exist, by WLLN, $\frac{1}{n}\sum_{i=1}^n X_i^2 \rightarrow_p E[X_i^2], \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by continuity and the CMT,  $\frac{\sum_{i=1}^n X_i^2 }{\sum_{i=1}^n X_i }\rightarrow_p E[X_i^2]/E[X_i]. $
-\subsection{$\mathbb{1}(\sum_{i=1}^n X_i )$}
-By WLLN, $ \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by CMT $\mathbb{1}(\sum_{i=1}^n X_i ) \rightarrow_p \mathbb{1}(E[X_i]>0) $ unless $E[x_i]=0$ in which case the indicator function is not continuous at that point, and CMT cannot be applied.
+\subsection{$\mathbbm{1}(\sum_{i=1}^n X_i )$}
+By WLLN, $ \frac{1}{n}\sum_{i=1}^n X_i \rightarrow_p E[X_i]$ so by CMT $\mathbbm{1}(\sum_{i=1}^n X_i ) \rightarrow_p \mathbbm{1}(E[X_i]>0) $ unless $E[x_i]=0$ in which case the indicator function is not continuous at that point, and CMT cannot be applied.
 \section{Question 5}
 Note that $\hat{\mu} = exp(log(\hat{\mu})) = exp(log((\pi_{i=1}^n X_i)^{1/n})) = exp((1/n)\sum_{i=1}^nlog(X_i)).$ Due to continuity of log, exp on $(0,\infty)$, the WLLN and CMT gives us $\hat{\mu} =  exp((1/n)\sum_{i=1}^nlog(X_i)) \rightarrow_p exp(E(log(X_i))) = \mu$.
 \section{Question 6}
@@ -135,9 +136,11 @@ By continuity, assuming the moment exists, $\hat{m}_k = (\hat{\mu}_k)^{1/k}$ is 
 Using the delta method, $\sqrt{n}(g(\hat{m}_k - m_k)) \rightarrow_{d}N(0,V)$ where $V = ((1/k)  (\mu_k)^{\frac{1-k}{k}})^2(\mu_{2k} - \mu_k^2) =\frac{1}{k^2} \mu_k^{2\frac{1-k}{k}}(\mu_{2k} - \mu_k^2 )$.
 \section{Question 8}
 \subsection{Use the Delta Method}
-Using the Delta Method, $\sqrt{n}(\hat{\beta} - \beta) \rightarrow_d N(0,V)$ where $V= 2\mu v^2$.
+Using the Delta Method, $\sqrt{n}(\hat{\beta} - \beta) \rightarrow_d N(0,V)$ where $V= 4\mu^2 v^2$.
 \subsection{What happens when $\mu$ is 0?}
 If $\mu=0$ we get a degenerate normal with no variance; in the limit the distribution collapses into a unit point mass at 0.
 \subsection{Improve your answer.} 
-$\sqrt{n}\hat{\mu} \rightarrow_d N(0,v^2) \Rightarrow\sqrt{n}\hat{\mu}/v \rightarrow_d N(0,1)  \Rightarrow n\hat{\mu}^2/v^2 \rightarrow_d \chi^2_1  \Rightarrow n\hat{\mu}^2 \rightarrow_d v^2\chi^2_1 $
+$\sqrt{n}\hat{\mu} \rightarrow_d N(0,v^2) \Rightarrow\sqrt{n}\hat{\mu}/v \rightarrow_d N(0,1)  \Rightarrow n\hat{\mu}^2/v^2 \rightarrow_d \chi^2_1  \Rightarrow n\hat{\beta} \rightarrow_d v^2\chi^2_1 $
+\subsection{Why do we get this difference?}
+It seems to me that, when $\beta=0$, the estimator $\hat{\beta}$ converges to $0$ at a rate of $n$ rather than a rate of $\sqrt{n}$. So, by checking the convergence at the rate of $\sqrt{n}$ we find that $\hat{\beta}$ has already converged to $0$, though if we check the convergence at the rate of $n$ we find a distribution at that rate, which takes the form of a scaled $\chi^2_1$.
 \end{document}
