@@ -107,9 +107,9 @@ Taking FOCs:
 \frac{\partial u}{\partial l} = 0 &\Rightarrow 1-c-g = \alpha + c \\
 \frac{\partial u}{\partial l} = 0 &\Rightarrow 1-c-g = \alpha + g \Rightarrow c=g \\
 &\Rightarrow 1-2c = \alpha + c \Rightarrow c = \frac{1-\alpha}{3} = g\\
-&\Rightarrow l = 1 - 2\frac{1-\alpha}{3} = \frac{2\alpha -1}{3}.
+&\Rightarrow l = 1 - 2\frac{1-\alpha}{3} = \frac{2\alpha +1}{3}.
 \end{align*}
-Thus, the planner will set $(c,l,g) = \left( \frac{1-\alpha}{3} , \frac{2\alpha -1}{3}, \frac{1-\alpha}{3}  \right)$.
+Thus, the planner will set $(c,l,g) = \left( \frac{1-\alpha}{3} , \frac{2\alpha +1}{3}, \frac{1-\alpha}{3}  \right)$.
 
 \subsection{Part 2}
 In the Ramsey equilibrium, the government moves first. The government will predict how the households will react to a given tax rate and will set tax to optimize the utility given the expected household reaction. 
@@ -136,14 +136,22 @@ The government will take these quantities for granted and choose $\tau$ to optim
 \begin{align*}
 &\max_{\tau} \text{ln }\left(\frac{\alpha}{2(1-\tau)} + \frac{1}{2}\right) +\text{ln }\left(\alpha + (1-\tau - \alpha)/2\right) +\text{ln }\left(\alpha + \tau\left(1- \frac{\alpha}{2(1-\tau)} - \frac{1}{2} \right)\right)\\
 \Rightarrow &\max_{\tau}  \text{ln }\left(\frac{\alpha}{2(1-\tau)} + \frac{1}{2}\right) +\text{ln }\left( (1-\tau + \alpha)/2\right) +\text{ln }\left(\alpha + \tau\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right)\right)\\
+\Rightarrow &\max_{\tau}  \text{ln } (\alpha +1 - \tau) - \text{ln } (2(1-\tau)) + \text{ln }(1-\tau+\alpha) - \text{ln }2 \\&+ \text{ln }(\alpha 2(1-\tau) + \tau (1-\tau - \alpha)) - \text{ln }(2(1-\tau))\\
+\Rightarrow &\max_{\tau}  \text{ln } (\alpha +1 - \tau) - \text{ln } (1-\tau) + \text{ln }(1-\tau+\alpha) - 3\text{ln }2 \\&+ \text{ln }(\alpha 2(1-\tau) + \tau (1-\tau - \alpha)) - \text{ln }(1-\tau)\\
 \end{align*}
 where we have substituted our expressions for government spending, as given, and simplified. Taking FOCs with respect to $\tau$,
 
 \begin{align*}
-\frac{\partial u}{\partial \tau} = 0 &\Rightarrow \left(\frac{\alpha}{2(1-\tau)} + \frac{1}{2}\right)^{-1}\left(\frac{-\alpha}{2(1-\tau)^2} \right) + \left( (1-\tau + \alpha)/2\right) ^{-1}\left( -\frac{1}{2} \right) \\&+ \left(\alpha + \tau\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right)\right)^{-1}\left(\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right) +\tau\left( \frac{\alpha}{2(1-\tau)^2}\right) \right) = 0 \\
-&\Rightarrow \left(\frac{2(1-\tau)}{\alpha+(1-\tau)}\right)\left(\frac{-\alpha}{2(1-\tau)^2} \right) - \frac{1}{1-\tau+\alpha} \\&+ \left(\frac{2(1-\tau)}{(1-\tau)(2\alpha+\tau) - \tau\alpha}\right)\left(\frac{(1-\tau)^2 - \alpha + 2\alpha \tau}{2(1-\tau)^2} \right) = 0 \\
-&\Rightarrow \left(\frac{-\alpha}{\alpha(1-\tau)+(1-\tau)^2}\right) - \frac{1}{1-\tau+\alpha} \\&+ \left(\frac{1}{(1-\tau)(2\alpha+\tau) - \tau\alpha}\right)\left(\frac{(1-\tau)^2 - \alpha + 2\alpha \tau}{(1-\tau)} \right) = 0 \\
+\frac{\partial u}{\partial \tau} = 0 &\Rightarrow -(\alpha +1-\tau)^{-1} + (1-\tau)^{-1} - (1-\tau+\alpha)^{-1} \\&+ (\alpha 2(1-\tau) + \tau (1-\tau - \alpha))^{-1}(-2\alpha + (1-\tau-\alpha)-\tau) +(1-\tau)^{-1} =0\\
+&\Rightarrow -2(1-\tau+\alpha)^{-1} + 2(1-\tau)^{-1} +\frac{-3\alpha + 1 - 2\tau}{2\alpha(1-\tau) + \tau(1-\tau-\alpha)} = 0.
 \end{align*}
+This has no analytical solution, and we will solve for later parts using a numerical solution on a grid of $\alpha$ values in Matlab (as recommended by Katya).
+
+%\begin{align*}
+%\frac{\partial u}{\partial \tau} = 0 &\Rightarrow \left(\frac{\alpha}{2(1-\tau)} + \frac{1}{2}\right)^{-1}\left(\frac{-\alpha}{2(1-\tau)^2} \right) + \left( (1-\tau + \alpha)/2\right) ^{-1}\left( -\frac{1}{2} \right) \\&+ \left(\alpha + \tau\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right)\right)^{-1}\left(\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right) +\tau\left( \frac{\alpha}{2(1-\tau)^2}\right) \right) = 0 \\
+%&\Rightarrow \left(\frac{2(1-\tau)}{\alpha+(1-\tau)}\right)\left(\frac{-\alpha}{2(1-\tau)^2} \right) - \frac{1}{1-\tau+\alpha} \\&+ \left(\frac{2(1-\tau)}{(1-\tau)(2\alpha+\tau) - \tau\alpha}\right)\left(\frac{(1-\tau)^2 - \alpha + 2\alpha \tau}{2(1-\tau)^2} \right) = 0 \\
+%&\Rightarrow \left(\frac{-\alpha}{\alpha(1-\tau)+(1-\tau)^2}\right) - \frac{1}{1-\tau+\alpha} \\&+ \left(\frac{1}{(1-\tau)(2\alpha+\tau) - \tau\alpha}\right)\left(\frac{(1-\tau)^2 - \alpha + 2\alpha \tau}{(1-\tau)} \right) = 0 \\
+%\end{align*}
 
 %\begin{align*}
 %\frac{\partial u}{\partial \tau} = 0 &\Rightarrow  \frac{3a+2\tau -1}{3a\tau - 2a + \tau^2 - \tau} + \frac{2}{-a+\tau -1} - \frac{2}{\tau-1} = 0\\%\frac{1}{2}\left( \frac{\frac{\alpha}{1-\tau} +1}{2}\right)^{-1}\frac{\alpha}{(1-\tau)^2} + \frac{1}{2(\alpha +1 - \tau)}+\frac{(1-\tau)^2 - a}{(\tau - 1)(a(3\tau - 2) +(\tau -1)\tau)}% \left(\alpha + \frac{\tau}{2} - \frac{\tau\alpha}{2(1-\tau)} \right)^{-1}(\frac{1}{2})= 0 \\
