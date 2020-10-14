@@ -106,15 +106,36 @@ $I_0 = -E\left[ \frac{\partial^2}{\partial \theta^2} log(f(X|\theta))|_{\theta =
 = -E\left[ \frac{\partial}{\partial \theta} \frac{1}{\theta}-log(x)|_{\theta = \theta_0}\right] =  -E\left[ \frac{\partial}{\partial \theta} \frac{1}{\theta}-log(x)|_{\theta = \theta_0}\right] = \frac{1}{\theta_0^2}$% = -E\left[ \frac{\partial}{\partial \theta} \alpha(-1-\alpha)x^{-2-\alpha}|_{\theta = \theta_0} \right] = -E\left[ \alpha(-1-\alpha)(-2-\alpha)x^{-3-\alpha}\right] \\= \int_{1}^{\infty}  \alpha(-1-\alpha)(-2-\alpha)x^{-3-\alpha} \alpha x^{-1-\alpha}dx = \alpha^2(-1-\alpha)(-2-\alpha)\int_{1}^{\infty}x^{-4 - 2\alpha}dx \\ = \alpha^2(-1-\alpha)(-2-\alpha)\left( \frac{x^{-3-2\alpha}}{-3-2\alpha} \right)|_{1}^{\infty} = \frac{\alpha^2(-1-\alpha)(-2-\alpha)}{-3-2\alpha}$.
 \section{Question 6} %problem 12 lecture 6
 \subsection{Part A}
+%$S = \frac{\partial}{\partial \theta} log(\theta exp(-\theta x))= \frac{\partial}{\partial \theta} log(\theta)  -\theta x = \frac{1}{\theta} - x.$ $I_0 = -E[S^2] = E[(X- 1/\theta)^2] = \frac{1}{\theta}$
 $I_0 = -E\left[ \frac{\partial^2}{\partial \theta^2} log(\theta exp(-\theta x))|_{\theta = \theta_0} \right] = -E\left[ \frac{\partial^2}{\partial \theta^2} log(\theta)+ log(exp(-\theta x)) |_{\theta = \theta_0}\right] \\= -E\left[ \frac{\partial^2}{\partial \theta^2} log(\theta)-\theta x |_{\theta = \theta_0}\right] = \hat{\theta}^{-2}_0 \Rightarrow Var(\bar{\theta}_n) \geq (n \hat{\theta}^{-2}_0)^{-1} = \frac{ \theta^{2}_0}{n}$
 \subsection{Part B}
 $l_n(\theta) = \sum_{i=1}^nlog(f(X_i|\theta)) = \sum_{i=1}^nlog(\theta exp(-\theta X_i)) = \sum_{i=1}^nlog(\theta)+ log(exp(-\theta X_i)) \\ = nlog(\theta)- \theta\sum_{i=1}^n X_i \Rightarrow \frac{\partial l_n(\theta)}{\partial \theta} = 0 \Rightarrow \frac{n}{\theta} - \sum_{i=1}^n X_i = 0 \Rightarrow \hat{\theta}_n =  \frac{n}{\sum_{i=1}^n X_i}$. 
 
-By the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ where $V = (-1(\theta_0)^{-2})^2 \sigma^2 = \theta_0^{-4}\sigma^2$ where $\sigma^2 = Var(X_i) =  \frac{1}{\theta_0^2}$. Thus, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,\theta_0^{-6})$
+By the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ where $V = (-1(\theta_0^{-1})^{-2})^2 \sigma^2 = \theta_0^{4}\sigma^2$ where $\sigma^2 = Var(X_i) =  \frac{1}{\theta_0^2}$. Thus, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,\theta_0^{2})$
 \subsection{Part C}
-Our general formula is $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,I_0^{-1}) = N(0,\theta_0^2)$
+Our general formula is $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,I_0^{-1}) = N(0,\theta_0^2)$.
 \section{Question 7} %problem 14 lecture 6
+\subsection{Part A}
+Via the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ where $V = Var(X_i).$ Thus, a consistent estimator for $V$ will be a consistent estimator of $Var(X_i).$ A consistent estimator of the variance is $\hat{V} := \frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2$.
+\subsection{Part B}
+The WLLN and CMT imply that $\hat{V} \rightarrow_p E(X - EX)^2 = Var(X_i) = V$. Thus, $\hat{V}$ is a consistent estimator of $V$.
+\subsection{Part C}
+We have that the asymptotic variance of $\sqrt{n}(\hat{\theta}_n - \theta_0)$ is consistently estimated by $\frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2.$ Therefore, an approximation of $Var(\hat{\theta}_n) =\frac{1}{n}Var(\sqrt{n}\hat{\theta}_n) = \frac{1}{n}Var(\sqrt{n}(\hat{\theta}_n - \theta_0))$ so an estimator of $Var(\hat{\theta}_n)$ is $\frac{1}{n^2}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2.$
 \section{Question 8} %problem 15 lecture 6
+\subsection{Part A}
+$F_X(c) = \int_{-\infty}^c f_X(x)dx = \begin{cases} 0, c<0 \\ G(c), 0\leq c \leq 1 \\1, c>1 \end{cases}$ where $G(c) = \int_{0}^c \frac{1}{\theta} dx = \frac{c}{\theta}.$
+\subsection{Part B}
+$F_{n(\hat{\theta}_n - \theta)}(x) = Pr(\max_{i=1,\dots,n}(n(X_i - \theta))\leq x) = Pr(n(X_1 - \theta) \leq x,\dots,n(X_n - \theta \leq x)) = \prod_{i=1}^n Pr(n(X_i - \theta)\leq x) = \prod_{i=1}^nPr(X_i\leq \theta + \frac{x}{n}) = Pr(X_i\leq \theta + \frac{x}{n})^n = (F_X(\theta + \frac{x}{n}))^n.$
+\subsection{Part C}
+Fix $x$. For $x<0$, $F_{n(\hat{\theta}_n - \theta)}(x) =(F_X(\theta + \frac{x}{n}))^n = (F_X(\theta(1 + \frac{x/\theta}{n})))^n  \rightarrow_{n\rightarrow \infty} \lim_{n\rightarrow \infty} ((\theta(1 + \frac{x/\theta}{n}))/\theta)^n = e^{x/\theta} $.
+
+For $x>0, F_{n(\hat{\theta}_n - \theta_0)} = (F_{X}(\theta + \frac{x}{n}))^n = 1^n =1$ so $\lim_{n\rightarrow \infty}F_{n(\hat{\theta}_n - \theta)} = 1.$
+\subsection{Part D}
+$\lim_{n\rightarrow \infty}f_{n(\hat{\theta}_n - \theta)}(x) =\lim_{n\rightarrow \infty} \frac{\partial}{\partial x}F_{n(\hat{\theta}_n - \theta)}(x) = \frac{1}{\theta}e^{x/\theta}  $ for $x\leq0 \Rightarrow \lim_{n\rightarrow \infty}f_{n(\hat{\theta}_n - \theta)}(-x) = \frac{1}{\theta}e^{-x/\theta} $ so $n(\hat{\theta}_n - \theta)\rightarrow_d -A$ where distribution A is an exponential with parameter $\theta$.
+
 \section{Question 9} %problem 1 lecture 7
+We should use a two-sided test. We will calculate $t = \frac{\bar{X}_n - 1}{se},se = \sqrt{s^2/n}.$ For a chosen significance level $\alpha$ we can reject the null hypothesis if $P(|T|> t) < \alpha$, where $t \sim t_{n-1}$.
+
 \section{Question 10}  %problem 3 lecture 7
+$Pr(T>c|\mu = 0) = Pr()$
 \end{document}
