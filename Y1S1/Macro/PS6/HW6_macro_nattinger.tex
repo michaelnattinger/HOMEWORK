@@ -147,6 +147,10 @@ where we have substituted our expressions for government spending, as given, and
 \end{align*}
 This has no analytical solution, and we will solve for later parts using a numerical solution on a grid of $\alpha$ values in Matlab (as recommended by Katya).
 
+Values for $c,l,\tau,g$ for the Ramsey equilibrium for a given level of $\alpha$ are plotted below.
+
+\includegraphics{ramsey}
+
 %\begin{align*}
 %\frac{\partial u}{\partial \tau} = 0 &\Rightarrow \left(\frac{\alpha}{2(1-\tau)} + \frac{1}{2}\right)^{-1}\left(\frac{-\alpha}{2(1-\tau)^2} \right) + \left( (1-\tau + \alpha)/2\right) ^{-1}\left( -\frac{1}{2} \right) \\&+ \left(\alpha + \tau\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right)\right)^{-1}\left(\left(\frac{1}{2}- \frac{\alpha}{2(1-\tau)} \right) +\tau\left( \frac{\alpha}{2(1-\tau)^2}\right) \right) = 0 \\
 %&\Rightarrow \left(\frac{2(1-\tau)}{\alpha+(1-\tau)}\right)\left(\frac{-\alpha}{2(1-\tau)^2} \right) - \frac{1}{1-\tau+\alpha} \\&+ \left(\frac{2(1-\tau)}{(1-\tau)(2\alpha+\tau) - \tau\alpha}\right)\left(\frac{(1-\tau)^2 - \alpha + 2\alpha \tau}{2(1-\tau)^2} \right) = 0 \\
@@ -191,6 +195,29 @@ The household solves the following optimization problem:
 \end{align*}
 
 \subsection{Part 4}
-The households work less in the Ramsey equilibrium than in the planner's solution because the households try to avoid the distortionary taxes.  Consumption and government spending are still equilized in both equilibria owing to the shape of the household's utility function.
+The households work less in the Nash equilibrium than in the planner's solution because the households try to avoid the distortionary taxes.  Consumption and government spending are still equilized in both equilibria owing to the shape of the household's utility function.
+
+As we calculated the Ramsey equilibrium numerically, we will compare the solutions graphically.
+
+\includegraphics{cons}
+\includegraphics{leisure}
+\includegraphics{gov}
+\includegraphics{tau}
+\includegraphics{util}
+As expected, the SPP equilibrium dominates both the Ramsey equilibrium and the Nash equilibrium. Also, the Ramsey equilibrium dominates the Nash equilibrium for all periods.
+
+In the Ramsey equilibrium, the government always selects a lower value of $\tau$ than they would like to implement in either the SP or Nash equilibrium. This is so that the consumers have a greater incentive to work. As the value of $\alpha$ increases, the amount of $\tau$ the government imposes drops as the higher $\alpha$ value makes up for the reduced government spending.
+
 \subsection{Part 5}
+
+We can support the Ramsey equilibrium if the following inequality holds:
+\begin{align*}
+u(l_R|\tau = \tau_R) + \sum_{i=1}^{\infty} \beta^i u(l_R|\tau=\tau_R)&>u(l_R|\tau = \tau_N) + \sum_{i=1}^{\infty} \beta^i u(l_N|\tau=\tau_N)\\
+\Rightarrow \frac{1}{1-\beta}u(l_R|\tau = \tau_R)  &> u(l_R|\tau = \tau_N) + \frac{\beta}{1-\beta}u(l_N|\tau=\tau_N)
+\end{align*}
+where the subscript R denotes the Ramsey equilibrium, and the subscript N denotes the Nash equilibrium. We can solve for the minimum such value of $\beta$ for a givven level of $\alpha$ in Matlab.
+
+\includegraphics{beta}
+
+The above figure plots the minimum $\beta$ necessary for the Ramsey equilibrium to be supported at a given value of $\alpha$.
 \end{document}
