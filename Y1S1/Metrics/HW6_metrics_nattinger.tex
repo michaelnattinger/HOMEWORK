@@ -90,7 +90,7 @@ $\frac{\partial l_n(\theta)}{\partial \theta} = 0 \Rightarrow \sum_{i=1}^n \frac
 \subsection{Part A}
 $l_n(\theta) = \sum_{i=1}^n log\left(\frac{\theta}{X_i^{1+\theta}}\right) = \sum_{i=1}^n log(\theta) - (1+\theta) log(X_i) = nlog(\theta) - (1+\theta) \sum_{i=1}^n log(X_i) $
 \subsection{Part B}
-$\frac{\partial l_n(\theta)}{\partial \theta} = 0 \Rightarrow \frac{n}{\theta} - \sum_{i=1}^n log(X_i) =0 \Rightarrow \hat{\theta}_n = \frac{1}{n} \sum_{i=1}^n log(X_i) $.
+$\frac{\partial l_n(\theta)}{\partial \theta} = 0 \Rightarrow \frac{n}{\theta} - \sum_{i=1}^n log(X_i) =0 \Rightarrow \hat{\theta}_n = \frac{n}{\sum_{i=1}^n log(X_i)}  $.
 \section{Question 3} %problem 6 lecture 6
 \subsection{Part A}
 $l_n(\theta) = \sum_{i=1}^n log\left(\frac{1}{\pi(1+(X_i- \theta)^2)}\right) = - nlog(\pi) - \sum_{i=1}^n log(1 +(X_i- \theta)^2) $.
@@ -100,7 +100,20 @@ $\frac{\partial l_n(\theta)}{\partial \theta} = 0 \Rightarrow -\sum_{i=1}^n \fra
 \subsection{Part A}
 $l_n(\theta) = \sum_{i=1}^n log(\frac{1}{2} exp(-|X_i-\theta|)) = n log(\frac{1}{2})  -\sum_{i=1}^n |X_i-\theta|$
 \subsection{Part B}
-The likelihood is maximized when the term $\sum_{i=1}^n |X_i-\theta|$ is minimized. This is minimized for $\theta = E[X]$ and so $\hat{\theta}_n = \frac{1}{n}\sum_{i=1}^n X_i.$
+The likelihood is maximized when the term $\sum_{i=1}^n |X_i-\theta|$ is minimized. This is minimized for $\theta = M$ where $M$ is the median of the sample, which I will show below:
+
+Let $X_i$ be ordered from smallest to largest. If $n$ is an odd number, define $m = \frac{n+1}{2}$. Then, by the triangle inequality,
+\begin{align*}
+&\sum_{i=1}^{n}|X_i - \theta| \geq |X_n - \theta - (X_1 - \theta)| + |X_{n-1} - \theta - (X_2 - \theta)| + \dots + |X_{m-1} - \theta - (X_{m+1} - \theta)| + |X_{m} - \theta| \\&= \sum_{i=1}^{m-1} |X_{n+1-i} - X_i| + |X_m - \theta|.
+\end{align*}
+Clearly, this term is minimized when $\theta=X_m = M$, and the weak inequality holds with equality when $\theta$ is the median because $(X_{n+1-i} - \theta)\geq 0 \geq( X_i - \theta)$ $\forall \theta \in \mathbb{R}$.
+
+If $n$ is odd, we instead define $m=n/2$, and have:
+\begin{align*}
+&\sum_{i=1}^{n}|X_i - \theta| \geq |X_n - \theta - (X_1 - \theta)| + \dots + |X_{m-1} - \theta - (X_{m+1} - \theta)| + |X_{m} - \theta| +  |X_{m+1} - \theta| \\&= \sum_{i=1}^{m-1} |X_{n+1-i} - X_i| + |X_m - \theta| + |X_{m+1} - \theta|,
+\end{align*}
+where again our weak inequality holds with equality. In this case, the final expression is clearly minimized for any $\theta \in [X_m,X_{m+1}]$, and $M\in [X_m,X_{m+1}]$.
+ % $\theta = E[X]$ and so $\hat{\theta}_n = \frac{1}{n}\sum_{i=1}^n X_i.$
 \section{Question 5} %problem 9 lecture 6
 $I_0 = -E\left[ \frac{\partial^2}{\partial \theta^2} log(f(X|\theta))|_{\theta = \theta_0}\right] = -E\left[ \frac{\partial^2}{\partial \theta^2} log(\theta x^{-1-\theta})|_{\theta = \theta_0}\right] = -E\left[ \frac{\partial^2}{\partial \theta^2} log(\theta)+(-1-\theta)log(x)|_{\theta = \theta_0}\right] \\ 
 = -E\left[ \frac{\partial}{\partial \theta} \frac{1}{\theta}-log(x)|_{\theta = \theta_0}\right] =  -E\left[ \frac{\partial}{\partial \theta} \frac{1}{\theta}-log(x)|_{\theta = \theta_0}\right] = \frac{1}{\theta_0^2}$% = -E\left[ \frac{\partial}{\partial \theta} \alpha(-1-\alpha)x^{-2-\alpha}|_{\theta = \theta_0} \right] = -E\left[ \alpha(-1-\alpha)(-2-\alpha)x^{-3-\alpha}\right] \\= \int_{1}^{\infty}  \alpha(-1-\alpha)(-2-\alpha)x^{-3-\alpha} \alpha x^{-1-\alpha}dx = \alpha^2(-1-\alpha)(-2-\alpha)\int_{1}^{\infty}x^{-4 - 2\alpha}dx \\ = \alpha^2(-1-\alpha)(-2-\alpha)\left( \frac{x^{-3-2\alpha}}{-3-2\alpha} \right)|_{1}^{\infty} = \frac{\alpha^2(-1-\alpha)(-2-\alpha)}{-3-2\alpha}$.
