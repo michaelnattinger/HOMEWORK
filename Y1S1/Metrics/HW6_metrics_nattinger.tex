@@ -106,7 +106,7 @@ Let $X_i$ be ordered from smallest to largest. If $n$ is an odd number, define $
 \begin{align*}
 &\sum_{i=1}^{n}|X_i - \theta| \geq |X_n - \theta - (X_1 - \theta)| + |X_{n-1} - \theta - (X_2 - \theta)| + \dots + |X_{m-1} - \theta - (X_{m+1} - \theta)| + |X_{m} - \theta| \\&= \sum_{i=1}^{m-1} |X_{n+1-i} - X_i| + |X_m - \theta|.
 \end{align*}
-Clearly, this term is minimized when $\theta=X_m = M$, and the weak inequality holds with equality when $\theta$ is the median because $(X_{n+1-i} - \theta)\geq 0 \geq( X_i - \theta)$ $\forall \theta \in \mathbb{R}$.
+Clearly, this term is minimized when $\theta=X_m = M$, and the weak inequality holds with equality when $\theta$ is the median because $(X_{n+1-i} - M)\geq 0 \geq( X_i - M)$.
 
 If $n$ is odd, we instead define $m=n/2$, and have:
 \begin{align*}
@@ -129,16 +129,16 @@ By the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ 
 Our general formula is $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,I_0^{-1}) = N(0,\theta_0^2)$.
 \section{Question 7} %problem 14 lecture 6
 \subsection{Part A}
-Via the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ where $V = Var(X_i).$ Thus, a consistent estimator for $V$ will be a consistent estimator of $Var(X_i).$ A consistent estimator of the variance is $\hat{V} := \frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2$.
+Via the delta method, $\sqrt{n}(\hat{\theta}_n - \theta_0) \rightarrow_d N(0,V)$ where $V = Var(X_i)= p(1-p).$ Thus, a consistent estimator for $V$ will be a consistent estimator of $Var(X_i).$ A consistent estimator of the variance is $\hat{V} := (\frac{1}{n}\sum_{i=1}^{n}(X_i ))(1-\frac{1}{n}\sum_{i=1}^{n}(X_i ))$.
 \subsection{Part B}
-The WLLN and CMT imply that $\hat{V} \rightarrow_p E(X - EX)^2 = Var(X_i) = V$. Thus, $\hat{V}$ is a consistent estimator of $V$.
+The WLLN and CMT imply that $\hat{V} \rightarrow_p p(1-p) = Var(X_i) = V$. Thus, $\hat{V}$ is a consistent estimator of $V$.
 \subsection{Part C}
-We have that the asymptotic variance of $\sqrt{n}(\hat{\theta}_n - \theta_0)$ is consistently estimated by $\frac{1}{n}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2.$ Therefore, an approximation of $Var(\hat{\theta}_n) =\frac{1}{n}Var(\sqrt{n}\hat{\theta}_n) = \frac{1}{n}Var(\sqrt{n}(\hat{\theta}_n - \theta_0))$ so an estimator of $Var(\hat{\theta}_n)$ is $\frac{1}{n^2}\sum_{i=1}^{n}(X_i - \hat{\theta}_n)^2.$
+We have that the asymptotic variance of $\sqrt{n}(\hat{\theta}_n - \theta_0)$ is consistently estimated by $(\frac{1}{n}\sum_{i=1}^{n}(X_i ))(1-\frac{1}{n}\sum_{i=1}^{n}(X_i )).$ Therefore, an approximation of $Var(\hat{\theta}_n) =\frac{1}{n}Var(\sqrt{n}\hat{\theta}_n) = \frac{1}{n}Var(\sqrt{n}(\hat{\theta}_n - \theta_0))$ so an estimator of $Var(\hat{\theta}_n)$ is $\frac{1}{n}((\frac{1}{n}\sum_{i=1}^{n}(X_i ))(1-\frac{1}{n}\sum_{i=1}^{n}(X_i ))).$
 \section{Question 8} %problem 15 lecture 6
 \subsection{Part A}
-$F_X(c) = \int_{-\infty}^c f_X(x)dx = \begin{cases} 0, c<0 \\ G(c), 0\leq c \leq 1 \\1, c>1 \end{cases}$ where $G(c) = \int_{0}^c \frac{1}{\theta} dx = \frac{c}{\theta}.$
+$F_X(c) = \int_{-\infty}^c f_X(x)dx = \begin{cases} 0, c<0 \\ G(c), 0\leq c \leq \theta \\1, c>\theta \end{cases}$ where $G(c) = \int_{0}^c \frac{1}{\theta} dx = \frac{c}{\theta}.$
 \subsection{Part B}
-$F_{n(\hat{\theta}_n - \theta)}(x) = Pr(\max_{i=1,\dots,n}(n(X_i - \theta))\leq x) = Pr(n(X_1 - \theta) \leq x,\dots,n(X_n - \theta \leq x)) = \prod_{i=1}^n Pr(n(X_i - \theta)\leq x) = \prod_{i=1}^nPr(X_i\leq \theta + \frac{x}{n}) = Pr(X_i\leq \theta + \frac{x}{n})^n = (F_X(\theta + \frac{x}{n}))^n.$
+$F_{n(\hat{\theta}_n - \theta)}(x) = Pr(\max_{i=1,\dots,n}(n(X_i - \theta))\leq x) = Pr(n(X_1 - \theta) \leq x,\dots,n(X_n - \theta) \leq x) = \prod_{i=1}^n Pr(n(X_i - \theta)\leq x) = \prod_{i=1}^nPr(X_i\leq \theta + \frac{x}{n}) = Pr(X_i\leq \theta + \frac{x}{n})^n = (F_X(\theta + \frac{x}{n}))^n.$
 \subsection{Part C}
 Fix $x$. For $x<0$, $F_{n(\hat{\theta}_n - \theta)}(x) =(F_X(\theta + \frac{x}{n}))^n = (F_X(\theta(1 + \frac{x/\theta}{n})))^n  \rightarrow_{n\rightarrow \infty} \lim_{n\rightarrow \infty} ((\theta(1 + \frac{x/\theta}{n}))/\theta)^n = e^{x/\theta} $.
 
@@ -147,8 +147,16 @@ For $x>0, F_{n(\hat{\theta}_n - \theta_0)} = (F_{X}(\theta + \frac{x}{n}))^n = 1
 $\lim_{n\rightarrow \infty}f_{n(\hat{\theta}_n - \theta)}(x) =\lim_{n\rightarrow \infty} \frac{\partial}{\partial x}F_{n(\hat{\theta}_n - \theta)}(x) = \frac{1}{\theta}e^{x/\theta}  $ for $x\leq0 \Rightarrow \lim_{n\rightarrow \infty}f_{n(\hat{\theta}_n - \theta)}(-x) = \frac{1}{\theta}e^{-x/\theta} $ so $n(\hat{\theta}_n - \theta)\rightarrow_d -A$ where distribution A is an exponential with parameter $\theta$.
 
 \section{Question 9} %problem 1 lecture 7
-We should use a two-sided test. We will calculate $t = \frac{\bar{X}_n - 1}{se},se = \sqrt{s^2/n}.$ For a chosen significance level $\alpha$ we can reject the null hypothesis if $P(|T|> t) < \alpha$, where $t \sim t_{n-1}$.
+We should use a two-sided test. We will calculate $t = \frac{\bar{X}_n - 1}{se},se = \sqrt{s^2/n}.$ For a chosen significance level $\alpha$ we can reject the null hypothesis if $P(|T|> t) < \alpha/2$, where $t \sim t_{n-1}$.
 
 \section{Question 10}  %problem 3 lecture 7
-$Pr(T>c|\mu = 0) = Pr()$
+Assume $\mu = 1.$ Then, $X_i \sim N(1,1) \Rightarrow \sqrt{n}(\bar{X}_n - 1) \sim N(0,1)$ by WLLN, CLT $\Rightarrow |\sqrt{n}(\bar{X}_n - 1)| \sim |N(0,1)|.$ Also, $\sqrt{n}(\bar{X}_n - 1) \sim N(0,1) \Rightarrow \sqrt{n}\bar{X}_n \sim N(\sqrt{n},1) \Rightarrow |\sqrt{n}\bar{X}_n| \sim |N(\sqrt{n},1)| = |N(0,1) + \sqrt{n}|$.
+
+Therefore, $P(T>c|\mu =1) = P(\min \{|\sqrt{n}\bar{X}_n|,|\sqrt{n}(\bar{X}_n - 1)| \}>c|\mu = 1) = P(\min \{ |Z|,|Z - \sqrt{n}|\}) = \alpha$.
+
+Assume $\mu = 0.$ Then, $X_i \sim N(0,1) \Rightarrow \sqrt{n}(\bar{X}_n ) \sim N(0,1)$ by WLLN, CLT $\Rightarrow |\sqrt{n}(\bar{X}_n )| \sim |N(0,1)|.$ Also, $\sqrt{n}(\bar{X}_n ) \sim N(0,1) \Rightarrow \sqrt{n}\bar{X}_n -\sqrt{n} \sim N(-\sqrt{n},1) \Rightarrow |\sqrt{n}\bar{X}_n -\sqrt{n}| \sim |N(-\sqrt{n},1)| = |N(\sqrt{n},1)| = |N(0,1) + \sqrt{n}|$.
+
+Therefore, $P(T>c|\mu =0) = P(\min \{|\sqrt{n}\bar{X}_n|,|\sqrt{n}(\bar{X}_n - 1)| \}>c|\mu = 0) = P(\min \{ |Z|,|Z - \sqrt{n}|\}) = \alpha$.
+
+Thus, the size of the test is $\alpha$.
 \end{document}
