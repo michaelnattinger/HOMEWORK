@@ -108,7 +108,7 @@ Let $X_i$ be ordered from smallest to largest. If $n$ is an odd number, define $
 \end{align*}
 Clearly, this term is minimized when $\theta=X_m = M$, and the weak inequality holds with equality when $\theta$ is the median because $(X_{n+1-i} - M)\geq 0 \geq( X_i - M)$.
 
-If $n$ is odd, we instead define $m=n/2$, and have:
+If $n$ is even, we instead define $m=n/2$, and have:
 \begin{align*}
 &\sum_{i=1}^{n}|X_i - \theta| \geq |X_n - \theta - (X_1 - \theta)| + \dots + |X_{m-1} - \theta - (X_{m+1} - \theta)| + |X_{m} - \theta| +  |X_{m+1} - \theta| \\&= \sum_{i=1}^{m-1} |X_{n+1-i} - X_i| + |X_m - \theta| + |X_{m+1} - \theta|,
 \end{align*}
