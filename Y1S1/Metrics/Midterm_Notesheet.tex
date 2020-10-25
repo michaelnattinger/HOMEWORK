@@ -117,6 +117,7 @@ f_Y(y) = \begin{cases} f_X(g^{-1}(y)|\frac{d}{dy}g^{-1}(y)|\\ 0, \text{else}\end
 \item $E[Y|X=x] =\int_{-\infty}^{\infty} yf_{Y|X}(y|x)dy$
 \item $E[Y|X=x] \frac{\int_{-\infty}^{\infty}yf_{X,Y}(x,y)dy}{\int_{-\infty}^{\infty}f_{X,Y}(x,y)dy}$
 \item $E(E[Y|X]) = E(Y)$
+\item Cauchy-Schwarz: $E|XY| \leq \sqrt{E(X^2)E(Y^2)}$
 \item $Var(Y) = E[Var(Y|X)] + Var(E(Y|X))$
 \item $Cov(X,Y) = E((X-EX)(Y-EY)) = E(X(Y-EY)) = E(XY) - EXEY$
 \item $Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$
@@ -155,5 +156,6 @@ f_Y(y) = \begin{cases} f_X(g^{-1}(y)|\frac{d}{dy}g^{-1}(y)|\\ 0, \text{else}\end
 \item $I_0 = E[SS'] = -E\left[ \frac{\partial^2}{\partial\theta\partial\theta'}log f(X|\theta)|_{\theta = \theta_0} \right]$
 \item Note: for intuition note that we have log likelihood and $log''(x) =  (\frac{1}{x})' = -\frac{1}{x^2}$ so $log''(x) =- (log'(x))^2.$
 \item CRLB: $Var(\hat{\theta}_n) \geq (nI_0)^{-1}$ and CR efficient is when this holds with equality.
+\item So long as taylor approx error does not matter in distribution (typically the case), $\sqrt{n}(\hat{\theta}_{n,MLE} - \theta) \rightarrow_d N(0,I_0^{-1})$
 \end{itemize}
 \end{document}

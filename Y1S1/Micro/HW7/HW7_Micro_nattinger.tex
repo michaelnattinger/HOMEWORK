@@ -104,6 +104,12 @@ $\argmax_{0\leq t\leq 1}p u(w(1+2t)) +(1-p)u(w(1-t)) =  \argmax_{0\leq t\leq 1}p
 \subsection{Part H}
 Let $R(x)$ be increasing. 
 \begin{align*}
-\frac{d}{dw}U'(a) &= 2pu''(w+2a) - (1-p)u''(w-a) = -2p\frac{u'(w+2a)}{w+2a}R(w+2a) + (1-p)\frac{u'(w-a)}{w-a}R(w-a) \\&=  -(1-p)\frac{u'(w-a)}{w+2a}R(w+2a) + (1-p)\frac{u'(w-a)}{w-a}R(w-a) \\&=  (1-p)u'(w-a)\left(-\frac{R(w+2a)}{w+2a} + \frac{R(w-a)}{w-a}\right).
+U'(t) &= pu'(w(1+2t)) + (1-p)u'(w(1-t))\\
+&= pu'(w(1+2t))2w - (1-p)wu'(w(1-t)) \\
+\frac{\partial U'(t)}{\partial w} &= 2wp(1+2t)u''(w(1+2t)) - (1-p)w(1-t)u''(w(1-t)) \\
+&= -2pu'(w(1+2t))R(w(1+2t)) + (1-p)R(w(1-t))u'(w(1-t))\\
+\frac{\partial U'(t)}{\partial w}|_{t = t^{*}} &=-2pu'(w(1+2t^{*})) + 2pR(w(1-t))u'(w(1+2t))\\
+&= 2pu'(w(1+2t))(-R(w(1+2t)) +R(w(1-t))).
 \end{align*}
+This is negative as $R$ is increasing.
 \end{document}
