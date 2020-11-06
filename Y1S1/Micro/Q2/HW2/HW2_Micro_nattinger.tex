@@ -1,0 +1,147 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW1}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+If player $i$ takes the choice of all others as given, their best response is to play the minimum amount chosen by another indiviual. This is because playing any higher value will not increase the min, but will increase the cost. Playing a lower value will reduce the payoff of the min by more than the reduction in cost of contributing, resulting in a net worse outcome.Thus, there is a continuum of nash equilibria where all players play the same value $s \in [0,w]$.
+\section{Question 2}
+$N = \{\text{Joe}, \text{Donald} \}$, $S_i = \{(s_1,s_2,s_3: s_1+s_2+s_3 = 1, s_1,s_2,s_3 \in \mathbb{R}_{+} \}$, $u_i(s_i,s_{-i}) = 1\{ 1\{s_{i,1}>s_{-i,1} \}+1\{ s_{i,2}>s_{-i,2} \} + 1\{s_{i,3}>s_{-i,3} \} > 1\{s_{i,1}<s_{-i,1} \}+1\{ s_{i,2}<s_{-i,2} \} + 1\{s_{i,3}<s_{-i,3} \} \}$.
+
+Assume that a pure strategy nash equilibria exists. Assume that Donald has as few or fewer voters than Joe. Then Donald would be better off by taking all of his spending off of one of the voters that Joe initially spent money on and redistributing his spending across the two other voters in such a way as to win both. Similarly, if Joe has the same amount of voters as Donald or fewer, then Joe van employ the same strategy employed above and win two voters. One of these cases must be true, so it is never the case that Joe and Donald would simultaneously not be better off by acting differently.
+
+\section{Question 3}
+$N = \{ \text{Alice}, \text{Bob}\}.$ $S_i = \{1,2,3\}$. $u_i(s_i,s_{-i}) = \begin{cases} i, s_i = s_{-i}\\0, s_i \neq s_{-i} \end{cases}$. 
+
+All strategies are best responses to the other person playing them, so all strategies are rationalizable, and 3 pure strategy nash equilibria exist: $(1,1),(2,2),(3,3)$. We will next investigate the existence of mixed strategies.
+
+We will denote player $i$'s beliefs about player $-i$'s probability of playing $1,2,3$ with $a,b,c$, respectively.
+
+$1 \succeq 2$ if $1a\geq 2b$, $1 \succeq 3$ if $1a \geq 3c$, $2\succeq 3$ if $ 2b \geq 3c$.
+
+For player $i$ to play a mixture of $1,2$ then $1 \sim 2, 1\succ 3, 2 \succ 3 \Rightarrow 1a = 2b, 1a>3c,2b>3c.$
+
+For player $i$ to play a mixture of $1,3$ then $1 \sim 3, 1\succ 2, 3 \succ 2 \Rightarrow 1a = 3c, 1a>2b,3c>2b.$
+
+For player $i$ to play a mixture of $2,3$ then $2 \sim 3, 2\succ 1, 3 \succ 1 \Rightarrow 1a < 2b, 1a<3c,2b=3c.$
+
+For player $i$ to play a mixture of $1,2,3$ then $1 \sim 2 \sim 3 \Rightarrow 1a = 2b, 1a = 3c, a+b+c=1 \Rightarrow 3c + (3/2)c + c = 1 \Rightarrow c = \frac{2}{11}, b = \frac{3}{11},a = \frac{6}{11}.$
+
+We note that playing any of $(\frac{2}{3} (1) + \frac{1}{3} (2)),(\frac{3}{5} (2) + \frac{2}{5} (3)),(\frac{3}{4} (1) + \frac{1}{4} (3)),(\frac{6}{11} (1) + \frac{3}{11} (2) + \frac{2}{11}(3))$ will result in the other player having a symmetric best response. Therefore, all of the nash equilibria are: $(1,1),(2,2),(3,3),(\frac{2}{3} (1) + \frac{1}{3} (2),\frac{2}{3} (1) + \frac{1}{3} (2)),(\frac{3}{5} (2) + \frac{2}{5} (3),\frac{3}{5} (2) + \frac{2}{5} (3)),(\frac{3}{4} (1) + \frac{1}{4} (3),\frac{3}{4} (1) + \frac{1}{4} (3)),(\frac{6}{11} (1) + \frac{3}{11} (2) + \frac{2}{11}(3),\frac{6}{11} (1) + \frac{3}{11} (2) + \frac{2}{11}(3))$.
+
+
+\section{Question 4}
+\subsection{Part A}
+Each firm takes as given the production of the other firm and maximizes their profits accordingly. By the symmetry of the game we will solve for a general firm and then apply that result to each firm to find the nash equilibrium. Note that setting $q_i \geq 2$ will result in negative profit, so this will never be chosen by either firm as they would make $0$ profit from shutting down. So long as $q_{-i}<2$ then firm $i$ can make positive profit from choosing some $q_i>0$ so $0$ will not be chosen, and the firm will choose some $q_i \in (0,2-q_{-i}).$ We do not have to worry about corner solutions here, so we can take first order conditions. 
+
+Firm $i$ takes as given the action of firm $-i$ and faces the following maximization problem: $q^{*}_{i}(q_{-i}) = \argmax_{q_i} P(q_i+q_{-i}) q_i - C_i (q_i) =  \argmax_{q_i} (2 - q_{-i} - q_i) q_i -q_i  =  \argmax_{q_i} q_i - q_iq_{-i} - q_i^2.$ Taking FOCs, $1 - q_{-i} = 2q_i \Rightarrow q^{*}_i(q_{-i}) = \frac{1-q_{-i}}{2}$. Each firm knows that the other will choose this, so firm $i$ knows firm $-i$ will set $q_{-i} = q^{*}_{-i}(q_i) = \frac{1-q_i^{*}(q_{-i})}{2} \Rightarrow q^{*}_i(q_{-i}) = \frac{1}{2} - \frac{1}{4} + \frac{q^{*}_i(q_{-i})}{4} \Rightarrow q^{*}_i = \frac{1}{3}.$
+
+Therefore, $q_1 = q_2 = \frac{1}{3}, \Pi_1 = \Pi_2 = \frac{1}{3}(2-\frac{2}{3}) - \frac{1}{3} = \frac{1}{9}.$
+\subsection{Part B}
+\begin{align*}
+q_1^{*}(q_2) &= \argmax_{q_1} \frac{3}{4}( (2 - q_{-i} - q_i) q_i -q_i) + \frac{1}{4}( (2 - q_{-i} - q_i) q_i) \\&= \argmax_{q_1}  (2 - q_{-i} - q_i) q_i -\frac{3}{4}q_i \\
+\Rightarrow \frac{5}{4} - q_{2} &= 2q_1^{*} \Rightarrow q_1^{*}(q_2) = \frac{5}{8} - \frac{q_2}{2}\\
+\Rightarrow  q_1^{*}(q_2) &=  \frac{5}{8} - \frac{1}{4} + \frac{1}{4}q_1^*(q_2)\\
+\Rightarrow q_1^{*} &= \frac{1}{2},\\
+\Rightarrow q_2^{*} &= \frac{1}{4},\\
+\Rightarrow \Pi_1 &= \frac{1}{2}\left(2 - \frac{3}{4}\right) - \frac{1}{2} = \frac{1}{8},\\
+\Rightarrow \Pi_2 &= \frac{1}{4}\left(2 - \frac{3}{4}\right) - \frac{1}{4} = \frac{1}{16}.
+\end{align*}
+
+\subsection{Part C}
+In part B, firm 1 decides to gain market share. The second firm still only cares about their own profits, and maximizes profit by reducing their production. Firm 1's increased market share results in a net increase in profits relative to part A, and firm 2 suffers a loss of profit as a result.
+\section{Question 5}
+We will first find the time which maximizes $u(t)$. Taking first order conditions shows $(1-t) = t \Rightarrow t = 1/2.$ This clearly dominates the corners as $u(0) = u(1) = 0$. Thus, $\lambda = 1/2$ maximizes $u$.
+
+Next we will make a series of observations which will allow us to solve the problem. First, the quantile payoff is strictly increasing in $q$, so there is no reason for any agent to jump in before the $\lambda$. Second, the total payoff at the end is $0*v(q) = 0$ so people will not jump in right at the end. So, we can solve the problem's equilibrium by finding the quantile function as a function of $t$ which equates the payoff of following the quantile with jumping in early at the point at which $t=\lambda.$
+
+\begin{align*}
+v(0)u(\lambda) &= v(Q(t))u(t) \\
+\Rightarrow \frac{1}{4} &= \left(1+Q(t) + \frac{1}{4}Q^2(t)\right)t(1-t) \\
+\Rightarrow 0 &= 1-\frac{1}{4t(1-t)} + Q(t) + \frac{1}{4}Q^2(t)\\
+\Rightarrow Q(t) &= \frac{-1\pm \sqrt{1 - 1 + \frac{1}{4t(1-t)}}}{2(1/4)}\\
+\Rightarrow Q(t) &= -2 + \sqrt{\frac{1}{t(1-t)}}.
+\end{align*}
+
+This quantile is defined for $t\geq1/2$. It is also only defined for the preimage of $[0,1]: Q^{-1}([0,1]) =  [\frac{1}{2},\frac{3+\sqrt{5}}{6}]$.
+
+To summarize, the symmetric nash equilibrium quantile function $Q(t) =  -2 + \sqrt{\frac{1}{t(1-t)}}$ for $t\in [\frac{1}{2},\frac{3+\sqrt{5}}{6}]$. There cannot be a terminal rush. This is because the payoff at $t=1, u(1)v(q) = 0*v(q) = 0<1/4\leq u(1/2)v(q) \forall q \in [0,1].$ The support of $Q$ is $[\frac{1}{2},\frac{3+\sqrt{5}}{6}].$
+
+
+
+\end{document}
