@@ -140,8 +140,15 @@ v(0)u(\lambda) &= v(Q(t))u(t) \\
 
 This quantile is defined for $t\geq1/2$. It is also only defined for the preimage of $[0,1]: Q^{-1}([0,1]) =  [\frac{1}{2},\frac{3+\sqrt{5}}{6}]$.
 
-To summarize, the symmetric nash equilibrium quantile function $Q(t) =  -2 + \sqrt{\frac{1}{t(1-t)}}$ for $t\in [\frac{1}{2},\frac{3+\sqrt{5}}{6}]$. There cannot be a terminal rush. This is because the payoff at $t=1, u(1)v(q) = 0*v(q) = 0<1/4\leq u(1/2)v(q) \forall q \in [0,1].$ The support of $Q$ is $[\frac{1}{2},\frac{3+\sqrt{5}}{6}].$
+To check for a terminal rush, we equate the following:
+\begin{align*}
+\frac{1}{1-\tilde{q}}\int_{\tilde{q}}^1v(x)dx = v(\tilde{q})\\
+\Rightarrow \frac{1}{1-\tilde{q}}\left( x+x^2/2 + x^3/12 |_{\tilde{q}}^1\right) = 1+\tilde{q} + \tilde{q}^2/4\\
+\Rightarrow 7 - 12\tilde{q} + 3\tilde{q}^2 + 2\tilde{q}^3 = 0\\
+\Rightarrow \tilde{q} = 1 \text{ or } \tilde{q} = -7/2
+\end{align*}
 
+Since $-7/2$ is less than $0$ we can ignore it. $\tilde{q} = 1$ implies there is no terminal rush.
 
-
+To summarize, the symmetric nash equilibrium quantile function $Q(t) =  -2 + \sqrt{\frac{1}{t(1-t)}}$ for $t\in [\frac{1}{2},\frac{3+\sqrt{5}}{6}]$. There cannot be a terminal rush. The support of $Q$ is $[\frac{1}{2},\frac{3+\sqrt{5}}{6}].$
 \end{document}
