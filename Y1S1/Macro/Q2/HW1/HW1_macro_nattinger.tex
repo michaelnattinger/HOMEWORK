@@ -87,8 +87,8 @@ V(A_t,c_{t-1}) = &\max_{c_t,A_{t+1}} u(c_t,c_{t-1}) + \beta V(A_{t+1},c_t)\\
 We can rewrite this as the following:
 
 \begin{align}
-V(A_t,c_{t-1}) = &\max_{c_t} u(c_t,c_{t-1}) + \beta V(R(A_t - c_t),c_t) \label{eqn:V1}\\
-V(A_t,c_{t-1}) = &\max_{A_t} u\left(A_t - \frac{A_{t+1}}{R},c_{t-1}\right) + \beta V\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right) \label{eqn:V2}
+V(A_t,c_{t-1}) = &\max_{c_t} u(c_t,c_{t-1}) + \beta V(R(A_t - c_t),c_t) \label{eqn:V1}%\\
+%V(A_t,c_{t-1}) = &\max_{A_t} u\left(A_t - \frac{A_{t+1}}{R},c_{t-1}\right) + \beta V\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right) \label{eqn:V2}
 \end{align}
 
 To ensure the solution is unique, with a strictly increasing, strictly concave value function that is differentiable on the interior of the feasible set, we require the following assumptions:
@@ -102,22 +102,101 @@ To ensure the solution is unique, with a strictly increasing, strictly concave v
 \end{itemize}
 
 Assuming the above conditions hold, we can solve the value function as it is written in (\ref{eqn:V1}) by taking a first order condition with respect to $c_t,$ and then applying the envelope theorem twice:
+%\begin{align*}
+%0 &=\frac{\partial u}{\partial c_t}(c_t,c_{t-1}) - R\beta \frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) + \beta \frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t)\\
+%\frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) &= 999\\
+%\frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t) &= \frac{\partial u}{\partial c_t}(c_{t+1},c_{t}) \\
+%\Rightarrow \frac{\partial u}{\partial c_t}(c_t,c_{t-1}) + \beta () &= R\beta ()
+%\end{align*}
+
+\begin{align}
+0&= u_1(c',c) + \beta (-RV_1(RA-Rc',c') + V_2(RA-Rc',c')) \label{eqn:FOC} \\
+V_1(A,c) &= R\beta V_1(RA-Rc',c') \label{eqn:env1} \\
+V_2(A,c) &= u_2(c',c) \label{eqn:env2}
+\end{align}
+Next, we can substitute in the envelope conditions (\ref{eqn:env1}), (\ref{eqn:env2}) into our first order condition (\ref{eqn:FOC}) to find an expression for $V_1,$ and substitute back into our initial first order condition (\ref{eqn:FOC}):
 \begin{align*}
-0 &=\frac{\partial u}{\partial c_t}(c_t,c_{t-1}) - R\beta \frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) + \beta \frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t)\\
-\frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) &= 999\\
-\frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t) &= \frac{\partial u}{\partial c_t}(c_{t+1},c_{t}) \\
-\Rightarrow \frac{\partial u}{\partial c_t}(c_t,c_{t-1}) + \beta () &= R\beta ()
+\Rightarrow 0 &= u_1(c',c) + \beta \left( -\frac{V_1(A,c)}{\beta} + u_2(c'',c')\right)
+\end{align*}
+\begin{align}
+\Rightarrow V_1(A,c) &= u_1(c',c) + \beta(c'',c') \label{eqn:redux}
+\end{align}
+We can now combine equations (\ref{eqn:FOC}), (\ref{eqn:env2}), (\ref{eqn:redux}) to yield the following:
+\begin{align*}
+ 0&= u_1(c',c) + \beta(-R(u_1(c'',c') + \beta u_2(c''',c'')) + u_2(c'',c'))
+\end{align*}
+\begin{align}
+\Rightarrow 0&= u_1(c',c) - \beta R u_1(c'',c') - \beta^2 R u_2(c''',c'') + \beta u_2(c'',c') \label{eqn:optcon}
+\end{align}
+
+Equation (\ref{eqn:optcon}) yields our optimality condition.
+
+\subsection{Part B}
+With the utility function as given, our value function becomes the following:
+\begin{align*}
+V(A,c) &= \max_{c'} log(c') + \gamma log(c) + \beta V(RA-Rc',c')
+\end{align*}
+The optimal choice $c'$ takes the form of the $\argmax$ of the optimization problem. 
+\begin{align*}
+c' &= \argmax_{c'}  log(c') + \gamma log(c) + \beta V(RA-Rc',c')\\
+&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
+&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
+&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
+\end{align*}
+ This $\argmax$ is independent of c. 
+
+We can rewrite this Bellman equation as the following, which will preserve the choice of $c'$:
+\begin{align*}
+V(A) &= \max_{A'} (1+\gamma)log\left(\frac{A'}{R} - A \right)  + \beta V(A')
+\end{align*}
+Taking FOC's,
+\begin{align*}
+0 &= \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} +\beta V'(A')\\
+V'(A) &= -\frac{1+\gamma}{\left(\frac{A'}{R} - A \right)} \\
+\Rightarrow  \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} &=\beta \frac{1+\gamma}{\left(\frac{A''}{R} - A' \right)}\\
+\Rightarrow \left(\frac{A''}{R} - A' \right) &= \beta R\left(\frac{A'}{R} - A \right)\\
+\Rightarrow A'' &= A'(1+\beta)R - \beta R^2 A
 \end{align*}
 
+Now we will solve for our optimality conditions. Applying (\ref{eqn:optcon}) to our new utility function yields the following:
+\begin{align*}
+\beta R (c'')^{-1} + \gamma \beta^2 R (c'')^{-1}&=(c')^{-1} + \gamma \beta (c')^{-1}\\
+\Rightarrow c' \beta R (1+\gamma \beta) &= c''(1+\gamma \beta)
+\end{align*}
+\begin{align}
+\Rightarrow c'\beta R &= c'' \label{eqn:euler}
+\end{align}
+Equation (\ref{eqn:euler}) yields our Euler conditions. 
+
+Given a set of assets in an initial period, $A_1$, $c_{t+1}  = \beta R c_t$ $\forall t \in \mathbb{N}$. 
+%With the utility function as given, our value function becomes the following:
+%\begin{align*}
+%V(A,c) &= \max_{c'} log(c') + \gamma log(c) + \beta V(RA-Rc',c')
+%\end{align*}
+%The optimal choice $c'$ takes the form of the $\argmax$ of the optimization problem. 
+%\begin{align*}
+%c' &= \argmax_{c'}  log(c') + \gamma log(c) + \beta V(RA-Rc',c')\\
+%&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
+%&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
+%&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
+%\end{align*}
+% This $\argmax$ is independent of c
+%\begin{align*}
+%
+%\end{align*}
 %I think that doesn't work - taking another crack at it here
 
-Instead we will use the value function as it is written in (\ref{eqn:V2}) by taking a first order condition with respect to $A_{t+1},$ and then applying the envelope theorem twice:
-\begin{align*}
-0 &=\frac{-1}{R}\frac{\partial u}{\partial A_t - \frac{A_{t+1}}{R}}\left(A_t - \frac{A_{t+1}}{R},c_{t-1}\right) + \beta \frac{\partial V}{\partial A_{t+1}}\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right) - \frac{\beta}{R} \frac{\partial V}{\partial A_t - \frac{A_{t+1}}{R}}\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right)\\
-&\frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) = 999\\
-&\frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t) = \frac{\partial u}{\partial c_t}(c_{t+1},c_{t}) \\
-&\Rightarrow \frac{\partial u}{\partial c_t}(c_t,c_{t-1}) + \beta () = R\beta ()
-\end{align*}
+%Instead we will use the value function as it is written in (\ref{eqn:V2}) by taking a first order condition with respect to $A_{t+1},$ and then applying the envelope theorem twice:
+%\begin{align*}
+%0 &=\frac{-1}{R}\frac{\partial u}{\partial A_t - \frac{A_{t+1}}{R}}\left(A_t - \frac{A_{t+1}}{R},c_{t-1}\right) + \beta \frac{\partial V}{\partial A_{t+1}}\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right) - \frac{\beta}{R} \frac{\partial V}{\partial A_t - \frac{A_{t+1}}{R}}\left(A_{t+1},A_t - \frac{A_{t+1}}{R}\right)\\
+%&\frac{\partial V}{\partial R(A_t - c_t)}(R(A_t - c_t),c_t) = 999\\
+%&\frac{\partial V}{\partial c_t}(R(A_t - c_t),c_t) = \frac{\partial u}{\partial c_t}(c_{t+1},c_{t}) \\
+%&\Rightarrow \frac{\partial u}{\partial c_t}(c_t,c_{t-1}) + \beta () = R\beta ()
+%\end{align*}
+
+\subsection{Part C}
+
+No, in general this will not hold. The utility function given to us was a seperable utility function, and for a non-separable utility function the utility 
 
 \section{Question 2}
 \subsection{Part A}
@@ -196,13 +275,58 @@ y=x\Rightarrow T\tilde{V} &=  ax - \frac{b}{2}x^2 + \delta \frac{a}{1-\delta}x -
 \end{align*}
 Therefore, the limit function $\tilde{V}$ satisfies the Bellman equation.
 \section{Question 3}
+\subsection{Part A}
 \begin{align*}
 V(k) &= \max_{k'} \pi (k) - \gamma(k' - (1-\delta)k) + \frac{1}{R}V(k')
 \end{align*}
 
 \begin{align*}
-0&= -\gamma' (k' - (1-\delta)k) + \frac{1}{R}\left( \pi'(k') - (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
-\Rightarrow \pi '(k') &= R \gamma '(k' - (1-\delta)k) + (1-\delta) \gamma'(k'' - (1-\delta)k'))
+0&= -\gamma' (k' - (1-\delta)k) + \frac{1}{R}\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
+\Rightarrow \pi '(k') + (1-\delta) \gamma ' (k'' - (1-\delta)k')&= R \gamma'(k' - (1-\delta)k)
+\end{align*}
+
+\subsection{Part B}
+Letting $k = k' = k'' = \bar{k},$ we know that $\bar{I} = \delta \bar{k}$ and, moreover, we can rewrite our conditions for optimization in the following way:
+
+\begin{align*}
+\pi '(\bar{k}) + (1-\delta) \gamma '(\bar{I}) &= R \gamma'(\bar{I}))\\
+\Rightarrow \pi'(\bar{k}) &= (R-1 + \delta)\gamma'(\bar{I})
+\end{align*}
+ By the strict convexity of $\gamma$ and strict concavity of $\pi$, in addition to our Inada conditions, the solution exists and is unique.
+
+If $R$ were to increase, the steady state level of $\pi'(\bar{k})$ would increase, resulting in a reduction in $\bar{k}$, and since $\bar{I} = \delta \bar{k}$, $\bar{I}$ will fall as well.
+
+\subsection{Part C}
+Our optimality conditions become:
+\begin{align*}
+-(k'-k^{*}) &= R(k' - (1-\delta)k) + (1-\delta)(I')\\
+\Rightarrow -(k'-k^{*}) &= RI -(1-\delta)I'\\
 \end{align*}
 \section{Question 4}
+\subsection{Part A}
+The Bellman equation takes the following form:
+\begin{align*}
+V(k) =\max_{c} \frac{1}{1-\gamma} (c G^{\eta})^{1-\gamma} + \beta V((1-\delta)k +f(k) - c)
+\end{align*}
+
+We will find the conditions for maximization by taking first order conditions and applying the envelope conditions:
+
+\begin{align*}
+c^{-\gamma}(G^{\eta})^{1-\gamma} - \beta V'((1-\delta)k +f(k) - c) &= 0\\
+V'(k) &= \beta V'((1-\delta)k + f(k) - c) (1-\delta + f'(k))\\
+\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \frac{V'(k)}{1-\delta + f'(k)} \\
+\Rightarrow V'(k) &=  c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'(k))\\
+\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \beta c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'((1-\delta)k +f(k) - c))\\
+\Rightarrow \frac{1}{\beta} &= 1-\delta + f'((1-\delta)k +f(k) - c)\\
+\Rightarrow f'((1-\delta)k +f(k) - c) &= \frac{1}{\beta} + \delta - 1.
+\end{align*}
+\subsection{Part B}
+
+Yes, we can still have a unique steady state regardless of g. We can solve for $\bar{c},\bar{k}$ as follows:
+\begin{align*}
+\bar{c}&= (1-\delta)\bar{k}  + f(\bar{k}) - f'^{-1}( \frac{1}{\beta} + \delta - 1)\\
+\delta \bar{k} - f(\bar{k}) = - \bar{c}
+\end{align*}
+The above equations form 2 equations in 2 unknowns which pin down our steady state values.
+\subsection{Part C}
 \end{document}
