@@ -304,29 +304,58 @@ Our optimality conditions become:
 \end{align*}
 \section{Question 4}
 \subsection{Part A}
-The Bellman equation takes the following form:
-\begin{align*}
-V(k) =\max_{c} \frac{1}{1-\gamma} (c G^{\eta})^{1-\gamma} + \beta V((1-\delta)k +f(k) - c)
-\end{align*}
+%The Bellman equation takes the following form:
+%\begin{align*}
+%V(k) =\max_{c} \frac{1}{1-\gamma} (c G^{\eta})^{1-\gamma} + \beta V((1-\delta)k +f(k) - c)
+%\end{align*}
+%
+%We will find the conditions for maximization by taking first order conditions and applying the envelope conditions:
+%
+%\begin{align*}
+%c^{-\gamma}(G^{\eta})^{1-\gamma} - \beta V'((1-\delta)k +f(k) - c) &= 0\\
+%V'(k) &= \beta V'((1-\delta)k + f(k) - c) (1-\delta + f'(k))\\
+%\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \frac{V'(k)}{1-\delta + f'(k)} \\
+%\Rightarrow V'(k) &=  c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'(k))\\
+%\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \beta c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'((1-\delta)k +f(k) - c))\\
+%\Rightarrow \frac{1}{\beta} &= 1-\delta + f'((1-\delta)k +f(k) - c)\\
+%\Rightarrow f'((1-\delta)k +f(k) - c) &= \frac{1}{\beta} + \delta - 1.
+%\end{align*}
+%\subsection{Part B}
+%
+%Yes, we can still have a unique steady state regardless of g. We can solve for $\bar{c},\bar{k}$ as follows:
+%\begin{align*}
+%\bar{c}&= (1-\delta)\bar{k}  + f(\bar{k}) - f'^{-1}( \frac{1}{\beta} + \delta - 1)\\
+%\delta \bar{k} - f(\bar{k}) = - \bar{c}
+%\end{align*}
+%The above equations form 2 equations in 2 unknowns which pin down our steady state values.
+%\subsection{Part C}
+We will write our Bellman equation in the following form:
+\begin{align}
+V(k) = \max_{k'} (((1-\delta) k + f(k) - k')G^{\eta})^{1-\gamma}/(1-\gamma) + \beta V(k') \label{eqn:bellk}
+\end{align}
 
-We will find the conditions for maximization by taking first order conditions and applying the envelope conditions:
-
+By taking first order conditions and applying the envelope theorem, we get the following:
 \begin{align*}
-c^{-\gamma}(G^{\eta})^{1-\gamma} - \beta V'((1-\delta)k +f(k) - c) &= 0\\
-V'(k) &= \beta V'((1-\delta)k + f(k) - c) (1-\delta + f'(k))\\
-\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \frac{V'(k)}{1-\delta + f'(k)} \\
-\Rightarrow V'(k) &=  c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'(k))\\
-\Rightarrow c^{-\gamma}(G^{\eta})^{1-\gamma} &= \beta c^{-\gamma}(G^{\eta})^{1-\gamma} (1-\delta + f'((1-\delta)k +f(k) - c))\\
-\Rightarrow \frac{1}{\beta} &= 1-\delta + f'((1-\delta)k +f(k) - c)\\
-\Rightarrow f'((1-\delta)k +f(k) - c) &= \frac{1}{\beta} + \delta - 1.
+\beta V'(k') &=((1-\delta) k + f(k) - k')^{-\gamma}G^{\eta(1-\gamma)}\\
+V'(k') &=((1-\delta) k' + f(k') - k'')^{-\gamma}(G')^{\eta(1-\gamma)}((1-\delta) + f'(k'))\\
+\Rightarrow ((1-\delta) k + f(k) - k')^{-\gamma}G^{\eta(1-\gamma)} &=\beta ((1-\delta) k' + f(k') - k'')^{-\gamma}(G')^{\eta(1-\gamma)}((1-\delta) + f'(k'))\\
 \end{align*}
+\begin{align}
+\Rightarrow \left( \frac{c'}{c}\right)^{\gamma} &= \left( \frac{G'}{G}\right)^{\eta(1-\gamma)}\beta ((1-\delta) + f'(k')) \label{eqn:optconk}
+\end{align}
+
+Equation (\ref{eqn:optconk}) along with the identity $k' = (1-\delta)k + f(k) - c$ form our difference equations for $k',c'$ (2 equations, 2 variables).
+
 \subsection{Part B}
 
-Yes, we can still have a unique steady state regardless of g. We can solve for $\bar{c},\bar{k}$ as follows:
+If government spending grows at a constant rate, $g$, then we can find steady state values $\bar{k},\bar{c}$ from our difference equations:
+
 \begin{align*}
-\bar{c}&= (1-\delta)\bar{k}  + f(\bar{k}) - f'^{-1}( \frac{1}{\beta} + \delta - 1)\\
-\delta \bar{k} - f(\bar{k}) = - \bar{c}
+1 = g^{\eta(1-\gamma)}\beta((1-\delta) + f'(\bar{k}))\\
+\Rightarrow \bar{k} = f'^{-1}(g^{-\eta(1-\gamma)}\beta^{-1} - 1+ \delta)\\
+\Rightarrow \bar{c} = f(\bar{k}) - \delta \bar{k}.
 \end{align*}
-The above equations form 2 equations in 2 unknowns which pin down our steady state values.
+
 \subsection{Part C}
+Our identity $k' = (1-\delta)k + f(k) - c$ shows that in the period where $g$ increases, the level of capital was already predetermined in the period before so it will remain at its initial level. Our value for $c$ then makes the initial adjustment, and as $g$ increases then $c'/c$ increases, so (assuming consumption is positive), consumption increases. The increase in consumption results in lower capital in the next period. This lower capital increases $f'(k)$, resulting in a further increase in consumption. Eventually, the system will approach its new steady state. The new steady state value for capital will be lower as an increase in $g$ will result in a decrease in $f'^{-1}$, and therefore a decrease in $\bar{k}.$ The lower value for the steady state of capital has an indeterminate effect on the steady state of consumption as it will increase the $f(\bar{k})$ term but decrease the $-\delta \bar{k}$ term.
 \end{document}
