@@ -1,0 +1,179 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{Part A}
+\begin{align*}
+u_i(w_i,w_j) &= \gamma w_i - \beta(w_i - w_j)^2 - \rho w_i - \alpha w_i^2/2 - \alpha w_jw_i/2\\
+\Rightarrow \frac{\partial u}{\partial w_i}(0,0) &= \gamma-\rho>0 
+\end{align*}
+The assumption guarantees that the marginal utility from $w_i>0$ at $0,0$, so the gangs will set $w_i>0$.
+\subsection{Part B}
+The game is supermodular if the cross partials are positive:
+
+\begin{align*}
+\frac{\partial^2 u}{\partial w_j \partial w_i} &= 2\beta - \alpha/2 >0 \\
+\Rightarrow \beta&>\alpha/4.
+\end{align*}
+\subsection{Part C}
+From our parametric assumption we know $w_i>0$ so we can take FOCs to optimize:
+
+\begin{align*}
+0 &= \gamma - 2\beta (w_i - w_j) - \rho -\alpha w_i - \alpha w_j/2\\
+\Rightarrow w_i &= \frac{(\gamma-\rho) + (2\beta -\alpha/2)w_j }{2\beta +\alpha}\\
+\Rightarrow w_i &= \frac{(\gamma-\rho) + (2\beta -\alpha/2)\frac{(\gamma-\rho) + (2\beta -\alpha/2)w_i }{2\beta +\alpha} }{2\beta +\alpha}\\
+\Rightarrow (2\beta + \alpha)^2 w_i &= (2\beta+\alpha + 2\beta - \alpha/2)(\gamma - \rho) + (2\beta - \alpha/2)^2 w_i\\
+\Rightarrow (6\alpha\beta + (3/4)\alpha^2)w_i &= (4\beta + \alpha/2)(\gamma - \rho)\\
+\Rightarrow  w_i &= \left( \frac{4\beta+ \alpha/2}{6\alpha \beta + (3/4)\alpha^2} \right)(\gamma - \rho)\\
+\Rightarrow w_i &= \frac{2(\gamma-\rho)}{3\alpha}
+\end{align*}
+\subsection{Part D}
+\begin{itemize}
+\item
+$\rho$ is the base value of the price of weapons, i.e. the y intercept of the weapon supply equation. Higher values of $\rho$ result in directly higher prices of weapons, resulting in lower equilibrium quantities of weapons demanded.
+\item
+$\gamma$ is the direct positive impact (for the gang) of buying a weapon. Perhaps an interpretation of it would be expected revenue per weapon owned. Higher values of $\gamma$ increases the equilibrium quantity of weapons demanded.
+\item
+$\beta$ is the disutility from having a different number of weapons than the other gang. In equilibrium this has no effect as, due to symmetry, the gangs will own the same number of guns.
+\item
+$\alpha$ is the slope of the weapon supply curve. Higher values of $\alpha$ result in price responding more to an increase in weapon demand. Therefore, an increase in $\alpha$ reduces the amount of weapons demanded.
+\end{itemize}
+\subsection{Part E}
+With $w_j$ as given, the best response of firm $i$ satisfies the following condition:
+\begin{align*}
+0 &= \gamma - 2\beta (w_i - w_j) - \rho -\alpha w_i - \alpha w_j/2\\
+\end{align*}
+We will try to find a value of $w_j$ which will result in the optimal $w_i$ being $0$:
+\begin{align*}
+0 &= \gamma +2\beta  w_j - \rho - \alpha w_j/2\\
+\Rightarrow w_j &= -\frac{\gamma - \rho}{2\beta - \alpha/2}.
+\end{align*}
+We know that $\gamma>\rho$ so this quantity is positive iff $2\beta<\alpha/2 \Rightarrow \beta<\alpha/4$. Note that this is the opposite condition from what we found to satisfy supermodularity. If the game is not supermodular then there exists equilibria where $w_i=0.$
+\subsection{Part F}
+Can the game support a mixed strategy nash equilibrium?
+\subsection{Part G}
+Gang 1's weapon demand will increase as the weapons are more valueable now. This increase will be larger in magnitude than it would be if both gangs were able to respond because, if gang 2 could also buy weapons then they would buy more weapons which would increase the price of weapons. When the second gang cannot buy weapons, the weapons are relatively cheaper for gang 1 so gang 1 will buy more weapons.
+\section{Question 2}
+Each gang takes the average as given and sets $w_i$ to satisfy their FOC:
+\begin{align*}
+0&=\gamma - 2\beta (w_i - \bar{w}) - \rho - \alpha \bar{w}\\
+\Rightarrow 2\beta w_i &= ( 2\beta - \alpha)\bar{w} + (\gamma - \rho)\\
+\end{align*}
+In the symmetric equilibrium, $\bar{w} = w_i \forall i$, so:
+\begin{align*}
+ w_i = \frac{(\gamma - \rho)}{\alpha}
+\end{align*}
+
+We get a different equilibrium in this case because no individual gang has any ability to affect the average quantity. The $\gamma - \rho$ term is the same, and the part that changes is that $\alpha$ is less important when choosing prices because additional purchasing of weapons does not increase the average quantity of guns purchased, and thus does not affect the price of weapons through the $\alpha$ term in the same way that it does in part C.
+
+\section{Question 3} % I don't think the utility function is written correctly lol
+\subsection{Part A}
+Each agent takes the actions of the other agents as given and reacts optimally. We will take first order conditions:
+
+\begin{align*}
+ 2(x_i - \alpha) &= 2(x_i - \bar{x})
+\end{align*}
+In the symmetric nash equilibrium, $x_i = \bar{x} \Rightarrow x_i = \alpha$.
+\subsection{Part B}
+The quantile function will equate the utiltiy of each quantile with the utility the agent at that quantile would get by picking the optimal choice:
+\begin{align*}
+u_i(q(x),\bar{x},\alpha) &= u_i(\alpha,\bar{x},\alpha)\\
+\Rightarrow (q(x) - \alpha)^2 - (q(x) - \bar{x})^2 &= - (\alpha - \bar{x})^2\\
+\Rightarrow q^2(x) - 2\alpha + \alpha^2 - q^2(x) + 2q(x)\bar{x} - \bar{x}^2 &= - \alpha^2 + 2\alpha\bar{x} - \bar{x}^2\\
+\Rightarrow  ( \bar{x} - \alpha) q(x) &= \alpha \bar{x} - \alpha^2
+\Rightarrow q(x) &= \alpha %?
+\end{align*}
+\subsection{Part C}
+\section{Question 4}
+First we will check for symmetric nash equilibria. We start by taking first order conditions:
+\begin{align*}
+1+(q_j - 1)^{1/3} &= q_i\\
+1+(q_i - 1)^{1/3} &= q_i\\
+\Rightarrow q_i &= 1 = q_{-i}, q_i = 2 = q_{-i}.
+\end{align*}
+Now we will check for potentially non-symmetric pure nash equilibria:
+\begin{align*}
+1+(q_j - 1)^{1/3} &= q_i\\
+1+(1+(q_i - 1)^{1/3} - 1)^{1/3} &= q_i\\
+\Rightarrow q_i &= 1 = q_{-i}, q_i = 2 = q_{-i}.
+\end{align*}
+These are the same nash equilibria. Thus, our nash equilibria are (1,1) and (2,2). % non-pure?
+\section{Question 5}
+\end{document}

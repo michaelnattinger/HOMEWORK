@@ -139,24 +139,25 @@ V(A,c) &= \max_{c'} log(c') + \gamma log(c) + \beta V(RA-Rc',c')
 The optimal choice $c'$ takes the form of the $\argmax$ of the optimization problem. 
 \begin{align*}
 c' &= \argmax_{c'}  log(c') + \gamma log(c) + \beta V(RA-Rc',c')\\
-&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
-&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
-&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
+&= \argmax_{c'}  log(c') + \beta V(RA-Rc',c')\\
+%&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
+%&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
+%&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
 \end{align*}
  This $\argmax$ is independent of c. 
 
-We can rewrite this Bellman equation as the following, which will preserve the choice of $c'$:
-\begin{align*}
-V(A) &= \max_{A'} (1+\gamma)log\left(\frac{A'}{R} - A \right)  + \beta V(A')
-\end{align*}
-Taking FOC's,
-\begin{align*}
-0 &= \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} +\beta V'(A')\\
-V'(A) &= -\frac{1+\gamma}{\left(\frac{A'}{R} - A \right)} \\
-\Rightarrow  \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} &=\beta \frac{1+\gamma}{\left(\frac{A''}{R} - A' \right)}\\
-\Rightarrow \left(\frac{A''}{R} - A' \right) &= \beta R\left(\frac{A'}{R} - A \right)\\
-\Rightarrow A'' &= A'(1+\beta)R - \beta R^2 A
-\end{align*}
+%We can rewrite this Bellman equation as the following, which will preserve the choice of $c'$:
+%\begin{align*}
+%V(A) &= \max_{A'} (1+\gamma)log\left(\frac{A'}{R} - A \right)  + \beta V(A')
+%\end{align*}
+%Taking FOC's,
+%\begin{align*}
+%0 &= \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} +\beta V'(A')\\
+%V'(A) &= -\frac{1+\gamma}{\left(\frac{A'}{R} - A \right)} \\
+%\Rightarrow  \frac{1+\gamma}{R\left(\frac{A'}{R} - A \right)} &=\beta \frac{1+\gamma}{\left(\frac{A''}{R} - A' \right)}\\
+%\Rightarrow \left(\frac{A''}{R} - A' \right) &= \beta R\left(\frac{A'}{R} - A \right)\\
+%\Rightarrow A'' &= A'(1+\beta)R - \beta R^2 A
+%\end{align*}
 
 Now we will solve for our optimality conditions. Applying (\ref{eqn:optcon}) to our new utility function yields the following:
 \begin{align*}
@@ -166,9 +167,14 @@ Now we will solve for our optimality conditions. Applying (\ref{eqn:optcon}) to 
 \begin{align}
 \Rightarrow c'\beta R &= c'' \label{eqn:euler}
 \end{align}
-Equation (\ref{eqn:euler}) yields our Euler conditions. 
+Equation (\ref{eqn:euler}) yields our Euler conditions. This implies that the optimal saving policy is to save a current fraction of current assets. %show via guess and verify?
 
-Given a set of assets in an initial period, $A_1$, $c_{t+1}  = \beta R c_t$ $\forall t \in \mathbb{N}$. 
+%\begin{align*}
+%V(k,c) &= \max_{k'} log(A-k'/R) + \gamma log(c) + \beta V(k',A-k'/R)
+%&= 
+%\end{align*}
+
+%Given a set of assets in an initial period, $A_1$, $c_{t+1}  = \beta R c_t$ $\forall t \in \mathbb{N}$. 
 %With the utility function as given, our value function becomes the following:
 %\begin{align*}
 %V(A,c) &= \max_{c'} log(c') + \gamma log(c) + \beta V(RA-Rc',c')
@@ -202,7 +208,7 @@ No, in general this will not hold. The utility function given to us was a sepera
 \subsection{Part A}
 The sequence problem is to maximize profits:
 \begin{align*}
-\max_{\{ x_t\}_{i=1}^{\infty}} \left( \frac{1}{1+r} \right)^{t}\left( ax_t - \frac{b}{2}x_t^2 - \frac{c}{2}(x_{t+1}-x_t)^2\right)
+\max_{\{ x_t\}_{i=1}^{\infty}} \sum_{i=1}^{\infty}\left( \frac{1}{1+r} \right)^{t}\left( ax_t - \frac{b}{2}x_t^2 - \frac{c}{2}(x_{t+1}-x_t)^2\right)
 \end{align*}
 
 We can rewrite this as a bellman equation in the following way:
@@ -271,7 +277,7 @@ Note that $\alpha_{n} = a + \delta a + \delta^2 a + \dots$, $\beta_n = b + \delt
 T\tilde{V} &= \max_{y} ax - \frac{b}{2}x^2 - \frac{c}{2}(y-x)^2 + \delta \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2,\\
 y=x\Rightarrow T\tilde{V} &=  ax - \frac{b}{2}x^2 + \delta \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2\\
 &= \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2\\
-&= \tilde{T}.
+&= \tilde{V}.
 \end{align*}
 Therefore, the limit function $\tilde{V}$ satisfies the Bellman equation.
 \section{Question 3}
@@ -281,7 +287,8 @@ V(k) &= \max_{k'} \pi (k) - \gamma(k' - (1-\delta)k) + \frac{1}{R}V(k')
 \end{align*}
 
 \begin{align*}
-0&= -\gamma' (k' - (1-\delta)k) + \frac{1}{R}\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
+\gamma' (k' - (1-\delta)k) &= \frac{1}{R}\beta V'(k')\\%\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
+V'(k) = \pi'(k) + (1-\delta) \gamma ' (k' - (1-\delta)k)\\
 \Rightarrow \pi '(k') + (1-\delta) \gamma ' (k'' - (1-\delta)k')&= R \gamma'(k' - (1-\delta)k)
 \end{align*}
 
@@ -290,7 +297,8 @@ Letting $k = k' = k'' = \bar{k},$ we know that $\bar{I} = \delta \bar{k}$ and, m
 
 \begin{align*}
 \pi '(\bar{k}) + (1-\delta) \gamma '(\bar{I}) &= R \gamma'(\bar{I}))\\
-\Rightarrow \pi'(\bar{k}) &= (R-1 + \delta)\gamma'(\bar{I})
+\Rightarrow \pi'(\bar{k}) &= (R-1 + \delta)\gamma'(\delta \bar{k})\\
+\Rightarrow \frac{ \pi'(\bar{k})}{\gamma'(\delta \bar{k})} &= (R-1+ \delta)
 \end{align*}
  By the strict convexity of $\gamma$ and strict concavity of $\pi$, in addition to our Inada conditions, the solution exists and is unique.
 
@@ -300,8 +308,12 @@ If $R$ were to increase, the steady state level of $\pi'(\bar{k})$ would increas
 Our optimality conditions become:
 \begin{align*}
 -(k'-k^{*}) &= R(k' - (1-\delta)k) + (1-\delta)(I')\\
-\Rightarrow -(k'-k^{*}) &= RI -(1-\delta)I'\\
+\Rightarrow -(k'-k^{*}) &= RI -(1-\delta)I'
 \end{align*}
+This, in addition to our law of motion for capital, $k' = I + (1-\delta)k$, forms the law of motion for capital and investment.
+
+If the interest rate were to rise, there would not be an initial change in the capital level as $k'$ is already exactly determined by $I,k$. Investment spending would instead adjust and would have to increase.
+
 \section{Question 4}
 \subsection{Part A}
 %The Bellman equation takes the following form:
