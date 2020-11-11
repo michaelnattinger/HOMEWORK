@@ -93,12 +93,9 @@ V(A_t,c_{t-1}) = &\max_{c_t} u(c_t,c_{t-1}) + \beta V(R(A_t - c_t),c_t) \label{e
 
 To ensure the solution is unique, with a strictly increasing, strictly concave value function that is differentiable on the interior of the feasible set, we require the following assumptions:
 \begin{itemize}
-\item $u(.)$ is continuously differentiable, strictly concave, and strictly increasing in its arguments.
-\item $0<\beta <1$
-\item $\lim_{k\rightarrow 0} u'(k,u) = \lim_{k\rightarrow 0} u'(u,k) = \infty$
-\item $\lim_{k\rightarrow \infty} u'(k,u) = \lim_{k\rightarrow \infty} u'(u,k) = 0$
-\item The utility function is bounded?
-\item Do we need anything else?
+\item $(F1),(F2),(F3),(F4),(\Gamma 1),(\Gamma 2), (\Gamma 3)$ from lecture.
+%\item $\lim_{k\rightarrow 0} u'(k,u) = \lim_{k\rightarrow 0} u'(u,k) = \infty$
+%\item $\lim_{k\rightarrow \infty} u'(k,u) = \lim_{k\rightarrow \infty} u'(u,k) = 0$
 \end{itemize}
 
 Assuming the above conditions hold, we can solve the value function as it is written in (\ref{eqn:V1}) by taking a first order condition with respect to $c_t,$ and then applying the envelope theorem twice:
@@ -119,7 +116,7 @@ Next, we can substitute in the envelope conditions (\ref{eqn:env1}), (\ref{eqn:e
 \Rightarrow 0 &= u_1(c',c) + \beta \left( -\frac{V_1(A,c)}{\beta} + u_2(c'',c')\right)
 \end{align*}
 \begin{align}
-\Rightarrow V_1(A,c) &= u_1(c',c) + \beta(c'',c') \label{eqn:redux}
+\Rightarrow V_1(A,c) &= u_1(c',c) + \beta u_2(c'',c') \label{eqn:redux}
 \end{align}
 We can now combine equations (\ref{eqn:FOC}), (\ref{eqn:env2}), (\ref{eqn:redux}) to yield the following:
 \begin{align*}
@@ -140,11 +137,17 @@ The optimal choice $c'$ takes the form of the $\argmax$ of the optimization prob
 \begin{align*}
 c' &= \argmax_{c'}  log(c') + \gamma log(c) + \beta V(RA-Rc',c')\\
 &= \argmax_{c'}  log(c') + \beta V(RA-Rc',c')\\
+&=  \argmax_{c'}  log(c') + \beta \max_{c''} log(c'') + \gamma \beta log(c')  + \beta V(RA'-Rc'',c'') \\
+&= \argmax_{c'}  (1+\gamma) log(c') + \beta \max_{c''} log(c'')   + \beta V(RA'-Rc'',c'') \\
 %&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
 %&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
 %&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
 \end{align*}
- This $\argmax$ is independent of c. 
+\begin{equation}
+\Rightarrow c' = \argmax_{c'}   log(c') + \beta \tilde{V}(RA-Rc') \label{eqn:vtilde}
+\end{equation}
+
+ This $\argmax$ is independent of c. Note that we have shown that the choice of $c_t$ not only does not depend on $c_{t-1},$ but is also equivalent to the choice of $c_t$ from a value function using standard log preferences ($\tilde{V}(A) = \max_{c} log(c) + \beta \tilde{V}(RA-Rc)$).
 
 %We can rewrite this Bellman equation as the following, which will preserve the choice of $c'$:
 %\begin{align*}
@@ -167,7 +170,27 @@ Now we will solve for our optimality conditions. Applying (\ref{eqn:optcon}) to 
 \begin{align}
 \Rightarrow c'\beta R &= c'' \label{eqn:euler}
 \end{align}
-Equation (\ref{eqn:euler}) yields our Euler conditions. This implies that the optimal saving policy is to save a current fraction of current assets. %show via guess and verify?
+Equation (\ref{eqn:euler}) yields our Euler conditions.
+
+Recall that, due to properties of argmax, our choice of $c_t$ is equivalent to the choice of $c_t$ from a different value function, $\tilde{V}(A) = \max_{A'} log(A'/R- A) + \beta \tilde{V}(A')$. We will guess and verify that this implies that we will save a constant portion of our assets.
+
+Let $c_t = aA_t$ for some $a \in (0,1)$. Then, we can combine this fact with $(\ref{eqn:euler})$ to form a guess for our value function: $\tilde{V}(A) = \sum_{i=0}^n \beta^i log((\beta R)^iaA)$. We can plug this into our formulation for the value function:
+
+\begin{align*}
+ \sum_{i=0}^n \beta^i log((\beta R)^iaA) = \max_{A'} log(A'/R- A) + \beta \sum_{i=0}^{\infty} \beta^i log((\beta R)^iaA')
+\end{align*}
+
+Taking FOCs:
+\begin{align*}
+\frac{1}{RA-A'} &= \beta\sum_{i=0}^{\infty} \beta^{i}\frac{(\beta R)^{i}a}{(\beta R)^{i}aA'}\\
+\Rightarrow \frac{A'}{aRA} &= \frac{\beta}{1-\beta}\\
+\Rightarrow \frac{RA(1-a)}{aRA} &= \frac{\beta}{1-\beta}\\
+\Rightarrow \frac{(1-a)}{a} &= \frac{\beta}{1-\beta}\\
+\Rightarrow a &= 1-\beta
+\end{align*}
+
+Therefore, the optimal policy function is to consume $1-\beta$ of your assets and to save $\beta$ of your assets.
+ %This implies that the optimal saving policy is to save a current fraction of current assets. %show via guess and verify?
 
 %\begin{align*}
 %V(k,c) &= \max_{k'} log(A-k'/R) + \gamma log(c) + \beta V(k',A-k'/R)
@@ -202,7 +225,7 @@ Equation (\ref{eqn:euler}) yields our Euler conditions. This implies that the op
 
 \subsection{Part C}
 
-No, in general this will not hold. The utility function given to us was a seperable utility function, and for a non-separable utility function the utility 
+No, in general this will not hold. The only reason why this held in part B is that the utility function given to us was a seperable utility function. 
 
 \section{Question 2}
 \subsection{Part A}
@@ -287,7 +310,7 @@ V(k) &= \max_{k'} \pi (k) - \gamma(k' - (1-\delta)k) + \frac{1}{R}V(k')
 \end{align*}
 
 \begin{align*}
-\gamma' (k' - (1-\delta)k) &= \frac{1}{R}\beta V'(k')\\%\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
+\gamma' (k' - (1-\delta)k) &= \frac{1}{R} V'(k')\\%\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
 V'(k) = \pi'(k) + (1-\delta) \gamma ' (k' - (1-\delta)k)\\
 \Rightarrow \pi '(k') + (1-\delta) \gamma ' (k'' - (1-\delta)k')&= R \gamma'(k' - (1-\delta)k)
 \end{align*}
@@ -308,11 +331,19 @@ If $R$ were to increase, the steady state level of $\pi'(\bar{k})$ would increas
 Our optimality conditions become:
 \begin{align*}
 -(k'-k^{*}) &= R(k' - (1-\delta)k) + (1-\delta)(I')\\
-\Rightarrow -(k'-k^{*}) &= RI -(1-\delta)I'
+\Rightarrow -(k'-k^{*}) &= RI +(1-\delta)I'
 \end{align*}
-This, in addition to our law of motion for capital, $k' = I + (1-\delta)k$, forms the law of motion for capital and investment.
+This, in addition to our law of motion for capital, $k' = I + (1-\delta)k$, forms the difference equations for capital and investment.
 
-If the interest rate were to rise, there would not be an initial change in the capital level as $k'$ is already exactly determined by $I,k$. Investment spending would instead adjust and would have to increase.
+We will now derive our phase diagrams. $\Delta k = 0$ implies that $I = \delta k$. $\Delta I = 0$ implies that $-(I + (1-\delta)k - k^{*}) = RI - (1-\delta)I \Rightarrow I = \frac{k^{*}}{R+\delta} - \frac{(1-\delta)}{R+\delta}k$. If we are above $\Delta k = 0$ then we are investing more than the rate of depreciation so capital goes to the right. If we are to the right of $\Delta I=0$ then we are underinvesting so I will increase. We can draw the phase diagram below.
+
+\includegraphics{phase3}
+
+If the interest rate were to rise, there would not be an initial change in the capital level as $k'$ is already exactly determined by $I,k$. Investment spending would instead adjust and would immediately decrease. Specifically, investment spending would decrease so as to move to the new saddle path. The system would then follow the new saddle path to the new steady state. We plot this transition below.
+
+\includegraphics{transition3}
+
+In the above figure, we begin at the original steady state. When the  interest rate rises, investment falls from the magenta o to the magenta $+$. Then, the system proceeds to follow the new saddle path to the new steady state, eventually converging to the magenta x.
 
 \section{Question 4}
 \subsection{Part A}
@@ -369,5 +400,14 @@ If government spending grows at a constant rate, $g$, then we can find steady st
 \end{align*}
 
 \subsection{Part C}
-Our identity $k' = (1-\delta)k + f(k) - c$ shows that in the period where $g$ increases, the level of capital was already predetermined in the period before so it will remain at its initial level. Our value for $c$ then makes the initial adjustment, and as $g$ increases then $c'/c$ increases, so (assuming consumption is positive), consumption increases. The increase in consumption results in lower capital in the next period. This lower capital increases $f'(k)$, resulting in a further increase in consumption. Eventually, the system will approach its new steady state. The new steady state value for capital will be lower as an increase in $g$ will result in a decrease in $f'^{-1}$, and therefore a decrease in $\bar{k}.$ The lower value for the steady state of capital has an indeterminate effect on the steady state of consumption as it will increase the $f(\bar{k})$ term but decrease the $-\delta \bar{k}$ term.
+Our identity $k' = (1-\delta)k + f(k) - c$ shows that in the period where $g$ increases, the level of capital was already predetermined in the period before so it will remain at its initial level. Our value for $c$ then makes the initial adjustment, and as $g$ increases then $c'/c$ increases, so (assuming consumption is positive), consumption increases. The increase in consumption results in lower capital in the next period. This lower capital increases $f'(k)$, resulting in a further increase in consumption. Eventually, the system will approach its new steady state. The new steady state value for capital will be higher as an increase in $g$ will result in an increase in $f'^{-1}$, and therefore an increase in $\bar{k}.$ The higher value for the steady state of capital has an indeterminate effect on the steady state of consumption as it will increase the $f(\bar{k})$ term but decrease the $-\delta \bar{k}$ term. The more an agent prefers government spending ($\eta$), the more the steady state capital level will move, and the larger the move in capital the more the $-\delta \bar{k}$ term moves relative to $f(\bar{k})$ due to the concavity of $f$. Thus, for higher values of $\eta$, the steady state consumption levels will drop while for lower values of $\eta$ the steady state consumption levels will increase. We can show this numerically via Matlab, which I will show below.
+
+\includegraphics{higheta}
+
+The above figure shows the transition from an increase in $g$ for a relatively high value of $\eta$. Since the $-\delta \bar{k}$ term dominates the $f(\bar{k})$ term in this case, the steady state level of consumption falls. We will show below that this is not always the case, and that for lower levels of $\eta$ the steady state consumption level can increase.
+
+\includegraphics{loweta}
+
+This figure, which is identical in parameterization from the previous figure except for a lower value of $\eta$, shows that it is possible for the new steady state level of consumption to increase.
+
 \end{document}
