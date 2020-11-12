@@ -153,15 +153,19 @@ We get a different equilibrium in this case because no individual gang has any a
 %In the symmetric nash equilibrium, $x_i = \bar{x} \Rightarrow x_i = \alpha$.
 There exist 2 pure strategy Nash equilibria: $x_i=0,x_i=1.$ If all other agents choose $x_i=0$, then choosing any number in $(0,\alpha)$ will result in strictly lower utility as the $(x_i - \alpha)^2$ term will decrease and the $-(x_i - \bar{x})^2$ term will decrease. Moreover, choosing any number in $[\alpha,1]$ will also result in strictly lower utility as the $(x_i - \alpha)^2$ term will increase by less than the $-(x_i - \bar{x})^2$ term will decrease. Therefore, $x_i = 0$ is a pure strategy nash equilibrium. Parallel logic shows that $x_i=1$ is also a pure strategy nash equilibrium.
 \subsection{Part B}
-The quantile function will equate the utiltiy of each quantile with the utility the agent at that quantile would get by picking the optimal choice:
-\begin{align*}
-u_i(q(x),\bar{x},\alpha) &= u_i(\alpha,\bar{x},\alpha)\\
-\Rightarrow (q(x) - \alpha)^2 - (q(x) - \bar{x})^2 &= - (\alpha - \bar{x})^2\\
-\Rightarrow q^2(x) - 2\alpha + \alpha^2 - q^2(x) + 2q(x)\bar{x} - \bar{x}^2 &= - \alpha^2 + 2\alpha\bar{x} - \bar{x}^2\\
-\Rightarrow  ( \bar{x} - \alpha) q(x) &= \alpha \bar{x} - \alpha^2
-\Rightarrow q(x) &= \alpha %?
-\end{align*}
+Any distribution such that the average is at $\alpha$ is a nash equilibria as the disutility of being far away from the mean is equal to the utility gained by being close to the average, so the agents would be indifferent between staying with the equilibria or moving anywhere else.
+
+We can also show that no value of $\bar{x} \in (0,1) \setminus \{ \alpha\}$ would result in a nash equilibrium. For purpose of contradiction, say there exists a distributional nash equilibrium with $\bar{x} \in (0,\alpha).$ Then, there exists either some $x_i \geq \bar{x}$. If $x_i>\bar{x}$ then individual $i$ would receive more utility by choosing $\bar{x}.$ Similarly, if $x_i = \bar{x}$ then individual $i$ would receive higher utility by setting $x_i = 0$. Thus, in either case individual $i$ is better off by deviating, which is a contradiction. By parallel logic, there cannot be a nash equilibrium with  $\bar{x} \in (\alpha,1).$ Therefore, the nash equilibria are any distributions with $\bar{x} = \alpha,$ and the symmetric nash equilibria at $\bar{x} = 1,$ $\bar{x} = 0.$
+%The quantile function will equate the utiltiy of each quantile with the utility the agent at that quantile would get by picking the optimal choice:
+%\begin{align*}
+%u_i(q(x),\bar{x},\alpha) &= u_i(\alpha,\bar{x},\alpha)\\
+%\Rightarrow (q(x) - \alpha)^2 - (q(x) - \bar{x})^2 &= - (\alpha - \bar{x})^2\\
+%\Rightarrow q^2(x) - 2\alpha + \alpha^2 - q^2(x) + 2q(x)\bar{x} - \bar{x}^2 &= - \alpha^2 + 2\alpha\bar{x} - \bar{x}^2\\
+%\Rightarrow  ( \bar{x} - \alpha) q(x) &= \alpha \bar{x} - \alpha^2
+%\Rightarrow q(x) &= \alpha %?
+%\end{align*}
 \subsection{Part C}
+If agents can choose any $x\in \mathbb{R}$ then nash equilibria would take the form of any distribution such that the average was at $\alpha$. If that is the case, then the disutility of moving away from the mean value would exactly offset the utility of moving away from $\alpha$ for any individual agent, so the agent would be indifferent between staying with the equilibria or moving. If instead the mean is below $\alpha$, then any agent could receive unboundedly more utility by moving to the left of the number line than they lose by moving away from the mean, and similarly if the mean is above $\alpha$ then they can receive unboundedly more utility by moving to the right of the number line than they lose utility from moving away from the mean.
 \section{Question 4}
 First we will check for symmetric nash equilibria. We start by taking first order conditions:
 \begin{align*}
@@ -177,4 +181,12 @@ Now we will check for potentially non-symmetric pure nash equilibria:
 \end{align*}
 These are the same nash equilibria. Thus, our nash equilibria are (1,1) and (2,2). % non-pure?
 \section{Question 5}
+
+There are no pure strategy nash equilibria. We can show this easily. Assume a pure strategy nash equilibria exists. Then, it is not the case that both players are receiving 10 utility. Therefore, at least one of the players would be better off by changing strategies to whatever would yield them 10 utility. This is a contradiction, so no pure strategy nash equilibria exist.
+
+Assume a nash equilibrium exists where both player 1 and player 2 are mixing. Then, as the game is zero loss, with an extra cost of mixing for both players, at least one of the players must have negative utility. Then, that player would be better off by choosing a pure strategy where they purely play the strategy which wins against one of the strategies which recieves the largest weight from the other player's mixture. Therefore, a mixed strategy is not a best response to a mixed strategy.
+
+Moreover, assume player 1 is playing a pure strategy. Then, if player 2 were to play a pure strategy that wins against player 1, they would receive 10 expected utility. If they instead were to mix, they would receive less than 9 expected utility. Therefore, the best response to a pure strategy is a pure strategy.
+
+The above arguments show that a pure strategy is a best response to a mixed strategy, and that a pure strategy is a best response to a mixed strategy. Therefore, for any nash equilibria that were to exist, the equilibria could only contain pure strategies. However, we have also shown that no pure strategy nash equilibria can exist. Therefore, no nash equilibria can exist.
 \end{document}
