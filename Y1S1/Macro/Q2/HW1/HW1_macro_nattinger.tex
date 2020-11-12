@@ -137,8 +137,8 @@ The optimal choice $c'$ takes the form of the $\argmax$ of the optimization prob
 \begin{align*}
 c' &= \argmax_{c'}  log(c') + \gamma log(c) + \beta V(RA-Rc',c')\\
 &= \argmax_{c'}  log(c') + \beta V(RA-Rc',c')\\
-&=  \argmax_{c'}  log(c') + \beta \max_{c''} log(c'') + \gamma \beta log(c')  + \beta V(RA'-Rc'',c'') \\
-&= \argmax_{c'}  (1+\gamma) log(c') + \beta \max_{c''} log(c'')   + \beta V(RA'-Rc'',c'') \\
+&=  \argmax_{c'}  log(c') + \beta \max_{c''} log(c'') + \gamma log(c')  + \beta V(RA'-Rc'',c'') \\
+&= \argmax_{c'}  (1+\beta \gamma) log(c') + \beta \max_{c''} log(c'')   + \beta V(RA'-Rc'',c'') \\
 %&=  \argmax_{c'}  log(c') + \gamma log(c) + \beta \max_{c''} log(c'') + \gamma log(c') + \beta V(RA-Rc'',c'') \\ %V(RA-Rc',c')
 %&=  \argmax_{c'}  log(c') + \gamma log(c') + \gamma log(c) + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') \\
 %&=  \argmax_{c'}  log(c') + \gamma log(c') + \beta \max_{c''} log(c'')  + \beta V(RA-Rc'',c'') 
