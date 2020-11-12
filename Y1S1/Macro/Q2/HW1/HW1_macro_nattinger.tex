@@ -172,9 +172,9 @@ Now we will solve for our optimality conditions. Applying (\ref{eqn:optcon}) to 
 \end{align}
 Equation (\ref{eqn:euler}) yields our Euler conditions.
 
-Recall that, due to properties of argmax, our choice of $c_t$ is equivalent to the choice of $c_t$ from a different value function, $\tilde{V}(A) = \max_{A'} log(A'/R- A) + \beta \tilde{V}(A')$. We will guess and verify that this implies that we will save a constant portion of our assets.
+Recall that, due to properties of argmax, our choice of $c_t$ is equivalent to the choice of $c_t$ from a different value function, $\tilde{V}(A) = \max_{A'} log(A'/R- A) + \beta \tilde{V}(A')$. We will show that this implies that we will save a constant portion of our assets.
 
-Let $c_t = aA_t$ for some $a \in (0,1)$. Then, we can combine this fact with $(\ref{eqn:euler})$ to form a guess for our value function: $\tilde{V}(A) = \sum_{i=0}^n \beta^i log((\beta R)^iaA)$. We can plug this into our formulation for the value function:
+Given $A_t$ we will choose some consumption amount $c_t$ which will correspond to some ratio of $A_t$. Let $c_t = aA_t$ for some $a \in (0,1)$. Then, we can combine this fact with $(\ref{eqn:euler})$ to form a guess for our value function: $\tilde{V}(A) = \sum_{i=0}^n \beta^i log((\beta R)^iaA)$. We can plug this into our formulation for the value function:
 
 \begin{align*}
  \sum_{i=0}^n \beta^i log((\beta R)^iaA) = \max_{A'} log(A'/R- A) + \beta \sum_{i=0}^{\infty} \beta^i log((\beta R)^iaA')
@@ -189,7 +189,7 @@ Taking FOCs:
 \Rightarrow a &= 1-\beta
 \end{align*}
 
-Therefore, the optimal policy function is to consume $1-\beta$ of your assets and to save $\beta$ of your assets.
+Therefore, the optimal policy function is to consume $1-\beta$ of your assets in each period and to save $\beta$ of your assets.
  %This implies that the optimal saving policy is to save a current fraction of current assets. %show via guess and verify?
 
 %\begin{align*}
@@ -305,15 +305,19 @@ y=x\Rightarrow T\tilde{V} &=  ax - \frac{b}{2}x^2 + \delta \frac{a}{1-\delta}x -
 Therefore, the limit function $\tilde{V}$ satisfies the Bellman equation.
 \section{Question 3}
 \subsection{Part A}
+The Bellman equation takes the following form:
 \begin{align*}
 V(k) &= \max_{k'} \pi (k) - \gamma(k' - (1-\delta)k) + \frac{1}{R}V(k')
 \end{align*}
 
+We maximize by taking first order conditions and applying the envelope theorem:
 \begin{align*}
 \gamma' (k' - (1-\delta)k) &= \frac{1}{R} V'(k')\\%\left( \pi'(k') + (1-\delta) \gamma'(k'' - (1-\delta)k') \right)\\
 V'(k) = \pi'(k) + (1-\delta) \gamma ' (k' - (1-\delta)k)\\
-\Rightarrow \pi '(k') + (1-\delta) \gamma ' (k'' - (1-\delta)k')&= R \gamma'(k' - (1-\delta)k)
+\Rightarrow \pi '(k') + (1-\delta) \gamma ' (k'' - (1-\delta)k')&= R \gamma'(k' - (1-\delta)k).
 \end{align*}
+
+The above equation forms our condition for maximization.
 
 \subsection{Part B}
 Letting $k = k' = k'' = \bar{k},$ we know that $\bar{I} = \delta \bar{k}$ and, moreover, we can rewrite our conditions for optimization in the following way:
@@ -325,13 +329,13 @@ Letting $k = k' = k'' = \bar{k},$ we know that $\bar{I} = \delta \bar{k}$ and, m
 \end{align*}
  By the strict convexity of $\gamma$ and strict concavity of $\pi$, in addition to our Inada conditions, the solution exists and is unique.
 
-If $R$ were to increase, the steady state level of $\pi'(\bar{k})$ would increase, resulting in a reduction in $\bar{k}$, and since $\bar{I} = \delta \bar{k}$, $\bar{I}$ will fall as well.
+If $R$ were to increase, the steady state level of $\pi'(\bar{k})$ would increase, resulting in a reduction in $\bar{k}$, and since $\bar{I} = \delta \bar{k}$, $\bar{I}$ will fall as well. An economic intuition of this is that an increase in the interest rate reduces capital levels and investment spending in the long run.
 
 \subsection{Part C}
 Our optimality conditions become:
 \begin{align*}
--(k'-k^{*}) &= R(k' - (1-\delta)k) + (1-\delta)(I')\\
-\Rightarrow -(k'-k^{*}) &= RI +(1-\delta)I'
+-(k'-k^{*}) &= R(k' - (1-\delta)k) - (1-\delta)(I')\\
+\Rightarrow -(k'-k^{*}) &= RI -(1-\delta)I'
 \end{align*}
 This, in addition to our law of motion for capital, $k' = I + (1-\delta)k$, forms the difference equations for capital and investment.
 
@@ -399,6 +403,8 @@ If government spending grows at a constant rate, $g$, then we can find steady st
 \Rightarrow \bar{c} = f(\bar{k}) - \delta \bar{k}.
 \end{align*}
 
+Since $f$ is strictly concave with the Inada conditions listed, the steady state exists and is unique.
+
 \subsection{Part C}
 Our identity $k' = (1-\delta)k + f(k) - c$ shows that in the period where $g$ increases, the level of capital was already predetermined in the period before so it will remain at its initial level. Our value for $c$ then makes the initial adjustment, and as $g$ increases then $c'/c$ increases, so (assuming consumption is positive), consumption increases. The increase in consumption results in lower capital in the next period. This lower capital increases $f'(k)$, resulting in a further increase in consumption. Eventually, the system will approach its new steady state. The new steady state value for capital will be higher as an increase in $g$ will result in an increase in $f'^{-1}$, and therefore an increase in $\bar{k}.$ The higher value for the steady state of capital has an indeterminate effect on the steady state of consumption as it will increase the $f(\bar{k})$ term but decrease the $-\delta \bar{k}$ term. The more an agent prefers government spending ($\eta$), the more the steady state capital level will move, and the larger the move in capital the more the $-\delta \bar{k}$ term moves relative to $f(\bar{k})$ due to the concavity of $f$. Thus, for higher values of $\eta$, the steady state consumption levels will drop while for lower values of $\eta$ the steady state consumption levels will increase. We can show this numerically via Matlab, which I will show below.
 
@@ -409,5 +415,7 @@ The above figure shows the transition from an increase in $g$ for a relatively h
 \includegraphics{loweta}
 
 This figure, which is identical in parameterization from the previous figure except for a lower value of $\eta$, shows that it is possible for the new steady state level of consumption to increase.
+
+An economic interpretation of our findings are that an increase in government spending reduces consumption spending in the short run, increases capital in the long run, but has an indeterminate long run effect on consumption.
 
 \end{document}
