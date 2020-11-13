@@ -231,7 +231,7 @@ No, in general this will not hold. The only reason why this held in part B is th
 \subsection{Part A}
 The sequence problem is to maximize profits:
 \begin{align*}
-\max_{\{ x_t\}_{i=1}^{\infty}} \sum_{i=1}^{\infty}\left( \frac{1}{1+r} \right)^{t}\left( ax_t - \frac{b}{2}x_t^2 - \frac{c}{2}(x_{t+1}-x_t)^2\right)
+\max_{\{ x_t\}_{i=0}^{\infty}} \sum_{i=0}^{\infty}\left( \frac{1}{1+r} \right)^{t}\left( ax_t - \frac{b}{2}x_t^2 - \frac{c}{2}(x_{t+1}-x_t)^2\right)
 \end{align*}
 
 We can rewrite this as a bellman equation in the following way:
@@ -284,16 +284,24 @@ We showed the base case of the induction in Part C. Now we will show the inducti
 
 Assume that $T^n\hat{v}(x)$ takes the form $T^n\hat{v}(x) = \alpha_n x - \frac{1}{2}\beta_n x^2 + \gamma_n.$ Then,
 \begin{align*}
-T^{n+1}\hat{v} (x) &= \max_y ax - \frac{b}{2}x^2 - \frac{c}{2}(y-x)^2 + \delta (\alpha_n x - \frac{1}{2}\beta_n x^2 + \gamma_n)\\
-y=x \Rightarrow T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 + \delta \alpha_n x - \delta \frac{1}{2}\beta_n x^2 + \delta \gamma_n\\
-&= (a+\delta \alpha_n) x - \frac{b + \delta \beta_n}{2}x^2 +\delta \gamma_n\\
-&= \alpha_{n+1} x - \frac{1}{2}\beta_{n+1} x^2 + \gamma_{n+1}
+T^{n+1}\hat{v} (x) &= \max_y ax - \frac{b}{2}x^2 - \frac{c}{2}(y-x)^2 + \delta (\alpha_n y - \frac{1}{2}\beta_n y^2 + \gamma_n)\\
+\Rightarrow 0 &= cx - cy + \delta \alpha_n - \delta \beta_n y \\
+\Rightarrow y &= \left(\frac{cx + \delta \alpha_n}{c+\delta \beta_n}\right)\\
+T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 - \frac{c}{2}\left( \left(\frac{cx + \delta \alpha_n}{c+\delta \beta_n}\right)-x\right)^2 + \delta \left(\alpha_n  \left(\frac{cx + \delta \alpha_n}{c+\delta \beta_n}\right) - \frac{1}{2}\beta_n  \left(\frac{cx + \delta \alpha_n}{c+\delta \beta_n}\right)^2 + \gamma_n\right)\\
+&=  ax - \frac{b}{2}x^2 - \frac{c \delta^2 \alpha_n^2}{2(c+\delta \beta_n)^2} +\frac{c\delta^2\alpha_n \beta_n}{(c+\delta \beta_n)^2}x - \frac{c \delta^2 \beta_n^2}{2(c+\delta \beta_n)^2}x^2  + \frac{\delta^2 \alpha_n^2}{c+\delta \beta_n} + \frac{ \delta \alpha_n c }{c+\delta \beta_n}x \\ &- \frac{1}{2}\frac{\delta \beta_n c^2x^2}{(c+\delta \beta_n)^2} -  \frac{1}{2}\frac{\delta \alpha_n c x}{(c+\delta \beta_n)^2} - \frac{1}{2}\frac{\delta^2 \alpha_n^2}{(c+\delta \beta_n)^2}+ \delta \gamma_n \\
+&= \left( a + \frac{2c\delta^2\alpha_n \beta_n}{(c+\delta \beta_n)^2}  + \frac{ \delta \alpha_n c }{c+\delta \beta_n}  -  \frac{1}{2}\frac{\delta \alpha_n c}{(c+\delta \beta_n)^2}\right) x \\
+&- \frac{1}{2}\left( b +  \frac{c \delta^2 \beta_n^2}{(c+\delta \beta_n)^2} + \frac{\delta \beta_n c^2}{(c+\delta \beta_n)^2} \right) x^2 \\
+&+\left( - \frac{c \delta^2 \alpha_n^2}{2(c+\delta \beta_n)^2} + \frac{\delta^2 \alpha_n^2}{c+\delta \beta_n} - \frac{1}{2}\frac{\delta^2 \alpha_n^2}{(c+\delta \beta_n)^2}+ \delta\gamma_n\right)\\
+%&= \left(a +\frac{c \delta \alpha_n}{c+ \beta_n \delta} \right) x - \frac{1}{2} \left( b + \frac{c \beta_n \delta }{c+ \beta_n \delta} \right)x^2 + \left( \delta \gamma + (1/2)\frac{\alpha_n^2 \delta^2}{c+\beta_n \delta} \right) \\
+&=\alpha_{n+1} x -\frac{1}{2}\beta_{n+1}x^2 + \gamma_{n+1}.
+%y=x \Rightarrow T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 + \delta \alpha_n x - \delta \frac{1}{2}\beta_n x^2 + \delta \gamma_n\\
+%&= (a+\delta \alpha_n) x - \frac{b + \delta \beta_n}{2}x^2 +\delta \gamma_n\\
+%&= \alpha_{n+1} x - \frac{1}{2}\beta_{n+1} x^2 + \gamma_{n+1}
 \end{align*}
 
-where $\alpha_{n+1} =  (a+\delta \alpha_n) , \beta_{n+1} = b + \delta \beta_n ,  \gamma_{n+1} = \delta \gamma_n $.
 
 \subsection{Part E}
-Note that $\alpha_{n} = a + \delta a + \delta^2 a + \dots$, $\beta_n = b + \delta b + \delta^2 b + \dots, \gamma_n = \delta^n\hat{v}$. Thus, we can take the limit of $\alpha,\beta$ as geometric sums, and the limit of $\gamma_n$ is $0$. Therefore,
+To find the fixed point, we find the steady state of the three difference equations. This yields the following results: $\alpha_n = a$, $\beta_n = b$
 
 \begin{align*}
 \tilde{V} &= \lim_{n\rightarrow \infty} T^n \hat{v} = \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2.\\
