@@ -292,7 +292,7 @@ T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 - \frac{c}{2}\left( \left(\frac{cx + \
 &= \left( a + \frac{2c\delta^2\alpha_n \beta_n}{(c+\delta \beta_n)^2}  + \frac{ \delta \alpha_n c }{c+\delta \beta_n}  -  \frac{1}{2}\frac{\delta \alpha_n c}{(c+\delta \beta_n)^2}\right) x \\
 &- \frac{1}{2}\left( b +  \frac{c \delta^2 \beta_n^2}{(c+\delta \beta_n)^2} + \frac{\delta \beta_n c^2}{(c+\delta \beta_n)^2} \right) x^2 \\
 &+\left( - \frac{c \delta^2 \alpha_n^2}{2(c+\delta \beta_n)^2} + \frac{\delta^2 \alpha_n^2}{c+\delta \beta_n} - \frac{1}{2}\frac{\delta^2 \alpha_n^2}{(c+\delta \beta_n)^2}+ \delta\gamma_n\right)\\
-%&= \left(a +\frac{c \delta \alpha_n}{c+ \beta_n \delta} \right) x - \frac{1}{2} \left( b + \frac{c \beta_n \delta }{c+ \beta_n \delta} \right)x^2 + \left( \delta \gamma + (1/2)\frac{\alpha_n^2 \delta^2}{c+\beta_n \delta} \right) \\
+&= \left(a +\frac{c \delta \alpha_n}{c+ \beta_n \delta} \right) x - \frac{1}{2} \left( b + \frac{c \beta_n \delta }{c+ \beta_n \delta} \right)x^2 + \left( \delta \gamma + (1/2)\frac{\alpha_n^2 \delta^2}{c+\beta_n \delta} \right) \\
 &=\alpha_{n+1} x -\frac{1}{2}\beta_{n+1}x^2 + \gamma_{n+1}.
 %y=x \Rightarrow T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 + \delta \alpha_n x - \delta \frac{1}{2}\beta_n x^2 + \delta \gamma_n\\
 %&= (a+\delta \alpha_n) x - \frac{b + \delta \beta_n}{2}x^2 +\delta \gamma_n\\
@@ -301,13 +301,22 @@ T^{n+1}\hat{v} (x) &= ax - \frac{b}{2}x^2 - \frac{c}{2}\left( \left(\frac{cx + \
 
 
 \subsection{Part E}
-To find the fixed point, we find the steady state of the three difference equations. This yields the following results: $\alpha_n = a$, $\beta_n = b$
+To find the fixed point, we find the steady state of the three difference equations. We can solve for a steady state beta via the quadratic formula:
 
 \begin{align*}
-\tilde{V} &= \lim_{n\rightarrow \infty} T^n \hat{v} = \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2.\\
-T\tilde{V} &= \max_{y} ax - \frac{b}{2}x^2 - \frac{c}{2}(y-x)^2 + \delta \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2,\\
-y=x\Rightarrow T\tilde{V} &=  ax - \frac{b}{2}x^2 + \delta \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2\\
-&= \frac{a}{1-\delta}x - \frac{1}{2}\frac{b}{1-\delta}x^2\\
+\bar{\beta} &= \frac{-c + \delta(b+c) + \sqrt{4bc\delta + (c - \delta (b+c))^2}}{2\delta}\\
+\Rightarrow \bar{\alpha} &= \frac{a(c+\bar{\beta}\delta)}{c+\bar{\beta}\delta - c \delta}\\
+\Rightarrow \bar{\gamma} &= \frac{1}{2(1-\delta)}\frac{\bar{\alpha}^2\delta^2}{c+\bar{\beta}\delta}
+\end{align*}
+
+
+\begin{align*}
+\tilde{V}(x) &= \lim_{n\rightarrow \infty} T^n \hat{v} = \bar{\alpha} x - \frac{1}{2}\bar{\beta}x^2 + \bar{\gamma}.\\
+T\tilde{V} &= \max_{y} ax - \frac{b}{2}x^2 - \frac{c}{2}(y-x)^2 + \delta \tilde{V}(y),\\
+0&=cx-cy +\delta(\bar{\alpha} - \bar{\beta}y) \\
+\Rightarrow y &= \frac{cx+\delta \bar{\alpha}}{c+\bar{\beta}}\\
+\Rightarrow T\tilde{V} &= ax - \frac{b}{2}x^2 - \frac{c}{2}\left(\frac{cx+\delta \bar{\alpha}}{c+\bar{\beta}}-x\right)^2 + \delta \bar{\alpha} \frac{cx+\delta \bar{\alpha}}{c+\bar{\beta}} - \frac{1}{2}\left(\frac{cx+\delta \bar{\alpha}}{c+\bar{\beta}}\right)^2 + \bar{\gamma}\\
+&= \bar{\alpha} x - \frac{1}{2}\bar{\beta}x^2 + \bar{\gamma}\\
 &= \tilde{V}.
 \end{align*}
 Therefore, the limit function $\tilde{V}$ satisfies the Bellman equation.

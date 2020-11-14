@@ -125,11 +125,32 @@ We will try to find a value of $w_j$ which will result in the optimal $w_i$ bein
 0 &= \gamma +2\beta  w_j - \rho - \alpha w_j/2\\
 \Rightarrow w_j &= -\frac{\gamma - \rho}{2\beta - \alpha/2}.
 \end{align*}
-We know that $\gamma>\rho$ so this quantity is positive iff $2\beta<\alpha/2 \Rightarrow \beta<\alpha/4$. Note that this is the opposite condition from what we found to satisfy supermodularity. If the game is not supermodular then there exists equilibria where $w_i=0.$
+We know that $\gamma>\rho$ so this quantity is positive iff $2\beta<\alpha/2 \Rightarrow \beta<\alpha/4$. Note that this is the opposite condition from what we found to satisfy supermodularity. %If the game is not supermodular then there exists equilibria where $w_i=0.$
+Now, the question is whether the best response to the other playing 0 is this strategy.
+\begin{align*}
+w_i &= \frac{(\gamma - \rho) + (2\beta - \alpha /2)*0}{2\beta + \alpha}\\
+&= \frac{\gamma - \rho}{2\beta + \alpha}.
+\end{align*}
+This is a nash equilibrium iff $ -\frac{\gamma - \rho}{2\beta - \alpha/2}= \frac{\gamma - \rho}{2\beta + \alpha} \Rightarrow \alpha/2 - 2\beta = 2\beta + \alpha \Rightarrow \alpha = -8\beta$. $\alpha,\beta>0$ so this is not possible. Thus, it is not possible for a nash equilibrium to have $0$ as a strategy.
 \subsection{Part F}
-Can the game support a mixed strategy nash equilibrium?
+Let player $j$ play a mixed strategy. Then, player 1 maximizes their expected utility.
+\begin{align*}
+w_i &= \argmax_{w_i} E[u_i(w_i,w_j)] \\
+&=  \argmax_{w_i} E[\gamma w_i - \beta(w_i - w_j)^2 - \rho w_i - \frac{\alpha}{2}w_i^2 -\frac{\alpha}{2}w_iw_j ]
+&= \argmax_{w_i} E[(\gamma - \rho) w_i - \beta(w_i - w_j)^2  - \frac{\alpha}{2}w_i^2 -\frac{\alpha}{2}w_iw_j ]
+\end{align*}
+We take first order conditions:
+
+\begin{align*}
+0&= E[(\gamma - \rho) - 2\beta w_i + 2\beta w_j - \alpha w_i - \alpha w_j]
+&= (\gamma - \rho) - 2\beta w_i +2\beta E[w_j] - \alpha w_i - \alpha E[w_j]
+&= f(E[w_j])
+\end{align*}
+
+Therefore, the best response to a strategy depends only on the expectation of mixed strategy, and thus the best response to any strategy is a pure strategy. Therefore, it is not possible to have a nash equilibrium with mixed strategies as any best response is necessarily pure.
 \subsection{Part G}
-Gang 1's weapon demand will increase as the weapons are more valueable now. This increase will be larger in magnitude than it would be if both gangs were able to respond because, if gang 2 could also buy weapons then they would buy more weapons which would increase the price of weapons. When the second gang cannot buy weapons, the weapons are relatively cheaper for gang 1 so gang 1 will buy more weapons.
+%Gang 1's weapon demand will increase as the weapons are more valueable now. This increase will be larger in magnitude than it would be if both gangs were able to respond because, if gang 2 could also buy weapons then they would buy more weapons which would increase the price of weapons. When the second gang cannot buy weapons, the weapons are relatively cheaper for gang 1 so gang 1 will buy more weapons.
+When $w_j$ can change then we have shown that $w_i = \frac{2(\gamma - \rho)}{3\alpha} \Rightarrow w_i^{',1} = \frac{2}{3\alpha}$ and when $w_j$ cannot change then $w_i = \frac{(\gamma - \rho + (2\beta - \alpha/2) \bar{w}_j)}{2\beta + \alpha} \Rightarrow w_i^{',2} = \frac{1}{2\beta + \alpha}$. Thus, gang 1 will buy more guns when gang 2 cannot buy more guns relative to if gang 2 can buy more guns if $w_{i}^{',1}<w_{i}^{',2} \Rightarrow  \frac{2}{3\alpha}< \frac{1}{2\beta + \alpha} \Rightarrow \beta < \frac{\alpha}{4}$
 \section{Question 2}
 Each gang takes the average as given and sets $w_i$ to satisfy their FOC:
 \begin{align*}
@@ -180,17 +201,12 @@ First we will check for symmetric nash equilibria. We start by taking first orde
 \begin{align*}
 1+(q_j - 1)^{1/3} &= q_i\\
 1+(1+(q_i - 1)^{1/3} - 1)^{1/3} &= q_i\\
-\Rightarrow q_i &= 1, q_i = 2.
+\Rightarrow q_i = q_j = 0, q_i = q_j = 1, q_i = q_j &= 2.
 \end{align*}
-Thus, nash equilibria can only occur at the following choices: $(1,1),(2,2),(1,2),(2,1)$. We can check the utility at these points to see which form our nash equilibria:
-\begin{align*}
-u_i(1,1) &= 1+1(0) - 1/2 = 1/2\\
-u_i(2,1) &= 2+2(0) - 1/2(4) = 0\\
-u_i(1,2) &= 1+1(1) - 1/2 = 3/2\\
-u_i(2,2) &= 2+2(1) - 1/2(4) = 2
-\end{align*}
+Therefore, $(0,0),(1,1),(2,2)$ are all pure strategy nash equilibria.
 
-Therefore, the nash equilibria are $(1,1)$ and $(2,2)$.
+As for mixed strategy nash equilibria, since the payoff function is strictly quasi-concave, ergo the game does not have mixed nash equilibria.
+
 \section{Question 5}
 
 There are no pure strategy nash equilibria. We can show this easily. Assume a pure strategy nash equilibria exists. Then, it is not the case that both players are receiving 10 utility. Therefore, at least one of the players would be better off by changing strategies to whatever would yield them 10 utility. This is a contradiction, so no pure strategy nash equilibria exist.

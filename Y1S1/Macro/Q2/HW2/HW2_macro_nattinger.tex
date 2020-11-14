@@ -1,0 +1,192 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS2}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+\subsection{Part A}
+%First we can solve the household side. 
+%
+%We can write our Bellman equation as follows, and then divide capital variables by A to normalize, yielding lowercase variables:
+%\begin{align*}
+%V(K) = &\max_{C,K',N} u(c,1-N) + \beta V(K')\\
+%&\text{s.t. } K' = (1-\delta)K + Y - C \\
+%&\text{and }Y = F(K,AN)\\
+%\Rightarrow V(k) = &\max_{c,k',N} u(c,1-N) + \beta(1+g) V(k') \\
+%&\text{s.t. } k' = (1-\delta)k + y - c \\
+%&\text{and }y = F(k,N)\\
+%\Rightarrow V(k) &= \max_{c,N} u(c,1-N) + \beta (1+g) V((1-\delta)K + F(K,AN) - c)
+%\end{align*}
+%Taking FOCs and applying the envelope condition we find:
+%\begin{align*}
+%0 &= u_1(c,1-N) - \beta(1+g) V'((1-\delta)k + F(k,N) - c)\\
+%V'(k) &= \beta(1+g) V'((1-\delta)k + F(k,N) - c)(1-\delta + F_1(k,N))\\
+%\Rightarrow V'(k) &=u_1(c,1-N) (1-\delta + F_1(k,N)) \\
+%\Rightarrow u_1(c,1-N) &= \beta(1+g) u_1(c,1-N) (1-\delta + F_1((1-\delta)k + F(k,N) - c,N))\\
+%\Rightarrow F_1((1-\delta)k + F(k,N) - c,N) &= \frac{1}{\beta(1+g)} - 1 + \delta
+%\end{align*}
+%\begin{equation}
+%\Rightarrow F_1(k',N) = \frac{1}{\beta(1+g)} - 1 + \delta \label{eqn:FOC1}
+%\end{equation}
+%
+%\begin{align*}
+%0 &= -u_2(c,1-N) - \beta(1+g) V'((1-\delta)k + F(k,N) - c)(F_2(k,N))\\
+%\Rightarrow u_2(c,1-N) &= - \beta(1+g) u_1(c,1-N) (1-\delta + F_1((1-\delta)k + F(k,N) - c,N))(F_2(k,N))
+%\end{align*}
+%\begin{equation}
+%\frac{ u_2(c,1-N)}{u_1(c,1-N)} = - \beta(1+g)(1-\delta + F_1(K',AN))(AF_2(K,AN)) \label{eqn:FOC2}
+%\end{equation}
+%
+%Equations (\ref{eqn:FOC1}), (\ref{eqn:FOC2}), and our feasibility constraint $(k' = (1-\delta)k +F(k,N) - c)$ form our difference equations for $(k',c,n)$ (3 eqns in 3 unknowns).
+%
+%Now we must solve the firm side. 
+%
+%The firm maximizes profits:
+%\begin{align*}
+%\max_{k^d,n^d} \sum_{t=1}^{\infty} 
+%\end{align*} 
+
+We will write down the equations to characterize the system, normalize by $A$, and then solve for our difference equations. 
+
+Households maximize utility subject to their budget constraints:
+
+\begin{align*}
+&\max_{\{C_t,I_t,N_t,K_t\}_{t=0}^{\infty}} \sum_{i=0}^{\infty}\beta^t u(C_t,1-N_t)\\
+&\text{s.t. } \sum_{t=0}^{\infty} p_t (C_t + I_t) =  \sum_{t=0}^{\infty} p_t(r_tK_t + w_tA_tN_t) + \Pi_0\\
+&\text{and } K_{t+1} = (1-\delta) K_t+ I_t
+\end{align*}
+
+Firms maximize profits:
+\begin{align*}
+\max \Pi_0 &=\sum_{t=0}^{\infty}p_t(Y_t -r_tK_t^d - w_t A_tN_t^d)\\
+\text{s.t. } Y_t &= F(K_t,A_tN_t^d)
+\end{align*}
+
+Now we normalize. Let lowercase $x_t = X_t/A_t$:
+
+HH:
+\begin{align*}
+&\max_{\{c_t,i_t,n_t,k_t\}_{t=0}^{\infty}} \sum_{i=0}^{\infty}\beta^t u(c_tA_t,1-N_t)\\
+&\text{s.t. } \sum_{t=0}^{\infty} p_t (c_t + i_t) =  \sum_{t=0}^{\infty} p_t(r_tk_t + w_tN_t) + \Pi_0\\
+&\text{and } k_{t+1}(1+g) = (1-\delta) k_t+ i_t
+\end{align*}
+
+Firms:
+\begin{align*}
+\max \Pi_0 &=\sum_{t=0}^{\infty}p_t(y_t -r_tk_t^d - w_t N_t^d)\\
+\text{s.t. } y_t &= F(k_t^d,N_t^d)
+\end{align*}
+
+Now we begin to solve. We will start with the firm side:
+
+\begin{align*}
+F_k(k_t^d,N_t^d) &= r_t\\
+F_N(k_t^d,N_t^d) &= w_t\\
+\Rightarrow F(k_t^d,N_t^d) - F_k(k_t^d,N_t^d) r_t - F_N(k_t^d,N_t^d) w_t &= 0 \\\Rightarrow \Pi_0 &= 0.
+\end{align*}
+
+Now we move to the HH side. Our HH problem can be reduced to the following:
+\begin{align*}
+&\max_{c_t,n_t} \sum_{i=1}^{\infty}\beta^t u(A_tc_t,1-N_t)\\
+&\text{s.t. } \sum_{t=0}^{\infty} p_t ( c_t + k_{t+1} - [r_t + (1-\delta)]k_t - w_tn_t ) = 0
+\end{align*}
+Taking first order conditions of our lagrangian:
+
+\begin{align*}
+A_t\beta^tu_c(c_tA_t,1-N_t) &= \lambda p_t\\
+A_{t+1}\beta^{t+1}u_c(c_{t+1}A_{t+1},1-N_{t+1}) &= \lambda p_{t+1}\\
+\Rightarrow (1+g)\frac{\beta u_c(c_{t+1}A_{t+1},1-N_{t+1})}{ u_c(c_tA_t,1-N_t)} &= \frac{p_{t+1}}{p_t}\\
+-\beta^tu_n(c_tA_t,1-N_t) &= \lambda p_tw_t \\
+-\beta^{t+1}u_n(c_{t+1}A_{t+1},1-N_{t+1}) &= \lambda p_{t+1}w_{t+1}\\
+\Rightarrow \frac{\beta u_n(c_{t+1}A_{t+1},1-N_{t+1}) }{u_n(c_tA_t,1-N_t)} &= \frac{p_{t+1} w_{t+1}}{p_t w_t}
+\end{align*}
+
+In the competitive equilibrium, markets clear:
+\begin{align*}
+k_t^d &= k_t\\
+N_t^d &= N_t\\
+c_t + k_{t+1}(1+g) - (1-\delta)K_{t} &= F(k_t^d,N_t^d)
+\end{align*}
+
+The equations that give us $C_0,N_0,w_0,r_0$ are the following four equations:
+
+\begin{align}
+F_k(k_t,N_t) &= r_t\\
+F_N(k_t,N_t) &= w_t\\
+A_t u_c (c_t A_t, 1-N_t) &= - u_n (c_tA_t,1-N_t) / w_t
+\end{align}
+\end{document}
