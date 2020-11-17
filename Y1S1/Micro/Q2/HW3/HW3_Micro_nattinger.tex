@@ -136,18 +136,18 @@ This is a nash equilibrium iff $ -\frac{\gamma - \rho}{2\beta - \alpha/2}= \frac
 Let player $j$ play a mixed strategy. Then, player 1 maximizes their expected utility.
 \begin{align*}
 w_i &= \argmax_{w_i} E[u_i(w_i,w_j)] \\
-&=  \argmax_{w_i} E[\gamma w_i - \beta(w_i - w_j)^2 - \rho w_i - \frac{\alpha}{2}w_i^2 -\frac{\alpha}{2}w_iw_j ]
+&=  \argmax_{w_i} E[\gamma w_i - \beta(w_i - w_j)^2 - \rho w_i - \frac{\alpha}{2}w_i^2 -\frac{\alpha}{2}w_iw_j ]\\
 &= \argmax_{w_i} E[(\gamma - \rho) w_i - \beta(w_i - w_j)^2  - \frac{\alpha}{2}w_i^2 -\frac{\alpha}{2}w_iw_j ]
 \end{align*}
 We take first order conditions:
 
 \begin{align*}
-0&= E[(\gamma - \rho) - 2\beta w_i + 2\beta w_j - \alpha w_i - \alpha w_j]
-&= (\gamma - \rho) - 2\beta w_i +2\beta E[w_j] - \alpha w_i - \alpha E[w_j]
-&= f(E[w_j])
+0&= E[(\gamma - \rho) - 2\beta w_i + 2\beta w_j - \alpha w_i - \alpha w_j]\\
+&= (\gamma - \rho) - 2\beta w_i +2\beta E[w_j] - \alpha w_i - \alpha E[w_j]\\
+\Rightarrow w_i^{*}&= aE[w_j] +b
 \end{align*}
 
-Therefore, the best response to a strategy depends only on the expectation of mixed strategy, and thus the best response to any strategy is a pure strategy. Therefore, it is not possible to have a nash equilibrium with mixed strategies as any best response is necessarily pure.
+Therefore, the best response to a strategy is a linear function of the expectation of that strategy, and is therefore single-valued. Therefore, it is not possible to have a nash equilibrium with mixed strategies as any best response is necessarily pure.
 \subsection{Part G}
 %Gang 1's weapon demand will increase as the weapons are more valueable now. This increase will be larger in magnitude than it would be if both gangs were able to respond because, if gang 2 could also buy weapons then they would buy more weapons which would increase the price of weapons. When the second gang cannot buy weapons, the weapons are relatively cheaper for gang 1 so gang 1 will buy more weapons.
 When $w_j$ can change then we have shown that $w_i = \frac{2(\gamma - \rho)}{3\alpha} \Rightarrow w_i^{',1} = \frac{2}{3\alpha}$ and when $w_j$ cannot change then $w_i = \frac{(\gamma - \rho + (2\beta - \alpha/2) \bar{w}_j)}{2\beta + \alpha} \Rightarrow w_i^{',2} = \frac{1}{2\beta + \alpha}$. Thus, gang 1 will buy more guns when gang 2 cannot buy more guns relative to if gang 2 can buy more guns if $w_{i}^{',1}<w_{i}^{',2} \Rightarrow  \frac{2}{3\alpha}< \frac{1}{2\beta + \alpha} \Rightarrow \beta < \frac{\alpha}{4}$
@@ -205,7 +205,7 @@ First we will check for symmetric nash equilibria. We start by taking first orde
 \end{align*}
 Therefore, $(0,0),(1,1),(2,2)$ are all pure strategy nash equilibria.
 
-As for mixed strategy nash equilibria, since the payoff function is strictly quasi-concave, ergo the game does not have mixed nash equilibria.
+As for mixed strategy nash equilibria, since the payoff function is strictly quasi-concave, the game does not have mixed nash equilibria.
 
 \section{Question 5}
 

@@ -162,7 +162,7 @@ F_N(k_t^d,N_t^d) &= w_t\\
 Now we move to the HH side. Our HH problem can be reduced to the following:
 \begin{align*}
 &\max_{c_t,n_t} \sum_{i=1}^{\infty}\beta^t u(A_tc_t,1-N_t)\\
-&\text{s.t. } \sum_{t=0}^{\infty} p_t ( c_t + k_{t+1} - [r_t + (1-\delta)]k_t - w_tn_t ) = 0
+&\text{s.t. } \sum_{t=0}^{\infty} p_t ( c_t + k_{t+1} - [r_t + (1-\delta)]k_t - w_tN_t ) = 0
 \end{align*}
 Taking first order conditions of our lagrangian:
 
@@ -172,21 +172,193 @@ A_{t+1}\beta^{t+1}u_c(c_{t+1}A_{t+1},1-N_{t+1}) &= \lambda p_{t+1}\\
 \Rightarrow (1+g)\frac{\beta u_c(c_{t+1}A_{t+1},1-N_{t+1})}{ u_c(c_tA_t,1-N_t)} &= \frac{p_{t+1}}{p_t}\\
 -\beta^tu_n(c_tA_t,1-N_t) &= \lambda p_tw_t \\
 -\beta^{t+1}u_n(c_{t+1}A_{t+1},1-N_{t+1}) &= \lambda p_{t+1}w_{t+1}\\
-\Rightarrow \frac{\beta u_n(c_{t+1}A_{t+1},1-N_{t+1}) }{u_n(c_tA_t,1-N_t)} &= \frac{p_{t+1} w_{t+1}}{p_t w_t}
+\Rightarrow \frac{\beta u_n(c_{t+1}A_{t+1},1-N_{t+1}) }{u_n(c_tA_t,1-N_t)} &= \frac{p_{t+1} w_{t+1}}{p_t w_t}\\
+p_t &= p_{t+1}(r_{t+1} + 1-\delta)
 \end{align*}
 
 In the competitive equilibrium, markets clear:
 \begin{align*}
 k_t^d &= k_t\\
 N_t^d &= N_t\\
-c_t + k_{t+1}(1+g) - (1-\delta)K_{t} &= F(k_t^d,N_t^d)
+c_t + k_{t+1}(1+g) - (1-\delta)k_{t} &= F(k_t^d,N_t^d)
 \end{align*}
 
-The equations that give us $C_0,N_0,w_0,r_0$ are the following four equations:
+The equations that pin down $C_0,N_0,w_0,r_0$ in the balanced growth path are the following four equations:
+
+\begin{align*}
+F_k(k_0,N_0) &= r_0\\
+F_N(k_0,N_0) &= w_0\\
+A_0 u_c (c_0 A_0, 1-N_0) &= - u_n (c_0A_0,1-N_0) / w_0\\
+c_0 + k_0(1+g) - (1-\delta)k_0 &= F(k_0,N_0).
+\end{align*}
+This is 4 equations in 4 unknowns. Note that this final equation comes from the law of motion of capital, but in the balanced growth path $k_0 = k_1$.
+
+
+\subsection{Part B}
+In general, the following equations form our law of motion for the system.
+\begin{align}
+(1+g)\frac{\beta u_c(c_{t+1}A_{t+1},1-N_{t+1})}{ u_c(c_tA_t,1-N_t)} &= \frac{p_{t+1}}{p_t} \label{ceuler} \\
+\frac{\beta u_n(c_{t+1}A_{t+1},1-N_{t+1}) }{u_n(c_tA_t,1-N_t)} &= \frac{p_{t+1} w_{t+1}}{p_t w_t}\label{neuler}\\
+p_t &= p_{t+1}(r_{t+1} + 1-\delta) \label{arbitrage} \\ 
+F_k(k_t,N_t) &= r_t\\
+F_N(k_t,N_t) &= w_t \\
+c_t + k_{t+1}(1+g) - (1-\delta)k_{t} &= F(k_t,N_t)
+\end{align}
+
+If preferences are of the form:
+\begin{align*}
+u(C,1-N) &= \frac{C^{1-\gamma}}{1-\gamma}h (1-N), \gamma >0, \gamma \neq 1\\
+& logC + h(1-N), \gamma = 1
+\end{align*}
+
+First, assume $\gamma \neq 1.$ Then, equation (\ref{ceuler}), (\ref{neuler}) becomes the following:
+\begin{align}
+\beta (1+g)^{1-\gamma}\left( \frac{c_{t+1}}{c_t}\right)^{-\gamma} \frac{h(1-N_{t+1})}{h(1-N_t)} &= \frac{p_{t+1}}{p_t} \label{newceuler} \\
+\beta (1+g)^{1-\gamma}\left( \frac{c_{t+1}}{c_t}\right)^{1-\gamma} \frac{h'(1-N_{t+1})}{h'(1-N_t)} &= \frac{p_{t+1}w_{t+1}}{p_tw_t} \label{newneuler}
+\end{align}
+
+Note that if $\gamma=1,$ we get the same results as (\ref{newceuler}), (\ref{newneuler}).
+
+Now, we can find the balanced growth path as follows. We note that inflation will occurn in the balanced growth path, and we can define $\pi_t = \frac{p_{t+1}}{p_t}$, and solve for $\bar{\Pi}$. Equations (\ref{newceuler}), (\ref{newneuler}), (\ref{arbitrage}) imply:
+\begin{align*}
+\beta(1+g)^{1-\gamma} &= \bar{\pi}\\
+\frac{w_{t+1}}{w_t} = 1 \Rightarrow w_t = \bar{w} = w_{t+1} \\
+\frac{1}{\bar{\Pi}} + \delta - 1 &= \bar{r}
+\end{align*}
+
+We then have the following system of equations which can be solved to find the balanced growth path of the economy:
 
 \begin{align}
-F_k(k_t,N_t) &= r_t\\
-F_N(k_t,N_t) &= w_t\\
-A_t u_c (c_t A_t, 1-N_t) &= - u_n (c_tA_t,1-N_t) / w_t
+F_k(\bar{k},\bar{N}) &= \bar{r} \label{ss1}\\
+F_N(\bar{k},\bar{N}) &= \bar{w}\label{ss2} \\
+\bar{c} + (g+\delta)\bar{k} &= F(\bar{k},\bar{N}) \label{ss3}
 \end{align}
+
+Equations (\ref{ss1}), (\ref{ss2}), and (\ref{ss3}) form 3 equations in 3 unknowns (initial capital, $k_0 = \bar{k}$, is given). By the Inada conditions on $f$ and its continuous differentiability, the solution to these equations exists and is unique. Therefore, there will be a balanced growth path.
+
+\subsection{Part C}
+No, we cannot summarize the information in the same way as before without further information because now labor supply can move endogenously. We will not know the impact on labor supply, which will affect the response of the economy to the change in $\delta$. For instance, if the labor supply increases sufficiently, then consumption will shoot up, and over time investment will rise, resulting in a new steady state with higher consumption and capital levels. However, if the labor supply decreases sufficiently, then consumption will fall immediately and the new steady state the economy ends up at will have lower consumption and capital levels. The overall effect is therefore indeterminate due to the labor supply dynamics.
+
+\subsection{Part D}
+
+Let labor supply be inelastic. Then, there is no disutility from working so $n_t = 1 \forall t.$
+
+\section{Question 2}
+\subsection{Part A}
+The consumer chooses consumption to maximize expected utility:
+\begin{align*}
+\max_{\{c_t\}_{t=0}^{\infty}} E\sum_{t=0}^{\infty}\beta^t \frac{c_t^{1-\gamma}}{1-\gamma}\\
+\text{s.t. } c_t + x_t \leq A_{t-1}(x_{t-1} - c_{t-1}),
+\end{align*}
+
+where $A_t$ are i.i.d. shocks with possible values $A_h,A_l$. Therefore, our space consists of $A_t = y \in \{ A_h,A_l \}; Y = \{ \emptyset, \{A_h\},\{ A_l\}, \{ A_h,A_l\}\}; Q = \Pi = \begin{bmatrix} \pi & (1-\pi) \\ \pi & (1-\pi)\end{bmatrix}$. The expectations operator is the probability-weighted average of total discounted utility across all possibilities of future shocks. 
+\subsection{Part B}
+We will write the bellman operator in the following form:
+\begin{align*}
+V(As) &= \max_{s'} \frac{(As - s')^{1-\gamma}}{1-\gamma} + \beta EV(As')\\
+&= \max_{s'} \frac{(As - s')^{1-\gamma}}{1-\gamma} + \beta (\pi V(A'_h s') + (1-\pi) V(A'_l s' )),
+\end{align*}
+where $s_t := x_t - c_t$. Our value is dependent on the value we have when making our decision, i.e. post shock-realization, so our state variable for the Bellman equation is $A_{t-1}s_{t-1} = x_t$.
+
+(prove the optimal value function is continuous, increasing, and concave)
+
+
+\subsection{Part C}
+To solve the Bellman, we will take first order conditions, 
+
+\begin{align*}
+(As - s')^{-\gamma}&= \beta(\pi V'(A'_hs') + (1-\pi)V'(A'_l s'))\\
+V'(As) &= (As -s')^{-\gamma}\\
+\Rightarrow (As - s')^{-\gamma}&= \beta(\pi (A'_hs'-s''_h)^{-\gamma} + (1-\pi)(A'_l s'-s''_l)^{-\gamma})
+\end{align*}
+
+We will guess and verify that our optimal policy function is to save a constant percentage of our wealth.
+
+Let $As-s' = cAs$. Then, our $c$ must satisfy the following:
+\begin{align*}
+(cAs)^{-\gamma} &= \beta(\pi (cA_hs')^{-\gamma} + (1-\pi)(cA_ls')^{-\gamma} )\\
+\Rightarrow ?
+\end{align*}
+
+\subsection{Part D}
+We know that the consumption sequence generated by this policy function is the unique solution of the original sequence problem because of the following facts:
+\begin{itemize}
+\item $0<\beta<1$,
+\item $u(\cdot)$ is continuously differentiable,
+\item The feasible set is convex,
+\item \dots
+\end{itemize}
+\section{Question 3}
+\subsection{Part A}
+First we will derive the equations to form our model, then use the derived equations in Matlab to determine the optimal allocation.
+
+Our Bellman equation is the following:
+\begin{align*}
+V(k) &= \max_{k'} \frac{(zk^{0.35} + (1-\delta)k - k')^{1-\gamma}}{1-\gamma} +\beta V(k')
+\end{align*}
+
+We take FOCs and apply the envelope theorem:
+\begin{align*}
+\beta V'(k') &=(zk^{0.35} + (1-\delta)k - k')^{-\gamma} \\
+V'(k) &= (zk^{0.35} + (1-\delta)k - k')^{-\gamma}(0.35zk^{-0.65} +(1-\delta)) \\
+\Rightarrow (zk^{0.35} + (1-\delta)k - k')^{-\gamma} &= \beta (zk'^{0.35} + (1-\delta)k' - k'')^{-\gamma}(0.35zk'^{-0.65} +(1-\delta))\\
+\Rightarrow c^{-\gamma} &= c'^{-\gamma} \beta(0.35zk'^{-0.65}+(1-\delta))
+\end{align*}
+This, along with the law of motion of capital $k' = zk^{0.35} +(1-\delta)k - c$, forms our difference equations for $k,c$.
+
+We can solve for the steady state as follows:
+
+\begin{align*}
+\frac{1}{\beta} &= 0.35z\bar{k}^{-0.65} +1 - \delta\\
+\Rightarrow \bar{k} &= \left(\frac{\frac{1}{\beta}-1+\delta}{0.35z}\right)^{1/(-0.65)}\\
+\Rightarrow \bar{c} &= z\bar{k}^{0.35} - \delta \bar{k}
+\end{align*}
+
+Finally, we can solve for our phase diagram lines:
+
+\begin{align*}
+\Delta c= 0 \Rightarrow \frac{1}{\beta} &= 0.35z(zk^{0.35} + (1-\delta)k - c )^{-0.65} + 1 - \delta\\
+c&= zk^{0.35} + (1-\delta)k -\left(\frac{\frac{1}{\beta} - 1 + \delta}{0.35 z}\right)^{1/(-0.65)}\\
+\Delta k = 0 \Rightarrow c &= zk^{0.35} - \delta k
+\end{align*}
+
+We will solve the value function numerically by iterating over the value function.
+
+\includegraphics{partA}
+
+As we can see, the computational saddle path is always positive and passes exactly through our steady state. We can also show our numerical solution for the value function, and $k'$ chosen as a function of $k$:
+
+\includegraphics{partA2}
+
+Our value function is clearly increasing, continuous, and concave in $k$. Our policy function $k'$ is increasing and nearly linear, with a slight concavity.
+
+\subsection{Part B}
+
+From our calculations in part (a), we know that the phase diagram lines are not affected by $\gamma$, so they will be unaffected by the parameter change. Furthermore, this also means that the steady state value will be unaffected. The reason for this is that the intertemporal elasticity of substitution does not affect the efficiency of capital, the labor supply decision (as there is no disutility of labor), the discount rate, or the depreciation rate, so the $\Delta c = 0,\Delta k = 0$ lines are unaffected by the change of intertemporal elasticity of substitution. However, this does not mean that our system as a whole will be unaffected - our decision rule (saddle) will be affected by the change in intertemporal elasticity of substitution. We will show this below.
+
+\includegraphics{partB}
+
+As was predicted from our equations, the change in the $\gamma$ parameter results in a change in our decision rule (saddle), but not a mechanical change in our $\Delta c,\Delta k$ lines and therefore our steady state is unaffected. We can investigate the effect of the parameter change on our policy variables as well:
+
+\includegraphics{partB2}
+
+The value function with the new parameterization has a much lower value, which is to be expected due to the exponent on the flow utility function changing dramatically, and its shape is similar but a bit steeper than before. Still, the policy function $k'(k)$ is very similar to before, but the slight difference results in the difference in saddle path that we saw above.
+
+\subsection{Part C}
+
+Total factor productivity (TFP,$z$) does affect our steady state values and $\Delta c = 0,\Delta k = 0$ lines as the technological improvement yields mechanical improvements into our consumption and capital production frontiers. In other words, our capital is more effective, so we are able to produce more consumption and future capital goods given a current capital level. As such, the economy can sustain a higher level of both consumption and capital levels. Therefore, the steady state levels of consumption and capital will increase.
+
+\includegraphics{partC}
+
+We can also investigate the effect of the new parameterization on the policy variables:
+
+\includegraphics{partC2}
+
+We can see that our value function has shifted up, which is because we are better off since our capital is more productive. Additionally, our decision rule $k'(k)$ has shifted up as well, as we are producing more with the capital we are given, and thus will always choose to keep more capital for the future.
+
+When the transition occurs, production will jump up, but current capital levels are already fixed so consumption jumps to a higher level. It wil jump exactly to the new saddle path. The economy will then proceed along that saddle path towards the new steady state, which it will reach in the limit as $t\rightarrow \infty$. We will plot this transition below.
+
+\includegraphics{traj}
+
+As expected, our economy immediately jumps onto the new saddle path, and moves along that path to the new steady state.
 \end{document}
