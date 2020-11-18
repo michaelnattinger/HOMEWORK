@@ -234,21 +234,78 @@ F_N(\bar{k},\bar{N}) &= \bar{w}\label{ss2} \\
 \bar{c} + (g+\delta)\bar{k} &= F(\bar{k},\bar{N}) \label{ss3}
 \end{align}
 
-Equations (\ref{ss1}), (\ref{ss2}), and (\ref{ss3}) form 3 equations in 3 unknowns (initial capital, $k_0 = \bar{k}$, is given). By the Inada conditions on $f$ and its continuous differentiability, the solution to these equations exists and is unique. Therefore, there will be a balanced growth path.
+Equations (\ref{ss1}), (\ref{ss2}), and (\ref{ss3}) form 3 equations in 3 unknowns (initial capital, $k_0 = \bar{k}$, is given). By the Inada conditions on $F$ and its continuous differentiability, the solution to these equations exists and is unique. Therefore, there will be a balanced growth path.
 
 \subsection{Part C}
-No, we cannot summarize the information in the same way as before without further information because now labor supply can move endogenously. We will not know the impact on labor supply, which will affect the response of the economy to the change in $\delta$. For instance, if the labor supply increases sufficiently, then consumption will shoot up, and over time investment will rise, resulting in a new steady state with higher consumption and capital levels. However, if the labor supply decreases sufficiently, then consumption will fall immediately and the new steady state the economy ends up at will have lower consumption and capital levels. The overall effect is therefore indeterminate due to the labor supply dynamics.
+No, we cannot summarize the information in the same way as before without further information because now labor supply can move endogenously. We will not know the impact on labor supply, which will affect the response of the economy to the change in $\delta$. For instance, if the labor supply increases sufficiently, then consumption will shoot up, and over time the capital level will rise, resulting in a new steady state with higher consumption and capital levels. However, if the labor supply decreases sufficiently, then consumption will fall immediately and the new steady state the economy ends up at will have lower consumption and capital levels. The overall effect is therefore indeterminate due to the labor supply dynamics.
+
+% write about how k is exogenously determined here. Later, in D, you can actually solve for 
 
 \subsection{Part D}
 
-Let labor supply be inelastic. Then, there is no disutility from working so $n_t = 1 \forall t.$
+Let labor supply be inelastic. Then, there is no disutility from working so $n_t = 1 \forall t.$ Most of our equations from before still hold. Specifically, the following conditions must still hold:
+
+\begin{align}
+\beta (1+g)^{1-\gamma}\left( \frac{c_{t+1}}{c_t}\right)^{-\gamma} &= \frac{p_{t+1}}{p_t} \label{eq1} \\
+p_t &= p_{t+1}(r_{t+1} + 1-\delta) \label{eq2}\\ 
+c_t + k_{t+1}(1+g) - (1-\delta)k_{t} &= f(k_t) \label{eq3}
+\end{align}
+
+We now can redefine $f(k) = F (k,1)$ and we have, also from before,
+
+\begin{equation}
+f'(k_t) = r_t \label{eq4}
+\end{equation}
+
+Finally, we can pin down wage by the zero profit condition we solved for:
+
+\begin{align}
+w_t &= f(k_t)  - f'(k_t)r_t \label{eq5}
+\end{align}
+
+Equations (\ref{eq1}), (\ref{eq3}) form our equations governing the law of motion of capital and consumption, and equations (\ref{eq2}), (\ref{eq4}), and (\ref{eq5}) pin down the evolution of wages, inflation, and the rental price of capital over time.
+
+Combining equations  (\ref{eq1}), (\ref{eq3}) allows us to solve for the balanced growth path of capital and consumption. Note that we could not solve for the steady state value of capital in this way before due to the endogenous movement of labor, as we described in part C.
+
+\begin{align*}
+\beta(1+g)^{1-\gamma} &= \bar{\Pi}\\
+\frac{1}{\bar{\Pi}} + \delta - 1 &= \bar{r} \\
+ f'^{-1}(\bar{r}) &= \bar{k} \\
+ f(\bar{k})  - f'(\bar{k})\bar{r} &= \bar{w} \\
+f(\bar{k}) - (g+\delta) \bar{k} &= \bar{c}
+\end{align*}
+
+\subsection{Part E}
+Let $g$ fall. First, we will consider long term dynamics (changes in the balanced growth path), then we will consider how the economy transitions in the short run.
+
+$g$ falls implies $\bar{\Pi}$ falls, so $\bar{r}$ rises. Thus, $\bar{k}$ falls. Now, consider $\bar{c}$. As $\bar{k}$ falls, $f(\bar{k})$ falls. However, for the $-(g+\delta)$ term, $-(g+\delta)$ falls and $\bar{k}$ rises so the effect of this term is indeterminate, and therefore the effect on $\bar{c}$ as a whole is indeterminate.
+
+Initially, when $g$ falls, capital is fixed. Consumption falls to compensate, finding the new saddle path. The economy progresses along the new saddle path until it reaches the new balanced growth path.
+
+\subsection{Part F}
+Output saved on the balanced growth path is production less consumption, i.e. $\bar{s} = f(\bar{k}) - \bar{c} = (g+\delta) \bar{k}$. 
+
+\begin{align*}
+\frac{\partial \bar{s}}{\partial g} &= \bar{k} + (g+\delta ) \frac{\partial \bar{k}}{\partial g}\\
+ \frac{\partial \bar{k}}{\partial g} &= \frac{\partial }{\partial g} f'^{-1}(\bar{r}) = (f'^{-1})'(\bar{r}) \frac{\partial \bar{r}}{\partial g}\\
+\frac{\partial \bar{r}}{\partial g} &= - \frac{1}{(\bar{\Pi})^2} \frac{\partial \bar{\Pi}}{\partial g} \\
+\frac{\partial \bar{\Pi}}{\partial g} &= (1-\gamma)\beta (1+g)^{-\gamma} \\
+\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \frac{ (g+\delta )(f'^{-1})'(\bar{r})}{(\bar{\Pi})^2}(1-\gamma)\beta (1+g)^{-\gamma} \\
+\end{align*}
+\begin{align}
+\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\Pi})^2}
+\end{align}
+
+Therefore, savings will rise as $g$ increases if $ \bar{k} > \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\Pi})^2},$ which will occur with certainty if $(f'^{-1})'(\bar{r})\leq0.$
+
+For $F(k,N) = k^{\alpha} N^{1-\alpha},$ $f(k) = k^{\alpha} \Rightarrow f'(k) = \alpha k^{\alpha - 1} \Rightarrow f'^{-1}(r) = \left(\frac{r}{\alpha}\right)^{1/(\alpha-1)} \Rightarrow (f'^{-1})'(r) = \left( \frac{1}{\alpha - 1}\right) \left(\frac{r}{\alpha}\right)^{(1/(\alpha-1)) - 1}. $ Since $\alpha<1,  \left( \frac{1}{\alpha - 1}\right) <0$ so $(f'^{-1})'(r)<0$, so $\frac{\partial \bar{s}}{\partial g}>0$. Therefore, for the Cobb-Douglas production function, balanced growth path savings increases as $g$ rises.
 
 \section{Question 2}
 \subsection{Part A}
 The consumer chooses consumption to maximize expected utility:
 \begin{align*}
 \max_{\{c_t\}_{t=0}^{\infty}} E\sum_{t=0}^{\infty}\beta^t \frac{c_t^{1-\gamma}}{1-\gamma}\\
-\text{s.t. } c_t + x_t \leq A_{t-1}(x_{t-1} - c_{t-1}),
+\text{s.t. } x_t \leq A_{t-1}(x_{t-1} - c_{t-1}),
 \end{align*}
 
 where $A_t$ are i.i.d. shocks with possible values $A_h,A_l$. Therefore, our space consists of $A_t = y \in \{ A_h,A_l \}; Y = \{ \emptyset, \{A_h\},\{ A_l\}, \{ A_h,A_l\}\}; Q = \Pi = \begin{bmatrix} \pi & (1-\pi) \\ \pi & (1-\pi)\end{bmatrix}$. The expectations operator is the probability-weighted average of total discounted utility across all possibilities of future shocks. 
@@ -260,8 +317,11 @@ V(As) &= \max_{s'} \frac{(As - s')^{1-\gamma}}{1-\gamma} + \beta EV(As')\\
 \end{align*}
 where $s_t := x_t - c_t$. Our value is dependent on the value we have when making our decision, i.e. post shock-realization, so our state variable for the Bellman equation is $A_{t-1}s_{t-1} = x_t$.
 
-(prove the optimal value function is continuous, increasing, and concave)
+%(prove the optimal value function is continuous, increasing, and concave)
 
+The utility function is concave, increasing, and continuous. The feasible set is convex, continuous, and nonempty. Furthermore, $0<\beta<1$. Moreover, we will show below that we can treat $u$ such that it is bounded. Given all of these, we know that our optimal value function is continuous, increasing, and concave.
+
+As I mentioned, we can treat $u$ such that it is bounded. The reason for this stems from the fact that we are given that $A_l<A_h<\frac{1}{\beta} \Rightarrow A_l \beta < A_h \beta <1$.Therefore, due also to the concavity of $u$, the discounted present value of saving your money and spending later, even if one were to draw $A_h$ every single time (i.e. even if $\pi=1$) declines with the time horizon at least at the rate $A_h \beta <1$, so the value function is guaranteed to be finite even though $u$ is not itself bounded from above. 
 
 \subsection{Part C}
 To solve the Bellman, we will take first order conditions, 
@@ -274,20 +334,21 @@ V'(As) &= (As -s')^{-\gamma}\\
 
 We will guess and verify that our optimal policy function is to save a constant percentage of our wealth.
 
-Let $As-s' = cAs$. Then, our $c$ must satisfy the following:
+Let $As-s' = pAs$. Then, our $p$ must satisfy the following (note: $p>0$ by our Inada conditions):
 \begin{align*}
-(cAs)^{-\gamma} &= \beta(\pi (cA_hs')^{-\gamma} + (1-\pi)(cA_ls')^{-\gamma} )\\
-\Rightarrow ?
+(pAs)^{-\gamma} &= \beta(\pi (pA_hs')^{-\gamma} + (1-\pi)(pA_ls')^{-\gamma} )\\
+\Rightarrow (pAs)^{-\gamma} &= \beta \pi (pA_h(1-p)As)^{-\gamma} + \beta (1-\pi) (pA_l(1-p)As)^{-\gamma}\\
+\Rightarrow  (pAs)^{-\gamma} &= \beta \pi ((p - p^2)A_hAs)^{-\gamma} + \beta (1-\pi) ((p - p^2)A_lAs)^{-\gamma} \\
+\Rightarrow p^{-\gamma} &= \beta (p - p^2)^{-\gamma} (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma})\\
+\Rightarrow (1-p) &= (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma} \\
+\Rightarrow p &= 1 - (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma}.
 \end{align*}
 
+Therefore, saving a constant fraction of our wealth ($p =  1 - (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma}$) is the optimal policy function.
+
 \subsection{Part D}
-We know that the consumption sequence generated by this policy function is the unique solution of the original sequence problem because of the following facts:
-\begin{itemize}
-\item $0<\beta<1$,
-\item $u(\cdot)$ is continuously differentiable,
-\item The feasible set is convex,
-\item \dots
-\end{itemize}
+From the arguments we pointed out in Part B (the utility function is concave, increasing, and continuous; the feasible set is convex, continuous, and nonempty; furthermore, $0<\beta<1$; moreover, we can treat $u$ such that it is bounded), we know that the consumption sequence generated by this policy function is the same as the original sequence problem.
+
 \section{Question 3}
 \subsection{Part A}
 First we will derive the equations to form our model, then use the derived equations in Matlab to determine the optimal allocation.
