@@ -84,7 +84,7 @@
 \hat{\beta}_{mix} &= (Z'Z)^{-1}Z'Y \\
 &= (C'X'XC)^{-1}C'X'Y\\
 &= C^{-1}(X'X)^{-1}C'^{-1}C'X'Y\\
-&= C^{-1}\beta_{ols}\\
+&= C^{-1}\hat{\beta}_{ols}\\
 \hat{\epsilon}_{ols} &= (I -X(X'X)^{-1}X')Y\\
 \hat{\epsilon}_{mix} &= (I -XCC^{-1}(X'X)^{-1}X')Y\\
 &= (I -X(X'X)^{-1}X')Y\\
@@ -142,7 +142,7 @@ D_1\alpha_1 + D_2 \alpha_2 + e &= (\vec{1} - D_2)\alpha_1 + D_2 \alpha_2\\
 &= \vec{\alpha_1 } +D_2(\alpha_2 - \alpha_1)
 \end{align*}
 
-Therefore, the regressions are the same with $\mu = \vec{\alpha_1 }$ (the vector with $\alpha_1$ as every element) and $\phi = \alpha_2 - \alpha_1.$
+Therefore, the regressions are the same with $\mu = \alpha_1$ and $\phi = \alpha_2 - \alpha_1.$
 \subsection{Part B}
 \begin{align*}
 \vec{1}'D_1 &= \sum_{i=1}^n 1\{ \text{person $i$ is a man}\}\\
@@ -152,7 +152,25 @@ Therefore, the regressions are the same with $\mu = \vec{\alpha_1 }$ (the vector
 \end{align*}
 \section{3.13}
 \subsection{Part A}
+Let $X = [D_1 D_2]$. Order our observations such that the first $n_1$ observations are men and the rest of the observations are women, then $X'X = \begin{pmatrix} \vec{1}_{n_1}'\vec{1}_{n_1} & \bar{0} \\ \bar{0} & \vec{1}_{n_2}'\vec{1}_{n_2}  \end{pmatrix}$
+\begin{align*}
+\colvec{2}{\hat{\gamma}_1}{\hat{\gamma}_2} &= \begin{pmatrix} \vec{1}_{n_1}'\vec{1}_{n_1} & \bar{0} \\ \bar{0} & \vec{1}_{n_2}'\vec{1}_{n_2}  \end{pmatrix}^{-1} \colvec{2}{\sum_{i=1}^{n_1}y_i}{\sum_{i=n_1+1}^{n_1+n_2}y_i} \\
+&= \colvec{2}{\frac{1}{n_1}\sum_{i=1}^{n_1}y_i}{\frac{1}{n_2}\sum_{i=n_1+1}^{n_1+n_2}y_i}\\
+&= \colvec{2}{\bar{Y}_1}{\bar{Y}_2}
+\end{align*}
 \subsection{Part B}
+The first transformation simplifies to $Y^{*} = \hat{u}$, in other words $Y^{*}$ is the deviation from average for men and women.
+
+The second transformation similarly transforms the $X$ data, so $X^{*}$ is the residual of the following regression: $X = D_1 b_1 + D_2 b_2$, which we know from Part A will yield $b_1 = \bar{X}_1, b_2 = \bar{X}_2.$ $X^{*}$ then is a matrix of regressors transformed to be in deviations from the average for whatever gender the individual identifies as.
+
+\subsection{Part C}
+\begin{align*}
+\tilde{\beta} &= (X'^{*}X^{*})^{-1} X'^{*}Y^{*}\\
+&=(XM_DX)^{-1}X'M_DY\\
+\hat{\beta} &= (XM_DX)^{-1}X'M_DY\\
+&= \tilde{\beta}
+\end{align*}
+where we solved for $\hat{\beta}$ via theorem 3.4.
 \section{3.16}
 Let $X = [X_1 X_2], \hat{\beta} = [\hat{\beta}_1' \hat{\beta}_2' ]', \hat{\beta}^{*} = [\tilde{\beta}_1' \vec{0}_{n_2}']'$ where $\vec{0}_{n_2}$ is the $n_2$ sized matrix of zeros.
 \begin{align*}
@@ -207,5 +225,52 @@ Now we will show that the residuals are the same.
 \end{align*}
 
 \section{Question 7}
+\subsection{Part A}
+\begin{align*}
+E[\hat{\beta}|X] &= E[(X'X)^{-1}X'Y|X] \\
+&=  (X'X)^{-1}X'E[Y|X] \\
+&=  (X'X)^{-1}X'X\beta \\
+&= \beta\\
+\Rightarrow E[\hat{\beta}_1|X] &= \beta_1
+\end{align*}
+\subsection{Part B}
+\begin{align*}
+E[\hat{\hat{\beta}}_1|X] &= E[(X_1'X_1)^{-1}X_1'\hat{Y}|X]\\
+&= E[(X_1'X_1)^{-1}X_1'X\hat{\beta}|X]\\
+&= E[(X_1'X_1)^{-1}X_1'X(X'X)^{-1}X'Y|X]\\
+&= (X_1'X_1)^{-1}X_1'X(X'X)^{-1}X'E[Y|X]\\
+&= (X_1'X_1)^{-1}X_1'X(X'X)^{-1}X'X\beta\\
+&=  (X_1'X_1)^{-1}X_1'X\beta\\
+&= (X_1'X_1)^{-1}X_1'(X_1 \beta_1 + X_2 \beta_2)\\
+&= \beta_1 +  (X_1'X_1)^{-1}X_1'X_2 \beta_2
+\end{align*}
+This is equal to $\beta_1$ if either $\beta_2=0$ or $X_1,X_2$ are guaranteed to be orthogonal (so $X_1'X_2=0$).
+\subsection{Part C}
+\begin{align*}
+\tilde{\tilde{\beta}} &= (X'X)^{-1}X'\tilde{Y}\\
+&= (X'X)^{-1}X'X_1\tilde{\beta}_1\\
+&= \colvec{2}{I_{k_1}}{\bar{0}}\tilde{\beta}_1
+\end{align*}
+\subsection{Part D}
+Let $\tilde{\tilde{Y}} = X\tilde{\tilde{\beta}}, \tilde{\epsilon} = \tilde{Y} - \tilde{\tilde{Y}} $.
+\begin{align*}
+\tilde{\tilde{Y}} &=  X\tilde{\tilde{\beta}}\\
+&= X \colvec{2}{I_{k_1}}{\bar{0}}\tilde{\beta}_1\\
+&= X_1\tilde{\beta}_1\\
+&= \tilde{Y}\\
+\Rightarrow \tilde{\epsilon} &= 0\\
+\Rightarrow R^2 &= 1 - \frac{\tilde{\epsilon}'\tilde{\epsilon}}{\sum_{i=1}^{n}(\tilde{Y}_i - \bar{\tilde{Y}})^2}\\
+&=1 - \frac{0}{\sum_{i=1}^{n}(\tilde{Y}_i - \bar{\tilde{Y}})^2}\\
+&= 1.
+\end{align*}
+\subsection{Part E}
 
+\begin{align*}
+Var(\tilde{\tilde{\beta}}|X) &= Var( \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1}X_1'Y|X) \\
+&=  \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1}X_1'Var[Y|X]( \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1}X_1')'\\
+&= \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1}X_1'\sigma^2 I X_1(X_1'X_1)^{-1} \colvec{2}{I_{k_1}}{\bar{0}}' \\
+&= \sigma^2 \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1}X_1'X_1(X_1'X_1)^{-1} \colvec{2}{I_{k_1}}{\bar{0}}' \\
+&=  \sigma^2 \colvec{2}{I_{k_1}}{\bar{0}}(X_1'X_1)^{-1} \colvec{2}{I_{k_1}}{\bar{0}}' \\
+&= \begin{pmatrix}\sigma^2 (X_1'X_1)^{-1} & \bar{0} \\ \bar{0} & \bar{0} \end{pmatrix}
+\end{align*}
 \end{document}
