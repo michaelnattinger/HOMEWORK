@@ -122,7 +122,7 @@
 
 We will write down the equations to characterize the system, normalize by $A$, and then solve for our difference equations. 
 
-Households maximize utility subject to their budget constraints:
+Households maximize utility subject to their budget constraints (note: I denote $w_t$ as normalized wages, $W_t/A_t$ throughout):
 
 \begin{align*}
 &\max_{\{C_t,I_t,N_t,K_t\}_{t=0}^{\infty}} \sum_{i=0}^{\infty}\beta^t u(C_t,1-N_t)\\
@@ -219,11 +219,11 @@ First, assume $\gamma \neq 1.$ Then, equation (\ref{ceuler}), (\ref{neuler}) bec
 
 Note that if $\gamma=1,$ we get the same results as (\ref{newceuler}), (\ref{newneuler}).
 
-Now, we can find the balanced growth path as follows. We note that inflation will occurn in the balanced growth path, and we can define $\pi_t = \frac{p_{t+1}}{p_t}$, and solve for $\bar{\Pi}$. Equations (\ref{newceuler}), (\ref{newneuler}), (\ref{arbitrage}) imply:
+Now, we can find the balanced growth path as follows. We note that inflation will occurn in the balanced growth path, and we can define $\pi_t = \frac{p_{t+1}}{p_t}$, and solve for $\bar{\pi}$. Equations (\ref{newceuler}), (\ref{newneuler}), (\ref{arbitrage}) imply:
 \begin{align*}
 \beta(1+g)^{1-\gamma} &= \bar{\pi}\\
 \frac{w_{t+1}}{w_t} = 1 \Rightarrow w_t = \bar{w} = w_{t+1} \\
-\frac{1}{\bar{\Pi}} + \delta - 1 &= \bar{r}
+\frac{1}{\bar{\pi}} + \delta - 1 &= \bar{r}
 \end{align*}
 
 We then have the following system of equations which can be solved to find the balanced growth path of the economy:
@@ -237,7 +237,9 @@ F_N(\bar{k},\bar{N}) &= \bar{w}\label{ss2} \\
 Equations (\ref{ss1}), (\ref{ss2}), and (\ref{ss3}) form 3 equations in 3 unknowns (initial capital, $k_0 = \bar{k}$, is given). By the Inada conditions on $F$ and its continuous differentiability, the solution to these equations exists and is unique. Therefore, there will be a balanced growth path.
 
 \subsection{Part C}
-No, we cannot summarize the information in the same way as before without further information because now labor supply can move endogenously. We will not know the impact on labor supply, which will affect the response of the economy to the change in $\delta$. For instance, if the labor supply increases sufficiently, then consumption will shoot up, and over time the capital level will rise, resulting in a new steady state with higher consumption and capital levels. However, if the labor supply decreases sufficiently, then consumption will fall immediately and the new steady state the economy ends up at will have lower consumption and capital levels. The overall effect is therefore indeterminate due to the labor supply dynamics.
+We solved for our balanced growth path in this case by taking capital as given - exogenous. If the parameters change, we would not be able to determine the effect on both capital and consumption in the balanced growth path unless we were given the new capital level for the balanced growth path.
+
+Moreover, we cannot summarize the information in the same way as before without further information because now labor supply can move endogenously. We will not know the impact on labor supply, which will affect the response of the economy to the change in $\delta$. For instance, if the labor supply increases sufficiently, then consumption will shoot up, resulting in a new steady state with higher consumption levels. However, if the labor supply decreases sufficiently, then consumption will fall immediately and the new steady state the economy ends up at may have lower consumption levels. The overall effect on consumption is therefore indeterminate due to the labor supply dynamics.
 
 % write about how k is exogenously determined here. Later, in D, you can actually solve for 
 
@@ -268,8 +270,8 @@ Equations (\ref{eq1}), (\ref{eq3}) form our equations governing the law of motio
 Combining equations  (\ref{eq1}), (\ref{eq3}) allows us to solve for the balanced growth path of capital and consumption. Note that we could not solve for the steady state value of capital in this way before due to the endogenous movement of labor, as we described in part C.
 
 \begin{align*}
-\beta(1+g)^{1-\gamma} &= \bar{\Pi}\\
-\frac{1}{\bar{\Pi}} + \delta - 1 &= \bar{r} \\
+\beta(1+g)^{1-\gamma} &= \bar{\pi}\\
+\frac{1}{\bar{\pi}} + \delta - 1 &= \bar{r} \\
  f'^{-1}(\bar{r}) &= \bar{k} \\
  f(\bar{k})  - f'(\bar{k})\bar{r} &= \bar{w} \\
 f(\bar{k}) - (g+\delta) \bar{k} &= \bar{c}
@@ -278,7 +280,7 @@ f(\bar{k}) - (g+\delta) \bar{k} &= \bar{c}
 \subsection{Part E}
 Let $g$ fall. First, we will consider long term dynamics (changes in the balanced growth path), then we will consider how the economy transitions in the short run.
 
-$g$ falls implies $\bar{\Pi}$ falls, so $\bar{r}$ rises. Thus, $\bar{k}$ falls. Now, consider $\bar{c}$. As $\bar{k}$ falls, $f(\bar{k})$ falls. However, for the $-(g+\delta)$ term, $-(g+\delta)$ falls and $\bar{k}$ rises so the effect of this term is indeterminate, and therefore the effect on $\bar{c}$ as a whole is indeterminate.
+$g$ falls implies $\bar{\pi}$ falls, so $\bar{r}$ rises. Thus, $\bar{k}$ falls. Now, consider $\bar{c}$. As $\bar{k}$ falls, $f(\bar{k})$ falls. However, for the $-(g+\delta)$ term, $-(g+\delta)$ rises and $\bar{k}$ rises so the effect of this term is an increase, and therefore the effect on $\bar{c}$ as a whole is indeterminate.
 
 Initially, when $g$ falls, capital is fixed. Consumption falls to compensate, finding the new saddle path. The economy progresses along the new saddle path until it reaches the new balanced growth path.
 
@@ -288,15 +290,15 @@ Output saved on the balanced growth path is production less consumption, i.e. $\
 \begin{align*}
 \frac{\partial \bar{s}}{\partial g} &= \bar{k} + (g+\delta ) \frac{\partial \bar{k}}{\partial g}\\
  \frac{\partial \bar{k}}{\partial g} &= \frac{\partial }{\partial g} f'^{-1}(\bar{r}) = (f'^{-1})'(\bar{r}) \frac{\partial \bar{r}}{\partial g}\\
-\frac{\partial \bar{r}}{\partial g} &= - \frac{1}{(\bar{\Pi})^2} \frac{\partial \bar{\Pi}}{\partial g} \\
-\frac{\partial \bar{\Pi}}{\partial g} &= (1-\gamma)\beta (1+g)^{-\gamma} \\
-\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \frac{ (g+\delta )(f'^{-1})'(\bar{r})}{(\bar{\Pi})^2}(1-\gamma)\beta (1+g)^{-\gamma} \\
+\frac{\partial \bar{r}}{\partial g} &= - \frac{1}{(\bar{\pi})^2} \frac{\partial \bar{\pi}}{\partial g} \\
+\frac{\partial \bar{\pi}}{\partial g} &= (1-\gamma)\beta (1+g)^{-\gamma} \\
+\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \frac{ (g+\delta )(f'^{-1})'(\bar{r})}{(\bar{\pi})^2}(1-\gamma)\beta (1+g)^{-\gamma} \\
 \end{align*}
 \begin{align}
-\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\Pi})^2}
+\Rightarrow \frac{\partial \bar{s}}{\partial g} &=  \bar{k} - \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\pi})^2}
 \end{align}
 
-Therefore, savings will rise as $g$ increases if $ \bar{k} > \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\Pi})^2},$ which will occur with certainty if $(f'^{-1})'(\bar{r})\leq0.$
+Therefore, savings will rise as $g$ increases if $ \bar{k} > \left( \frac{g+\delta}{(1+g)^{\gamma}} \right) \frac{(1-\gamma)\beta (f'^{-1})'(\bar{r})}{(\bar{\pi})^2},$ which will occur with certainty if $(f'^{-1})'(\bar{r})\leq0.$
 
 For $F(k,N) = k^{\alpha} N^{1-\alpha},$ $f(k) = k^{\alpha} \Rightarrow f'(k) = \alpha k^{\alpha - 1} \Rightarrow f'^{-1}(r) = \left(\frac{r}{\alpha}\right)^{1/(\alpha-1)} \Rightarrow (f'^{-1})'(r) = \left( \frac{1}{\alpha - 1}\right) \left(\frac{r}{\alpha}\right)^{(1/(\alpha-1)) - 1}. $ Since $\alpha<1,  \left( \frac{1}{\alpha - 1}\right) <0$ so $(f'^{-1})'(r)<0$, so $\frac{\partial \bar{s}}{\partial g}>0$. Therefore, for the Cobb-Douglas production function, balanced growth path savings increases as $g$ rises.
 
@@ -344,7 +346,7 @@ Let $As-s' = pAs$. Then, our $p$ must satisfy the following (note: $p>0$ by our 
 \Rightarrow p &= 1 - (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma}.
 \end{align*}
 
-Therefore, saving a constant fraction of our wealth ($p =  1 - (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma}$) is the optimal policy function.
+Therefore, saving a constant fraction of our wealth ($1-p =   (\beta (\pi A_h^{-\gamma} + (1-\pi) A_l^{-\gamma}))^{1/\gamma}$) is the optimal policy function.
 
 \subsection{Part D}
 From the arguments we pointed out in Part B (the utility function is concave, increasing, and continuous; the feasible set is convex, continuous, and nonempty; furthermore, $0<\beta<1$; moreover, we can treat $u$ such that it is bounded), we know that the consumption sequence generated by this policy function is the same as the original sequence problem.
