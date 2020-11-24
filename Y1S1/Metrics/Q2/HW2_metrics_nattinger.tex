@@ -127,14 +127,14 @@ Let $X$ contain a constant.
 \begin{align*}
 \frac{1}{n}\sum_{i=1}^n \hat{Y}_i &= \frac{1}{n}\sum_{i=1}^n Y_i - \hat{\epsilon}_i\\
 &= \frac{1}{n}\sum_{i=1}^n Y_i  - \frac{1}{n}\sum_{i=1}^n \hat{\epsilon}_i \\
-&= \frac{1}{n}\sum_{i=1}^n Y_i - X'\hat{\epsilon}\\
+&= \frac{1}{n}\sum_{i=1}^n Y_i -\frac{1}{n}\vec{1}'\hat{\epsilon}\\
 &=  \frac{1}{n}\sum_{i=1}^n Y_i
 \end{align*}
 
-where $\frac{1}{n}\sum_{i=1}^n \hat{\epsilon}_i  = X'\hat{\epsilon}  = 0$ because X contains a column of ones.
+where $\frac{1}{n}\sum_{i=1}^n \hat{\epsilon}_i  = \frac{1}{n}\vec{1}'\hat{\epsilon}  = 0$ because X contains a column of ones.
 
 \section{3.12}
-Equation (3.53) cannot be estimated by OLS because $D_1 + D_2 = \vec{1}$ (a vector containing 1 in every element), and therefore $X'X$ is not invertible.
+Equation (3.53) cannot be estimated by OLS because $D_1 + D_2 = \vec{1}$ (a vector containing 1 in every element), and therefore $X'X$ is not invertible (perfect collinearity with the constant term).
 \subsection{Part A}
 Equations (3.54) and (3.55) contain the same information, since  $D_1 + D_2 = \vec{1}$, and so the $\hat{Y}$ from each regression would be identical. Ergo,
 \begin{align*}

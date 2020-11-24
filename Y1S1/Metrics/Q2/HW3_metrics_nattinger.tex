@@ -1,0 +1,206 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics HW3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, and Danny Edgel.}}
+
+\begin{document}
+\maketitle
+
+\section{3.24}
+\begin{center}
+\input{table1.tex}\\
+\input{table2.tex}\\
+\input{table3.tex}
+\end{center}
+From the above tables, we see that we have matched the ols coefficient from equation (3.50). The $R^2$ and SSE are listed as well in the second table. In the third table, we see our re-estimated coefficient is the same as in the original regression; however, the $R^2$ is lower in the re-estimated regression as part of the informational content was already regressed out of the response variable in the first stage of the two-stage regression. The SSE are identical, however, due to the residuals from the original regression being identical to the residuals from the second stage of the re-estimated regression.
+\section{3.25}
+\begin{center}
+\input{table4.tex}
+\end{center}
+The above table yields the relevant sums. Note that $a,b,c,e$ are 0 (to computational accuracy) reflecting the fact that these sums are the inner product of one of the columns of X and the residual estimates. These inner products are 0 by construction. $f$ is also 0 by construction for similar reasons. $d,g$ are not forced to be 0 by construction, and in this case they are clearly nonzero.
+
+\section{7.2}
+\begin{align*}
+\frac{1}{n}\sum_{i=1}^n X_i X_i' &\rightarrow_p E[X_iX_i']\\
+%\frac{1}{n}\sum_{i=1}^n X_i Y_i &\rightarrow_p E[X_iY_i]\\
+\frac{1}{n}\lambda I_k &\rightarrow_p 0\\
+\hat{\beta} &= (X'X + \lambda I_k)^{-1}X'Y \\
+&= (X'X + \lambda I_k)^{-1}X'(X\beta + \epsilon) \\
+&= (X'X + \lambda I_k)^{-1}X'X\beta + (X'X + \lambda I_k)^{-1}X'\epsilon\\
+&\rightarrow_p \left( E[X_iX_i'] + 0 \right)^{-1} E[X_iX_i']\beta + (E[X_iX_i']+0)^{-1}E[X_i\epsilon] \\
+&= \left( E[X_iX_i'] \right)^{-1} E[X_iX_i']\beta + \left( E[X_iX_i'] \right)^{-1} 0\\
+&= \beta
+\end{align*}
+Thus, $\hat{\beta}$ is consistent for $\beta$.
+\section{7.3}
+\begin{align*}
+\frac{1}{n}\lambda I_k = \frac{1}{n}cn I_k &\rightarrow_p c I_k\\
+\Rightarrow \hat{\beta} &\rightarrow_p \left( E[X_iX_i'] + c I_k \right)^{-1} E[X_iX_i']\beta + (E[X_iX_i']+CI_k)^{-1}E[X_i\epsilon] \\
+&= \left( E[X_iX_i'] + c I_k \right)^{-1} E[X_iX_i']\beta 
+\end{align*}
+So, in this case the estimator is not consistent as $ \left( E[X_iX_i'] + c I_k \right)^{-1} E[X_iX_i'] \neq I_k$.
+\section{7.4}
+\begin{enumerate}
+\item $E[X_1] = 1/2(1) + 1/2(-1) = 0$
+\item $E[X_1]^2 = 1/2(1) + 1/2(1) = 1$
+\item $E[X_1X_2] = 3/4(1) + 1/4(-1) = 1/2$
+\item $E[e^2] = (5/4)(3/4) + (1/4)(1/4) = 1$
+\item $E[X_1^2 e^2] = (3/4)((1)(5/4)) + (1/4)((1)(1/4)) = 1$
+\item $E[X_1X_2 e^2] = (3/4)((1)(5/4)) + (1/4)((-1)(1/4)) = 7/8$
+\end{enumerate}
+\section{7.8}
+We know from (7.18) that $\hat{\sigma}^ \rightarrow_p \sigma^2$. Moreover, 
+%\begin{align*}
+%\hat{\sigma}^2 &= \frac{1}{n}\hat{\epsilon}'\hat{\epsilon}\\
+% &= \frac{1}{n}(Y - X\hat{\beta})'(Y - X\hat{\beta})\\
+%&= \frac{1}{n}(Y'Y - \hat{\beta}'X'Y - Y'X\hat{\beta} + \hat{\beta}'X'X\hat{\beta})\\
+%\Rightarrow \frac{\partial \hat{\sigma}^2}{\partial \hat{\beta}} &= \frac{1}{n}(2X'X\hat{\beta} - X'Y - Y'X)
+%\end{align*}
+\begin{align*}
+\sqrt{n}(\hat{\sigma}^2 - \sigma^2) &= \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n \hat{\epsilon}_i^2 - \sigma^2\right) \\
+&= \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n (\epsilon_i - x_i' (\hat{\beta}- \beta) )^2 - \sigma^2\right) \\
+&=  \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n \epsilon_i^2 - \sigma^2\right) - 2\left(\frac{1}{n}\sum_{i=1}^n\epsilon_ix_i' \right)\sqrt{n}(\hat{\beta} - \beta) + \sqrt{n} (\hat{\beta} - \beta)'\left(\frac{1}{n}\sum_{i=1}^nx_i x_i' \right)(\hat{\beta} - \beta)\\
+&= \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n \epsilon_i^2 - \sigma^2\right) - 2o_p(1) O_p(1) + O_p(1) O_p(1) o_p(1)\\
+&\rightarrow_d N(0,V),
+\end{align*}
+where $V = Var(\epsilon_i^2) = E(\epsilon_i^4) - \sigma^4$. Note that we have implicitly assumed that the fourth moment of $\epsilon$ exists.
+\section{7.9a}
+The first estimator, $\hat{\beta}$ is the univariate version of OLS. We know that this is therefore a consistent estimator. It is less immediate that $\tilde{\beta}$ is consistent, but we will show below that this is the case.
+
+\begin{align*}
+\tilde{\beta} &= \frac{1}{n}\sum_{i=1}^n \frac{Y_i}{X_i} = \frac{1}{n}\sum_{i=1}^n \frac{X_i\beta + e_i}{X_i}\\
+&= \frac{1}{n}\sum_{i=1}^n \beta + \frac{e_i}{X_i} =\beta + \frac{1}{n}\sum_{i=1}^n \frac{e_i}{X_i}\\
+&\rightarrow_p \beta + E\left[ \frac{e_i}{X_i}\right] =  \beta + E\left[ \frac{E[e_i|X_i]}{X_i}\right]\\
+&= \beta
+\end{align*}
+Therefore, $\tilde{\beta}$ is also a consistent estimator of $\beta$.
+\section{7.10}
+\subsection{Point forecast}
+Let $\hat{Y}_{n+1} = x'\hat{\beta}$. We will show that this estimator of $Y_{n+1}$ yields, in expectation conditional on $X,x$, the expectation of $Y_{n+1}$ conditional on $x$.
+\begin{align*}
+\hat{Y}_{n+1} &= x'\hat{\beta} = x'((X'X)^{-1}X'Y)\\
+&=  x'(X'X)^{-1}X'(X\beta + e)\\
+&= x'\beta + x'(X'X)^{-1}X'e.\\
+E[\hat{Y}_{n+1}|X,x] &= E[x'\beta + x'(X'X)^{-1}X'e|X,x]\\
+&= x'\beta + E[ x'(X'X)^{-1}X'E[e|X]|X,x]\\
+&= x'\beta\\
+&= E[Y_{n+1}|x]
+\end{align*}
+\subsection{Variance estimator}
+\begin{align*}
+Var(\hat{Y}_{n+1}) &= E[\hat{e}_{n+1}^2] \\
+&= E[(e_{n+1} - x'(\hat{\beta} - \beta))^2]\\
+&= E[e_{n+1}^2] - 2E[e_{n+1}x'(\hat{\beta} - \beta))^2] + E[x'(\hat{\beta} - \beta)(\hat{\beta} - \beta)'x]\\
+&= \sigma^2 + x'V_{\hat{\beta}}x
+\end{align*}
+These are not known, however. Yet, we do have estimates of these quantities. Therefore,
+\begin{align*}
+\hat{Var}(\hat{Y}_{n+1})  &= \hat{\sigma}^2 + x'\hat{V}_{\beta} x
+\end{align*}
+is an estimator of the variance of our forecast.
+\section{7.13}
+We propose $\hat{\gamma} = \frac{1}{n}\sum_{i=1}^n X_i/Y_i$. Naturally, this leads to an estimator for $\theta: \hat{\theta} = 1/\hat{\gamma}$. $Var(\hat{\gamma}) = \frac{1}{n^2} \sum_{i=1}^{n}Var\left( \frac{X_i}{Y_i} \right) = \frac{1}{n^2} \sum_{i=1}^{n}Var\left( \gamma + \frac{u_i}{Y_i} \right) = \frac{1}{n} \left( \frac{Var(u_i)}{Var(Y_i)} \right):= \frac{1}{n}V$. Therefore, $\sqrt{n}(\hat{\gamma} - \gamma) \rightarrow_d N(0,V).$ Thus, we can apply the delta method and find that $\sqrt{n}(\hat{\theta} - \theta) \rightarrow_d N(0,W)$ where $W = \frac{V}{\gamma^2} = \theta^2V$.
+
+The asymptotic standard error for $\hat{\theta}$ is $\sqrt{W} = \theta \sqrt{V} = \theta \sqrt{\frac{Var(u_i)}{Var(Y_i)}}.$
+
+\section{7.14}
+We can retrieve OLS estimates of $\beta_1,\beta_2$ ($\hat{\beta}_1,\hat{\beta}_2$) and then define $\hat{\theta} = \hat{\beta}_1 \hat{\beta}_2$. Next, we know the asymptotic distribution for OLS: $\sqrt{n}(\hat{\beta} - \beta) \rightarrow_d N(0,V_\beta)$ where $V_{\beta} = E[x_ix_i']^{-1} E[\epsilon_i^2x_ix_i']  E[x_ix_i']^{-1} $Then, we can apply the delta method and find:
+
+\begin{align*}
+\sqrt{n}(\hat{\theta} - \theta) \rightarrow_d N(0,V),
+\end{align*}
+where $V = [\beta_2 \beta_1]V_{\beta} [\beta_2 \beta_1 ]'$. Should there be a $1/4$ here?
+
+To run a test, we would estimate $V: \hat{V} = [\hat{\beta}_2 \hat{\beta}_1]\hat{V}_{\beta}[\hat{\beta}_2 \hat{\beta}_1]'$ and calculate the 95 percent CI as $\left[\hat{\theta} - 1.96\sqrt{\hat{V}/n},\hat{\theta} + 1.96\sqrt{\hat{V}/n}\right]$.
+
+\section{7.15}
+
+\begin{align*}
+\hat{\beta} &= \frac{\sum_{i=1}^n X_i^3 Y_i}{\sum_{i=1}^nX_i^4} \\
+&= \frac{\sum_{i=1}^n X_i^3 (X_i \beta + e_i)}{\sum_{i=1}^nX_i^4} \\
+&=  \frac{\sum_{i=1}^n X_i^4\beta + \sum_{i=1}^nX_i^3e_i}{\sum_{i=1}^nX_i^4}\\
+&\rightarrow_d \frac{E[X_i^4]\beta + E[X_i^3e_i]}{E[X_i^4]}\\
+&=\beta + \frac{E[X_i^3E[e_i|X_i]]}{E[X_i^4]}\\
+&= \beta
+\end{align*}
+Thus, $\hat{\beta}$ is a consistent estimator for $\beta$. Now we should find its distributional variance:
+\begin{align*}
+\dots
+\end{align*}
+
+\section{7.17}
+\section{7.19}
+\section{Q 9}
+\end{document}
