@@ -121,7 +121,7 @@ So, in this case the estimator is not consistent as $ \left( E[X_iX_i'] + c I_k 
 \item $E[X_1X_2 e^2] = (3/4)((1)(5/4)) + (1/4)((-1)(1/4)) = 7/8$
 \end{enumerate}
 \section{7.8}
-We know from (7.18) that $\hat{\sigma}^ \rightarrow_p \sigma^2$. Moreover, 
+We know from (7.18) that $\hat{\sigma}^2 \rightarrow_p \sigma^2$. Moreover, 
 %\begin{align*}
 %\hat{\sigma}^2 &= \frac{1}{n}\hat{\epsilon}'\hat{\epsilon}\\
 % &= \frac{1}{n}(Y - X\hat{\beta})'(Y - X\hat{\beta})\\
@@ -133,7 +133,7 @@ We know from (7.18) that $\hat{\sigma}^ \rightarrow_p \sigma^2$. Moreover,
 &= \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n (\epsilon_i - x_i' (\hat{\beta}- \beta) )^2 - \sigma^2\right) \\
 &=  \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n \epsilon_i^2 - \sigma^2\right) - 2\left(\frac{1}{n}\sum_{i=1}^n\epsilon_ix_i' \right)\sqrt{n}(\hat{\beta} - \beta) + \sqrt{n} (\hat{\beta} - \beta)'\left(\frac{1}{n}\sum_{i=1}^nx_i x_i' \right)(\hat{\beta} - \beta)\\
 &= \sqrt{n}\left(\frac{1}{n}\sum_{i=1}^n \epsilon_i^2 - \sigma^2\right) - 2o_p(1) O_p(1) + O_p(1) O_p(1) o_p(1)\\
-&\rightarrow_d N(0,V),
+&\rightarrow_d  N(0,V),
 \end{align*}
 where $V = Var(\epsilon_i^2) = E(\epsilon_i^4) - \sigma^4$. Note that we have implicitly assumed that the fourth moment of $\epsilon$ exists.
 \section{7.9a}
@@ -162,7 +162,7 @@ E[\hat{Y}_{n+1}|X,x] &= E[x'\beta + x'(X'X)^{-1}X'e|X,x]\\
 \begin{align*}
 Var(\hat{Y}_{n+1}) &= E[\hat{e}_{n+1}^2] \\
 &= E[(e_{n+1} - x'(\hat{\beta} - \beta))^2]\\
-&= E[e_{n+1}^2] - 2E[e_{n+1}x'(\hat{\beta} - \beta))^2] + E[x'(\hat{\beta} - \beta)(\hat{\beta} - \beta)'x]\\
+&= E[e_{n+1}^2] - 2E[e_{n+1}x'(\hat{\beta} - \beta)] + E[x'(\hat{\beta} - \beta)(\hat{\beta} - \beta)'x]\\
 &= \sigma^2 + x'V_{\hat{\beta}}x
 \end{align*}
 These are not known, however. Yet, we do have estimates of these quantities. Therefore,
@@ -181,7 +181,7 @@ We can retrieve OLS estimates of $\beta_1,\beta_2$ ($\hat{\beta}_1,\hat{\beta}_2
 \begin{align*}
 \sqrt{n}(\hat{\theta} - \theta) \rightarrow_d N(0,V),
 \end{align*}
-where $V = [\beta_2 \beta_1]V_{\beta} [\beta_2 \beta_1 ]'$. Should there be a $1/4$ here?
+where $V = [\beta_2 \beta_1]V_{\beta} [\beta_2 \beta_1 ]'$. %Should there be a $1/4$ here?
 
 To run a test, we would estimate $V: \hat{V} = [\hat{\beta}_2 \hat{\beta}_1]\hat{V}_{\beta}[\hat{\beta}_2 \hat{\beta}_1]'$ and calculate the 95 percent CI as $\left[\hat{\theta} - 1.96\sqrt{\hat{V}/n},\hat{\theta} + 1.96\sqrt{\hat{V}/n}\right]$.
 
@@ -191,16 +191,101 @@ To run a test, we would estimate $V: \hat{V} = [\hat{\beta}_2 \hat{\beta}_1]\hat
 \hat{\beta} &= \frac{\sum_{i=1}^n X_i^3 Y_i}{\sum_{i=1}^nX_i^4} \\
 &= \frac{\sum_{i=1}^n X_i^3 (X_i \beta + e_i)}{\sum_{i=1}^nX_i^4} \\
 &=  \frac{\sum_{i=1}^n X_i^4\beta + \sum_{i=1}^nX_i^3e_i}{\sum_{i=1}^nX_i^4}\\
-&\rightarrow_d \frac{E[X_i^4]\beta + E[X_i^3e_i]}{E[X_i^4]}\\
-&=\beta + \frac{E[X_i^3E[e_i|X_i]]}{E[X_i^4]}\\
-&= \beta
+&= \beta + \frac{ \sum_{i=1}^nX_i^3e_i}{\sum_{i=1}^nX_i^4}\\
+\Rightarrow \sqrt{n}(\hat{\beta} - \beta) &\rightarrow_d \frac{1}{E[X_i^4]}N(0,E[X_i^6e_i^2])\\
+&=  N\left(0,\frac{,E[X_i^6e_i^2]}{E[X_i^4]} \right)
 \end{align*}
-Thus, $\hat{\beta}$ is a consistent estimator for $\beta$. Now we should find its distributional variance:
+\section{7.17}
+\subsection{Part A}
+Under the null hypothesis that $\theta = 0,$ $\sqrt{n}(\hat{\theta} - \theta) \rightarrow_d N(0,Var(\hat{\theta}))= N(0,Var(\hat{\beta}_1 - \hat{\beta}_2)) = N(0,Var(\hat{\beta}_1) + Var(\hat{\beta}_2) - 2Cov(\hat{\beta}_1,\hat{\beta}_2)) \sim N(0,s(\hat{\beta}_1)^2 + s(\hat{\beta}_2)^2 - 2\hat{\rho} s(\hat{\beta}_1) s(\hat{\beta}_2)). $ Therefore, the 95\% CI for $\hat{\theta} \\= \left[\hat{\theta} - 1.96\sqrt{s(\hat{\beta}_1)^2 + s(\hat{\beta}_2)^2 - 2\hat{\rho} s(\hat{\beta}_1) s(\hat{\beta}_2)},\hat{\theta} + 1.96\sqrt{s(\hat{\beta}_1)^2 + s(\hat{\beta}_2)^2 - 2\hat{\rho} s(\hat{\beta}_1) s(\hat{\beta}_2)}\right] \\ = \left[0.2 - 1.96\sqrt{2(0.07)^2 (1-\hat{\rho})},  0.2 + 1.96\sqrt{2(0.07)^2 (1-\hat{\rho}) }\right]$.
+\subsection{Part B}
+We are not given the estimated covariance of $\hat{\beta}_1,\hat{\beta}_2$ so we cannot calculate the estimated correlation.
+\subsection{Part C}
+Correlation is in $[-1,1]$ so an upper bound for the width of the confidence interval is when the estimated correlation is $-1: [0.2 - 1.96*2*(0.07),0.2 + 1.96*2*(0.07)] =  [-0.0744,0.4744]$. This bound contains $0$ so we cannot reject the null hypothesis given the reported information.
+\section{7.19}
 \begin{align*}
-\dots
+\sqrt{n}(\hat{\beta}_1 - \hat{\beta}_2) &=\sqrt{n}(\hat{\beta}_1 - \beta) - \sqrt{n}(\hat{\beta}_2 - \beta).
+%\sqrt{n}(\hat{\beta}_1 - \beta)&\rightarrow_d N(0,E(x_ix_i')^{-1}E(\epsilon_i^2 x_i x_i')E(x_ix_i')^{-1})\\
+%\sqrt{n}(\hat{\beta}_2 - \beta)&\rightarrow_d N(0,E(x_ix_i')^{-1}E(\epsilon_i^2 x_i x_i')E(x_ix_i')^{-1}).
+%\end{align*}
+%Note also the following:
+%\begin{align*}
+%Cov\left( \hat{\beta}_1 - \beta, \hat{\beta_2} - \beta \right) &= E[\hat{\beta}_1\hat{\beta}_2 - \beta\hat{\beta}_1 - \beta \hat{\beta}_2 + \beta^2]\\
+%&= 
+\end{align*}
+Let us add an indicator $d_i: 1\{ \text{is in the first split} \}$. Then, the regression equation is of the form: 
+\begin{equation*}
+y_i = d_ix_i'\beta + (1-d_i)x_i\beta + \epsilon_i
+\end{equation*}
+
+\begin{align*}
+\sqrt{n}\left[ \colvec{2}{\hat{\beta}_1}{\hat{\beta}_2} - \colvec{2}{\beta}{\beta} \right] &= \left[ \frac{1}{2n}\sum_{i=1}^n\colvec{2}{d_ix_i}{(1-d_i)x_i}\colvec{2}{d_ix_i}{(1-d_i)x_i}'\right] \frac{1}{2\sqrt{n}} \sum_{i=1}^n \colvec{2}{d_ix_i\epsilon_i}{(1-d_i)x_i\epsilon_i}\\
+&= \left[\frac{1}{2n}\begin{pmatrix} \sum_{i=1}^{\infty}d_i x_i x_i' &  \sum_{i=1}^{\infty}d_i (1-d_i) x_i x_i' \\  \sum_{i=1}^{\infty}d_i (1-d_i) x_i x_i' &  \sum_{i=1}^{\infty}(1-d_i)x_i x_i' \end{pmatrix} \right]^{-1}  \frac{1}{2\sqrt{n}} \sum_{i=1}^n \colvec{2}{d_ix_i\epsilon_i}{(1-d_i)x_i\epsilon_i}
+\end{align*}
+\begin{align*}
+\frac{1}{2n}\begin{pmatrix} \sum_{i=1}^{\infty}d_i x_i x_i' &  \sum_{i=1}^{\infty}d_i (1-d_i) x_i x_i' \\  \sum_{i=1}^{\infty}d_i (1-d_i) x_i x_i' &  \sum_{i=1}^{\infty}(1-d_i)x_i x_i' \end{pmatrix} &\rightarrow_p \begin{pmatrix} \frac{1}{2}E[x_ix_i'] & 0 \\ 0 & \frac{1}{2}E[x_i x_i'] \end{pmatrix}\\
+\frac{1}{2\sqrt{n}} \sum_{i=1}^n \colvec{2}{d_ix_i\epsilon_i}{(1-d_i)x_i\epsilon_i} &\rightarrow_d N\left(\colvec{2}{0}{0},\begin{pmatrix}\frac{1}{2} E[e_i^2 x_ix_i'] & 0 \\ 0 & \frac{1}{2} E[e_i^2 x_ix_i']\end{pmatrix}\right)
+\end{align*}
+\begin{align*}
+\Rightarrow \sqrt{n}\left[ \colvec{2}{\hat{\beta}_1}{\hat{\beta}_2} - \colvec{2}{\beta}{\beta} \right] &= N(0,\Sigma \otimes I_2)
+\end{align*}
+where $I_2$ is the $2\times 2$ identity matrix, $\otimes$ is the kronecker product, and 
+\begin{align*}
+V = E[x_ix_i']^{-1}E[\epsilon_i^2x_ix_i']E[x_ix_i']^{-1}.
 \end{align*}
 
-\section{7.17}
-\section{7.19}
+Then, $\sqrt{n}(\hat{\beta}_1 - \hat{\beta}_2) =\sqrt{n}(\hat{\beta}_1 - \beta) - \sqrt{n}(\hat{\beta}_2 - \beta) \rightarrow_d N(0,2V)$.
 \section{Q 9}
+\subsection{Part A}
+\begin{align*}
+\hat{\beta} &= \left[\frac{1}{n} \sum_{i=1}^n w_i w_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{n}\sum_{i=1}^n w_i y_i 1\{ x_i \in \{1,2\}\}\\
+&= \left[\frac{1}{n} \sum_{i=1}^n w_i w_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{n}\sum_{i=1}^n w_i (w_i' \beta +\epsilon_i) 1\{ x_i \in \{1,2\}\}\\
+&= \beta + \left[\frac{1}{n} \sum_{i=1}^n w_i w_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{n}\sum_{i=1}^n w_i \epsilon_i 1\{ x_i \in \{1,2\}\} \\
+&\rightarrow_p \beta + E[w_iw_i'1\{x\in \{ 1,2\}\}]^{-1} E[w_i\epsilon_i1\{x\in \{ 1,2\}]\\
+&=\beta + E[w_iw_i'1\{x\in \{ 1,2\}\}]^{-1} E[w_iE[\epsilon_i|w_i]1\{x\in \{ 1,2\}]\\
+&= \beta.
+\end{align*}
+Therefore, $\hat{\beta}\rightarrow_p \beta.$
+\subsection{Part B}
+\begin{align*}
+\hat{\beta} &=\beta + E[w_iw_i'1\{x\in \{ 1,2\}\}]^{-1} E[w_iE[\epsilon_i|w_i]1\{x\in \{ 1,2\}]
+\end{align*}
+(A1') does not give us enought to deal with the indicator function inside the second expectation. So, in general, no.
+\subsection{Part C}
+\begin{align*}
+\sqrt{n}(\hat{\beta} - \beta) &=  \left[\frac{1}{n} \sum_{i=1}^n w_i w_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{\sqrt{n}}\sum_{i=1}^n w_i \epsilon_i 1\{ x_i \in \{1,2\}\}\\
+&\rightarrow_d E[w_i w_i' 1\{ x_i \in \{1,2\} \} ]^{-1}N(0,Var(w_i\epsilon_i 1\{ x_i \in \{1,2\} \}))\\
+Var(w_i\epsilon_i 1\{ x_i \in \{1,2\} )&= E[\epsilon_i^2w_i w_i'1\{ x_i \in \{1,2\} \}]\\
+&=  E[E\epsilon_i^2|w_i] w_i w_i' 1\{ x_i \in \{1,2\} \}]\\
+&= \sigma^2E[w_i w_i' 1\{ x_i \in \{1,2\} \}]\\
+&= \sigma^2\begin{pmatrix}1/2 & 3/4 \\ 3/4 & 5/4 \end{pmatrix}\\
+\Rightarrow \sqrt{n}(\hat{\beta} - \beta) &\rightarrow_d E[w_i w_i' 1\{ x_i \in \{1,2\}  ]^{-1}N(0,Var(w_i\epsilon_i 1\{ x_i \in \{1,2\} \}))\\
+&\sim N\left(0,\sigma^2\begin{pmatrix}1/2 & 3/4 \\ 3/4 & 5/4 \end{pmatrix}^{-1}\right)\\
+&\sim N\left(0,\sigma^2\begin{pmatrix} 20 & -12 \\ -12 & 8 \end{pmatrix}\right)
+\end{align*}
+\subsection{Part D}
+From identical logic to that which we used in Part A, we know that $\hat{\hat{\beta}}_2 $ is a consistent estimator for $\gamma$. As we have shown in Part A that $\hat{\beta}_2$ is also consistent, we can choose estimators by comparing asymptotic variances. We showed in Part D that this variance is $8\sigma^2$ for $\hat{\beta}_2$, while by replicating the same steps we followed in Part C with the inequality in the indicator function flipped, we find that the asymptotic variance of $\hat{\hat{\beta}}_2$ is $ 72\sigma^2>8\sigma^2$. Thus, we should use $\hat{\beta}^2$ as it yields more precise estimates of the slope coefficient.
+\subsection{Part E}
+\begin{align*}
+\hat{\alpha} &= \left[\frac{1}{n} \sum_{i=1}^n x_i x_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{n}\sum_{i=1}^n x_i y_i 1\{ x_i \in \{1,2\}\}\\
+%&=  \left[\frac{1}{n} \sum_{i=1}^n x_i x_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{n}\sum_{i=1}^n x_i (w_i'\beta + \epsilon_i) 1\{ x_i \in \{1,2\}\}
+&\rightarrow_p E[x_ix_i'1\{ x_i \in \{ 1,2\}\}]^{-1} E[x_iy_i1\{ x_i \in \{ 1,2\}\}]\\
+&= E[x_ix_i'1\{ x_i \in \{ 1,2\}\}]^{-1}(E[x_i1\{ x_i \in \{ 1,2\}\}] + \gamma E[x_ix_i'1\{ x_i \in \{ 1,2\}\}] + E[x_i\epsilon_i1\{ x_i \in \{ 1,2\}\}])\\
+&= (5/4)^{-1}((3/4) + \gamma(5/4) + 0)\\
+&= \gamma + 3/5
+\end{align*}
+\subsection{Part F}
+\begin{align*}
+\sqrt{n}(\hat{\alpha}-\alpha) &= \left[\frac{1}{n} \sum_{i=1}^n x_i x_i' 1\{ x_i \in \{1,2\} \} \right]^{-1}\frac{1}{\sqrt{n}}\sum_{i=1}^n (x_i +x_i^2(\gamma - \alpha) + x_i \epsilon_i) 1\{ x_i \in \{1,2\}\}\\
+&\rightarrow_d N(0,(4/5)^2Var[(x_i +x_i^2(\gamma - \alpha) + x_i \epsilon_i) 1\{ x_i \in \{1,2\}\}])
+\end{align*}
+\begin{align*}
+Var[(x_i +x_i^2(\gamma - \alpha) + x_i \epsilon_i) 1\{ x_i \in \{1,2\}\}]&= E[(x_i +x_i^2(\gamma - \alpha) + x_i \epsilon_i)^2 1\{ x_i \in \{1,2\}\}]
+\end{align*}
+\begin{align*}
+&=E[x_i^21\{ x_i \in \{1,2\}\}]+(9/25)E[x_i^41\{ x_i \in \{1,2\}\}]+\sigma^2 E[x_i^21\{ x_i \in \{1,2\}\}]\\&-(6/5)E[x_i^31\{ x_i \in \{1,2\}\}] +2E[x_i^2\epsilon_i1\{ x_i \in \{1,2\}\}] - (6/5)E[x_i^3 \epsilon_i1\{ x_i \in \{1,2\}\}]\\
+&=(5/4) - (6/5)(9/4) + (9/25)(17/4) + \sigma^2 (5/4)\\
+\Rightarrow \sqrt{n}(\hat{\alpha}-\alpha) &\rightarrow_d N(0,(4/5)^2((5/4) - (6/5)(9/4) + (9/25)(17/4) + \sigma^2 (5/4)))\\
+&\sim N(0,(16/25)(2/25 + (5/4)\sigma^2))
+\end{align*}
 \end{document}
