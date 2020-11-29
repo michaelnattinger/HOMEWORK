@@ -83,13 +83,13 @@
 $N = \{ A,B \}, a_i = v_i \in V, \theta_i = b_i \in \Theta, S_i: V \rightarrow \Theta, u_i(b_i,b_{-i}|v_i) = \begin{cases} p(v_i - b_i) + q(v_i - b_{-i})  | b_{i}>b_{-i} \\ (1-p-q)(v_i - b_i) | b_{i}<b_{-i} \\ (1/2)(v_i - b_i) | b_{i}=b_{-i} \end{cases}$
 \subsection{Part B}
 \begin{align*}
-u_i(b_i,v_j|v_i) &= (p(v_i - b_i) + q(v_i - b(v_j)))P(b_i>b(v_j))\\
-&+ (1-p-q)(v_i - b_i)P(b_i<b(v_j)) + (1/2)(v_i - b_i)P(b_i=b(v_j))\\
+u_i(b_i,v_j|v_i) &= (p(v_i - b_i) + q(v_i - b(v_j)) + (1-p-q)v_i)P(b_i>b(v_j))\\
+&+ (1-p-q)(- b_i)P(b_i<b(v_j)) + (1/2)(v_i - b_i)P(b_i=b(v_j))\\
 \Rightarrow U_i(b_i|v_i) &= \int_0^1 u_i(b_i,v_j|v_i)p(v_j)dv_j\\
-&=  \int_0^1(p(v_i - b_i) + q(v_i - b(v_j)))1\{b_i>b(v_j)\}\\
-&+ (1-p-q)(v_i - b_i)1\{b_i<b(v_j)\} + (1/2)(v_i - b_i)1\{b_i=b(v_j)\}dv_j\\
-&=\int_{0}^{b^{-1}(b_i)}p(v_i - b_i) + q(v_i - b(v_j))dv_j +(1-p-q)(v_i - b_i)(1-b^{-1}(b_i))\\
-&= b^{-1}(b_i)p(v_i - b_i) + \int_{0}^{b^{-1}(b_i)}q(v_i - b(v_j))dv_j + (1-p-q)(v_i - b_i)(1-b^{-1}(b_i))
+&=  \int_0^1(p(v_i - b_i) + q(v_i - b(v_j))+ (1-p-q)v_i)1\{b_i>b(v_j)\}\\
+&+ (1-p-q)(- b_i)1\{b_i<b(v_j)\} + (1/2)(v_i - b_i)1\{b_i=b(v_j)\}dv_j\\
+&=\int_{0}^{b^{-1}(b_i)}p(v_i - b_i) + q(v_i - b(v_j))+ (1-p-q)v_i dv_j +(1-p-q)( - b_i)(1-b^{-1}(b_i))\\
+&= b^{-1}(b_i)(p(v_i - b_i)+ (1-p-q)v_i) \\&+ \int_{0}^{b^{-1}(b_i)}q(v_i - b(v_j))dv_j + (1-p-q)( - b_i)(1-b^{-1}(b_i))
 \end{align*}
 \subsection{Part C}
 Taking FOCs with repect to $b_i$,
@@ -102,14 +102,14 @@ Taking FOCs with repect to $b_i$,
 %u_i(v_i) &= \int_0^1(p(v_i - b(v_i)) + q(v_i - b(v_j)))1\{b(v_i)>b(v_j)\}\\
 %&+ (1-p-q)(v_i - b(v_i))1\{b(v_i)<b(v_j)\} + (1/2)(v_i - b_i)1\{b(v_i)=b(v_j)\}dv_j\\
 %&= \int_0^{v_i}(p(v_i - b(v_i)) + q(v_i - b(v_j))) dv_j+ \int_{v_i}^1(1-p-q)(v_i - b(v_i))dv_j
-& (1-p-q)(1-b^{-1}(b_i)) + (1-p-q)(v_i - b_i)\frac{1}{b'(b^{-1}(b_i))} + b^{-1}(b_i)p\\&= \frac{1}{b'(b^{-1}(b_i))}p(v_i - b_i) + q(v_i - b(b^{-1}(b_i)))\frac{1}{b'(b^{-1}(b_i))}
+& (1-p-q)(1-b^{-1}(b_i)) + (1-p-q)( - b_i)\frac{1}{b'(b^{-1}(b_i))} + b^{-1}(b_i)p\\&= \frac{1}{b'(b^{-1}(b_i))}(p(v_i - b_i) + (1-p-q)v_i) + q(v_i - b(b^{-1}(b_i)))\frac{1}{b'(b^{-1}(b_i))}
 \end{align*}
 \begin{align*}
-\Rightarrow b'(v_i) (1-p-q)(1-v_i) + (1-p-q) (v_i - b(v_i)) + b'(v_i) v_i p &= p(v_i - b(v_i)) + q(v_i - b(v_i))
+\Rightarrow b'(v_i) (1-p-q)(1-v_i) + (1-p-q) ( - b(v_i)) + b'(v_i) v_i p &= p(v_i - b(v_i)) + q(v_i - b(v_i)) + (1-p-q)v_i
 \end{align*}
 Now, assume $b$ is affine: $b(x) = ax+c$.
 \begin{align*}
-\Rightarrow a(1-p-q)(1-v_i) + (1-p-q) (v_i - av_i - c) +av_i p &= p(v_i - av_i - c) + q(v_i - av_i - c)
+\Rightarrow a(1-p-q)(1-v_i) + (1-p-q) (- av_i - c) +av_i p &= p(v_i - av_i - c) + q(v_i - av_i - c) + (1-p-q)v_i
 %(1-p-q)(1-v_i) + (1-p-q)(v_i - b_i)\frac{1}{a} &= p(v_i - av_i - c) + q(v_i - av_i - c)
 %u_i(b(v_i)|v_i) &=(p(v_i - av_i -c)) + q(v_i - av_j-c))v_i + (1-p-q)(v_i - av_i - c)(1-v_i)\\
 %&= pv_i^2 - pav_i^2 - pcv_i + qv_i^2 -qav_jv_i - qcv_i + (1-p-q)v_i - a(1-p-q)v_i - (1-p-q)c - (1-p-q)v_i^2
@@ -119,24 +119,24 @@ Now, assume $b$ is affine: $b(x) = ax+c$.
 \end{align*}
 This must hold $\forall v_i$ so it must hold for $v_i=0,v_i=1:$
 \begin{align*}
-v_i = 1 \Rightarrow (1-p-q)(1-a-c) + ap &= (p+q)(1-a-c) \\
+v_i = 1 \Rightarrow (1-p-q)(-a-c) + ap &= (p+q)(1-a-c) +(1-p-q) \\
 %\Rightarrow (1-p-q) &= ap + q\\
 %\Rightarrow a &= \frac{1-p-2q}{p}\\
 v_i = 0 \Rightarrow  (1-p-q)(a - c) &= -(p + q)c\\
-\Rightarrow c&= \frac{p+q-1}{4p+3q-2}\\
-\Rightarrow a&= \frac{2p + 2q -1}{4p + 3q -2}
+\Rightarrow c&= \frac{p+q-1}{8p^2 + 14pq -8p + 6q^2 - 7q +2}\\
+\Rightarrow a&= \frac{1}{4p + 3q -2}
 %\Rightarrow c &= \frac{(1-p-q)\left(\frac{1-p-2q}{p}\right)}{(1-p-q) -\left(\frac{1-p-2q}{p}\right)(p+q)}
 \end{align*}
 Therefore, the symmetric bayesian nash equilibrium with a linear response function is to bid using the formula:
 \begin{align}
-b(v) &= \left( \frac{2p + 2q -1}{4p + 3q -2}\right)v +  \frac{p+q-1}{4p+3q-2} \label{eqn:bne}
+b(v) &= \left(  \frac{1}{4p + 3q -2}\right)v + \frac{p+q-1}{8p^2 + 14pq -8p + 6q^2 - 7q +2} \label{eqn:bne}
 \end{align}
 \subsection{Part D}
 From (\ref{eqn:bne}) we can see the following:
 \begin{itemize}
 \item As $p\rightarrow 1$ the intercept goes to 0 and the slope term goes to $\frac{1}{2}$.
 \item As $q\rightarrow 1$ (and $p\rightarrow0$) the intercept again goes to 0 and the slope term now goes to $1$.
-\item As $q\rightarrow \frac{1}{2}$ (and $p\rightarrow0$), the intercept goes to $1$ and the slope goes to $0$.
+\item As $q\rightarrow \frac{1}{2}$ (and $p\rightarrow0$), the intercept goes to $+\infty$ and the slope goes to $-2$.
 \end{itemize}
 \section{Question 2}
 \subsection{Part A}
