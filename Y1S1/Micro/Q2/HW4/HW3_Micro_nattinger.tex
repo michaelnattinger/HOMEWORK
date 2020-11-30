@@ -80,12 +80,12 @@
 
 \section{Question 1}
 \subsection{Part A} %note: s here should now be a mapping so I need to change this
-$N = \{ A,B \}, a_i = v_i \in V, \theta_i = b_i \in \Theta, S_i: V \rightarrow \Theta, u_i(b_i,b_{-i}|v_i) = \begin{cases} p(v_i - b_i) + q(v_i - b_{-i})  | b_{i}>b_{-i} \\ (1-p-q)(v_i - b_i) | b_{i}<b_{-i} \\ (1/2)(v_i - b_i) | b_{i}=b_{-i} \end{cases}$
+$N = \{ A,B \}, a_i = v_i \in V, \theta_i = b_i \in \Theta, S_i: V \rightarrow \Theta, \\u_i(b_i,b_{-i}|v_i) = \begin{cases} p(v_i - b_i) + q(v_i - b_{-i}) +(1-p-q)v_i | b_{i}>b_{-i} \\ (1-p-q)( - b_i) | b_{i}<b_{-i} \\ (1/2)(v_i - b_i) | b_{i}=b_{-i} \end{cases}$
 \subsection{Part B}
 \begin{align*}
 u_i(b_i,v_j|v_i) &= (p(v_i - b_i) + q(v_i - b(v_j)) + (1-p-q)v_i)P(b_i>b(v_j))\\
 &+ (1-p-q)(- b_i)P(b_i<b(v_j)) + (1/2)(v_i - b_i)P(b_i=b(v_j))\\
-\Rightarrow U_i(b_i|v_i) &= \int_0^1 u_i(b_i,v_j|v_i)p(v_j)dv_j\\
+\Rightarrow U_i(b_i|v_i) &= \int_0^1 u_i(b_i,v_j|v_i)f(v_j)dv_j\\
 &=  \int_0^1(p(v_i - b_i) + q(v_i - b(v_j))+ (1-p-q)v_i)1\{b_i>b(v_j)\}\\
 &+ (1-p-q)(- b_i)1\{b_i<b(v_j)\} + (1/2)(v_i - b_i)1\{b_i=b(v_j)\}dv_j\\
 &=\int_{0}^{b^{-1}(b_i)}p(v_i - b_i) + q(v_i - b(v_j))+ (1-p-q)v_i dv_j +(1-p-q)( - b_i)(1-b^{-1}(b_i))\\

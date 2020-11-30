@@ -106,7 +106,43 @@ c_t^1+c_t^2 &= e_t^1 + e_t^2 \label{eqn:mktcl3}
 The competitive equilibrium is a set of prices $\{ q_t^1,q_t^2 \}_{t=0}^{\infty}$ and allocations $\{ b_t^{1,1},b_t^{2,1}, b_t^{1,2},b_t^{2,2},c_t^1,c_t^2\}_{t=0}^{\infty}$ such that agents optimize (\ref{eqn:opt1}),(\ref{eqn:opt2}) and markets clear (\ref{eqn:mktcl1}),(\ref{eqn:mktcl2}),(\ref{eqn:mktcl3}).
 
 \subsection{Part B}
+Our bellman equation takes the following form:
+%V(b_t^)
+
+Once the future endowment has shifted, it will remain shifted forever. So, 
 \subsection{Part C}
 \section{Question 2}
 \section{Question 3}
+\subsection{Part A}
+Our bellman equation takes the following form:
+
+\begin{align*}
+V(a,l) &= \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta E[V(a',l')]\\
+&=  \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta (V(a',l_h)P(l'=l_h|l) + V(a',l_h)P(l'=l_h|l))
+\end{align*}
+Taking FOCs and applying the envelope conditions,
+\begin{align*}
+(wl +(1+r)a - a')^{-\gamma} &= \beta(V'(a',l_h)P(l'=l_h|l) + V'(a',l_h)P(l'=l_h|l))\\
+V'(a,l) &= (1+r)(wl +(1+r)a - a')^{-\gamma}\\
+\Rightarrow c^{-\gamma} &= \beta(1+r)((c'_h)^{-\gamma}P(l'=l_h|l) + (c'_l)^{-\gamma}P(l'=l_h|l) )
+\end{align*}
+The above equation forms our optimality conditions.
+\subsection{Part B}
+In the stationary distribution, $PQ = P$ where $P = [P_l P_h]$. We can easily solve for this distribution numerically from an arbitrary starting point. As this is a very simple markov process, markov-chain monte carlo methods will converge to the stationary distribution by standard ergodic properties which $Q$ easily satisfies. We can therefore start with an arbitrary initial distribution $P_0$ and iterate through the transition matrix $Q$, with product $P:=P_0Q$ becoming next iteration's $P_0$, until $P$ and $P_0$ have converged to some tolerance. 
+
+The numerical solution is $P = [0.25 0.75] $ so the stationary distribution has $3/4 $ of the weight on the high-labor distribution, and the rest on the low-labor distribution. Therefore, the unconditional mean of the labor endowment is $0.25(0.7) + 0.75(1.1) = 1$.
+
+\subsection{Part C}
+I solved for the value function numerically. Results are plotted below.
+
+\includegraphics{valfunc}
+
+The value function solution does appear to be continuous, increasing, concave, and differentiable. The value from having a high labor draw is higher than the value from having a low labor draw. All of these features are as predicted by theory.
+
+\includegraphics{aprime}
+
+
+\subsection{Part D}
+
+\includegraphics{marginal}
 \end{document}
