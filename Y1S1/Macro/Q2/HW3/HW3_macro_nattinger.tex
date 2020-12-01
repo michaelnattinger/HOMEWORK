@@ -226,7 +226,7 @@ Therefore, our consumption allocations are $c^{1,1} = c^{2,1} = \frac{1-\beta}{1
 
 We solved in part C for the price of a claim to the consumption good: prior to the switch, the price of a claim to the consumption allocation is  $q^1+q^2 = \beta $ and after the switch the price of a claim to the consumption allocation is $q^2 = \beta$.
 
-Prior to the switch, we can construct a risk-free bond yielding one unit of consumption by purchasing one bond which pays one unit of consumption in each of the two possible futures: $q^f = q^1 + q^2 = \beta$. Similarly, after the swap we can buy a claim of the 2-type bond, $q^f = q^2 = \beta$. Therefore, in either case the price of a risk-free bond is $\beta$, so for $\beta = \frac{1}{1+R^f} \Rightarrow R^f = \frac{1}{\beta} -1$.
+Prior to the switch, we can construct a risk-free bond yielding one unit of consumption by purchasing one bond which pays one unit of consumption in each of the two possible futures: $q^f = q^1 + q^2 = \beta$. Similarly, after the swap we can buy a claim of the 2-type bond, $q^f = q^2 = \beta$. Therefore, in either case the price of a risk-free bond is $\beta$, so for $\beta = q^f = \frac{1}{R^f} \Rightarrow R^f = \frac{1}{\beta} $.
 \subsection{Part D}
 The social planner problem becomes the following:
 \begin{align*}
@@ -264,6 +264,18 @@ So, if the social planner replaces the type-1 individual's first-period endowmen
 
 \section{Question 2}
 \subsection{Part A}
+Our representative agent maximizes expected utility subject to the budget constraint:
+\begin{align*}
+&\max_{\{c_t\}_{t=0}^{\infty}} \sum_{i=0}^{\infty} \beta^t u(c_t)\\
+&\text{s.t. }c_t + p_t(a_{t+1}) = p_tf(a_t) 
+\end{align*}
+where $f(a_t) \sim F(a_{t+1},a_{t})$
+
+We can write down our bellman equation as the following:
+
+\begin{align*}
+V(a) = \max_{c} u(c) + \beta  
+\end{align*}
 \subsection{Part B}
 \subsection{Part C}
 \subsection{Part D}
@@ -273,13 +285,13 @@ Our bellman equation takes the following form:
 
 \begin{align*}
 V(a,l) &= \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta E[V(a',l')]\\
-&=  \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta (V(a',l_h)P(l'=l_h|l) + V(a',l_h)P(l'=l_h|l))
+&=  \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta (V(a',l_h)P(l'=l_h|l) + V(a',l_l)P(l'=l_l|l))
 \end{align*}
 Taking FOCs and applying the envelope conditions,
 \begin{align*}
-(wl +(1+r)a - a')^{-\gamma} &= \beta(V'(a',l_h)P(l'=l_h|l) + V'(a',l_h)P(l'=l_h|l))\\
+(wl +(1+r)a - a')^{-\gamma} &= \beta(V'(a',l_h)P(l'=l_h|l) + V'(a',l_l)P(l'=l_l|l))\\
 V'(a,l) &= (1+r)(wl +(1+r)a - a')^{-\gamma}\\
-\Rightarrow c^{-\gamma} &= \beta(1+r)((c'_h)^{-\gamma}P(l'=l_h|l) + (c'_l)^{-\gamma}P(l'=l_h|l) )
+\Rightarrow c^{-\gamma} &= \beta(1+r)((c'_h)^{-\gamma}P(l'=l_h|l) + (c'_l)^{-\gamma}P(l'=l_l|l) )
 \end{align*}
 The above equation forms our optimality conditions.
 \subsection{Part B}
