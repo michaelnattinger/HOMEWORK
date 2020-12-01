@@ -117,6 +117,8 @@ hold off
 set(gcf,'Color',[1 1 1])
 legend('a prime, l_l','a prime, l_h','a prime_h < a','a prime_l < a','cutoff','cutoff','a prime = a','Location', 'SouthEast')
 title('abar for high and low l')
+xlabel('Assets')
+ylabel('a prime')
 xlim([-0.1 3])
 cd('pings')
 saveas(gcf,'abar.png')

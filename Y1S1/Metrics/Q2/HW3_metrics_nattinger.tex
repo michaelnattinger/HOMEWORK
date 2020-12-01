@@ -227,7 +227,7 @@ y_i = d_ix_i'\beta + (1-d_i)x_i\beta + \epsilon_i
 \frac{1}{2\sqrt{n}} \sum_{i=1}^n \colvec{2}{d_ix_i\epsilon_i}{(1-d_i)x_i\epsilon_i} &\rightarrow_d N\left(\colvec{2}{0}{0},\begin{pmatrix}\frac{1}{2} E[e_i^2 x_ix_i'] & 0 \\ 0 & \frac{1}{2} E[e_i^2 x_ix_i']\end{pmatrix}\right)
 \end{align*}
 \begin{align*}
-\Rightarrow \sqrt{n}\left[ \colvec{2}{\hat{\beta}_1}{\hat{\beta}_2} - \colvec{2}{\beta}{\beta} \right] &= N(0,\Sigma \otimes I_2)
+\Rightarrow \sqrt{n}\left[ \colvec{2}{\hat{\beta}_1}{\hat{\beta}_2} - \colvec{2}{\beta}{\beta} \right] &= N(0,V \otimes I_2)
 \end{align*}
 where $I_2$ is the $2\times 2$ identity matrix, $\otimes$ is the kronecker product, and 
 \begin{align*}
