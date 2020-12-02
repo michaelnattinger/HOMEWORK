@@ -264,34 +264,86 @@ So, if the social planner replaces the type-1 individual's first-period endowmen
 
 \section{Question 2}
 \subsection{Part A}
+
+Let $a_t$ be the holding of the trees at period $t$, $p_t$ be the price of the tree
 Our representative agent maximizes expected utility subject to the budget constraint:
 \begin{align*}
 &\max_{\{c_t\}_{t=0}^{\infty}} \sum_{i=0}^{\infty} \beta^t u(c_t)\\
-&\text{s.t. }c_t + p_t(a_{t+1}) = p_tf(a_t) 
+&\text{s.t. }c_t + p_ta_{t+1} = (p_t+s_t)a_t 
 \end{align*}
-where $f(a_t) \sim F(a_{t+1},a_{t})$
 
 We can write down our bellman equation as the following:
 
 \begin{align*}
-V(a) = \max_{c} u(c) + \beta  
+V([p(s)+s]a) = &\max_{c,a'} u(c) + \beta  \int V([p(s')+s']a')F(ds',s)\\
+&\text{s.t. } c + p(s)a' = (p(s) + s)a\\
+\Rightarrow V(a,s) = &\max_{a'} u((p(s) +s)a -p(s)a') + \beta  \int V([p(s')+s']a')F(ds',s)
 \end{align*}
+Taking FOCs and the envelope condition,
+
+\begin{align*}
+p(s) u'(c) &= \beta \int V'([p(s')+s']a')F(ds',s)\\
+V'([p(s)+s]a) &= u'(c)(p(s) + s ) \\
+\Rightarrow p(s) u'(c)  &= \beta E[ u'(c')(p(s') + s' )]\\
+\Rightarrow 1 &= \beta E\left[ \frac{u'(c')}{u'(c)} \frac{(p(s') + s' )}{p(s)}\right]
+\end{align*}
+\begin{align}
+\Rightarrow 1 &= \beta E\left[ \frac{u'(c')}{u'(c)} R(s')\right] \label{eqn:emx}
+\end{align}
+
+In an equiibrium we know $c=s,a'=a=1$ so we can rewrite (\ref{eqn:emx}) as the following:
+
+\begin{align}
+ p(s)  &= \beta\int  \frac{u'(s')}{u'(s)}(p(s') + s' )F(ds',s) \label{eqn:emxfp}
+\end{align}
+
+A recursive competitive equilibrium is an allocation $\{c_t\}_{t=0}^{\infty}$ and set of prices $R(s)$ such that agents are optimizing and markets clear (\ref{eqn:emxfp}).
+
+Under the CRRA utility (\ref{eqn:emxfp}) becomes:
+\begin{align}
+p(s) &= \beta\int \left(\frac{s'}{s} \right)^{-\gamma} (p(s') + s' )F(ds',s). \label{eqn:crra}
+\end{align}
+
 \subsection{Part B}
+Let utility be logarithmic. Then we have the following from (\ref{eqn:emxfp}):
+
+\begin{align*}
+p(s) &= \beta E \left[ \left(\frac{c}{c'} \right)(p(s') + s' )\right]\\
+\Rightarrow \frac{p(s)}{s} &=  \beta E \left[ \left(\frac{c}{c'} \right)\frac{(p(s') + s' )}{s}\right]\\
+&=  \beta E \left[ \left(\frac{c}{c'} \right)R'\right]
+\end{align*}
+Therefore, if consumption is rising in expectation then the price per dividend of a claim to the endowment is lower than if consumption were falling in expectation, all else equal.
 \subsection{Part C}
+Now go back to the following formulation for prices (\ref{eqn:crra}):
+\begin{align*}
+p(s) &= \beta E\left(\frac{c'}{c} \right)^{-\gamma} (p(s') + s' )F(ds',s). 
+\end{align*}
+
+If we hear at time $t$ that future consumption will be higher then $E\left(\frac{c'}{c} \right)^{-\gamma}$ will fall, so prices will fall. The higher the parameter $\gamma$, the more prices will fall. My interpretation is that, with CRRA preferences, when the agent today hears that their consumption tomorrow will increase, then they would like to consume more today rather than saving for tomorrow (they will smooth consumption across time periods). Therefore, demand for claims to the endowment process will fall, so its price falls. The higher the $\gamma$ parameter, the more the agent wants to smooth, and the more prices fall.
+
 \subsection{Part D}
+Our pricing kernel is $q(s,s') = \beta \frac{u'(s')}{u'(s)} f(s',s)$ where $f(s',s) $ is the pdf related to the CDF $F(s',s)$ so the price of the call option is $P^c(s) = \int \beta q(s,s') g(s')ds' = \int_{-\infty}^{\infty}\beta \frac{u'(s')}{u'(s)} f(s',s)g(s')ds'$ where $g(s')$ is the payoff of the call option. The payoff of this option is the difference between the price of the tree at that point in time and $\bar{p}$, if the price of the tree at that time is greater than $\bar{p}$, and $0$ otherwise. Therefore, we have the following:
+\begin{align*}
+P^c(s) &= \int_{-\infty}^{\infty}\beta ( p(s') - \bar{p})1\{ p(s)>\bar{p}\}\frac{u'(s')}{u'(s)} f(s',s)ds'
+\end{align*}
+
+If the price of a claim to the endowment is monotonically increasing in $s$ and is invertible then we can simplify the expression of the call price:
+\begin{align*}
+P^c(s) &= \int_{p^{-1}(\bar{p})}^{\infty}\beta ( p(s') - \bar{p})\frac{u'(s')}{u'(s)} f(s',s)ds'
+\end{align*}
 \section{Question 3}
 \subsection{Part A}
 Our bellman equation takes the following form:
 
 \begin{align*}
 V(a,l) &= \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta E[V(a',l')]\\
-&=  \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta (V(a',l_h)P(l'=l_h|l) + V(a',l_l)P(l'=l_l|l))
+&=  \max_{a'} \frac{(wl +(1+r)a - a')^{1-\gamma}}{1-\gamma} + \beta \sum_{i=1}^{n} (V(a',l_i)P(l'=l_i|l) )
 \end{align*}
 Taking FOCs and applying the envelope conditions,
 \begin{align*}
-(wl +(1+r)a - a')^{-\gamma} &= \beta(V'(a',l_h)P(l'=l_h|l) + V'(a',l_l)P(l'=l_l|l))\\
+(wl +(1+r)a - a')^{-\gamma} &= \beta \sum_{i=1}^{n} V'(a',l_i)P(l'=l_i|l)\\
 V'(a,l) &= (1+r)(wl +(1+r)a - a')^{-\gamma}\\
-\Rightarrow c^{-\gamma} &= \beta(1+r)((c'_h)^{-\gamma}P(l'=l_h|l) + (c'_l)^{-\gamma}P(l'=l_l|l) )
+\Rightarrow c^{-\gamma} &= \beta(1+r)\sum_{i=1}^{n} (c'_l)^{-\gamma}P(l'=l_i|l)  
 \end{align*}
 The above equation forms our optimality conditions.
 \subsection{Part B}
