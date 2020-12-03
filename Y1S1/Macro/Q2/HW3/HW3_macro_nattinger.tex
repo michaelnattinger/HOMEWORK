@@ -106,8 +106,6 @@ c_t^1+c_t^2 &= e_t^1 + e_t^2 \label{eqn:mktcl3}
 The competitive equilibrium is a set of prices $\{ q_t^1,q_t^2 \}_{t=0}^{\infty}$ and allocations $\{ b_t^{1,1},b_t^{2,1}, b_t^{1,2},b_t^{2,2},c_t^1,c_t^2\}_{t=0}^{\infty}$ such that agents optimize (\ref{eqn:opt1}),(\ref{eqn:opt2}) and markets clear (\ref{eqn:mktcl1}),(\ref{eqn:mktcl2}),(\ref{eqn:mktcl3}).
 
 \subsection{Part B}
-Our bellman equation for state $t<s$ takes the following form:
-%V(b_t^)
 
 Once the future endowment has shifted, it will remain shifted forever. So, after state $s$, no agent will buy assets to claims which pay out in the non-shifted state of next period. So, this value function for individual 1,2 takes the following form: 
 
@@ -224,7 +222,7 @@ In the first period, the first-type consumer has only the unit endowment with wh
 Therefore, our consumption allocations are $c^{1,1} = c^{2,1} = \frac{1-\beta}{1-\beta + \beta\delta}$, $c^{1,2} = c^{2,2} = \frac{\beta\delta}{1-\beta + \beta\delta}.$
 \subsection{Part C}
 
-We solved in part C for the price of a claim to the consumption good: prior to the switch, the price of a claim to the consumption allocation is  $q^1+q^2 = \beta $ and after the switch the price of a claim to the consumption allocation is $q^2 = \beta$.
+We solved in part B for the price of a claim to the consumption good: prior to the switch, the price of a claim to the consumption allocation is  $q^1+q^2 = \beta $ and after the switch the price of a claim to the consumption allocation is $q^2 = \beta$.
 
 Prior to the switch, we can construct a risk-free bond yielding one unit of consumption by purchasing one bond which pays one unit of consumption in each of the two possible futures: $q^f = q^1 + q^2 = \beta$. Similarly, after the swap we can buy a claim of the 2-type bond, $q^f = q^2 = \beta$. Therefore, in either case the price of a risk-free bond is $\beta$, so for $\beta = q^f = \frac{1}{R^f} \Rightarrow R^f = \frac{1}{\beta} $.
 \subsection{Part D}
@@ -316,7 +314,7 @@ Therefore, if consumption is rising in expectation then the price per dividend o
 \subsection{Part C}
 Now go back to the following formulation for prices (\ref{eqn:crra}):
 \begin{align*}
-p(s) &= \beta E\left(\frac{c'}{c} \right)^{-\gamma} (p(s') + s' )F(ds',s). 
+p(s) &= \beta E\left(\left(\frac{c'}{c} \right)^{-\gamma} (p(s') + s' )\right). 
 \end{align*}
 
 If we hear at time $t$ that future consumption will be higher then $E\left(\frac{c'}{c} \right)^{-\gamma}$ will fall, so prices will fall. The higher the parameter $\gamma$, the more prices will fall. My interpretation is that, with CRRA preferences, when the agent today hears that their consumption tomorrow will increase, then they would like to consume more today rather than saving for tomorrow (they will smooth consumption across time periods). Therefore, demand for claims to the endowment process will fall, so its price falls. The higher the $\gamma$ parameter, the more the agent wants to smooth, and the more prices fall.
@@ -324,7 +322,7 @@ If we hear at time $t$ that future consumption will be higher then $E\left(\frac
 \subsection{Part D}
 Our pricing kernel is $q(s,s') = \beta \frac{u'(s')}{u'(s)} f(s',s)$ where $f(s',s) $ is the pdf related to the CDF $F(s',s)$ so the price of the call option is $P^c(s) = \int \beta q(s,s') g(s')ds' = \int_{-\infty}^{\infty}\beta \frac{u'(s')}{u'(s)} f(s',s)g(s')ds'$ where $g(s')$ is the payoff of the call option. The payoff of this option is the difference between the price of the tree at that point in time and $\bar{p}$, if the price of the tree at that time is greater than $\bar{p}$, and $0$ otherwise. Therefore, we have the following:
 \begin{align*}
-P^c(s) &= \int_{-\infty}^{\infty}\beta ( p(s') - \bar{p})1\{ p(s)>\bar{p}\}\frac{u'(s')}{u'(s)} f(s',s)ds'
+P^c(s) &= \int_{-\infty}^{\infty}\beta ( p(s') - \bar{p})1\{ p(s')>\bar{p}\}\frac{u'(s')}{u'(s)} f(s',s)ds'
 \end{align*}
 
 If the price of a claim to the endowment is monotonically increasing in $s$ and is invertible then we can simplify the expression of the call price:
@@ -364,11 +362,16 @@ Above we see the asset holding decision rules for the two labor shocks. We can s
 
 \includegraphics{abar}
 
-Above we see the value $\bar{a}$ such that $a'<a \forall a\geq \bar{a}$. This exists for both the high and low labor shocks which means that our assumption that asset holdings can be restricted to a convex set is validated. Furthermore, we can see that all asset levels will result in running down assets if one receives a low labor level. This implies a unit mass of asset holdings at 0.
+Above we see the value $\bar{a}$ such that $a'<a \forall a\geq \bar{a}$. This exists for both the high and low labor shocks which means that our assumption that asset holdings can be restricted to a convex set is validated. Furthermore, we can see that all asset levels will result in running down assets if one receives a low labor level. This implies a unit mass of asset holdings at 0
 
 \subsection{Part D}
 
 \includegraphics{marginal}
 
-Above we see the marginal asset distribution. It has some interesting features. First, it has a large mass at $0$. This is because drawing a low labor level at a low asset position results in no savings so there is a large proportion of individuals that end up having no savings. Next we can see ridges of high density pop up at regular intervals. Each such ridge represents the savings of those that were at the previous ridge in the previous turn, and received a high labor draw, with the first ridge being asset savings of 0. In other words, the first large mass is at 0, the second mass is the proportion of those in in the fist mass that receive a high labor draw, the third mass is the proportion of those in the second mass that receive a high labor draw, and so on.
+Above we see the marginal asset distribution. It has some interesting features. First, it has a large mass at $0$. This is because drawing a low labor level at a low asset position results in no savings so there is a large proportion of individuals that end up having no savings. Next we can see ridges of high density pop up at regular intervals. Each such ridge represents the savings of those that were at the previous ridge in the previous turn, and received a high labor draw, with the first ridge being asset savings of 0. In other words, the first large mass is at 0, the second mass is the proportion of those in in the first mass that receive a high labor draw, the third mass is the proportion of those in the second mass that receive a high labor draw, and so on.
+
+As is shown on the plot, the mean asset holding is 1.02. Below, we have also included the probability mass split by employment type.
+
+\includegraphics{asdist}
+
 \end{document}

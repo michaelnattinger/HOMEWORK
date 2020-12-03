@@ -127,7 +127,7 @@ cd('..')
 % stationary distribution
 dist0 = ones(size(V));
 dist0 = dist0./(sum(dist0(:)));
-dist = dist0;
+%dist = dist0;
 diff=999;
 iter=1;
 while ((iter<maxiter)&&(diff>tol))
@@ -147,6 +147,9 @@ while ((iter<maxiter)&&(diff>tol))
 end
 amarg = sum(dist,2);
 ave = sum(amarg.*assets');
+% sum(dist(:,1)) = 0.25 can check the following
+% sum(dist(:,2)) = 0.75
+% sum(amarg) = 1
 figure
 plot(assets,amarg,'k')
 title('Marginal asset distribution')
@@ -157,4 +160,19 @@ set(gcf,'Color',[1 1 1])
 xlim([-0.1 3])
 cd('pings')
 saveas(gcf,'marginal.png')
+cd('..')
+
+figure
+plot(assets,dist(:,1),'k')
+hold on
+plot(assets,dist(:,2),'r')
+hold off
+title('Asset distribution')
+xlabel('Assets')
+ylabel('Probability mass')
+legend('unemployed','employed','Location','NorthEast')
+set(gcf,'Color',[1 1 1])
+xlim([-0.1 3])
+cd('pings')
+saveas(gcf,'asdist.png')
 cd('..')

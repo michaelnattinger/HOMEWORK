@@ -114,5 +114,25 @@ Rowena will take the larger of the two pieces of cake. Therefore, Colin will alw
 From the above game tree, we can deduce the subgame perfect equilibrium by backwards induction. If the project occurs and does not fail, then the lender does not have any reason to repay their investments. They are strictly better off by not repaying. So, they will not repay. Therefore, when the investor looks at the game tree in front of them, they see an expected utility from investing of 0, and an expected utility from not investing of a. They will choose not to invest. So, the subgame perfect equilibrium is for the investor to not invest.
 
 \section{Question 3}
+\subsection{Part A}
+For $n=1$, once the coin is flipped then the offer should be accepted, as their payoff for accepting the offer is (weakly) greater than their payoff for rejecting the offer (0). Therefore, whomever wins the coin toss knows that their offer will be accepted, so they should offer 0 to the other person and 1 for themselves. Each person thus has a probability 1/2 to win the coin flip, and a payoff of 1 if they win the coin flip and 0 if they lose, so their expected utility is $1/2$.
+\subsection{Part B}
+For $n=2$, if the offer is declined in the first round then the expected payoff of each person is $\delta (1/2)$. Therefore, in the first round, the person that loses the coin toss will accept any offer (weakly) greater than $\delta (1/2)$. The person who wins the coin toss can gain $1-\delta(1/2)>\delta(1/2)$ if they offer $\delta(1/2)$ to the second person so they will offer that amount and the second person will accept. Their expected utility, therefore, is $(1/2)(1-\delta(1/2)) + (1/2)(\delta(1/2)) = 1/2$.
+\subsection{Part C}
+For $n\geq 3$, we work backwards from the last period. Their expected utility of entering into that last period is $\delta^{n-1}(1/2)$. In the period prior, the discounted expected utility of entering into that last period is the bid that would be accepted, so $\delta^{n-2}(1/2)$ is the lowest amount that the person who lost the coin toss would accept. In each period proceeding backwards, the accepted bids proceeds in the same fashion, with one fewer exponent of the geometric decay factor at a time, until the first period. In this first period, following the trend, the discounted expected utility of entering into that last period is $\delta(1/2)$, and so this is the lowest amount that the individual that loses the coin toss will accept, and the payoffs thus are the same as iin Part B, $1-\delta(1/2)$ for the winner of the coin toss and $\delta(1/2)$ for the loser.
+
 \section{Question 4}
+The two coffee shops will choose locations to maximize revenue, given the location of the other firm and their pricing functions. We can work backwards to find the subgame perfect nash equilibrium.
+
+Given the coffee shop locations and the price of the competitor, the return of setting a price is the following:
+
+\begin{align*}
+\pi (p_i|p_{-i},x_i,x_{-i}) &= p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw
+\end{align*}
+The coffee shops will choose prices to maximize profits. We will solve by taking first order conditions:
+
+\begin{align*}
+\max_{p_i} \pi (p_i|p_{-i},x_i,x_{-i}) &= \max_{p_i} p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw\\
+0&=\int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw +p_i\int_{0}^{1}1\{c(w-x_i)^2+p_i=c(w-x_{-i})^2+p_{-i}\}dw
+\end{align*}
 \end{document}
