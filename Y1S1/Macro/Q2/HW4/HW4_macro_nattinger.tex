@@ -302,8 +302,9 @@ In the risk-free case, the risk-free bond price is $\frac{1}{E[m]}$, where $m$ i
 \subsection{Part E'}
 We know our pricing kernel and can price the bonds as $P^l(c_t) = E[S_tx]$, where $x$ is the payoff of the claim to the tree:
 \begin{align*}
-P^l(c_t) &= E_t[S_t (p(c_{t+1}) +c_{t+1})|c] \\
-&=  E_t[S_t (p(c_t(g+\sigma_c\epsilon_{t+1})) +c_t(g+\sigma_c\epsilon_{t+1}))]\\
+P^l(c_t) &= E_t[S_t (P^l(c_{t+1}) +c_{t+1})|c] \\
+&=  E_t[S_t (P^l(c_t(g+\sigma_c\epsilon_{t+1})) +c_t(g+\sigma_c\epsilon_{t+1}))]\\
 R^l(c_t) &= \frac{1}{P^{l}(c_t)}.
 \end{align*}
+As before, the structure of the bond price expression is functionally the same as in the CRRA case, but with a much different formulation for the stochastic discount factor.
 \end{document}
