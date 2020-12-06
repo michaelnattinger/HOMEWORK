@@ -124,15 +124,70 @@ For $n\geq 3$, we work backwards from the last period. Their expected utility of
 \section{Question 4}
 The two coffee shops will choose locations to maximize revenue, given the location of the other firm and their pricing functions. We can work backwards to find the subgame perfect nash equilibrium.
 
-Given the coffee shop locations and the price of the competitor, the return of setting a price is the following:
+%Given the coffee shop locations and the price of the competitor, the return of setting a price is the following:
+%
+%\begin{align*}
+%\pi (p_i|p_{-i},x_i,x_{-i}) &= p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw
+%\end{align*}
+%The coffee shops will choose prices to maximize profits. We will solve by taking first order conditions:
+%
+%\begin{align*}
+%\max_{p_i} \pi (p_i|p_{-i},x_i,x_{-i}) &= \max_{p_i} p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw\\
+%0&=\int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw +p_i\int_{0}^{1}1\{c(w-x_i)^2+p_i=c(w-x_{-i})^2+p_{-i}\}dw
+%\end{align*}
 
+Consumers are indifferent between coffee shop $1$ and $2$ if $c(w-x_1)^2 p_i = c(w-x_2)^2 +p_j$.  If $x_1 \neq x_2$,
 \begin{align*}
-\pi (p_i|p_{-i},x_i,x_{-i}) &= p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw
+c(w^2 - 2x_1w + x_1^2) + p_1 &= c(w^2 - 2x_2w + x_2^2) + p_2\\
+\Rightarrow w^{*} &= \frac{c(x_2^2 - x_1^2) + p_2 - p_1}{2c(x_2 - x_1)}
 \end{align*}
-The coffee shops will choose prices to maximize profits. We will solve by taking first order conditions:
+
+Without loss of generality, let coffee shop $1$ in this case be the coffee shop that is (weakly) to the left of the other coffee shop. 
+
+Coffee shop 1 then serves consumers to the left of $w^{*}$ and coffee shop 2 serves consumers to the right of $w^{*}$. The quantity of customers for either firm is then $q_1 = \frac{c(x_2^2 - x_1^2) + p_2 - p_1}{2c(x_2 - x_1)}, q_2 = 1-\frac{c(x_2^2 - x_1^2) + p_2 - p_1}{2c(x_2 - x_1)}$. If the locations chosen are the same, then the cheaper firm will serve everyone. In this case, the pricing decision would be to pick a lower price than the other firm, so both firms will choose a price of 0. For the moment, we will return to the other case.
+
+For Firm 1, they choose prices to maximize revenue (we assume cost is 0), taking $x_1, x_2,$ and $p_2$ as given. 
+\begin{align*}
+&\max_{p_1}  p_1\frac{c(x_2^2 - x_1^2) + p_2 - p_1}{2c(x_2 - x_1)}\\
+&\Rightarrow \frac{c(x_2^2 - x_1^2) + p_2 - 2p_1}{2c(x_2 - x_1)} = 0\\
+&\Rightarrow p_1^{*} = \frac{c(x_2^2 - x_1^2) + p_2}{2}
+\end{align*}
+
+Firm 2 chooses prices to maximize revenue, taking $x_1, x_2,$ and $p_1$ as given. 
 
 \begin{align*}
-\max_{p_i} \pi (p_i|p_{-i},x_i,x_{-i}) &= \max_{p_i} p_i \int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw\\
-0&=\int_{0}^{1}1\{c(w-x_i)^2+p_i<c(w-x_{-i})^2+p_{-i}\}dw +p_i\int_{0}^{1}1\{c(w-x_i)^2+p_i=c(w-x_{-i})^2+p_{-i}\}dw
+&\max_{p_2}  p_2-p_2\frac{c(x_2^2 - x_1^2) + p_2 - p_1}{2c(x_2 - x_1)}\\
+&\Rightarrow \frac{c(x_2^2 - x_1^2) + 2p_2 - p_1}{2c(x_2 - x_1)} = 1\\
+&\Rightarrow c(x_2^2 - x_1^2) + 2p_2 - p_1 = 2c(x_2 - x_1)\\
+&\Rightarrow p_2^{*} = \frac{ 2c(x_2 - x_1) - c(x_2^2 - x_1^2) + p_1 }{2}
+\end{align*}
+Both firms anticipate that the other firms are best responding, so:
+\begin{align*}
+ p_1^{*} &= \frac{c(x_2^2 - x_1^2) + p_2^{*}}{2}\\
+&= \frac{c(x_2^2 - x_1^2) + \frac{ 2c(x_2 - x_1) - c(x_2^2 - x_1^2) + p_1^{*} }{2}}{2}\\
+\Rightarrow p_1^{*} &= \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\\
+\Rightarrow p_2^{*} &=  \frac{ 2c(x_2 - x_1) - c(x_2^2 - x_1^2) +  \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3} }{2}\\
+\Rightarrow p_2^{*} &= \frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3}
+\end{align*}
+
+Now, we move backwards into the location decision. 
+
+Firm 1 chooses location to maximize revenue, taking as given the location of the other firm and the price decisions:
+\begin{align*}
+&\max_{x_1} p_1^{*}\frac{c(x_2^2 - x_1^2) + p_2^{*} - p_1^{*}}{2c(x_2 - x_1)}\\
+\Rightarrow &\max_{x_1} \left( \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\right)\frac{c(x_2^2 - x_1^2) + \frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3} - \left( \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\right)}{2c(x_2 - x_1)}\\
+\Rightarrow &\max_{x_1} \left( \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\right)\frac{ \frac{2c(x_2 - x_1)}{3} + \frac{c(x_2^2 - x_1^2)}{3} }{2c(x_2 - x_1)}\\
+\Rightarrow &\max_{x_1} \frac{1}{3}\left( \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\right) +\frac{(x_2^2 - x_1^2)}{6(x_2 - x_1)}\left( \frac{c(x_2^2 - x_1^2)}{3} + \frac{2c(x_2 - x_1)}{3}\right) \\
+\Rightarrow &\max_{x_1} \frac{2c(x_2^2 - x_1^2)}{9} + \frac{2c(x_2 - x_1)}{9}+\frac{c(x_2^2 - x_1^2)^2}{18(x_2 - x_1)} \\
+\Rightarrow 0&= \frac{4cx_1}{9} + \frac{2c}{9} + (3x_1 - x_2)(x_1 + x_2)\\
+\end{align*}
+
+Firm 2 chooses location to maximize revenue, taking as given the location of the other firm and the price decisions:
+\begin{align*}
+&\max_{x_2}  p_2^{*}-p_2^{*}\frac{c(x_2^2 - x_1^2) + p_2^{*} - p_1^{*}}{2c(x_2 - x_1)}\\
+\Rightarrow&\max_{x_2}  \left(\frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3}\right)\frac{c(x_2^2 - x_1^2) +  \frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3} - \frac{c(x_2^2 - x_1^2)}{3} - \frac{2c(x_2 - x_1)}{3}}{2c(x_2 - x_1)}\\
+\Rightarrow&\max_{x_2}  \frac{1}{3}\left(\frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3}\right) + \frac{(x_2^2 - x_1^2)}{6(x_2 - x_1)}\left(\frac{4c(x_2 - x_1)}{3} - \frac{c(x_2^2 - x_1^2)}{3}\right)\\
+\Rightarrow&\max_{x_2} \frac{4c(x_2 - x_1)}{9} + \frac{c(x_2^2 - x_1^2)}{9} - \frac{c(x_2^2 - x_1^2)^2}{18(x_2 - x_1)}\\
+\Rightarrow 0&=\frac{4c}{9} + \frac{2cx_2}{9} - (x_1-3x_2)(x_1+x_2)
 \end{align*}
 \end{document}

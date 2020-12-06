@@ -166,11 +166,63 @@ Let $Z = X$
 &=2 (\frac{1}{n}\sum_i (2X_{1,i} +X_{2,i})^{2})^{-1} \frac{1}{\sqrt{n}}\sum_i (2X_{1,i} +X_{2,i})e_i\\
 &\Rightarrow N\left(0,\frac{E[ (2X_{1,i} +X_{2,i})^2e_i^2]}{E[(2X_{1,i} +X_{2,i})^{2}]^2} \right)
 \end{align*}
-\section{9.1}
+
+\section{9.1} %oof
+Let $\hat{\beta}$ be the OLS regression of $y$ on $X$. Similarly consider the regression with the restriction $\beta_{k+1} = 0 := \tilde{\beta}.$ 
+\begin{align*}
+\tilde{\beta} &= \hat{\beta} - (X'X)^{-1}[\vec{0}_k 1]' ([\vec{0}_k 1](X'X)^{-1}[\vec{0}_k 1]')^{-1}[\vec{0}_k 1]\hat{\beta}\\
+&= \hat{\beta} - (X'X)^{-1}[\vec{0}_k 1]' ([(X'X)^{-1}]_{k+1,k+1})^{-1}\hat{\beta}_{k+1}.\\
+\tilde{\epsilon} &= y - X\tilde{\beta}\\
+&= \hat{\epsilon} - X(\tilde{\beta} - \hat{\beta})\\
+\Rightarrow \tilde{\epsilon}'\tilde{\epsilon} &= \hat{\epsilon}'\hat{\epsilon} + (\tilde{\beta} - \hat{\beta})'X'X(\tilde{\beta} - \hat{\beta}) - \hat{\epsilon}'X(\tilde{\beta} - \hat{\beta}) - (\tilde{\beta} - \hat{\beta})'X'\tilde{\epsilon}\\
+&= \hat{\epsilon}'\hat{\epsilon} +\hat{\beta}_{k+1} ([(X'X)^{-1}]_{k+1,k+1})^{-1}[\vec{0}_k 1](X'X)^{-1}X'X(X'X)^{-1}[\vec{0}_k 1]' ([(X'X)^{-1}]_{k+1,k+1})^{-1}\hat{\beta}_{k+1}\\
+&= \hat{\epsilon}'\hat{\epsilon}  + \hat{\beta}_{k+1} ([(X'X)^{-1}]_{k+1,k+1})^{-1}[\vec{0}_k 1](X'X)^{-1}[\vec{0}_k 1]' ([(X'X)^{-1}]_{k+1,k+1})^{-1}\hat{\beta}_{k+1}\\
+&= \hat{\epsilon}'\hat{\epsilon}  + \hat{\beta}_{k+1} ([(X'X)^{-1}]_{k+1,k+1})^{-1}[(X'X)^{-1}]_{k+1,k+1} ([(X'X)^{-1}]_{k+1,k+1})^{-1}\hat{\beta}_{k+1}\\
+&= \hat{\epsilon}'\hat{\epsilon}  + \frac{\hat{\beta}_{k+1}^2}{[(X'X)^{-1}]_{k+1,k+1}}.
+\end{align*} 
+
+Consider the adjusted R-sq for unrestricted and restricted regressions, $R^2_{k+1},R^2_k$. Define $E:= \frac{1}{n--1}(y_i - \bar{y})^2.$
+
+\begin{align*}
+R^2_{k+1}>R^2_k &\iff 1 - \frac{\frac{1}{n-k-1}\hat{\epsilon}'\hat{\epsilon}}{E}>1 - \frac{\frac{1}{n-k}\tilde{\epsilon}'\tilde{\epsilon}}{E} \\
+&\iff\frac{1}{n-k-1}\hat{\epsilon}'\hat{\epsilon}<\frac{1}{n-k}\tilde{\epsilon}'\tilde{\epsilon}\\
+&\iff(n-k-1)( \tilde{\epsilon}'\tilde{\epsilon} - \hat{\epsilon}'\hat{\epsilon}) > \tilde{\epsilon}'\tilde{\epsilon}\\
+&\iff \frac{\hat{\beta}^2_{k+1}}{s^2[(X'X)^{-1}]_{k+1,k+1}}>1\\
+&\iff \frac{\hat{\beta}^2_{k+1}}{s(\hat{\beta}_{k+1})^2}>1\\
+&\iff\left|\frac{\hat{\beta}_{k+1}}{s(\hat{\beta}_{k+1})^2}\right|>1\\
+&\iff |T_{k+1}|>1.
+\end{align*}
 
 \section{9.2}
+\subsection{Part A}
+$\hat{\beta}_1,\hat{\beta}_2$ are OLS estimates of the coefficients, so $\sqrt{n}(\hat{\beta}_1 - \beta_1 ) \rightarrow_d N(0,V_1),\sqrt{n}(\hat{\beta}_1 - \beta_2 ) \rightarrow_d N(0,V_2)$ where $V_j = E[x_{j.i}x_{j.i}']^{-1}E[x_{j.i}x_{j.i}'e_{j,i}^{2}]E[x_{j.i}x_{j.i}']^{-1}$.
 
+\begin{align*}
+\sqrt{n}\colvec{2}{\hat{\beta}_1 - \beta_1}{\hat{\beta}_2 - \beta_2} &= \begin{pmatrix} (\frac{1}{n}\sum_{i=1}^n x_{1,i}x_{1,i}')^{-1} & 0\\ 0 & (\frac{1}{n}\sum_{i=1}^n x_{2,i}x_{2,i}')^{-1} \end{pmatrix}\frac{1}{\sqrt{n}}\sum_{i=1}^{n}\colvec{2}{x_{i,1}e_{i,1}}{x_{i,2}e_{i,2}}
+\end{align*}
+
+\begin{align*}
+\frac{1}{\sqrt{n}}\sum_{i=1}^{n}\colvec{2}{x_{i,1}e_{i,1}}{x_{i,2}e_{i,2}} &\rightarrow_d N\left(0,\begin{pmatrix} V_1 & 0 \\ 0 & V_2\end{pmatrix}\right)
+\end{align*}
+
+By CMT, $\sqrt{n}((\hat{\beta}_1 - \hat{\beta}_2)-(\beta_1 - \beta_2)) \rightarrow_d N(0,V_1+V_2)$.
+
+\subsection{Part B}
+%Under the null hypothesis that $\beta_1 = \beta_2, \sqrt{n}((\hat{\beta}_1 - \hat{\beta}_2)-(\beta_1 - \beta_2)) = \sqrt{n}(\hat{\beta}_1 - \hat{\beta}_2)$ so we can define $\theta:= \beta_1 - \beta_2,\hat{\theta} = \hat{\beta}_1 - \hat{\beta}_2$, our $se = \frac{\sqrt{n}}{\hat{V}_1+\hat{V}_2}$ where $\hat{V}_i$ is the OLS estimates of the coefficient covariance matrix of regression $i$. Then $t = \frac{\hat{\theta}}{se}$ is our test statistic.
+We have a multidimensional restriction so the test statistic we should use for $H_{0}: \beta_1 = \beta_2$ is the Wald statistic $W_n = n(\hat{\beta}_1 - \hat{\beta}_2)'(\hat{V}_1 + \hat{V}_2)^{-1}(\hat{\beta}_1 - \hat{\beta}_2)$.
+
+
+\subsection{Part C}
+%By construction, this test statistic $t$ is asymptotically drawn from a $N(0,1)$.
+Since $\hat{V}_j \rightarrow_p V_j$, from (a) $W_n \rightarrow_d \chi^2_k$.
 \section{9.4}
-
+\subsection{Part A}
+\begin{align*}
+P(W<c_1\cup W>c_2) &= P(W<c_1) + P(W>c_2) \rightarrow_p F(c_1) + (1-F(c_2)) = \alpha/2 + \alpha/2\\
+&= \alpha.
+\end{align*}
+\subsection{Part B}
+This is a bad test because if $W<c_1$ then $\theta$ is very close to 0. If the null hypothesis is true then drawing a $W<c_1$ is just a draw of $\theta$ near its true mean, 0. We should not be rejecting the null in this case. Rejecting in this case results in a loss of power.  
 \section{9.7}
+We are testing the null hypothesis of $20 = 40\beta_1 + 1600 \beta_2\Rightarrow 1/2 = \beta_1 + 40 \beta_2$. We can define $\theta =  \beta_1 + 40 \beta_2 - 1/2$. Then, under the null hypothesis, $\sqrt{n}(\hat{\theta} - \theta) \rightarrow_d N(0,V)$ where $V = \begin{pmatrix} 1 & 40\end{pmatrix} V_{\beta} \colvec{2}{1}{40}$, where $V_{\beta}$ is the asymptotic covariance matrix of $\beta$.  To test the hypothesis, we can calculate $\hat{\theta}$ by plugging in our OLS estimates of $\beta$, and plug in our OLS estimates of the covariance matrix $\hat{V}_{\beta}$, and then the SE of our test is $se = \sqrt{\frac{\hat{V}}{n}}$, our test statistic is $t=\frac{\hat{\theta}}{se}$. We can then reject the null hypothesis if $|t|>q_{1-\alpha/2}$ where $q_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of a standard normal, and $\alpha$ is the size of the test.
 \end{document}
