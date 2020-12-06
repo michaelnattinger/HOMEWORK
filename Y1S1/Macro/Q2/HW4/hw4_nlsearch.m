@@ -4,7 +4,7 @@ clear; close all; clc
 % Michael Nattinger, 2020
 recalc1 = 0;
 recalc2 = 0;
-if recalc1
+if recalc1>0
     Q = [0.85 0.15; 0.05 0.95];
     tol=1e-4;       % maybe jack these up
     maxiter=1e6;
@@ -31,7 +31,7 @@ if recalc1
 else
     load results1
 end
-if recalc2
+if recalc2>0
     tol=1e-4;       % maybe jack these up
     maxiter=1e6;
     abar2 = 50;
@@ -52,41 +52,41 @@ else
     load results
 end
 
-    w = (1-palpha)*(Kd)^(palpha);
-    r = palpha*(Kd)^(palpha - 1);
-    Ilev = w*l.*ones(size(V)) + r*repmat(assets',1,2);
-    Clev  = Ilev - aprime + (1-pdelta)*repmat(assets',1,2);
-    % calculate cdf
-    Cvec = sort(unique(Clev));
-    Ivec = sort(unique(Ilev));
-    Cden = 0*Cvec;
-    Iden = 0*Ivec;
-    for nl = 1:2
-       for ai = 1:na
-            Cden(Cvec==Clev(ai,nl)) = Cden(Cvec==Clev(ai,nl))+dist(ai,nl);
-            Iden(Ivec==Ilev(ai,nl)) = Iden(Ivec==Ilev(ai,nl))+dist(ai,nl);
-       end
-    end
-    Ccdf = cumsum(Cden);
-    Icdf = cumsum(Iden);
-    
-    w2 = (1-palpha)*(Kd2)^(palpha);
-    r2 = palpha*(Kd2)^(palpha - 1);
-    Ilev2 = w*l.*ones(size(V2)) + r2*repmat(assets2',1,2);
-    Clev2  = Ilev2 - aprime2 + (1-pdelta)*repmat(assets2',1,2);
-    % calculate cdf
-    Cvec2 = sort(unique(Clev2));
-    Ivec2 = sort(unique(Ilev2));
-    Cden2 = 0*Cvec2;
-    Iden2 = 0*Ivec2;
-    for nl = 1:2
-       for ai = 1:na2
-            Cden2(Cvec2==Clev2(ai,nl)) = Cden2(Cvec2==Clev2(ai,nl))+dist2(ai,nl);
-            Iden2(Ivec2==Ilev2(ai,nl)) = Iden2(Ivec2==Ilev2(ai,nl))+dist2(ai,nl);
-       end
-    end
-    Ccdf2 = cumsum(Cden2);
-    Icdf2 = cumsum(Iden2);
+w = (1-palpha)*(Kd)^(palpha);
+r = palpha*(Kd)^(palpha - 1);
+Ilev = w*l.*ones(size(V)) + r*repmat(assets',1,2);
+Clev  = Ilev - aprime + (1-pdelta)*repmat(assets',1,2);
+% calculate cdf
+Cvec = sort(unique(Clev));
+Ivec = sort(unique(Ilev));
+Cden = 0*Cvec;
+Iden = 0*Ivec;
+for nl = 1:2
+   for ai = 1:na
+        Cden(Cvec==Clev(ai,nl)) = Cden(Cvec==Clev(ai,nl))+dist(ai,nl);
+        Iden(Ivec==Ilev(ai,nl)) = Iden(Ivec==Ilev(ai,nl))+dist(ai,nl);
+   end
+end
+Ccdf = cumsum(Cden);
+Icdf = cumsum(Iden);
+
+w2 = (1-palpha)*(Kd2)^(palpha);
+r2 = palpha*(Kd2)^(palpha - 1);
+Ilev2 = w2*l.*ones(size(V2)) + r2*repmat(assets2',1,2);
+Clev2  = Ilev2 - aprime2 + (1-pdelta)*repmat(assets2',1,2);
+% calculate cdf
+Cvec2 = sort(unique(Clev2));
+Ivec2 = sort(unique(Ilev2));
+Cden2 = 0*Cvec2;
+Iden2 = 0*Ivec2;
+for nl = 1:2
+   for ai = 1:na2
+        Cden2(Cvec2==Clev2(ai,nl)) = Cden2(Cvec2==Clev2(ai,nl))+dist2(ai,nl);
+        Iden2(Ivec2==Ilev2(ai,nl)) = Iden2(Ivec2==Ilev2(ai,nl))+dist2(ai,nl);
+   end
+end
+Ccdf2 = cumsum(Cden2);
+Icdf2 = cumsum(Iden2);
 
 figure
 subplot(2,1,1)

@@ -11,10 +11,8 @@ rerun = 0;
 if rerun
 k = 0.001:0.001:5; %k grid
 [~,~,c0,kprime0,v0] = iter_meth(k,pbeta,pdelta,pz0,pgamma0,ppsi);
-
 z = [0.8 1.2];
 P = [0.9 0.1;0.1 0.9];
-
 [c,kprime,v] = iter_meth_sto(k,pbeta,pdelta,z,P,pgamma0,ppsi);
 save res_q2
 else
@@ -27,7 +25,7 @@ plot(k,kprime(:,2),'r')
 plot(k,kprime0,'b')
 hold off
 set(gcf,'Color',[1 1 1])
-legend('low prod','high prod','deterministic')
+legend('low prod','high prod','deterministic','Location','SouthEast')
 title('k prime vs k')
 ylabel('k prime')
 xlabel('k')
@@ -42,7 +40,7 @@ plot(k,c(:,2),'r')
 plot(k,c0,'b')
 hold off
 set(gcf,'Color',[1 1 1])
-legend('low prod','high prod','deterministic')
+legend('low prod','high prod','deterministic','Location','SouthEast')
 title('c vs k')
 ylabel('c')
 xlabel('k')
@@ -53,7 +51,7 @@ cd('..')
 % simulate
 dosim=1;
 if dosim==1
-T = 1e4;
+T = 1e5;
 burn = floor(T/10);
 dist0 = ones(size(k'));
 dist0 = dist0./sum(dist0(:));
@@ -75,9 +73,6 @@ for tt = 1:T+burn
     %dist = 0*k';
     draw = rand;
     if draw<0.1; stat = 1-stat; end % z transition with probability 0.1
-    %for i = 1:length(k) % transition to future state
-    %    dist( kprime(i,stat+1)==k) = dist( kprime(i,stat+1)==k) + dist0(i); 
-    %end
     switch stat
         case 0
             dist = mat1*dist0;
@@ -86,7 +81,7 @@ for tt = 1:T+burn
     end
     if tt>burn % after burn-in, calculate
         t = tt-burn;
-        % calculate values
+        % calculate values 
         cons(t) = sum(c(:,stat+1).*dist0);
         kap(t) = sum(k'.*dist0);
         I(t) =sum(kprime(:,stat+1).*dist0 - (1-pdelta)*k'.*dist0);
@@ -119,7 +114,7 @@ while (iter<maxiter)&&(diff>tol)
 end
 consss = sum(c0(:).*next);
 kapss = sum(k'.*next);
-Yss = kapss^(psi);
+Yss = kapss^(ppsi);
 Iss =sum(kprime0'.*next - (1-pdelta)*k'.*next);
 rss = sum((ppsi)*kapss.^(ppsi-1));
 wss = sum(kapss.^(ppsi) - rss*kapss);
@@ -137,11 +132,12 @@ Simulation = [kapa Ya consa  Ia wa ra]';
 tab = table(Deterministic,Simulation,'RowNames',{'Capital' 'Output' 'Consumption' 'Investment' 'wages' 'interest rates'});
 table2latex(tab,'q2.tex')
 
-cvol = std(c);
+cvol = std(cons);
 Yvol = std(Y);
 Ivol = std(I);
-cycorr = corr(C,Y);
+cycorr = corr(cons,Y);
 rycorr = corr(r,Y);
 
 Simulation = [cvol Yvol Ivol cycorr rycorr]';
-tab = table(Simulation,'RowNames',{'Consumption Volatility' 'Output Volatility' 'Investment Volatility' 'C-Y Correlation' 'r-Y Correlation'})
+tab = table(Simulation,'RowNames',{'Consumption Volatility' 'Output Volatility' 'Investment Volatility' 'C-Y Correlation' 'r-Y Correlation'});
+table2latex(tab,'q2vols.tex')

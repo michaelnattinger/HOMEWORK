@@ -1,6 +1,0 @@
-function Kd = find_Kd_slowiter(k0,assets,Q,V0,pbeta,pgamma,pdelta,palpha,l,tol,maxiter,ktol,kmiter)
-iter=1;
-diff = 999;
-while (iter<kmiter)&&(diff>ktol)
-Kd =
-end

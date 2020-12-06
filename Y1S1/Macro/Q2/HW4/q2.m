@@ -11,10 +11,8 @@ rerun = 0;
 if rerun
 k = 0.001:0.001:5; %k grid
 [~,~,c0,kprime0,v0] = iter_meth(k,pbeta,pdelta,pz0,pgamma0,ppsi);
-
 z = [0.8 1.2];
 P = [0.9 0.1;0.1 0.9];
-
 [c,kprime,v] = iter_meth_sto(k,pbeta,pdelta,z,P,pgamma0,ppsi);
 save res_q2
 else
@@ -53,7 +51,7 @@ cd('..')
 % simulate
 dosim=1;
 if dosim==1
-T = 1e4;
+T = 1e5;
 burn = floor(T/10);
 dist0 = ones(size(k'));
 dist0 = dist0./sum(dist0(:));
@@ -71,22 +69,20 @@ for i=1:length(k)
     mat1(:,i) = 0+kprime(i,1)==k;
     mat2(:,i) = 0+kprime(i,2)==k;
 end
+tic
 for tt = 1:T+burn
-    %dist = 0*k';
+    if mod(tt,burn)==0; toc; disp(['iteration ' num2str(tt)]); end
     draw = rand;
     if draw<0.1; stat = 1-stat; end % z transition with probability 0.1
-    %for i = 1:length(k) % transition to future state
-    %    dist( kprime(i,stat+1)==k) = dist( kprime(i,stat+1)==k) + dist0(i); 
-    %end
     switch stat
         case 0
             dist = mat1*dist0;
         otherwise
             dist = mat2*dist0;
     end
-    if tt>burn % after burn-in, calculate
+    if tt>burn % after burn-in, calculate 
         t = tt-burn;
-        % calculate values
+        % calculate values 
         cons(t) = sum(c(:,stat+1).*dist0);
         kap(t) = sum(k'.*dist0);
         I(t) =sum(kprime(:,stat+1).*dist0 - (1-pdelta)*k'.*dist0);
