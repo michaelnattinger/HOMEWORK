@@ -1,8 +1,8 @@
 function [Ks,dist,V,aprime] = find_Ks(kD0,assets,Q,V0,pbeta,pgamma,pdelta,palpha,l,tol,maxiter)
 % Given capital demand guess kD0, calculates Ks
 na = length(assets);
-pw = (1-palpha)*(kD0)^(palpha);
 pr = palpha*(kD0)^(palpha - 1);
+pw = (kD0)^(palpha) - pr*kD0;
 legal = true(na,na,2);
 for nl = 1:2
    for nap = 1:na

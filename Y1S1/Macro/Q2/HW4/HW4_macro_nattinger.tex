@@ -85,7 +85,7 @@ Consumers maximize utility by choosing their asset savings (now the assets are, 
 Our bellman equation takes the following form:
 
 \begin{align*}
-V(k,l)&= \max_{k'} \frac{(wl + rk - k' + k(1-\delta))^{1-\gamma}}{1-\gamma} + \beta\sum_{i=1}^n(V(k',l_i)P(l'=l_i|l)
+V(k,l)&= \max_{k'} \frac{(wl + rk - k' + k(1-\delta))^{1-\gamma}}{1-\gamma} + \beta\sum_{i=1}^nV(k',l_i)P(l'=l_i|l)
 \end{align*}
 
 Firms choose $N,K$ to maximize profits. We solve by taking first order conditions:
@@ -95,10 +95,9 @@ Firms choose $N,K$ to maximize profits. We solve by taking first order condition
 &\Rightarrow r = \alpha(K/N)^{\alpha - 1}.
 \end{align*}
 
-We will proceed by solving the problem numerically. Note that labor supply is exogenous and, in the equilibrium, will always be 1. We do not know the equilibrium capital supply levels so we need to estimate this analytically. We will start at a guess for capital demand, calculate the model solution, and check to see if capital markets clear. We will use a nonlinear optimizer to minimize the deviation of capital supply and labor demand. Then, once the capital market clears, since we know that the labor market will also clear, Walras' law implies that the goods market will also clear.
+We will proceed by solving the problem numerically. Note that labor supply is exogenous and, in the equilibrium, will always be 1. We do not know the equilibrium capital supply levels so we need to estimate this analytically. We will start at a guess for capital demand, calculate the model solution, and check to see if capital markets clear. If they did not clear to within the tolerance levels, we can update our capital demand guess to be a weighted midpoint of the capital supply and demand, with the weighting on the average determined by a tuning parameter. Then, once the capital market clears, since we know that the labor market will also clear as labor supply in equilibrium is exogenously 1, Walras' law implies that the goods market will also clear.
 
 The equilibrium levels of capital stock, wage, and the interest rate are as follows:
-
 
 \begin{center}
 \input{tab1}
@@ -125,7 +124,9 @@ We see, from the table above, that capital levels fall in the debt equilibrium. 
 
 \section{Question 2}
 \subsection{Part A}
-Our bellman equation takes the following form:
+By the welfare theorem, this problem can be solved by solving the planner's problem for allocations and backing out the competitive equilibrium values for wages and rental rates for capital.
+
+Our bellman equation for the social planner takes the following form:
 \begin{align*}
 V(k,z) &= \max_{k'} \frac{(zk^{0.35}+(1-\delta)k - k')^{1-\gamma}}{1-\gamma} + \beta\sum_{i=1}^n V(k',z_i)P(z' = z_i|z)
 \end{align*}
@@ -135,7 +136,7 @@ V(k,z) &= \max_{k'} \frac{(zk^{0.35}+(1-\delta)k - k')^{1-\gamma}}{1-\gamma} + \
 
 \includegraphics{q2c}
 
-The above plots show that the consumption levels of the high and low equilibrium are, as expected, above and below the original equilibrium. A similar story holds for capital.
+The above plots show that the consumption levels of the high and low equilibrium are, as expected, above and below the original equilibrium. A similar story holds for capital levels.
 
 \subsection{Part B}
 We start with an initial distribution of capital levels and, after a burn-in period, track capital, output, consumption, investment, wages, and interest rates over time. I ran the simulation 100000 times with a burn-in of 10000 draws (for a total of 110000 draws) from an initial uniform distribution over the states, and the averages of the variables of interest appeared to converge by the end of the simulation period, specifically numerical results are unchanged to the fourth decimal point from when the number of draws is reduced by a factor of 10. Results and comparison to the deterministic model are below.
@@ -248,7 +249,7 @@ W_t &= (1-\beta) c_t^{1-\rho} + \beta(E_tW_t) = (1-\rho)(1-\beta)\sum_{i=0}^{\in
 \end{align*}
 where $W_t = V_t^{1-\rho}.$ Thus, this is the value equation representation of power utility.
 \subsection{Part B}
-The risk aversion for static gamples here is represented by the $\alpha$ parameter on consumption, and $1/\rho$ is the inverse of the intertemporal elasticity of substitution.
+The risk aversion for static gamples here is represented by the $\alpha$ parameter on consumption, and $\rho$ is the inverse of the intertemporal elasticity of substitution.
 \subsection{Part C}
 \begin{align*}
 \frac{\partial V_t}{\partial V_{t+1}} &= \frac{1}{1-\rho}V_t^{\rho}\frac{1-\rho}{1-\alpha}\beta (E_tV_{t+1}^{1-\alpha})^{\frac{\alpha-\rho}{1-\alpha}}(1-\alpha)E_tV_{t+1}^{-\alpha} \\

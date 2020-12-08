@@ -181,7 +181,7 @@ Let $\hat{\beta}$ be the OLS regression of $y$ on $X$. Similarly consider the re
 &= \hat{\epsilon}'\hat{\epsilon}  + \frac{\hat{\beta}_{k+1}^2}{[(X'X)^{-1}]_{k+1,k+1}}.
 \end{align*} 
 
-Consider the adjusted R-sq for unrestricted and restricted regressions, $R^2_{k+1},R^2_k$. Define $E:= \frac{1}{n--1}(y_i - \bar{y})^2.$
+Consider the adjusted R-sq for unrestricted and restricted regressions, $R^2_{k+1},R^2_k$. Define $E:= \frac{1}{n-k-1}(y_i - \bar{y})^2.$
 
 \begin{align*}
 R^2_{k+1}>R^2_k &\iff 1 - \frac{\frac{1}{n-k-1}\hat{\epsilon}'\hat{\epsilon}}{E}>1 - \frac{\frac{1}{n-k}\tilde{\epsilon}'\tilde{\epsilon}}{E} \\
