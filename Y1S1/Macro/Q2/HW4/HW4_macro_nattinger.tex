@@ -268,6 +268,15 @@ V([p(s) +s]a) &= \max_{c,a'} ((1-\beta) c^{1-\rho} + \beta (E [ (V([p(s') + s']a
 \Rightarrow V([p(s) +s]a) &=\max_{a'}  ((1-\beta) ((p(s) + s)a - p(s)a')^{1-\rho} + \beta (E [ (V([p(s') + s']a'))^{1-\alpha} ])^{\frac{1-\rho}{1-\alpha}})^{\frac{1}{1-\rho}}
 \end{align*}
 
+We can solve for optimality conditions by taking first order conditions and envelope conditions:
+\begin{align*}
+&(1-\rho) ((1-\beta) ((p(s) + s)a - p(s)a')^{-\rho}p(s)\\&=  \beta \frac{1-\rho}{1-\alpha} (E [ (V([p(s') + s']a'))^{1-\alpha} ])^{\frac{\alpha-\rho}{1-\alpha}}E[(1-\alpha) (V([p(s') + s']a'))^{-\alpha} V([p(s') + s']a') ]\\
+&\Rightarrow (1-\beta)c^{-\rho} p(c)  = \beta (E [ (V([p(s') + s']a'))^{1-\alpha} ])^{\frac{\alpha-\rho}{1-\alpha}}E[ (V([p(s') + s']a'))^{-\alpha} V'([p(s') + s']a') ]\\
+&V'(p(s) +s]a) = (1-\beta)c^{-\rho}[p(c) + c]\\
+&\Rightarrow c^{-\rho} p(c)  = \beta (E [ (V([p(s') + s']a'))^{1-\alpha} ])^{\frac{\alpha-\rho}{1-\alpha}}E[ (V([p(s') + s']a'))^{-\alpha}(c')^{-\rho}[p(c') + c']]\\
+&\Rightarrow 1= \beta E\left[S\frac{p(c') + c'}{p(c)}\right].
+\end{align*}
+
 %\begin{align*}
 %V(c) &= \max_{c} ((1-\beta) c^{1-\rho} + \beta (E [ (V(c')^{1-\alpha} ])^{\frac{1-\rho}{1-\alpha}})^{\frac{1}{1-\rho}}
 %\end{align*}

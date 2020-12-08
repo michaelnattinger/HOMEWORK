@@ -2,11 +2,11 @@ addpath('C:\Users\micha\OneDrive\Documents\HOMEWORK\Y1S1\Metrics\Q2')
 clear; close all; clc
 % Finds capital demand guess that clears the market.
 % Michael Nattinger, 2020
-recalc1 = 1;
-recalc2 = 1;
+recalc1 = 0;
+recalc2 = 0;
 if recalc1>0
     Q = [0.85 0.15; 0.05 0.95];
-    tol=1e-4;       % maybe jack these up
+    tol=1e-5;       % maybe jack these up
     maxiter=1e6;
     pbeta = 0.95; % parameter values
     pgamma = 3;
@@ -19,11 +19,11 @@ if recalc1>0
     na = length(assets);
     %V0 = ones(na,2); % value function initial guess
     V0 = [log(assets'+1) log(assets'+1)];
-    k0 = 5.0209;%5.5;
+    k0 = 5.0162;%5.5;
     ktol = 0.01;
     kmiter = 1000;
     tic
-    Kd = find_Kd_slowiter(0.98,k0,assets,Q,V0,pbeta,pgamma,pdelta,palpha,l,tol,maxiter,ktol,kmiter);
+    Kd = find_Kd_slowiter(0.99,k0,assets,Q,V0,pbeta,pgamma,pdelta,palpha,l,tol,maxiter,ktol,kmiter);
     toc
     % calculate results
     [Ks,dist,V,aprime] = find_Ks(Kd,assets,Q,V0,pbeta,pgamma,pdelta,palpha,l,tol,maxiter);
@@ -38,12 +38,12 @@ if recalc2>0
     assets2 = -2:agr:abar2;
     na2 = length(assets2);
     V02 = [log(assets2'+3) log(assets2'+3)];
-    k02 = 4.9749;
+    k02 = 4.97;
     %Kd2 = find_Kd(k02,assets2,Q,V02,pbeta,pgamma,pdelta,palpha,l,tol,maxiter);
     % calculate results
     ktol = 0.01;
     kmiter = 1000;
-    [Kd2,diff2,iter] = find_Kd_slowiter(0.98,k02,assets2,Q,V02,pbeta,pgamma,pdelta,palpha,l,tol,maxiter,ktol,kmiter);
+    [Kd2,diff2,iter] = find_Kd_slowiter(0.99,k02,assets2,Q,V02,pbeta,pgamma,pdelta,palpha,l,tol,maxiter,ktol,kmiter);
     tic
     [Ks2,dist2,V2,aprime2] = find_Ks(k02,assets2,Q,V02,pbeta,pgamma,pdelta,palpha,l,tol,maxiter);
     toc
