@@ -225,7 +225,7 @@ For $a,b,c \in [0,1]$, the above mixed strategies are equivalent to the behavior
 
 Person 3 will play L if they think the probability of being at D satisfies $3D + 1d \geq 2D + 3d \Rightarrow D\geq 2d \Rightarrow D \geq 2/3$. In this scenario, person 2 will play a, and person 1 will play A. The information set is unreached, so the specific beliefs for person 3 are consistent. This is a sequential equilibrium.
 
-Person 3 will play R if they think the probability of being at $D\leq 2/3$. Person 2 will choose d, so person 1 will choose 1. This outcome is inconsistent with person 3's belief that $D\leq 2/3$.
+Person 3 will play R if they think the probability of being at $D\leq 2/3$. Person 2 will choose d, so person 1 will choose D. This outcome is inconsistent with person 3's belief that $D\leq 2/3$.
 
 Person 3 can mix if their belief of being at D is $2/3$. Let $\beta_3$ be the probability of person 3 playing L. We will now focus on person 2.
 
@@ -239,6 +239,30 @@ If player 1 always chooses D, then $D=1>2/3$ which cannot be a sequential equili
 
 Therefore, the sequential nash equilibrium are (summarizing the above) $(A,a,L),(A,a,\beta_3\geq1/3),(A,a,1/3),(4/7,2/3,1/3)$ (which we can further reduce to $(A,a,\beta_3\geq1/3),(4/7,2/3,1/3)$).
 \section{Question 6}
+We will work backwards. Person 1 will play $L$ if their belief that they are in $1_x$ satisfies $5(1_x) \geq 1(1-1_x) \Rightarrow 1_x \geq 1/6$. Person 2 always get 5 utility from playing l, and 0 utility from playing r, so they will always play $l$. Thus, if person 1 plays $\hat{O}$, person 2 will rationally only play $l$, so person $1$  will always be at $1_x$, so they should always play $L$. Thus, Person $1$'s payoff from playing $\hat{O}$ will always be $5$, but only $3$ from playing $O$ so Person $1$ should always play $\hat{O}$. The strategy profile, therefore, is to play $(\hat{O},l,L)$.
 \section{Question 7}
+If person 2 has full belief that person 1 is type a, then they will choose T. Similarly, if they have full belief that person 1 is type b, their best response is to choose M. For any belief that person 1 is type a, say $p_a$, if $p_a> 1/2$ then person 2's best response is to play $T$, and if $p_a<1/2$ then their best response is to play M. For no beliefs is their best response B.
+
+If person 1 is type b, they will always receive -1 utility from choosing I, but can receive 0 utility from choosing O. Therefore, they will always choose O. So, if person 2 sees that person 1 has opted in, they can infer with probability 1 that person 1 is not type b, so they must be type a. Therefore, person 2 will choose T if person 1 opts in.
+
+The sequential equilibria, therefore, is for person 1 to opt in if they are type a, and opt out if they are type b. If person 1 opts in, person 2 will play T. The equilibrium is a separating equilibrium. For sufficiently small deviations of the people of type b (i.e. so long as not all type b people opt in), this criterion will still hold as optimal. and therefore the equilibrium satisfies the intuitive criterion.
 \section{Question 8}
+\subsection{Part A}
+
+\begin{center}
+\includegraphics{diag}
+\end{center}
+
+The above sequential game formulation represents the game described. 
+\subsection{Part B}
+Player 1's pure strategy set is $\{in,out\}$. Player 2's pure strategy set is $\{in,out\}$.
+\subsection{Part C}
+
+If player 2 believes that player 1's card is an ace with probability 1, they will fold. If player 2 believes that player 1's card is a king or queen with probability 1, they  will fold. Let $p_A$ be the probability that player 1 drew an ace, given that they raised. Then, player 2 will call if $p_A(-2) + (1-p_A)(2)> -1\Rightarrow p_A< 3/4$. They would be indifferent between calling or not if $p_A = 3/4,$ and will fold if $p_A>3/4$. 
+
+If player 1 draws an ace, they will receive 1 or 2 utility by calling, and -1 if they fold, so they will call. If they draw a card that is not an ace, they will recieve 1 utility by raising if they know the opponent will fold, but will lose 2 by calling if the opponent will fold. They will  always lose 1 utililty if they fold.
+
+Player 1's optimal strategy is to always call if they draw an ace, and to also call on whatever proportion of non-aces will make player 2 indifferent between calling and folding. Player 2 will be indifferent if $p_A = 3/4$, so, with $\sigma_1$ being the fraction of non-aces that player 1 will call on, $3/4 = \frac{1/3}{1/3 + \sigma_1(2/3)} \Rightarrow \sigma_1 = 1/6.$
+
+Therefore, Player 1's optimal strategy is to raise whenever they draw an ace, raise $1/6$ of the time whenever they draw a king or queen, and player 2's optimal strategy is to fold when player 1 raises.
 \end{document}
