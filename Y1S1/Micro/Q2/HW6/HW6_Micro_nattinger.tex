@@ -156,7 +156,9 @@ Increasing the (P,P) payoff increases the relative payoff from deviating in the 
 
 \subsection{Part D}
 
-D strictly dominates C and strictly dominates P, so there are no correlated equilibria possible.
+Folk theorem, any payoff vectors that strictly exceed mixmax (see solns).
+
+D is strictly dominant, so mixmax is (1,1) (D,D eqm utility). Support randomizations among (C,C),(D,D),(D,C),(C,D) with payoffs above (1,1). 
 
 \section{Question 3}
 \subsection{Part A}
@@ -215,12 +217,16 @@ This is a different condition than Part A. Intuitively, the third person gets hi
 &= (2/3,1/3)
 \end{align*}
 The above behavior strategy is equivalent to the mixed strategy given.
+
+Note: This is wrong - discuss tomorrow with group.
 \subsection{Part B}
 \begin{align*}
 \sigma_1 &= \left(\sigma_1(AE),\sigma_1(AF),\sigma_1(AG),\sigma_1(BE),\sigma_1(BF),\sigma_1(BG) \right) \\
 &= (a/3,b/3,(1-a-b)/3,c/3,c/6,c/6)
 \end{align*}
 For $a,b,c \in [0,1]$, the above mixed strategies are equivalent to the behavior strategy.
+
+Same note as above.
 \section{Question 5}
 
 Person 3 will play L if they think the probability of being at D satisfies $3D + 1d \geq 2D + 3d \Rightarrow D\geq 2d \Rightarrow D \geq 2/3$. In this scenario, person 2 will play a, and person 1 will play A. The information set is unreached, so the specific beliefs for person 3 are consistent. This is a sequential equilibrium.
@@ -237,9 +243,13 @@ Person 2 will be indifferent if $\beta_3 = 1/3$. Let $\beta_2$ be the probabilit
 
 If player 1 always chooses D, then $D=1>2/3$ which cannot be a sequential equilibrium. If they instead choose always A, then player 2 must always choose a so this is also a sequential equilibrium. The final possibility is that person 1 mixes. They must be indifferent between choosing A and D. Player 3 is choosing L with probability $1/3$, so for person 1 to be indifferent, $(2/3) =  (1-\beta_2)2 \Rightarrow \beta_2 = 2/3$. For this to hold as a sequential equilibrium, person 3 must have a $2/3$ chance at being at D, so $\beta_1 = 2(1-\beta_1)(\beta_2) \Rightarrow \beta_1 = (1-\beta_1)(4/3) \Rightarrow \beta_1 = 4/7.$
 
-Therefore, the sequential nash equilibrium are (summarizing the above) $(A,a,L),(A,a,\beta_3\geq1/3),(A,a,1/3),(4/7,2/3,1/3)$ (which we can further reduce to $(A,a,\beta_3\geq1/3),(4/7,2/3,1/3)$).
+Therefore, the sequential nash equilibrium are (summarizing the above) $(A,a,L),(A,a,\beta_3\geq1/3),(A,a,1/3),(4/7,2/3,1/3)$ (which we can further reduce to $(A,a,\beta_3\geq1/3),(4/7,2/3,1/3)$). (This is right but I need to specify BELIEFS as well when summarizing (although I did specify in deriving conditions)).
 \section{Question 6}
-We will work backwards. Person 1 will play $L$ if their belief that they are in $1_x$ satisfies $5(1_x) \geq 1(1-1_x) \Rightarrow 1_x \geq 1/6$. Person 2 always get 5 utility from playing l, and 0 utility from playing r, so they will always play $l$. Thus, if person 1 plays $\hat{O}$, person 2 will rationally only play $l$, so person $1$  will always be at $1_x$, so they should always play $L$. Thus, Person $1$'s payoff from playing $\hat{O}$ will always be $5$, but only $3$ from playing $O$ so Person $1$ should always play $\hat{O}$. The strategy profile, therefore, is to play $(\hat{O},l,L)$.
+We will work backwards. Person 1 will play $L$ if their belief that they are in $1_x$ satisfies $5(1_x) \geq 1(1-1_x) \Rightarrow 1_x \geq 1/6$. Person 2 always get 5 utility from playing l, and 0 utility from playing r, so they will always play $l$. Thus, if person 1 plays $\hat{O}$, person 2 will rationally only play $l$, so person $1$  will always be at $1_x$, so they should always play $L$. Thus, Person $1$'s payoff from playing $\hat{O}$ will always be $5$, but only $3$ from playing $O$ so Person $1$ should always play $\hat{O}$. The optimal strategy profile, therefore, is to play $(\hat{O},l,L)$. However, this is a weak sequential equilibrium.
+
+The assessment ((O,R),l), $\mu_1(y) = 1$ is bayesian as player 1's other information set is unreached, and no player has a profitable one-shot deviation. But, this is not a weak sequential eqm as player 1 can deviate profitably to $(\hat{O},R)$. 
+
+
 \section{Question 7}
 If person 2 has full belief that person 1 is type a, then they will choose T. Similarly, if they have full belief that person 1 is type b, their best response is to choose M. For any belief that person 1 is type a, say $p_a$, if $p_a> 1/2$ then person 2's best response is to play $T$, and if $p_a<1/2$ then their best response is to play M. For no beliefs is their best response B.
 
@@ -255,14 +265,16 @@ The sequential equilibria, therefore, is for person 1 to opt in if they are type
 
 The above sequential game formulation represents the game described. 
 \subsection{Part B}
-Player 1's pure strategy set is $\{in,out\}$. Player 2's pure strategy set is $\{in,out\}$.
+Player 1's pure strategy set is $\{in,out\}^3$. Player 2's pure strategy set is $\{in,out\}$.
 \subsection{Part C}
 
 If player 2 believes that player 1's card is an ace with probability 1, they will fold. If player 2 believes that player 1's card is a king or queen with probability 1, they  will fold. Let $p_A$ be the probability that player 1 drew an ace, given that they raised. Then, player 2 will call if $p_A(-2) + (1-p_A)(2)> -1\Rightarrow p_A< 3/4$. They would be indifferent between calling or not if $p_A = 3/4,$ and will fold if $p_A>3/4$. 
 
 If player 1 draws an ace, they will receive 1 or 2 utility by calling, and -1 if they fold, so they will call. If they draw a card that is not an ace, they will recieve 1 utility by raising if they know the opponent will fold, but will lose 2 by calling if the opponent will fold. They will  always lose 1 utililty if they fold.
 
-Player 1's optimal strategy is to always call if they draw an ace, and to also call on whatever proportion of non-aces will make player 2 indifferent between calling and folding. Player 2 will be indifferent if $p_A = 3/4$, so, with $\sigma_1$ being the fraction of non-aces that player 1 will call on, $3/4 = \frac{1/3}{1/3 + \sigma_1(2/3)} \Rightarrow \sigma_1 = 1/6.$
+Player 1's optimal strategy is to always call if they draw an ace, and to also call on whatever proportion of non-aces will make player 2 indifferent between calling and folding. Player 2 will be indifferent if $p_A = 3/4$, so, with $\sigma_k,\sigma_q$ being the fraction of kings and queens that player 1 will call on, $3/4 = \frac{1/3}{1/3 + \sigma_k/3 +\sigma_q/3} \Rightarrow \sigma_k + \sigma_q = 1/3.$ 
 
-Therefore, Player 1's optimal strategy is to raise whenever they draw an ace, raise $1/6$ of the time whenever they draw a king or queen, and player 2's optimal strategy is to fold when player 1 raises.
+Player 1 will only mix on a king or queen if they are indifferent: $-2\sigma_2 +(1-\sigma_2)1 = -1 \Rightarrow \sigma_2 = 2/3$. 
+
+Therefore, Player 1's optimal strategy is to raise whenever they draw an ace, raise $(\sigma_k,\sigma_q) \in \{ (a,b)|(a,b) \in\mathbb{R}^2, a+b = 1/3 \} $ of the time whenever they draw a king or queen, and player 2's optimal strategy is to fold with probability $1/3$. Player 2 will believe that the card they are betting on is an ace with probability 3/4, king with probability $\sigma_k(3/4),$ and queen with probability $\sigma_q(3/4)$.
 \end{document}
