@@ -49,7 +49,7 @@ saveas(gcf,'q2c.png')
 cd('..')
 
 % simulate
-dosim=1;
+dosim=0;
 if dosim==1
 T = 1e5;
 burn = floor(T/10);
@@ -128,9 +128,9 @@ ra = mean(r);
 wa = mean(w);
 Ya = mean(Y);
 
-Deterministic = [ kapss Yss consss Iss wss rss]';
-Simulation = [kapa Ya consa  Ia wa ra]';
-tab = table(Deterministic,Simulation,'RowNames',{'Capital' 'Output' 'Consumption' 'Investment' 'wages' 'interest rates'});
+Deterministic = [ kapss Yss consss Iss wss rss rss-pdelta]';
+Simulation = [kapa Ya consa  Ia wa ra ra-pdelta]';
+tab = table(Deterministic,Simulation,'RowNames',{'Capital' 'Output' 'Consumption' 'Investment' 'wages' 'rental rate' 'Interest rate (rental net of depr.)'});
 table2latex(tab,'q2.tex')
 
 cvol = std(cons);

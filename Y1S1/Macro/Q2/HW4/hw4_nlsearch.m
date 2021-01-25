@@ -4,9 +4,9 @@ clear; close all; clc
 % Michael Nattinger, 2020
 recalc1 = 0;
 recalc2 = 0;
-if recalc1>0
+if recalc1>1e-5
     Q = [0.85 0.15; 0.05 0.95];
-    tol=1e-5;       % maybe jack these up
+    tol=1e-4;       % maybe jack these up
     maxiter=1e6;
     pbeta = 0.95; % parameter values
     pgamma = 3;
@@ -31,7 +31,7 @@ if recalc1>0
 else
     load results1
 end
-if recalc2>0
+if recalc2>1e-5
     tol=1e-4;       % maybe jack these up
     maxiter=1e6;
     abar2 = 50;
@@ -121,10 +121,10 @@ cd('pings')
 saveas(gcf,'comp.png')
 cd('..')
 
-Equilibrium = [Kd w r]';
-DebtEquilibrium = [Kd2 w2 r2]';
+Equilibrium = [Kd w r r-pdelta ]';
+DebtEquilibrium = [Kd2 w2 r2 r2-pdelta]';
 
-tab1 = table(Equilibrium,'RowNames',{'Capital' 'Wage' 'Interest rate'});
-tab2 = table(Equilibrium,DebtEquilibrium,'RowNames',{'Capital' 'Wage' 'Interest rate'});
+tab1 = table(Equilibrium,'RowNames',{'Capital' 'Wage' 'Rental rate' 'Interest rate (net of depreciation)'});
+tab2 = table(Equilibrium,DebtEquilibrium,'RowNames',{'Capital' 'Wage' 'Rental rate' 'Interest rate (net of depreciation)'});
 table2latex(tab1,'tab1.tex')
 table2latex(tab2,'tab2.tex')

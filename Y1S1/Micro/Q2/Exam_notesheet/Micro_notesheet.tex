@@ -1,0 +1,223 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{tikz,forest}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+\usetikzlibrary{arrows.meta}
+
+\forestset{
+    .style={
+        for tree={
+            base=bottom,
+            child anchor=north,
+            align=center,
+            s sep+=1cm,
+    straight edge/.style={
+        edge path={\noexpand\path[\forestoption{edge},thick,-{Latex}] 
+        (!u.parent anchor) -- (.child anchor);}
+    },
+    if n children={0}
+        {tier=word, draw, thick, rectangle}
+        {draw, diamond, thick, aspect=2},
+    if n=1{%
+        edge path={\noexpand\path[\forestoption{edge},thick,-{Latex}] 
+        (!u.parent anchor) -| (.child anchor) node[pos=.2, above] {Y};}
+        }{
+        edge path={\noexpand\path[\forestoption{edge},thick,-{Latex}] 
+        (!u.parent anchor) -| (.child anchor) node[pos=.2, above] {N};}
+        }
+        }
+    }
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro Exam Notesheet}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Rationalizability}
+\begin{itemize}
+\item A rational player will never play a strictly dominated strategy. A rational player may still play a weakly dominated strategy (context-dependent).
+\item A k-rationalizable strategy survives k rounds of iterated strict dominance.
+\item In a two-player game, a strategy survives iterated strict dominance if and only if it is rationalizable.
+\end{itemize}
+\section{Nash Equilibrium}
+\begin{itemize}
+\item A strategy profile is a nash equilibrium if everyone is best-responding to everyone else.
+\item 1: Eliminate pure strategies which are not rationalizable.
+\item 2: For each strategy profile whose supports survive step 1, check if for all $i \in P, \sigma_i \in B_i(\sigma_{-i})$.
+\item 1': Using ISD, eliminate all strategies which are not rationalizable.
+\item 2': Find all "closed rationalizable cycles"
+\item 3: Look for Nash Equilibria on the support of each cycle.
+\begin{itemize}
+\item For pure strategy profiles, just check for pure best response cycles.
+\item For mixed strategies, solve using indifference between all pure strategies in the support.
+\end{itemize}
+\end{itemize}
+\section{Nash Equilibrium - continuum of players}
+\begin{itemize}
+\item With a continuum of players, we don't need to worry about how each player is choosing each strategy to play. We only need to choose the randomization probabilities to make everyone indifferent between all strategies being played.
+\item Large timing games: continuum of identical players on unit interval, measure $Q(t)$ of players stopping at time $\tau\leq t$ is the quantile function. Payoffs are a function of stopping time $t$, and the stopping quantile $q$. A Nash equilibrium is a quantile function $Q$ whose support contains only maximum payoffs, where quantile $q=Q(t)$ stops at time $t$.
+\end{itemize}
+\section{Supermodular and Submodular games}
+\begin{itemize}
+\item The game $(S_1,\dots,S_n;u_1,\dots,u_n)$ is a supermodular game if $\forall i \in \{1,\dots,n\}$, $S_i$ is a compact subset of $\mathbb{R}$, $u_i$ is upper semi-continuous in $s_i,s_{-i}$, and $u_i$ has increasing differences in $s_i,s_{-i}$.
+\item Apply topkis: each player's best response is increasing in the actions of other players.
+\item Thm (maximum and minimum eqm) Consider a supermod game with continuous payoff functions on a compact domain for all individuals. Then there exists a maximum and minimum equilibrium.
+\item $f(x,\theta)$ has decreasing differences if $f(x,-\theta)$ has increasing differences. A submodular game is one whose payoffs have decreasing differences for all individuals.
+\end{itemize}
+\section{Bayesian Nash Equilibrium}
+\begin{itemize}
+\item An agent knows their type, but not their opponents' types. It is important to set up the expected utility, then follow the steps to solve.
+\item Player $i$ knows their own type, so the condition probability of the joint type vector is $p(\theta_{-i},\theta_i)$.
+\item Each player optimizes conditional on their own type, and knowing the strategy profiles of all other players (as functions of their types). Beliefs are based on the prior probabilities $p$ and updated using Bayes rule.
+\item Steps to solve:
+\begin{itemize}
+\item Write down utility as a function of $b_i,b_j$, with your type (valuation) given.
+\item Write down expected utility by assuming that the other player's bid is a function of their valuation $(b_j = b(v_j)$. Make sure to rearrange objects such as $P(b(v_j)<b_i)$ as $P(v_j<b^{-1}(b_i))$ and then integrate over $v_j$ appropriately to calculate expectation.
+\item If integral is not possible, can keep in integral form and apply leibniz differentiation later.
+\item Take first-order conditions.
+\begin{itemize}
+\item $\frac{\partial}{\partial b_i} b^{-1}(b_i) = \frac{1}{b'(b^{-1}(b_i))}$
+\item $\frac{\partial}{\partial b_i} \int_{0}^{b^{-1}(b_i)}(v_i - b(v_j))dv_j = \frac{(v_i - b(b^{-1}(b_i)))}{b'(b^{-1}(b_i))}$
+\end{itemize}
+\item Plug in form of linear reaction function (if that is the type of bid function we are asked to assume/find). Specifically, plug in derivative of $b$ where necessary, but do not necesssarily plug in linear form for $b_i$ in all cases (can solve then for $b_i = (RHS)$ and compare original form with (RHS) to solve for parameters that hold for all $v_i$). 
+\item Solve for parameters via first order conditions. If approach before does not hold, another option is to plug in $v_i = 1, v_i = 0$ and solve 2 equations in 2 unknowns.
+\end{itemize}
+\end{itemize}
+
+\section{Correlated Equilibria}
+\begin{itemize}
+\item A randomizing device privately suggests to each player which strategy to play. She does not know which strategies of her opponents are suggested. However, the distribution over outcomes is known, so each agent can update their beliefs via bayes rule.
+\item If a joint distribution is such that every agent has no incentive to disobey the suggestion, then it defines a correlated equilibrium.
+\end{itemize}
+\section{Knowledge and Common Knowledge}
+\begin{itemize}
+\item We have a set of finitely many states of nature with prior probability $p>0$. Player $i's$ information set is a partition of the overall set, where $i$ cannot distinguish between any two states within any section of the partition. 
+\item Whenever somebody knows $E$ then some state of $E$ is the true state (the decision-maker does not know anything that is false).
+\item Event E is mutual knowledge at $\omega$ if $\omega \in K_I(E), \bigcap_{i\in I} K_I(E). $ "Everyone knows E."
+\item Event E is common knowledge at $\omega$ if $\omega \in K_I^n(E) \forall n = 1,2,\dots,m,\dots$. "Everyone knows that everyone knows that ... everyone knows event E"
+\item Theorem (Aumann(1976)) If two people have the same priors, and their posteriors for an event E are common knowledge, then these posteriors are equal.
+\end{itemize}
+\section{Extensive form game, perfect information}
+\begin{itemize}
+\item Each player, when choosing an action, knows all actions chosen previously, and moves alone.
+\item Solve: Zermelo Algorithm. Start at the end of the tree, and work back up the tree by solving for optimal behavior at each node (Backwards Induction). \
+\item Finite games w/ perfect information w/ finite \# nodes, Zermelo Algorithm yields a Nash Equilibrium outcome.
+\end{itemize}
+\section{Extensive-form games}
+\begin{itemize}
+\item If a game is played a finite number of times, then it can be expressed as a perfect-information extensive-form game and solved via backwards induction. Having the game instead be played infinitely (or having the end of the game be stochastic) prevents us from doing this and admits subgame perfect equilibria which otherwise would not exist. (e.g., repeated prisoners' dilemma).
+\item Consider minmax value $\underline{v}_i = \min_{\alpha_{-i}}\max_{\alpha_i}u_i(\alpha_i,\alpha_{-i}).$
+\item The set of strictly individually rational payoffs is then given by $F^{*} = \{v \in F : v_i \geq \underline{v}_i  \forall i \in P  \}$
+\item If there are exactly 2 players, and no two players have identical preferences (up to affine transformations), then for all $\delta$ close enough to 1, there is a subgame perfect equilibrium with payoffs $v \in F^{*}$.
+\item In this class we will generally assume pure strategies, 2 players, and stick-and-carrot strategies used to support the higher payoffs.
+\item Useful property (Finite punishment periods): $\sum_{t=1}^{L}a\delta^t = \frac{a\delta (1-\delta^L)}{1-\delta}$ (can derive by manipulating infinite geo sums).
+\end{itemize}
+\section{Repeated games}
+\begin{itemize}
+\item A subgame is a subest of a game that contains a decision node and all subsequent edges and nodes without tearing information sets. 
+\item We require that players form beiliefs about where they are in each of their information sets, and then require that behaviors are optimal under these beliefs at each information set.
+\item if the assessment (actions, beliefs) is optimal for all players at all information sets, then the action set is sequentially rational given the set of beliefs.
+\item The strategy-beliefs pair $(\beta,\mu)$ is a WEAK sequential equilibrium if $\mu$ is bayesian given $\beta$, and $\beta$ is sequentially rational given $\mu$.
+\item Weak sequential equilibrium places no restrictions on beliefs in unreached information sets, which may lead to unreasonable predictions.
+\item $\mu$ is consistent given $\beta$ if there exists a sequence of completely mixed strategy profiles $\{ \beta^k\}_{k=1}^{\infty}$ such that $\lim_{k\rightarrow \infty} \beta^k = \beta$ and $\lim_{k\rightarrow \infty} \mu^k = \mu$
+\item Consistency forces players to entertain "correct" beliefs even in the unreached information sets.
+\item The strategy-beliefs pair $(\beta,\mu)$ is a sequential equilibrium if $\mu$ is consistent given $\beta$, and if $\beta$ is sequentially rational given $\mu$.
+\end{itemize}
+\section{Absent-minded-type games}
+\begin{itemize}
+\item Find pure strategy equilibria (where will you end up if you always go straight/always turn off?)
+\item Calculate expected payoff from mixing, and maximize with respect to the mixing probability.
+\item Note: this is calculated from the "bird's eye view" with a naive agent blindly following the mixing strategy.
+\item Time-consistent belief version: your likelihood of being in a set is dependent on your mixing probability.
+\item Let $\alpha$ be your chance of mixing. (Given absent-minded driver setup:) You have a $\frac{1}{2-\alpha}$ chance of being in the first node when you turn/don't turn, and a $\frac{1-\alpha}{2-\alpha}$ chance of being in the second note when you turn/don't.
+\item Set up expected payoffs: $\max_{\beta} \frac{1}{2-\alpha}(\text{payoff (bird's eye) of mixing conditional on currently being in the first state, w/ turning probability $\beta$ } ) + \frac{1}{2-\alpha}(\text{payoff (bird's eye) of mixing conditional on currently being in the second state, w/ turning probability $\beta$ }) $
+\item Take FOC wrt $\beta$, and in the FOC impose $\beta = \alpha.$
+\end{itemize}
+
+\section{Signaling games}
+\begin{itemize}
+\item Sender receives a private signal (his type) from nature and chooses a message. The receiver sees the signal but does not know which type sent the signal.
+\item Weak sequential equilibria apply naturally in this environment, and are equivalent to sequential equilibria in this setting.
+\item Separating eq'm: different types choose different actions. Pooling: all types choose the same actions.
+\item "intuitive criterion" - (definition)
+\end{itemize}
+\section{Bayesian persuasion}
+\begin{itemize}
+\item Verifiable free communication: Signal-sender will send the signal to maximize their own utility
+\item Send signal with frequencey that makes signal receiver indifferent in their actions
+\item If sender is mixing in some case, remember that they, too, must be indifferent in those cases - since receiver is indifferent they can mix such that sender is also indifferent.
+\end{itemize}
+
+\end{document}

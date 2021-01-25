@@ -1,0 +1,178 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics Notesheet}
+\author{Michael B. Nattinger}
+
+\begin{document}
+\maketitle
+\section{Stats and Expectations}
+\begin{itemize}
+\item LIE: $E[E[Y|X]] = E[Y], E[E[Y|X,Z]|X] = E[Y|X]$
+\item Conditioning thm: $E[g(X)Y|X] = g(X)E[Y|X], E[g(X)Y] = E[g(X)E[Y|X]]$
+\item CEF $ (m(x) = E[Y|X=x])$ error $e = Y-m(X), E[e|X] = 0 = E[e],E[h(X)e] = 0.$
+\item conditional mean best predictor: $E[(Y-g(X))^2]\geq E[(Y-m(X))^2]$
+\item best linear predictor of Y given X $X'\beta$ minimizes $E[(Y-X'\beta)^2]$
+\item $\beta = (E[XX'])^{-1} E[XY]$
+\item For $Y = X'\beta + \alpha + e, \alpha = \mu_Y - \mu_X'\beta, \beta = var(X)^{-1}cov(X,Y)$
+\end{itemize}
+\section{OLS}
+\begin{itemize}
+\item $\hat{\beta}_{ols} = (X'X)^{-1}X'Y$ minimizes $\frac{1}{n}\sum_{i=1}^n (Y_i - X_i'\beta)^2$
+\item $X'\hat{e} = 0, P = X(X'X)^{-1}X', M = I_n - X(X'X)^{-1}X', \hat{e} = MY = Me$
+\item The OLS estimator for slope coefficients is a regression with demeaned data.
+\item $Y'Y = \hat{Y}'\hat{Y} + \hat{e}'\hat{e}$ so (w/ constant) $(Y-\bar{Y})'(Y-\bar{Y}) = (\hat{Y}-\bar{Y})'(\hat{Y}-\bar{Y}) + \hat{e}'\hat{e}$.
+\item $\bar{R}^2 = 1 - \frac{(n-1)^{-1}\hat{e}'\hat{e}}{(Y-\bar{Y})'(Y-\bar{Y})}$
+\item $Y = \beta_1 X_1 + \beta_2 X_2 + e \Rightarrow \hat{\beta}_1 = (X_1'M_2X_1)^{-1}(X_1'M_2Y), \hat{\beta}_2 = (X_2'M_1X_2)^{-1}(X_2'M_1Y)$
+\item $\beta_1 = (X_1'X_1)^{-1}X_1'(Y - X_2\beta_2)$
+\end{itemize}
+\section{OLS Features}
+\begin{itemize}
+\item ($D$ var-cov mat of $e_i$'s) $V_{\hat{\beta}} = (X'X)^{-1}X'DX(X'X)^{-1}$ 
+\item with homoskedastic SE: $V_{\hat{\beta}} = \sigma^2 (X'X)^{-1}$
+\item $var[\hat{\beta}] = E[(X'X)^{-1}X'DX(X'X)^{-1}]$
+\item Gauss-Markov $var[\tilde{\beta} |X] \geq \sigma^2 (X'X)^{-1}$
+\item GLS: $Y = X\beta + e, E[e|X] = 0, var[e|X] = \Sigma. \tilde{\beta}_{gls} = (X'\Sigma^{-1} X)^{-1} X'\Sigma ^{-1} Y$
+\item Generalized G-M: $var[\tilde{\beta}|X] \geq (X'\sigma^{-1}X)^{-1}$
+\item MSFE$_n = E[\tilde{e}_{n+1}^2] = \sigma^2 + E[X_{n+1}'V_{\hat{\beta}}X_{n+1}]$
+\item $\hat{V}_{\hat{\beta}} = (X'X)^{-1} s^2$
+\item Robust V: $\hat{V}_{\hat{\beta}^{HC0}} = (X'X)^{-1}\left( \sum_{i=1}^n X_i X_i' \hat{e}_i^2\right) (X'X)^{-1}, \hat{V}_{\hat{\beta}^{HC1}} = \frac{n}{n-k}\hat{V}_{\hat{\beta}^{HC0}} $
+\end{itemize}
+
+\section{Normal regression}
+In the normal regression model,
+\begin{itemize}
+\item $\hat{\beta}|X \sim N(\beta,\sigma^2 (X'X)^{-1})$
+\item $\hat{e}|X \sim N(0,\sigma^2M)$
+\item $\frac{(n-k)s^2}{\sigma^2} \sim \chi^2_{n-k}$ and is independent of $\hat{\beta}$
+\item T Stat: $T = \frac{\hat{\beta}_j - \beta_j}{s(\hat{\beta}_j)} = \frac{\hat{\beta}_j - \beta_j}{\sqrt{s^2[(X'X)^{-1}]_{j,j}}}$
+\item $T \sim t_{n-k}$ (Homoskedastic SE only)
+\end{itemize}
+
+\section{Asymptotics}
+\begin{itemize}
+\item  CLT(m.v.) $\sqrt{n}(\bar{Y} - \mu) \rightarrow_d N(0,V), V = E[(Y-\mu)'(Y-\mu)]$
+\item D.M. $\sqrt{n} (g(\hat{\mu}) - g(\mu)) \rightarrow_d N(0,G'VG), G = G(\mu), G(u) = \frac{\partial}{\partial u}g(u)'$.
+\end{itemize}
+\section{Asymptotics for Least Squares}
+\begin{itemize}
+\item $\frac{1}{\sqrt{n}} \sum_{i=1}^n X_i e_i \rightarrow_d N(0,\Sigma), \Sigma = E[XX'e^2]$
+\item $\sqrt{n}(\hat{\beta} - \beta) = \left( \sum_{i=1}^nX_iX_i' \right)' \left( \frac{1}{\sqrt{n}}\sum_{i=1}^nX_ie_i \right)\rightarrow_d N(0,V_{\beta})$
+\item where $V_{\beta} = Q_{XX}^{-1} \Sigma Q_{XX}^{-1}$
+\item $\sqrt{n} (\hat{\theta} - \theta) \rightarrow_d N(0,V_{\theta}), V_{\theta} = R'V_{\beta}R, R = \frac{\partial}{\partial \beta} r(\beta)'$
+\item $s(\hat{\theta}) = \sqrt{\hat{R}'\hat{V}_{\beta}\hat{R}}$
+\item T stat (asymptotic) $T(\theta) = \frac{\hat{\theta} - \theta}{s(\theta)} \sim N(0,1)$
+\item Wald $W(\theta) = (\hat{\theta} - \theta)'\hat{V}_{\hat{\theta}}^{-1}(\hat{\theta} - \theta) = n(\hat{\theta} - \theta)'\hat{V}_{\theta}^{-1}(\hat{\theta} - \theta)$
+\end{itemize}
+\section{Restricted Estimation}
+\subsection{CLS}
+\begin{itemize}
+\item CLS: $\tilde{\beta}_{cls} = \argmin_{R'\beta = c} SSE(\beta)$
+\item $\frac{\partial}{\partial \beta} \mathcal{L} = -X'Y + X'X\tilde{\beta}_{cls} + R\tilde{\lambda}_{cls} = 0$
+\item $\frac{\partial }{\partial \lambda} \mathcal{L} = R'\tilde{\beta} - c = 0$
+\item premultiply first foc: $-R'\hat{\beta} + R'\tilde{\beta}_{cls} + R'(X'X)^{-1} R\tilde{\lambda}_{cls} = 0$
+\item impose $R'\tilde{\beta}_{cls} = c: \tilde{\lambda}_{cls} = [R'(X'X)^{-1}R]^{-1}(R'\hat{\beta} - c)$
+\item $\tilde{\beta}_{cls} = \hat{\beta}_{ols} - (X'X)^{-1}R[R'(X'X)^{-1}R]^{-1} (R'\hat{\beta}_{ols} - c)$
+\item If finite sample properties of CLS come up, see section 8.4 (p.200 - p. 203).
+\end{itemize}
+\subsection{Minimum Distance}
+\begin{itemize}
+\item $J(\beta) = n (\hat{\beta} - \beta)'\hat{W}(\hat{\beta} - \beta)$
+\item $\tilde{\beta}_{md} = \argmin_{R'\beta = c}J(\beta)$
+\item CLS is special case of this when $\hat{W} = \hat{Q}_{XX}$
+\item $\tilde{\lambda}_{md} = n(R'\hat{W}R)^{-1} (R'\hat{\beta} - c) $
+\item $\tilde{\beta}_{md} = \hat{\beta} - \hat{W}^{-1}R(R'\hat{W}^{-1} R)^{-1} (R'\hat{\beta} - c)$
+\item If asymptotics come up see section 8.6 (p. 204 - 205), for variance estimation of cls see 8.7 (206), for variance estimatin of emd see 8.10 (p. 209)
+\item The asymptotically optimal weight matric is the one which minimizes the asymptotic variance. This is $W = V_{\beta}^{-1}$.
+\item $\tilde{\beta}_{emd} = \hat{\beta} - \hat{V}_{\beta} R (R'\hat{V}_{\beta} R)^{-1} (R'\hat{\beta} - c)$
+\item $\sqrt{n}(\tilde{\beta}_{emd} - \beta) \rightarrow_d N(0,V_{\beta,emd})$
+\item $V_{\beta,emd} = V_{\beta} - V_{\beta}R(R'V_{\beta}R)^{-1}R'V_{\beta}$
+\item Hausman equality: $avar[\hat{\beta}_{ols} - \tilde{\beta}_{emd}] = avar[\hat{\beta}_{ols}] - avar[\tilde{\beta}_{emd}]$
+\item nonlinear constraints: no general closed form soln so may have to set up and solve lagrangian with objective functions for CLS (argmin SSE) or MD (argmin J)
+\item Asymptotics in section 8.14 (p. 217)
+\end{itemize}
+\section{Hypothesis Testing}
+\begin{itemize}
+\item $T = |T(\theta_0)|, T(\theta) = \frac{\hat{\theta} - \theta}{s(\hat{\theta})}$
+\item $T(\theta_0) \rightarrow_d N(0,1)$ under the null
+\item Multidimensional test statistic is wald $W = W(\theta_0) = (\hat{\theta} - \theta_0)'\hat{V}_{\hat{\theta}}^{-1}(\hat{\theta} - \theta_0)$
+\item $\hat{V}_{\hat{\theta}} = \hat{R}'\hat{V}_{\hat{\beta}}\hat{R}, R = \frac{\partial}{\partial \beta}r(\hat{\beta})'$
+\item Linear: $W = (R'\hat{\beta} - \theta_0)'(R'\hat{V}_{\hat{\beta}}R)^{-1}(R'\hat{\beta} - \theta_0)$
+\item $W\rightarrow_d \chi^2_q$ where q is the number of restrictions tested.
+\item Criterion-based tests (discrepancy between the criterion function minimized with and without the restriction).
+\item $J = \min_{\beta \in B_0} J(\beta) - \min_{\beta \in B} J(\beta)$ distance statistic.
+\item for md: test stat is $J = J(\tilde{\beta}_{md})$ (with appropriate $\hat{W}$)
+\item For emd, $J = W \sim \chi_q^2$ (wald statistic) 
+\end{itemize}
+\end{document}

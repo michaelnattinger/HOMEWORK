@@ -162,11 +162,11 @@ We see a high and positive correlation between output and consumption. This make
 \subsection{Part A}
 The household's Bellman equation is the following:
 \begin{align*}
-V(k,z) &= \max_{k'} u(c) + \beta \int V(k',z')P(z',z)\\
+V(k,z) &= \max_{k'} u(c) + \beta \int V(k',z')P(z',z)dz'\\
 \text{s.t. } c+k' - (1-\delta)k &= (1-\tau)(w + rk) + T
 \end{align*}
 \begin{align}
-\Rightarrow V(k,z) &= \max_{k'} u((1-\tau)(w + rk) + T + (1-\delta)k - k') + \beta \int V(k',z')P(z',z) \label{eqn:hh}
+\Rightarrow V(k,z) &= \max_{k'} u((1-\tau)(w + rk) + T + (1-\delta)k - k') + \beta \int V(k',z')P(z',z)dz' \label{eqn:hh}
 \end{align}
 
 Firms maximize production (note: no disutility from working implies labor supply, and therefore demand, will be 1). Define $f(k):= F(k,1)$.
@@ -219,9 +219,9 @@ k' &= zf(k) - c \label{eqn:eq2}
 
 The social planner chooses consumption and capital to maximize consumption:
 \begin{align*}
-&\max_{\{c_t,k_t\}_{t=0}^{\infty}} \sum_{t=0}^{\infty}\beta^t u(c)\\
+&\max_{\{c_t,k_t\}_{t=0}^{\infty}} \sum_{t=0}^{\infty}E[\beta^t u(c)]\\
 &\text{s.t. } c_t+k_{t+1}  = z_tf(k_t)\\
-\Rightarrow &\max_{\{k_t\}_{t=0}^{\infty}} \sum_{t=0}^{\infty} \beta^{t} u( z_tf(k_t) - k_{t+1})\\
+\Rightarrow &\max_{\{k_t\}_{t=0}^{\infty}} \sum_{t=0}^{\infty} E[\beta^{t} u( z_tf(k_t) - k_{t+1})]\\
 \Rightarrow &E[\beta^t u'( c_t)z_tf'(k_t)|z_{t-1}] = E[\beta^{t-1} u'(c_{t-1})|z_{t-1}]
 \end{align*}
 Rearranging and dropping the time subscripts, we find the following:
@@ -245,11 +245,11 @@ V_t &= \left( (1-\beta) c_t^{1-\rho} + \beta(E_tV_t^{1-\alpha})^{\frac{1-\rho}{1
 \end{align*}
 This is equivalent to the following value function:
 \begin{align*}
-W_t &= (1-\beta) c_t^{1-\rho} + \beta(E_tW_t) = (1-\rho)(1-\beta)\sum_{i=0}^{\infty}\frac{c_t^{1-\rho}}{1-\rho},
+W_t &= (1-\beta) c_t^{1-\rho} + \beta(E_tW_t) = (1-\rho)(1-\beta)\sum_{i=0}^{\infty}E_t\left[\beta^t\frac{c_t^{1-\rho}}{1-\rho}\right],
 \end{align*}
 where $W_t = V_t^{1-\rho}.$ Thus, this is the value equation representation of power utility.
 \subsection{Part B}
-The risk aversion for static gamples here is represented by the $\alpha$ parameter on consumption, and $\rho$ is the inverse of the intertemporal elasticity of substitution.
+The risk aversion for static gambles here is represented by the $\alpha$ parameter on consumption, and $\rho$ is the inverse of the intertemporal elasticity of substitution.
 \subsection{Part C}
 \begin{align*}
 \frac{\partial V_t}{\partial V_{t+1}} &= \frac{1}{1-\rho}V_t^{\rho}\frac{1-\rho}{1-\alpha}\beta (E_tV_{t+1}^{1-\alpha})^{\frac{\alpha-\rho}{1-\alpha}}(1-\alpha)E_tV_{t+1}^{-\alpha} \\
