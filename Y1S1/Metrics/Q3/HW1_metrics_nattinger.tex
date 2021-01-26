@@ -127,7 +127,7 @@ Therefore, the OLS estimator is a method of moments estimator.
 \subsection{Part iv}
 By application of various given definitions,
 \begin{align*}
-E[\hat{\beta}|X_1,\dots,X_n] &= E\left[\left(\frac{1}{n}\sum_{i=1}^n X_i X_i'\right)^{-1}\frac{1}{n}\sum_{i=1}^n X_iY_i|X_1,\dots,X_n\right]\\
+E[\hat{\beta}|X_1,\dots,X_n] &= E\left[\left(\frac{1}{n}\sum_{i=1}^n X_i X_i'\right)^{-1}\frac{1}{n}\sum_{i=1}^n X_iY_i\Big|X_1,\dots,X_n\right]\\
 &= \left(\frac{1}{n}\sum_{i=1}^n X_i X_i'\right)^{-1}\frac{1}{n}\sum_{i=1}^n X_iE[Y_i|X_1,\dots,X_n]\\
 &= \left(\frac{1}{n}\sum_{i=1}^n X_i X_i'\right)^{-1}\frac{1}{n}\sum_{i=1}^n X_iE[X_i'\beta_0\cdot U_i|X_1,\dots,X_n]\\
 &= \left(\frac{1}{n}\sum_{i=1}^n X_i X_i'\right)^{-1}\frac{1}{n}\sum_{i=1}^n X_iX_i'\beta_0 E[U_i|X_1,\dots,X_n]\\
