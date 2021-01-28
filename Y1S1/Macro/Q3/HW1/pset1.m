@@ -3,11 +3,11 @@ clear; close all; clc
 %% Codefile for quarter 3 macro pset 1
 % Michael Nattinger, 1/26/2021
 %% Define parameters and capital grid
-kg = 150.5696:0.5:200; % capital grid for phase diagram
+kg = 150.5696:1:200; % capital grid for phase diagram
 D0 = 0;
 D1 = 1;
 T = 12;
-ns = 30;
+ns = 200;
 psigma = 1;
 palpha = 1/3;
 pbeta = 0.99^(1/12);
@@ -30,7 +30,7 @@ if abs(css- ccheck)>1e-10; warning('c changed'); end
 
 recalc_saddle = 0;
 if recalc_saddle
-    sad = calc_saddle(kg,kss,D0,psigma,palpha,pbeta,pdelta, ns);
+    sad = calc_saddle(kg,kss,css,D0,psigma,palpha,pbeta,pdelta, ns);
     save 'saddle_data' 'sad'
 else
     load 'saddle_data' 
@@ -41,8 +41,6 @@ plot(kg,delk,'r-')
 hold on
 plot([kss kss],[0 10],'b-')
 plot(kg,sad,'k-')
-%plot(kss,css,'m*')
-%plot([],css,'mo')
 hold off
 set(gcf,'Color',[1 1 1])
 title('Phase diagram - saddle path')
@@ -58,7 +56,8 @@ annotation('arrow',[0.3 0.25],[0.8 0.8])
 annotation('arrow',[0.75 0.75],[0.35 0.3])
 annotation('arrow',[0.75 0.8],[0.35 0.35])
 annotation('arrow',[0.7 0.7],[0.8 0.75])
-annotation('arrow',[0.7 0.75],[0.8 0.8])
+annotation('arrow',[0.7 0.65],[0.8 0.8])
+ylim([3.75 3.88])
 cd('pings')
 saveas(gcf,'phasesad.png')
 cd('..')
@@ -80,6 +79,7 @@ set(gcf,'Color',[1 1 1])
 title('Phase diagram - equilibria')
 set(gca,'xtick',[])
 set(gca,'ytick',[])
+ylim([0 5])
 xlabel('K')
 ylabel('C')
 legend('\Delta K = 0','\Delta C = 0','Steady state of interest','Other steady states','Location', 'NorthEast')
@@ -115,7 +115,8 @@ subplot(2,1,1)
 plot(t,[repmat(kss,1,100) Ktraj],'b-')
 hold on
 plot(t,kss+ t*0,'k-')
-plot([0 0],[169.6 170.8],'Color',[144 103 167]./255)
+%plot([0 0],[169.6 170.8],'m-')
+plot([0 0],[169.6 170.8],'m-')
 plot([12 12],[169.6 170.8],'r-')
 plot(t,[repmat(kss,1,100) Ktraj],'b-')
 hold off
@@ -128,7 +129,7 @@ subplot(2,1,2)
 plot(t,[repmat(css,1,100) Ctraj],'b-')
 hold on
 plot(t,css+ t*0,'k-')
-plot([0 0],[3.82 3.85],'Color',[144 103 167]./255)
+plot([0 0],[3.82 3.85],'m-')
 plot([12 12],[3.82 3.85],'r-')
 plot(t,[repmat(css,1,100) Ctraj],'b-')
 hold off
@@ -147,7 +148,7 @@ subplot(2,1,1)
 plot(t,[repmat(kss,1,100) Ktraj],'b-')
 hold on
 plot(t,kss+ t*0,'k-')
-plot([0 0],[169.6 170.8],'Color',[144 103 167]./255)
+plot([0 0],[169.6 170.8],'m-')
 plot([12 12],[169.6 170.8],'r-')
 plot(t,[repmat(kss,1,100) Ktraj],'b-')
 hold off
@@ -162,7 +163,7 @@ subplot(2,1,2)
 plot(t,[repmat(css,1,100) Ctraj],'b-')
 hold on
 plot(t,css+ t*0,'k-')
-plot([0 0],[3.82 3.85],'Color',[144 103 167]./255)
+plot([0 0],[3.82 3.85],'m-')
 plot([12 12],[3.82 3.85],'r-')
 plot(t,[repmat(css,1,100) Ctraj],'b-')
 hold off
@@ -184,7 +185,7 @@ subplot(2,1,1)
 plot(t,[repmat(kss,1,20) Ktraj(:,1:121)],'b-')
 hold on
 plot(t,kss+ t*0,'k-')
-plot([0 0],[169.6 170.8],'Color',[144 103 167]./255)
+plot([0 0],[169.6 170.8],'m-')
 plot([12 12],[169.6 170.8],'r-')
 plot(t,[repmat(kss,1,20) Ktraj(:,1:121)],'b-')
 hold off
@@ -197,7 +198,7 @@ subplot(2,1,2)
 plot(t,[repmat(css,1,20) Ctraj(:,1:121)],'b-')
 hold on
 plot(t,css+ t*0,'k-')
-plot([0 0],[3.82 3.85],'Color',[144 103 167]./255)
+plot([0 0],[3.82 3.85],'m-')
 plot([12 12],[3.82 3.85],'r-')
 plot(t,[repmat(css,1,20) Ctraj(:,1:121)],'b-')
 hold off
@@ -216,7 +217,7 @@ subplot(2,1,1)
 plot(t,[repmat(kss,1,20) Ktraj(:,1:121)],'b-')
 hold on
 plot(t,kss+ t*0,'k-')
-plot([0 0],[169.6 170.8],'Color',[144 103 167]./255)
+plot([0 0],[169.6 170.8],'m-')
 plot([12 12],[169.6 170.8],'r-')
 plot(t,[repmat(kss,1,20) Ktraj(:,1:121)],'b-')
 hold off
@@ -231,7 +232,7 @@ subplot(2,1,2)
 plot(t,[repmat(css,1,20) Ctraj(:,1:121)],'b-')
 hold on
 plot(t,css+ t*0,'k-')
-plot([0 0],[3.82 3.85],'Color',[144 103 167]./255)
+plot([0 0],[3.82 3.85],'m-')
 plot([12 12],[3.82 3.85],'r-')
 plot(t,[repmat(css,1,20) Ctraj(:,1:121)],'b-')
 hold off
@@ -255,7 +256,7 @@ plot(Ktraj(1),Ctraj(1),'mo')
 plot(Ktraj(T),Ctraj(T),'mx')
 plot(Ktraj(T+1),Ctraj(T+1),'m+')
 plot(kss,css,'m*')
-plot(Ktraj,Ctraj,'k-')
+plot([kss Ktraj],[css Ctraj],'k-')
 plot(Ktraj(1),Ctraj(1),'mo')
 plot(Ktraj(T),Ctraj(T),'mx')
 plot(Ktraj(T+1),Ctraj(T+1),'m+')
@@ -280,7 +281,7 @@ plot(Ktraj(1),Ctraj(1),'mo')
 plot(Ktraj(T),Ctraj(T),'mx')
 plot(Ktraj(T+1),Ctraj(T+1),'m+')
 plot(kss,css,'m*')
-plot(Ktraj,Ctraj,'k-')
+plot([kss Ktraj],[css Ctraj],'k-')
 plot(Ktraj(1),Ctraj(1),'mo')
 plot(Ktraj(T),Ctraj(T),'mx')
 plot(Ktraj(T+1),Ctraj(T+1),'m+')
@@ -298,3 +299,5 @@ set(gca,'ytick',[])
 cd('pings')
 saveas(gcf,'phtrnolab.png')
 cd('..')
+
+%close all

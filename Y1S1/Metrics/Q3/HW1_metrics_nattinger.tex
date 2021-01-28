@@ -159,12 +159,15 @@ We can immediately apply LLN and CMT to show convergence in probability as $n \r
 \frac{\sum_{i=1}^n X_i^3}{\sum_{i=1}^n X_i^2}\\
 \end{align*}
 
+Note that this works for the second expression because we are given that $E[X_i^2]>0.$
+
 $\max_{1\leq i\leq n} \{X_i\}$ does not always converge in probability. For example, in part (iv) of this question we prove that, for $X_i \sim exponential(1)$, this function has no probability limit.\footnote{The only part of this statement not explicitly shown in part (iv) is that the proven statement shows that this function has no probability limit. However, it is trivial to see that for any candidate maximum $M$ and any $N>M$, we can draw some $X_i$ larger than $N$ with probability approaching 1 as we let $n\rightarrow \infty$, so it clearly is impossible for any such $M$ to be the probability limit of the maximum function.} The reason why we cannot apply LLN and CMT is because this function does not involve averages.%Take, for example, $X_i \sim N(0,1)$. For any candidate maximum, $x$, we can find an $\epsilon$ sufficiently small such that\begin{equation*} P\left(\left|\max_{1\leq i\leq n} \{X_i\} - x\right| \leq \epsilon\right) < 1-\epsilon.\end{equation*}
 
 In most cases we can apply LLN and CMT to $1\{ \frac{1}{n}\sum_{i=1}^n X_i >0 \}$ so long as $E[X_i]\neq 0.$ If instead $E[X_i]= 0$, the function is not continuous at the relevant moment and therefore CMT does not apply.
 
 \subsection{Part ii}
-We can apply the central limit theorem and continuous mapping theorem to the first two as all of the transformations to the random variables are continuous. The first distribution is normal, and the second is a squared normal - that is, scaled chi-squared. However, the third expression is trivially 0. We can therefore not use the central limit theorem.
+We can apply the central limit theorem and continuous mapping theorem to the first two as all of the transformations to the random variables are continuous. The first distribution is converges in distribution to $N(0,Var(X_i^2))$ by application of the central limit theorem and we can further apply the continuous mapping theorem on that distribution to find the asymptotic distribution of the second statistic - that is, a scaled chi-squared. However, the third expression is trivially 0.\footnote{Here is a quick proof that the third expression is 0: $\sum_{i=1}^n (X_i^2 - (1/n)\sum_{j=1}^nX_j^2) = \sum_{i=1}^n (X_i^2) - \sum_{j=1}^nX_j^2 = 0.$} We can therefore not use the central limit theorem in this case.
+
 \subsection{Part iii}
 Define $M_n:= \max_{1\leq i\leq n} X_i$ and let $X\sim uniform(0,1).$ Let $\epsilon>0$ be arbitrary. If $\epsilon\geq 1$ then $P(|M_n - 1| \leq \epsilon) = 1\geq 1-\epsilon$ so the definition of convergence in probability is trivially satisfied. Assume instead that $\epsilon \in (0,1)$.
 \begin{align*}
@@ -209,6 +212,8 @@ Cov(X_i,Y_i) &= E[X_iY_i] - E[X_i] E[Y_i]\\
 &= 0.
 \end{align*}
 \subsection{Part iv}
+No. Conditional on the draw of $W$, $V$ converges in distribution to different distributions. We can show that it does not unconditionally converge to $N(0,1)$ by applying the C-W device. Let $t = (1/\sqrt{2}, 1/\sqrt{2})'$. Then, if $W=-1, t'V = 0$ so $P(t'V=0)\geq 1/2>0$ so $t'V$ does not have a continuous distribution.
 \subsection{Part v}
+The naive answer to part (iv) is yes, but by simple application of Cramer-Wold we see instead that the joint asymptotic distribution does not actually exist. The 'problem' with this random vector's asymptotic properties is that there are actually two possible asymptotic distributions for $V$ conditional on $W$, so there is no unconditional asymptotic distribution.
 % Leave optional questions for exam review.
 \end{document}
