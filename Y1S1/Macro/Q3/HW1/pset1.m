@@ -300,4 +300,4 @@ cd('pings')
 saveas(gcf,'phtrnolab.png')
 cd('..')
 
-%close all
+close all

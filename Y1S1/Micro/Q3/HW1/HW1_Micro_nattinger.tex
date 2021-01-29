@@ -1,0 +1,258 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW1}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Consider the matching problem described in the following table:
+
+\begin{center}
+\begin{tabular}{c|ccc}
+ & W1 & W2 & W3\\
+\hline
+M1 & 10,5 & 8,3 & 6,12 \\
+M2 & 4,10 & 5,2 & 3,20 \\
+M3 & 6,15 & 7,1 & 8,16
+\end{tabular}
+\end{center}
+
+Note that not matching results in $0$ utility so all individuals would rather match than not match.
+
+We apply the DAA algorithm. First let men propose.
+\begin{itemize}
+\item M1 proposes to W1, M2 proposes to W2, M3 proposes to W3.
+\begin{itemize}
+\item W1, W2, and W3 accept the proposals from M1, M2, and M3, respectively.
+\end{itemize}
+\end{itemize}
+
+Next, let women propose.
+\begin{itemize}
+\item W1 proposes to M3, W2 proposes to M1, W3 proposes to M2.
+\begin{itemize}
+\item M1, M2, and M3 accept the proposals from W2, W3, and W1, respectively.
+\end{itemize}
+\end{itemize}
+
+The outcomes are different depending on whether men or women propose.
+
+Now, we change the grid to the following:
+
+\begin{center}
+\begin{tabular}{c|ccc}
+ & W1 & W2 & W3\\
+\hline
+M1 & 10,10 & 8,3 & 6,12 \\
+M2 & 4,5 & 5,2 & 3,16 \\
+M3 & 6,15 & 7,1 & 8,20
+\end{tabular}
+\end{center}
+
+First let men propose:
+\begin{itemize}
+\item M1 proposes to W1, M2 proposes to W2, M3 proposes to W3.
+\begin{itemize}
+\item W1, W2, and W3 accept the proposals from M1, M2, and M3, respectively.
+\end{itemize}
+\end{itemize}
+
+Next, let women propose.
+\begin{itemize}
+\item W1 proposes to M3, W2 proposes to M1, W3 proposes to M3.
+\begin{itemize}
+\item M1 and M3 accept the proposals from W2 and W3, respectively.
+\item M3 rejects the proposal from W1. W1 is unmatched.
+\end{itemize}
+\item W1 proposes to M1.
+\begin{itemize}
+\item M1 accepts the proposal from W1.
+\item M1 leaves W2. W2 is unmatched.
+\end{itemize}
+\item W2 proposes to M2.
+\begin{itemize}
+\item M2 accepts the proposal from W2.
+\end{itemize}
+\end{itemize}
+
+In this scenario, the final matches are the same regardless of whether men propose or women propose.
+
+\section{Question 2}
+Consider the following matching market:
+
+\begin{center}
+\begin{tabular}{c|ccc}
+ & M1 & M2 & M3\\
+\hline
+W1 & 1,2 & 4,3 & 3,2 \\
+W2 & 1,3 & 2,4 & 3,2 \\
+W3 & 2,2 & 2,2 & 4,4
+\end{tabular}
+\end{center}
+
+Note that not matching results in $0$ utility so all individuals would rather match than not match.
+
+\subsection{Part A}
+First let us apply the DA algorithm. Assume men propose. Then,
+\begin{itemize}
+\item M1 proposes to W2, M2 proposes to W2, M3 proposes to W3.
+\begin{itemize}
+\item W2 and W3 accept the proposals from M2 and M3, respectively.
+\item W2 rejects the offer from M1. M1 is unmatched.
+\end{itemize}
+\item M1 could then either propose to W1 or W3 as they are indifferent between the two. Assume they propose to W3. (If they propose to W1 instead, skip the following line)
+ \begin{itemize}
+\item W3 rejects the proposal from M1. M1 remains unmatched.
+\end{itemize}
+\item M1 proposes to W1.
+\begin{itemize}
+\item W1 accepts the proposal from M1.
+\end{itemize}
+\end{itemize}
+
+Next, assume women propose. Then,
+\begin{itemize}
+\item W1 proposes to M2, W2 proposes to M3, W3 proposes to M3.
+\begin{itemize}
+\item M2 and M3 accept the proposals from W1 and W3, respectively.
+\item M3 rejects the proposal from W2. W2 is unmatched.
+\end{itemize}
+\item W2 proposes to M2.
+\begin{itemize}
+\item M2 accepts the proposal from W2.
+\item M2 leaves W1. W1 is unmatched.
+\end{itemize}
+\item W1 proposes to M1.
+\begin{itemize}
+\item M1 accepts the proposal from W1.
+\end{itemize}
+\end{itemize}
+
+The same matches result from both the men and women proposing. When the men propose the matching is male-optimal, while when the women propose the matching is male-pessimal. Since the same stable matching is simultaneously male-optimal and male-pessimal, the stable matching is unique.
+
+\subsection{Part B}
+We have not had this lecture yet.
+\subsection{Part C}
+We have not had this lecture yet.
+
+\section{Question 3}
+\subsection{Part A}
+The type $x$ will agree to match if $y+axy\geq0 \Rightarrow y\geq -axy \Rightarrow 1\geq -ax \Rightarrow x\leq \frac{1}{-a}$.
+
+Similarly, $y$ will agree to match if $x+axy \geq 0 \Rightarrow y\leq \frac{1}{-a}$.
+
+The match will occur if both conditions are met, i.e. $x,y\leq \frac{1}{-a}.$
+
+\subsection{Part B}
+\section{Question 4}
+Let the market clearing rate be  $3\%+x(0.01\%)$. Then, $x\in (k,k+1]$ for some $k \in \{1,\dots,29\}$. The borrower $i$ will agree to borrow if $x\leq i$, so students $i \in \{b, \dots, 29\}:= B$ will agree to borrow (where $b:= k +1 + 1\{k \text{ is odd}\}$). Similarly, lender $i$ will agree to lend if $x\geq 2i$, so students $i \in \{2,4,\dots,l\}:= L$ will agree to lend (where $l = \text{floor}(k/2) - 1\{ \text{floor}(k/2) \text{ is odd}\}$). There are $l/2$ elements of $L$ and $\frac{29-b}{2} + 1$ elements of $B$.
+
+Assume the number of lenders and borrowers must be the same for the market to clear. Then,
+\begin{align*}
+l/2 &= \frac{29-b}{2} + 1\\
+\Rightarrow  ( \text{floor}(k/2) - 1\{ \text{floor}(k/2) \text{ is odd}\})/2 &=  \frac{29-(k +1 + 1\{k \text{ is odd}\})}{2} + 1
+\end{align*}
+First assume $\text{mod}(k,4) = 0.$ Then, 
+\begin{align*}
+k/4 &= \frac{29 - k - 1}{2}+1\\
+\Rightarrow k &= 20.
+\end{align*}
+This is a valid solution.
+
+Next assume $\text{mod}(k,4) = 1$.
+\begin{align*}
+(k-1)/4 &= \frac{29 - k - 2}{2} +1\\
+\Rightarrow k&= 59/3.
+\end{align*}
+This is not an integer, so this solution is invalid.
+
+Next assume $\text{mod}(k,4) = 2$.
+\begin{align*}
+(k/2 - 1)/2 &= \frac{29 - k - 1}{2} +1\\
+\Rightarrow k&= 62/3.
+\end{align*}
+This is not an integer, so this solution is invalid.
+
+Next assume $\text{mod}(k,4) = 3$.
+\begin{align*}
+((k-1)/2 -1)/2 &= \frac{29 - k - 2}{2} +1\\
+\Rightarrow k &= 61/3.
+\end{align*}
+This is not an integer, so this solution is invalid.
+
+Therefore, the market clearing rate can be any rate $3\%+x(0.01\%)$, $x \in (20,21]$. At this rate, there will $20/4 = 5$ borrowers and $5$ lenders. There will, therefore, be $5$ transactions.
+\end{document}

@@ -212,7 +212,7 @@ Cov(X_i,Y_i) &= E[X_iY_i] - E[X_i] E[Y_i]\\
 &= 0.
 \end{align*}
 \subsection{Part iv}
-No. Conditional on the draw of $W$, $V$ converges in distribution to different distributions. We can show that it does not unconditionally converge to $N(0,1)$ by applying the C-W device. Let $t = (1/\sqrt{2}, 1/\sqrt{2})'$. Then, if $W=-1, t'V = 0$ so $P(t'V=0)\geq 1/2>0$ so $t'V$ does not have a continuous distribution.
+No. Conditional on the draw of $W$, $V$ converges in distribution to different distributions. We can show that it does not unconditionally converge to $N(0,I_2)$ by applying the C-W device. Let $t = (1/\sqrt{2}, 1/\sqrt{2})'$. Then, if $W=-1, t'V = 0$ so $P(t'V=0)\geq 1/2>0$ so $t'V$ does not have a continuous distribution. $t'V$, therefore, does not converge in distribution to $N(0,t'I_2 t)$, so $V$ does not converge in distribution to $N(0,I_2)$.
 \subsection{Part v}
 The naive answer to part (iv) is yes, but by simple application of Cramer-Wold we see instead that the joint asymptotic distribution does not actually exist. The 'problem' with this random vector's asymptotic properties is that there are actually two possible asymptotic distributions for $V$ conditional on $W$, so there is no unconditional asymptotic distribution.
 % Leave optional questions for exam review.
