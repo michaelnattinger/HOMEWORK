@@ -1,0 +1,120 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS2}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+The planner solves the following maximization problem subject to the capital law of motion and the resource constraint:
+\begin{align*}
+\max_{\{ C_t,I_t, K_t\}_{t=1}^{\infty}} \sum_{t=0}^{\infty} \beta^t log C_t\\
+\text{s.t. } K_{t+1} = K_t^{1-\delta}I_t^{\delta}\\
+\text{and } AK_t^{\alpha} = C_t + I_t
+\end{align*}
+We can solve the resource constraint for $I_t$ and plug it into the capital law of motion. Using this simplification, we can write down our Lagrangian:
+\begin{align*}
+\mathcal{L} &= \sum_{t=0}^{\infty} \beta^t log C_t + \lambda_t\left(-K_{t+1}+ K_t^{1-\delta}\left( AK_t^{\alpha}  - C_t \right)^{\delta}\right)
+\end{align*}
+Taking first order conditions with respect to $C_t,K_{t+1}$ we find the following:
+\begin{align*}
+\frac{\beta^t}{C_t} &= \lambda_tK_t^{1-\delta}(AK_t^{\alpha}  - C_t )^{\delta - 1}\\
+\lambda_t &= \lambda_{t+1}(K_{t+1}^{1-\delta}\delta(AK_{t+1}^{\alpha}  - C_{t+1} )^{\delta - 1}A\alpha K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-\delta} \left( AK_{t+1}^{\alpha}  - C_{t+1} \right)^{\delta})\\
+\Rightarrow \lambda_t &= \frac{\beta^t}{C_tK_t^{1-\delta}I_t^{\delta - 1}} \\
+\Rightarrow  \frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &=  \frac{\beta}{C_{t+1}K_{t+1}^{1-\delta}I_{t+1}^{\delta - 1}}(A\alpha \delta K_{t+1}^{\alpha - \delta}I_{t+1}^{\delta - 1} + (1-\delta)K_{t+1}^{-\delta}I_{t+1}^{\delta})\\
+\end{align*}
+
+\begin{align}
+\frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &= \frac{\beta}{C_{t+1}}(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}I_{t+1})
+\end{align}
+The above equation forms our Euler equation.
+%We can solve the capital law of motion for $I_t$ and plug it into the resource constraint. Using this simplification, we can write down our Lagrangian:
+%\begin{align*}
+%\mathcal{L} &= \sum_{t=0}^{\infty} \beta^t log C_t + \lambda_t\left(AK_t^{\alpha} - \left(\frac{K_{t+1}}{K_t^{1-\delta}}\right)^{1/\delta} - C_t\right)
+%\end{align*}
+%Taking first order conditions with respect to $C_t,K_{t+1}$ we find the following:
+%\begin{align*}
+%\frac{\beta^t}{C_t} &= \lambda_t\\
+%\lambda_{t+1}A\alpha K_{t+1}^{\alpha - 1} &= \lambda_{t}\frac{}{}
+%\end{align*}
+
+Assume we are on the optimal trajectory at time $t$, and consider a one-period deviation in consumption by an amount $\Delta$. Our resource constraint implies that this results in a decrease in $I_t$ by an equal amount, $\Delta$. Then, our $K_{t+1}$ is reduced (to first order approximation) to $K_t^{1-\delta}I_t^{\delta} -\delta \Delta K_t^{1-\delta}I_t^{\delta-1}$. Then, our consumption in the second equation is reduced by two effects: reduced $K_{t+1}$ leads to less production at time $t+1$, and a larger gap to make up via $I_{t+1}$ to get back onto the optimal trajectory at time $t+2$. The net effect of the first of these terms, to first order expansion, is $-(\delta \Delta  K_t^{1-\delta}I_t^{\delta-1})(A\alpha K_{t+1}^{\alpha - 1} ) $, in other words, the reduction in $C_{t+1}$ from the (first order approximation of the) decrease in production in period (t+1). Now we must address the second of these turns. $K_{t+2} = K_{t+1}^{1-\delta}I_{t+1}^{\delta}$ is fixed and we know the value of $K_{t+1}$ so we can determine the value of $I_{t+1}.$
+
+Our marginal utility by making this move is thus 
+\begin{align*}
+dU &=  \beta^tC_t^{-1}\Delta - \beta^{t+1} C_{t+1}^{-1}\left(\right)\Delta\\
+dU/\Delta = 0 \Rightarrow C_t^{-1} &= \beta C_{t+1}^{-1}(\delta \Delta  K_t^{1-\delta}I_t^{\delta-1})
+\end{align*}
+\end{document}

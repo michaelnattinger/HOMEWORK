@@ -205,9 +205,19 @@ Next, assume women propose. Then,
 The same matches result from both the men and women proposing. When the men propose the matching is male-optimal, while when the women propose the matching is male-pessimal. Since the same stable matching is simultaneously male-optimal and male-pessimal, the stable matching is unique.
 
 \subsection{Part B}
-We have not had this lecture yet.
+\begin{center}
+\begin{tabular}{c|ccc}
+ & M1 & M2 & M3\\
+\hline
+W1 & 3 & \textbf{7} & 5 \\
+W2 & \textbf{4} & 6 & 5 \\
+W3 & 4 & 4 & \textbf{8}
+\end{tabular}
+\end{center}
+We can quite easily determine the efficient matching by summing the values in each entry in the above table and choosing the combination that maximizese the total sum across all matches. The efficient matching, denoted in bold above, is M1-W2, M2-W1, M3-W3.
+
 \subsection{Part C}
-We have not had this lecture yet.
+Free entry gives us $w_2+v_2 \geq 6$, and free exit gives us $w_2 + v_1 \leq 4$. Combining the inequalities via subtraction, we yield the following: $v_2 \geq v_1 + 2$. Since $v_1\geq 0 $ as the outside option is $0$, $v_2 \geq 2$
 
 \section{Question 3}
 \subsection{Part A}
@@ -218,8 +228,13 @@ Similarly, $y$ will agree to match if $x+axy \geq 0 \Rightarrow y\leq \frac{1}{-
 The match will occur if both conditions are met, i.e. $x,y\leq \frac{1}{-a}.$
 
 \subsection{Part B}
+We want to find the wage function such that being paid $w(x)$ is sufficient for person $x$ to agree to work for all $x$, and since the wage is decentralized we must have $\int_{0}^1w(x)dx = 0.$  
+
+Person $x$ agreeing to work conditional upon being matched with person $y$, and vice-versa, implies the following:
+
+
 \section{Question 4}
-Let the market clearing rate be  $3\%+x(0.01\%)$. Then, $x\in (k,k+1]$ for some $k \in \{1,\dots,29\}$. The borrower $i$ will agree to borrow if $x\leq i$, so students $i \in \{b, \dots, 29\}:= B$ will agree to borrow (where $b:= k +1 + 1\{k \text{ is odd}\}$). Similarly, lender $i$ will agree to lend if $x\geq 2i$, so students $i \in \{2,4,\dots,l\}:= L$ will agree to lend (where $l = \text{floor}(k/2) - 1\{ \text{floor}(k/2) \text{ is odd}\}$). There are $l/2$ elements of $L$ and $\frac{29-b}{2} + 1$ elements of $B$.
+Let the market clearing rate be  $3\%+x(0.01\%)$. Then, $x\in (k,k+1]$ for some $k \in \{1,\dots,29\}$. The borrower $i$ will agree to borrow if $x\leq i$, so students $i \in \{b, \dots, 29\}:= B$ will agree to borrow (where $b= k +1 + 1\{k \text{ is odd}\}$). Similarly, lender $i$ will agree to lend if $x\geq 2i$, so students $i \in \{2,4,\dots,l\}:= L$ will agree to lend (where $l = \text{floor}(k/2) - 1\{ \text{floor}(k/2) \text{ is odd}\}$). There are $l/2$ elements of $L$ and $\frac{29-b}{2} + 1$ elements of $B$.
 
 Assume the number of lenders and borrowers must be the same for the market to clear. Then,
 \begin{align*}
@@ -254,5 +269,5 @@ Next assume $\text{mod}(k,4) = 3$.
 \end{align*}
 This is not an integer, so this solution is invalid.
 
-Therefore, the market clearing rate can be any rate $3\%+x(0.01\%)$, $x \in (20,21]$. At this rate, there will $20/4 = 5$ borrowers and $5$ lenders. There will, therefore, be $5$ transactions.
+Therefore, the market clearing rate can be any rate $3\%+x(0.01\%)$, $x \in [20,21]$.\footnote{Note that the derived solution 'misses' the possibility of $x=20$, which here I assert is also a valid solution as it does not break any of the inequalities necessary for 5 borrowers and 5 lenders to agree to the transaction.} At this rate, there will $20/4 = 5$ borrowers and $5$ lenders. There will, therefore, be $5$ transactions.
 \end{document}
