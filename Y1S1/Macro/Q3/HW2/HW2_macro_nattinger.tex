@@ -93,7 +93,7 @@ Taking first order conditions with respect to $C_t,K_{t+1}$ we find the followin
 \frac{\beta^t}{C_t} &= \lambda_t \delta K_t^{1-\delta}(AK_t^{\alpha}  - C_t )^{\delta - 1}\\
 \lambda_t &= \lambda_{t+1}(K_{t+1}^{1-\delta}\delta(AK_{t+1}^{\alpha}  - C_{t+1} )^{\delta - 1}A\alpha K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-\delta} \left( AK_{t+1}^{\alpha}  - C_{t+1} \right)^{\delta})\\
 \Rightarrow \lambda_t &= \frac{\beta^t}{\delta C_tK_t^{1-\delta}I_t^{\delta - 1}} \\
-\Rightarrow  \frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &=  \frac{\beta}{C_{t+1}K_{t+1}^{1-\delta}I_{t+1}^{\delta - 1}}(A\alpha \delta K_{t+1}^{\alpha - \delta}I_{t+1}^{\delta - 1} + (1-\delta)K_{t+1}^{-\delta}I_{t+1}^{\delta})\\
+\Rightarrow  \frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &=  \frac{\beta}{C_{t+1}K_{t+1}^{1-\delta}I_{t+1}^{\delta - 1}}(A\alpha \delta K_{t+1}^{\alpha - \delta}I_{t+1}^{\delta - 1} + (1-\delta)K_{t+1}^{-\delta}I_{t+1}^{\delta})
 \end{align*}
 
 \begin{align}
@@ -139,5 +139,62 @@ Equations (\ref{lom1}) and (\ref{lom2}) determine the law of motion of the syste
 \end{align*}
 The above equations pin down the steady state of the model.
 \section{Question 3}
+We will log linearize about the steady state defined in Question 2. We first will define $I = AK^{\alpha} - C.$ Log linearizing I we get:
+\begin{align*}
+\bar{I}(1+i_t) &= A\bar{K}(1+k_t) - \bar{C}(1+c_t)\\
+\Rightarrow i_t &= A\frac{\bar{K}}{\bar{I}}k_t - \frac{\bar{C}}{\bar{I}}c_t \\
+\Rightarrow i_t &= Ak_t - \frac{\bar{C}}{\bar{I}}c_t ,
+\end{align*}
+where we have used the fact that equation (\ref{lom2}) implies that $\bar{K} = \bar{I}$.
 
+Using this we can log linearize equation (\ref{lom2}):
+\begin{align*}
+\bar{K}(1+k_{t+1}) &= \bar{K}^{1-\delta}(1+(1-\delta)k_t)\bar{I}^{\delta}(1+\delta i_t)\\
+\Rightarrow k_{t+1} &= (1-\delta)k_t + \delta i_t\\
+&= (1-\delta)k_t + \delta \left( Ak_t - \frac{\bar{C}}{\bar{I}}c_t \right)\\
+&= (1-\delta + A\delta) k_t - \delta\frac{\bar{C}}{\bar{I}}c_t
+\end{align*}
+
+Now we can log linearize equation (\ref{lom1}):
+\begin{align*}
+(1+c_{t+1}) &= \beta (1+c_{t}) (1+(1-\delta)k_t) (1+(\delta - 1)i_t)\\ &*(A\alpha \delta \bar{K}^{\alpha - 1}(1+(\alpha -1)k_{t+1}) + (1-\delta)(1-k_{t+1})(1+i_{t+1}))\\
+c_{t+1} &= \beta (A\alpha\delta\bar{K}^{\alpha-1}(\alpha - 1)k_{t+1} + (1-\delta)(i_{t+1} - k_{t+1})\\ &+ (A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))(c_t + (1-\delta)k_t + (\delta - 1)i_t))\\
+c_{t+1} &= \frac{A\alpha \delta \bar{K}^{-1}(\alpha -1)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))}k_{t+1} +  \frac{ (1-\delta)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))} i_{t+1} \\
+&-   \frac{ (1-\delta)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))} k_{t+1} + c_t + (1-\delta)k_t + (\delta - 1)i_t
+\end{align*}
+
+\section{Question 4}
+Define, for sake of convenience, $\psi = A\alpha\delta \bar{K}^{-1}, \gamma = (1-\delta)$. Then, we can reduce the above equation to the following:
+\begin{align*}
+c_{t+1} &= \frac{\psi (\alpha - 1) - \gamma}{\psi + \gamma}k_{t+1} + \frac{\gamma}{\psi + \gamma}i_{t+1} + c_t + \gamma k_t - \gamma i_t,\\
+&= \frac{\psi (\alpha - 1) - \gamma}{\psi + \gamma}k_{t+1} + \frac{\gamma}{\psi + \gamma}\left(Ak_{t+1} - \frac{\bar{C}}{\bar{I}}c_{t+1} \right)  + c_t + \gamma k_t - \gamma \left( Ak_t - \frac{\bar{C}}{\bar{I}}c_t \right)
+\end{align*}
+\begin{align*}
+\Rightarrow c_{t+1}\left( 1 + \frac{\gamma}{\psi + \gamma} \frac{\bar{C}}{\bar{I}}\right) &=  \frac{\psi (\alpha - 1) + \gamma(A - 1)}{\psi + \gamma}k_{t+1}   +(1 - \bar{C}\bar{I}^{-1}) c_t +  \gamma\left( 1-A \right)k_t 
+\end{align*}
+\begin{align*}
+c_{t+1} \left( 1 + \frac{\gamma}{\psi + \gamma} \frac{\bar{C}}{\bar{I}}\right) &= \frac{\psi (\alpha - 1) + \gamma(A - 1)}{\psi + \gamma}\left( \left(1 - \delta + \delta A\right)k_t - \delta\frac{\bar{C}}{\bar{I}}c_t \right)\\ &+(1 - \bar{C}\bar{I}^{-1}) c_t +  \gamma\left( 1-A \right)k_t 
+\end{align*}
+
+\section{Question 5}
+Outline: From (4) find $\eta$ such that $c_t = \eta k_t \Rightarrow C_t = ZK_t$ for some $Z$. Plug into euler and LOM and solve to show that euler is satisfied.
+\section{Question 6}
+Let us first write the planner's problem. We will jump immediately to the lagrangian formulation:
+\begin{align*}
+\mathcal{L} &= E_t\sum_{t=0}^{\infty} \beta^t log C_t + \lambda_t\left(-K_{t+1}+ K_t^{1-\delta}\left( A_tK_t^{\alpha}  - C_t \right)^{\delta}\right)
+\end{align*}
+
+This yields the following first order conditions:
+\begin{align*}
+\frac{\beta^t}{C_t} &= \lambda_t \delta K_t^{1-\delta}(A_tK_t^{\alpha}  - C_t )^{\delta - 1}\\
+\lambda_t &= E_t\lambda_{t+1}(K_{t+1}^{1-\delta}\delta(A_{t+1}K_{t+1}^{\alpha}  - C_{t+1} )^{\delta - 1}A_{t+1}\alpha K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-\delta} \left( A_{t+1}K_{t+1}^{\alpha}  - C_{t+1} \right)^{\delta})\\
+\Rightarrow \lambda_t &= \frac{\beta^t}{\delta C_tK_t^{1-\delta}I_t^{\delta - 1}} \\
+\Rightarrow  \frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &=  E_t\left[\frac{\beta}{C_{t+1}}(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}I_{t+1})\right]
+\end{align*}
+The above expression forms our euler condition for the stochastic case. 
+
+Outline: Guess small change for solution to (6) adjusting for stochastic case and show that this guess satisfies the euler condition above.
+
+\section{Question 7}
+Our solutions for Question 5 and Question 6 show that consumption and capital levels are perfectly correlated. This comes from the formulation for capital law of motion, which ensures that investment is perfectly correlated with capital levels, and therefore consumption will also be perfectly correlated with capital levels via the resource constraint.
 \end{document}
