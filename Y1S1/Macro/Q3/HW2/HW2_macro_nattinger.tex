@@ -90,14 +90,14 @@ We can solve the resource constraint for $I_t$ and plug it into the capital law 
 \end{align*}
 Taking first order conditions with respect to $C_t,K_{t+1}$ we find the following:
 \begin{align*}
-\frac{\beta^t}{C_t} &= \lambda_tK_t^{1-\delta}(AK_t^{\alpha}  - C_t )^{\delta - 1}\\
+\frac{\beta^t}{C_t} &= \lambda_t \delta K_t^{1-\delta}(AK_t^{\alpha}  - C_t )^{\delta - 1}\\
 \lambda_t &= \lambda_{t+1}(K_{t+1}^{1-\delta}\delta(AK_{t+1}^{\alpha}  - C_{t+1} )^{\delta - 1}A\alpha K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-\delta} \left( AK_{t+1}^{\alpha}  - C_{t+1} \right)^{\delta})\\
-\Rightarrow \lambda_t &= \frac{\beta^t}{C_tK_t^{1-\delta}I_t^{\delta - 1}} \\
+\Rightarrow \lambda_t &= \frac{\beta^t}{\delta C_tK_t^{1-\delta}I_t^{\delta - 1}} \\
 \Rightarrow  \frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &=  \frac{\beta}{C_{t+1}K_{t+1}^{1-\delta}I_{t+1}^{\delta - 1}}(A\alpha \delta K_{t+1}^{\alpha - \delta}I_{t+1}^{\delta - 1} + (1-\delta)K_{t+1}^{-\delta}I_{t+1}^{\delta})\\
 \end{align*}
 
 \begin{align}
-\frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &= \frac{\beta}{C_{t+1}}(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}I_{t+1})
+\frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &= \frac{\beta}{C_{t+1}}(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}I_{t+1}) \label{eul}
 \end{align}
 The above equation forms our Euler equation.
 %We can solve the capital law of motion for $I_t$ and plug it into the resource constraint. Using this simplification, we can write down our Lagrangian:
@@ -110,11 +110,34 @@ The above equation forms our Euler equation.
 %\lambda_{t+1}A\alpha K_{t+1}^{\alpha - 1} &= \lambda_{t}\frac{}{}
 %\end{align*}
 
-Assume we are on the optimal trajectory at time $t$, and consider a one-period deviation in consumption by an amount $\Delta$. Our resource constraint implies that this results in a decrease in $I_t$ by an equal amount, $\Delta$. Then, our $K_{t+1}$ is reduced (to first order approximation) to $K_t^{1-\delta}I_t^{\delta} -\delta \Delta K_t^{1-\delta}I_t^{\delta-1}$. Then, our consumption in the second equation is reduced by two effects: reduced $K_{t+1}$ leads to less production at time $t+1$, and a larger gap to make up via $I_{t+1}$ to get back onto the optimal trajectory at time $t+2$. The net effect of the first of these terms, to first order expansion, is $-(\delta \Delta  K_t^{1-\delta}I_t^{\delta-1})(A\alpha K_{t+1}^{\alpha - 1} ) $, in other words, the reduction in $C_{t+1}$ from the (first order approximation of the) decrease in production in period (t+1). Now we must address the second of these turns. $K_{t+2} = K_{t+1}^{1-\delta}I_{t+1}^{\delta}$ is fixed and we know the value of $K_{t+1}$ so we can determine the value of $I_{t+1}.$
+Assume we are on the optimal trajectory at time $t$, and consider a one-period deviation in consumption by an amount $D$. Our resource constraint implies that this results in a decrease in $I_t$ by an equal amount, $D$. Then, our $K_{t+1}$ is reduced (to first order approximation) by $ -\delta D K_t^{1-\delta}I_t^{\delta-1}$. Then, our consumption in the second equation is reduced by two effects: reduced $K_{t+1}$ leads to less production at time $t+1$, and a larger gap to make up via $I_{t+1}$ to get back onto the optimal trajectory at time $t+2$. The net effect of the first of these terms, to first order expansion, is $-(\delta D  K_t^{1-\delta}I_t^{\delta-1})(A\alpha K_{t+1}^{\alpha - 1} ) $, in other words, the reduction in $C_{t+1}$ from the (first order approximation of the) decrease in production in period (t+1). Now we must address the second of these turns. $K_{t+2} = K_{t+1}^{1-\delta}I_{t+1}^{\delta}$ is fixed and we know the value of $K_{t+1}$ so we can determine the value of $I_{t+1}.$ To first order approximation, small deviations of capital and investment $(\Delta K_{t+1}),(\Delta I_{t+1})$ satisfy $(1-\delta)((\Delta K_{t+1}))(K_{t+1}^{-\delta}I_{t+1}^{\delta}) = -\delta (\Delta I_{t+1})(K_{t+1}^{1-\delta}I_{t+1}^{\delta - 1}) \Rightarrow (\Delta I_{t+1}) =- \frac{1-\delta}{\delta}(I_{t+1}K_{t+1}^{-1})(\Delta K_{t+1})$. This is taken away from $C_{t+1}.$ Therefore, our second effect of the reduction in $K_{t+1}$ on $C_{t+1}$ is $-(\delta \Delta  K_t^{1-\delta}I_t^{\delta-1})\frac{1-\delta}{\delta}\frac{I_{t+1}}{K_{t+1}}$.
 
 Our marginal utility by making this move is thus 
 \begin{align*}
-dU &=  \beta^tC_t^{-1}\Delta - \beta^{t+1} C_{t+1}^{-1}\left(\right)\Delta\\
-dU/\Delta = 0 \Rightarrow C_t^{-1} &= \beta C_{t+1}^{-1}(\delta \Delta  K_t^{1-\delta}I_t^{\delta-1})
+dU &=  \beta^tC_t^{-1}D - \beta^{t+1} C_{t+1}^{-1}\left((\delta K_t^{1-\delta}I_t^{\delta-1})\left(A\alpha K_{t+1}^{\alpha - 1} + \frac{1-\delta}{\delta}\frac{I_{t+1}}{K_{t+1}} \right) \right)D\\
+dU = 0 \Rightarrow C_t^{-1} &= \beta C_{t+1}^{-1}( K_t^{1-\delta}I_t^{\delta-1})\left(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)\frac{I_{t+1}}{K_{t+1}} \right)
 \end{align*}
+This yields (\ref{eul}), our euler condition. Therefore, the euler condition represents a no-profitable-deviation condition.
+\section{Question 2}
+The system of equations that pins down the law of motion for the system are the following:
+\begin{align*}
+\frac{1}{C_tK_t^{1-\delta}I_t^{\delta - 1}}  &= \frac{\beta}{C_{t+1}}(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}I_{t+1})\\
+AK_t^{\alpha} &= C_t + I_t \\
+K_{t+1} &= K_t^{1-\delta}I_t^{\delta}
+\end{align*}
+We can use the resource constraint to rewrite the system of equations without $I_t$:
+\begin{align}
+%\frac{1}{C_tK_t^{1-\delta}(AK_t^{\alpha} - C_t)^{\delta - 1}}  &= \frac{\beta}{C_{t+1}}(A\alpha \delta K_{t+1}^{\alpha - 1} + (1-\delta)K_{t+1}^{-1}(AK_t^{\alpha} - C_t)) \\
+C_{t+1} &= \beta C_tK_t^{1-\delta}(AK_t^{\alpha} - C_t)^{\delta - 1}(A\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(AK_{t+1}^{\alpha} - C_{t+1}) ) \label{lom1}\\
+K_{t+1} &= K_t^{1-\delta}(AK_t^{\alpha} - C_t)^{\delta} \label{lom2}
+\end{align}
+
+Equations (\ref{lom1}) and (\ref{lom2}) determine the law of motion of the system. We can use these equations and impose stationarity $(K_t = K_{t+1} = \bar{K}, C_t = C_{t+1} = \bar{C})$ to determine the steady state:
+\begin{align*}
+1 &= \beta \bar{K}^{1-\delta}(A\bar{K}^{\alpha} - \bar{C})^{\delta - 1}(A\alpha \delta \bar{K}^{\alpha - 1} + (1 - \delta) \bar{K}^{-1}(A\bar{K}^{\alpha} - \bar{C})) \\
+1 &= \bar{K}^{-\delta}(A\bar{K}^{\alpha} - \bar{C})^\delta
+\end{align*}
+The above equations pin down the steady state of the model.
+\section{Question 3}
+
 \end{document}

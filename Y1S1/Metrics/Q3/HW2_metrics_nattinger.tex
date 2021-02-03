@@ -109,9 +109,9 @@ Z is a valid instrument for X so long as Z satisfies exogeneity and relevance co
 \begin{align*}
 Cov(X,Z) &= Cov(\pi_0 + Z\pi_1 + V,Z)\\
 &= Cov(\pi_0,Z) + Cov(Z\pi_1,Z) + Cov(V,Z)\\
-&= \pi_1 + E[VZ] + EVEZ\\
-&= \pi_1 + E[ZE[V|Z]] + EZE[E[V|Z]]\\
-&= \pi_1.
+&= \pi_1Var(Z) + E[VZ] + EVEZ\\
+&= \pi_1Var(Z) + E[ZE[V|Z]] + EZE[E[V|Z]]\\
+&= \pi_1Var(Z).
 \end{align*}
 \subsection{Part B}
 \begin{align*}
