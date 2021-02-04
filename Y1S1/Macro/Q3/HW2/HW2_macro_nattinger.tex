@@ -159,22 +159,26 @@ Now we can log linearize equation (\ref{lom1}):
 \begin{align*}
 (1+c_{t+1}) &= \beta (1+c_{t}) (1+(1-\delta)k_t) (1+(\delta - 1)i_t)\\ &*(A\alpha \delta \bar{K}^{\alpha - 1}(1+(\alpha -1)k_{t+1}) + (1-\delta)(1-k_{t+1})(1+i_{t+1}))\\
 c_{t+1} &= \beta (A\alpha\delta\bar{K}^{\alpha-1}(\alpha - 1)k_{t+1} + (1-\delta)(i_{t+1} - k_{t+1})\\ &+ (A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))(c_t + (1-\delta)k_t + (\delta - 1)i_t))\\
-c_{t+1} &= \frac{A\alpha \delta \bar{K}^{-1}(\alpha -1)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))}k_{t+1} +  \frac{ (1-\delta)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))} i_{t+1} \\
+c_{t+1} &= \frac{A\alpha \delta \bar{K}^{\alpha-1}(\alpha -1)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))}k_{t+1} +  \frac{ (1-\delta)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))} i_{t+1} \\
 &-   \frac{ (1-\delta)}{(A\alpha\delta\bar{K}^{\alpha-1} + (1-\delta))} k_{t+1} + c_t + (1-\delta)k_t + (\delta - 1)i_t
 \end{align*}
 
 \section{Question 4}
-Define, for sake of convenience, $\psi = A\alpha\delta \bar{K}^{-1}, \gamma = (1-\delta)$. Then, we can reduce the above equation to the following:
+Define, for sake of convenience, $\psi = A\alpha\delta \bar{K}^{\alpha-1}, \gamma = (1-\delta), \phi = A\bar{K}^{\alpha - 1}$. Note that the euler equation steady state yields $\gamma + \psi = 1/\beta$, and the investment steady state yields $\bar{C}/\bar{K} = \phi - 1$. Then, we can reduce the above equation to the following:
 \begin{align*}
-c_{t+1} &= \frac{\psi (\alpha - 1) - \gamma}{\psi + \gamma}k_{t+1} + \frac{\gamma}{\psi + \gamma}i_{t+1} + c_t + \gamma k_t - \gamma i_t,\\
-&= \frac{\psi (\alpha - 1) - \gamma}{\psi + \gamma}k_{t+1} + \frac{\gamma}{\psi + \gamma}\left(\frac{\psi}{\delta}k_{t+1} - \frac{\bar{C}}{\bar{I}}c_{t+1} \right)  + c_t + \gamma k_t - \gamma \left( \frac{\psi}{\delta}k_t - \frac{\bar{C}}{\bar{I}}c_t \right)
+c_{t+1} &= \beta(\psi (\alpha - 1) - \gamma)k_{t+1} + \beta\gamma i_{t+1} + c_t + \gamma k_t - \gamma i_t,\\
+&= \beta(\psi (\alpha - 1) - \gamma)k_{t+1} + \beta\gamma\left(\frac{\psi}{\delta}k_{t+1} - (\phi - 1)c_{t+1} \right)  + c_t + \gamma k_t - \gamma \left( \frac{\psi}{\delta}k_t - (\phi - 1)c_t \right)
 \end{align*}
 \begin{align*}
-\Rightarrow c_{t+1}\left( 1 + \frac{\gamma}{\psi + \gamma} \frac{\bar{C}}{\bar{I}}\right) &=  \frac{\psi (\alpha - 1) + \gamma(\psi/\delta - 1)}{\psi + \gamma}k_{t+1}   +(1 - \bar{C}\bar{I}^{-1}) c_t +  \gamma\left( 1-\frac{\psi}{\delta} \right)k_t 
+\Rightarrow c_{t+1}\left( 1 + \beta\gamma (\phi - 1)\right) &=  \beta(\psi (\alpha - 1) + \gamma(\psi/\delta - 1))k_{t+1}   +(2 - \phi) c_t +  \gamma\left( 1-\frac{\psi}{\delta} \right)k_t 
 \end{align*}
 \begin{align*}
-c_{t+1} \left( \frac{\psi+\gamma(1+\bar{C}\bar{I}^{-1})}{\psi + \gamma} \right) &= \frac{\psi (\alpha - 1) + \gamma(\psi/\delta - 1)}{\psi + \gamma}\left( \left(\gamma + \psi \right)k_t - \delta\frac{\bar{C}}{\bar{I}}c_t \right)\\ &+(1 - \bar{C}\bar{I}^{-1}) c_t +  \gamma\left( 1-\frac{\psi}{\delta}  \right)k_t \\
-%&= \psi(\alpha - 1)k_t +
+c_{t+1}\left( 1 + \beta\gamma (\phi - 1)\right)  &=  \beta(\psi (\alpha - 1) + \gamma(\psi/\delta - 1))\left( \beta^{-1}k_t - \delta(\phi - 1)c_t \right)\\ &+(2 - \phi) c_t +  \gamma\left( 1-\frac{\psi}{\delta}  \right)k_t \\
+&= ((\psi (\alpha - 1) + \gamma(\psi/\delta - 1)) + \gamma - \gamma\phi\alpha)k_t \\&+ (2 - \phi - \delta(\phi - 1)\beta (\psi (\alpha - 1) + \gamma(\psi/\delta - 1)))c_t\\
+&= \phi(\alpha - 1)k_t \\&+ (2 - \phi - \delta(\phi - 1)\beta (\psi (\alpha - 1) + \gamma(\psi/\delta - 1)))c_t
+\end{align*}
+\begin{align*}
+c_{t+1} &= \frac{\phi(\alpha - 1)}{1 + \beta\gamma (\phi - 1)}k_{t}\\ &+ \frac{2 - \phi - \delta(\phi - 1)\beta (\psi (\alpha - 1) + \gamma(\psi/\delta - 1))}{1 + \beta\gamma (\phi - 1)}c_t
 \end{align*}
 
 \section{Question 5}
