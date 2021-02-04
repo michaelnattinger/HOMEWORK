@@ -54,6 +54,8 @@
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
 
 \newcount\colveccount
 \newcommand*\colvec[1]{
@@ -195,7 +197,20 @@ The two conditions $Z_1$ must satisfy to be a valid instrument for $X_1$ are rel
 
 In this case, one would argue that the exogeneity comes from the fact that the sex of the first two children is determined by nature. This seems hard to disagree with.
 \subsection{Part E}
-(matlab)
+Below we display the regression output from Stata.
+
+\includegraphics{hw2q4}
+
+The regression results do indicate that samesex ($Z_1$) satisfies the relevance condition for use as an instrument for morekids ($X_1$) as the coefficient of the regression above shows that $Z_1$ has a very significantly nonzero value.
+
 \subsection{Part F}
-(matlab)
+Below are the replication results. For all models, results are very close although in some cases the results differ very slightly.
+\begin{center}
+\input{ps2_results}
+\end{center}
+
+Stata do file that created the tex output is below.
+
+\includegraphics{hw2q5}
+
 \end{document}
