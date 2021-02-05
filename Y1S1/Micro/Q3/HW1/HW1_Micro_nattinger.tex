@@ -221,17 +221,27 @@ Free entry gives us $w_2+v_2 \geq 6$, and free exit gives us $w_2 + v_1 \leq 4$.
 
 \section{Question 3}
 \subsection{Part A}
-The type $x$ will agree to match if $y+axy\geq0 \Rightarrow y\geq -axy \Rightarrow 1\geq -ax \Rightarrow x\leq \frac{1}{-a}$.
-
-Similarly, $y$ will agree to match if $x+axy \geq 0 \Rightarrow y\leq \frac{1}{-a}$.
-
-The match will occur if both conditions are met, i.e. $x,y\leq \frac{1}{-a}.$
+In this case, the utility of each individual is increasing in the type of their partner, so the optimal matches will be determined by positive assortive matching. Each individual will match with an individual of the same value.
 
 \subsection{Part B}
-We want to find the wage function such that being paid $w(x)$ is sufficient for person $x$ to agree to work for all $x$, and since the wage is decentralized we must have $\int_{0}^1w(x)dx = 0.$  
+The cross-partial of the total utility from each pair is positive, so the optimal matches will be determined by positive assortive matching. Therefore, each individual will match with a partner of the same value.
+The matchmaker maximizes profits:
+\begin{align*}
+\max\pi &= \max x + 2axy + y - v(x) - w(y)\\
+\Rightarrow v'(x) &= 1 + 2ay \\
+\Rightarrow v(x) &= x+ax^2 + c_x, \\
+\Rightarrow w'(y) &= 1 + 2ax \\
+\Rightarrow w(y) &= y+ay^2 + c_y.
+\end{align*}
+Note that, above, we have used the fact that $x=y.$
 
-Person $x$ agreeing to work conditional upon being matched with person $y$, and vice-versa, implies the following:
+We now use the zero profit condition:
+\begin{align*}
+0 &= x + 2axy + y - x-ax^2 - c_x - t - ay^2 - c_y\\
+\Rightarrow c_x + c_y &= 0.
+\end{align*}
 
+We know that, for each individual $x$ or $y$, $v(x)\geq0$ or $w(y)\geq0$ so $c_x = c_y = 0.$ Thus, the only wage which decentralizes the market is $v(x) = x + ax^2,$ $w(y) = y + ay^2$.
 
 \section{Question 4}
 Let the market clearing rate be  $3\%+x(0.01\%)$. Then, $x\in (k,k+1]$ for some $k \in \{1,\dots,29\}$. The borrower $i$ will agree to borrow if $x\leq i$, so students $i \in \{b, \dots, 29\}:= B$ will agree to borrow (where $b= k +1 + 1\{k \text{ is odd}\}$). Similarly, lender $i$ will agree to lend if $x\geq 2i$, so students $i \in \{2,4,\dots,l\}:= L$ will agree to lend (where $l = \text{floor}(k/2) - 1\{ \text{floor}(k/2) \text{ is odd}\}$). There are $l/2$ elements of $L$ and $\frac{29-b}{2} + 1$ elements of $B$.
