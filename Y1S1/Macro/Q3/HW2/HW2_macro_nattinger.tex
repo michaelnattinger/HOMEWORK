@@ -202,7 +202,7 @@ The eigenvalues are the roots of the above expression. We can solve by applying 
  &= (1/2)\left( \beta^{-1} +\frac{\phi -  \delta(\phi - 1)\beta \phi \alpha (1 + \delta(\alpha - 1))}{1 + \beta(1-\delta) (\phi - 1)}\right)\\ &\pm (1/2)\left(\sqrt{\left( \beta^{-1} +\frac{\phi -  \delta(\phi - 1)\beta \phi \alpha (1 + \delta(\alpha - 1))}{1 + \beta(1-\delta) (\phi - 1)}\right)^2 - 4\frac{\theta \beta^{-1} + \phi \alpha \delta (\alpha - 1)\delta(\phi - 1)}{1 + \beta(1-\delta) (\phi - 1)}} \right)
 \end{align*}
 
-Now note the following:\footnote{This is true because $\phi<1.$}
+Now note the following:%\footnote{This is true because $\phi<1.$}
 \begin{align*}
 &\beta^{-1} +\frac{\phi -  \delta(\phi - 1)\beta \phi \alpha (1 + \delta(\alpha - 1))}{1 + \beta(1-\delta) (\phi - 1)} \\&= \frac{\beta^{-1} + (1-\delta) (\phi - 1)}{1 + \beta(1-\delta) (\phi - 1)}  + \frac{\phi -  \delta(\phi - 1)\beta \phi \alpha (1 + \delta(\alpha - 1))}{1 + \beta(1-\delta) (\phi - 1)} \\
 &= \frac{2\phi + \delta \phi (\alpha - 1 - \phi \beta \alpha + \beta \alpha - \phi \delta \beta (\alpha - 1) + \delta\beta\alpha(\alpha - 1))  }{1 + \beta(1-\delta) (\phi - 1)}\\
@@ -212,7 +212,7 @@ Now note the following:\footnote{This is true because $\phi<1.$}
 Furthermore, using the fact that $\beta^{-1} = 1-\delta + \delta\alpha \phi \Rightarrow 1-\beta+\beta\delta = \beta\delta\alpha\phi,$
 \begin{align*}
 1 + \beta(1-\delta)(\phi - 1) &= \beta(1-\delta)\phi + 1 - \beta + \beta\delta\\
-&= \beta(1-\delta)(\phi + \beta\delta\phi\alpha\\
+&= \beta(1-\delta)\phi + \beta\delta\phi\alpha\\
 &= \phi(\beta - \beta\delta + \beta\delta\alpha)\\
 &<\phi
 \end{align*}
@@ -234,7 +234,7 @@ We now make the following changes to our system:
 \Gamma^{-1} X_{t+1} = Y_{t+1} &= \Omega\Gamma^{-1} X_{t} = \Omega Y_{t}
 \end{align*}
 
-As $\Omega$ is diagonal with the explosive eigenvalue in the upper left entry, we know that $Y_{1,t} = 0 \forall t$. This defines our saddle path. Equivalently, the saddle path is determined by the second column of the eigenvector matrix $\Gamma$. We do not, at this time, solve for $\Gamma$, but these facts lead directly to the observation that the solution yields some $z$ such that $c_t = z k_t$,\footnote{Let $\Gamma = \begin{pmatrix} a & b\\ c  & d \end{pmatrix}$ for some $a,b,c,d.$ $Y_{1,t} = 0$ implies that the first row of $\Gamma^{-1}X_{t} = 0.$ As eigenvectors are determined only up to scale, without loss of generality we can define $\Gamma $ such that $det(\Gamma) = 1 \Rightarrow \Gamma^{-1} =  \begin{pmatrix} d & -b\\ -c  & a \end{pmatrix}$. Therefore, $Y_{1,t} = 0 \Rightarrow k_{t}d = c_tb \Rightarrow  c_t = zk_t$, for $z = d/b$. We do not have to worry about $b = 0$ in this case because our exact solution in part (5) is exactly of the form of $c_t = zk_t$ for some $-\infty<z<\infty$ so $b\neq 0.$ } which defines the Blanchard-Kahn first order approximation to the saddle path.
+As $\Omega$ is diagonal with the explosive eigenvalue in the upper left entry, we know that $Y_{1,t} = 0 \forall t$. This defines our saddle path. Equivalently, the saddle path is determined by the second column of the eigenvector matrix $\Gamma$. We do not explicitly solve for $\Gamma$, but these facts lead directly to the observation that the solution yields some $z$ such that $c_t = z k_t$,\footnote{Let $\Gamma = \begin{pmatrix} a & b\\ c  & d \end{pmatrix}$ for some $a,b,c,d.$ $Y_{1,t} = 0$ implies that the first row of $\Gamma^{-1}X_{t} = 0.$ As eigenvectors are determined only up to scale, without loss of generality we can define $\Gamma $ such that $det(\Gamma) = 1 \Rightarrow \Gamma^{-1} =  \begin{pmatrix} d & -b\\ -c  & a \end{pmatrix}$. Therefore, $Y_{1,t} = 0 \Rightarrow k_{t}d = c_tb \Rightarrow  c_t = zk_t$, for $z = d/b$. We do not have to worry about $b = 0$ in this case because our exact solution in part (5) is exactly of the form of $c_t = zk_t$ for some $-\infty<z<\infty$ so $b\neq 0.$ } which defines the Blanchard-Kahn first order approximation to the saddle path. In Part 5 we explicitly show that the true solution is $c_t = \alpha k_t$, and since the Blanchard-Kahn approximation is a first-order taylor approximation of a linear relationship, the Blanchard-Kahn approximation yields exactly the true solution, i.e. $z = \alpha.$
 
 \section{Question 5}
 %Outline: From (4) find $\eta$ such that $c_t = \eta k_t \Rightarrow C_t = ZK_t$ for some $Z$. Plug into euler and LOM and solve to show that euler is satisfied.
@@ -262,8 +262,8 @@ Note that if $z=\alpha$ this collapses to the following:
 ((A-Z)K_t^{\alpha - 1})&= \beta (A\alpha \delta  + (1-\delta)(A-Z) )K_t^{\alpha - 1} \\
 (A-Z)&= \beta (A\alpha \delta  + (1-\delta)(A-Z) )\\
 A - Z &= \beta A\alpha \delta + (1-\delta)\beta A - (1-\delta)\beta Z\\
-Z(1 - \beta + \beta \delta) &= A - \beta A \alpha \delta + (1-\delta)\beta A\\
-\Rightarrow Z&= \frac{A(1 - \beta  \alpha \delta + (1-\delta)\beta) }{(1-\beta + \beta\delta)}.
+Z(1 - \beta + \beta \delta) &= A - \beta A \alpha \delta - (1-\delta)\beta A\\
+\Rightarrow Z&= \frac{A(1 - \beta  \alpha \delta - (1-\delta)\beta) }{(1-\beta + \beta\delta)}.
 \end{align*}
 
 Therefore, $C_t = ZK_t^{z}$ satisfies the euler conditions for $z = \alpha, Z = \frac{A(1 - \beta  \alpha \delta + (1-\delta)\beta) }{(1-\beta + \beta\delta)}$. It defines, therefore, the saddle path. Note that $C_t = ZK_t^z \Rightarrow \frac{C_t}{\bar{C}} = \frac{ZK_t^z}{Z\bar{K}^z} \Rightarrow c_t = zk_t$. Therefore, the saddle path, written in terms of log-deviation from steady state, is exactly linear. The Blanchard-Kahn approximation is, therefore, a linear approximation of a linear function, and thus it must yield the exact solution to the social planner's problem.
@@ -283,33 +283,49 @@ This yields the following first order conditions:
 \end{align*}
 The above expression forms our euler condition for the stochastic case. 
 %Outline: Guess small change for solution to (6) adjusting for stochastic case and show that this guess satisfies the euler condition above.
-We will assume that $E[A_t] = A \forall t$. Inspired by our solution to question (5) we will guess the solution to the euler equation in the stochastic case takes the form $C_{t} = ZK_t^{z}$, and solve for $Z,z$:
+Inspired by our solution to question (5) we will guess the solution to the euler equation in the stochastic case takes the form $C_{t} = ZK_t^{z}$, and solve for $Z_t,z$:
 
 \begin{align*}
-E_t[ZK_{t+1}^z]&= \beta  E_t[ZK_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta - 1}(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  ZK_{t+1}^{z}) )]\\
-K_{t+1} &= K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta}
+E_t[Z_{t+1}K_{t+1}^z]&= \beta  E_t[Z_tK_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  Z_tK_t^{z})^{\delta - 1}(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  Z_{t+1}K_{t+1}^{z}) )]\\
+K_{t+1} &= K_t^{1-\delta}(A_tK_t^{\alpha} -  Z_tK_t^{z})^{\delta}
 \end{align*}
 
 As before we still have the 'eat everything' solution which will trivially satisfy the euler condition. We will solve for an additional solution:
 \begin{align*}
-E_t[Z(K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta})^z]&= \beta E_t [ ZK_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta - 1}\\&*(A_{t+1}\alpha \delta  K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  ZK_{t+1}^{z}) ) ]\\
-E_t[K_t^{z}(A_tK_t^{\alpha - 1} -  ZK_t^{z - 1})^{z\delta}]&= \beta E_t [K_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta - 1}\\&*(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  ZK_{t+1}^{z}) ) ] \\
-E_t[(A_tK_t^{\alpha - 1} -  ZK_t^{z - 1})^{z\delta}]&= \beta E_t[ (A_tK_t^{\alpha-1} -  ZK_t^{z-1})^{\delta - 1}\\&*(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)(A_{t+1}K_{t+1}^{\alpha-1} -  ZK_{t+1}^{z-1}) )]
+E_t[Z_{t+1}(K_t^{1-\delta}(A_tK_t^{\alpha} -  Z_tK_t^{z})^{\delta})^z]&= \beta E_t [ Z_tK_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  Z_tK_t^{z})^{\delta - 1}\\&*(A_{t+1}\alpha \delta  K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  Z_{t+1}K_{t+1}^{z}) ) ]\\
+%E_t[K_t^{z}(A_tK_t^{\alpha - 1} -  ZK_t^{z - 1})^{z\delta}]&= \beta E_t [K_t^{z} K_t^{1-\delta}(A_tK_t^{\alpha} -  ZK_t^{z})^{\delta - 1}\\&*(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)K_{t+1}^{-1}(A_{t+1}K_{t+1}^{\alpha} -  ZK_{t+1}^{z}) ) ] \\
+E_t[Z_{t+1}](A_tK_t^{\alpha - 1} -  ZK_t^{z - 1})^{z\delta}&= \beta Z_t (A_tK_t^{\alpha-1} -  Z_tK_t^{z-1})^{\delta - 1}\\&*E_t[(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)(A_{t+1}K_{t+1}^{\alpha-1} -  Z_{t+1}K_{t+1}^{z-1}) )]
 \end{align*}
 We guess and verify that $z = \alpha$ is a solution.
 
 \begin{align*}
-((A_t-Z)K_t^{\alpha - 1})^{\alpha\delta}&= \beta E_t[ ((A_t-Z)K_t^{\alpha-1} )^{\delta - 1}(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)((A_{t+1}-Z)K_{t+1}^{\alpha-1} ) )]\\
-((A_t-Z)K_t^{\alpha - 1})^{\alpha\delta}&= \beta  E[((A_t-Z)K_t^{\alpha-1} )^{\delta - 1}(A_{t+1}\alpha \delta  + (1-\delta)((A_{t+1}-Z)) )K_{t+1}^{\alpha-1}] \\
-((A_t-Z)K_t^{\alpha - 1})^{\alpha\delta}&= \beta E_t[ ((A_t-Z)K_t^{\alpha-1} )^{\delta - 1}(A_{t+1}\alpha \delta  + (1-\delta)((A_{t+1}-Z)) )K_t^{\alpha - 1} ((A_t-Z)K_t^{\alpha - 1})^{\delta(\alpha - 1)}]\\
-((A_t-Z)K_t^{\alpha - 1})^{\delta}&= \beta  E_t[((A_t-Z)K_t^{\alpha-1} )^{\delta - 1}(A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z) )K_t^{\alpha - 1}] \\
-((A_t-Z)K_t^{\alpha - 1})&= \beta E_t[(A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z) )K_t^{\alpha - 1} ]\\
-(A_t-Z)&= \beta E_t[ (A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z) )\\
-A_t - Z &= \beta E_t[ A_{t+1}\alpha \delta + (1-\delta)\beta A_{t+1} - (1-\delta)\beta Z]\\
-Z(1 - \beta + \beta \delta) &= A_t - \beta E_t[A_{t+1}] \alpha \delta + (1-\delta)\beta E_t[A_{t+1}]\\
-\Rightarrow Z&= \frac{A_t - \beta E_t[A_{t+1}] \alpha \delta + (1-\delta)\beta E_t[A_{t+1}]}{(1-\beta + \beta\delta)}.
+E_t[Z_{t+1}]((A_t-Z_t)K_t^{\alpha - 1})^{\alpha\delta}&= \beta Z_t ((A_t-Z_t)K_t^{\alpha-1} )^{\delta - 1}E_t[(A_{t+1}\alpha \delta K_{t+1}^{\alpha - 1}  + (1-\delta)((A_{t+1}-Z_{t+1})K_{t+1}^{\alpha-1} ) )]\\
+E_t[Z_{t+1}]((A_t-Z_t)K_t^{\alpha - 1})^{\alpha\delta}&= \beta Z_t ((A_t-Z_t)K_t^{\alpha-1} )^{\delta - 1}E_t[(A_{t+1}\alpha \delta  + (1-\delta)((A_{t+1}-Z_{t+1})) )K_{t+1}^{\alpha-1}] \\
+E_t[Z_{t+1}]((A_t-Z_t)K_t^{\alpha - 1})^{\alpha\delta}&= \beta Z_t  ((A_t-Z)K_t^{\alpha-1} )^{\delta - 1}\\&*E_t[(A_{t+1}\alpha \delta  + (1-\delta)((A_{t+1}-Z_{t+1})) )K_t^{\alpha - 1} ((A_t-Z_t)K_t^{\alpha - 1})^{\delta(\alpha - 1)}]\\
+E_t[Z_{t+1}]((A_t-Z_t)K_t^{\alpha - 1})^{\delta}&= \beta Z_t [((A_t-Z_t)K_t^{\alpha-1} )^{\delta - 1}E_t[(A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z_{t+1}) )]K_t^{\alpha - 1} \\
+E_t[Z_{t+1}]((A_t-Z_t)K_t^{\alpha - 1})&= \beta Z_t E_t[(A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z_{t+1}) )]K_t^{\alpha - 1} \\
+E_t[Z_{t+1}](A_t-Z_t)&= \beta E_t[ (A_{t+1}\alpha \delta  + (1-\delta)(A_{t+1}-Z_{t+1}) )]\\
+A_t - Z_t &= \beta \frac{E_t[ A_{t+1}\alpha \delta + (1-\delta)\beta A_{t+1} - (1-\delta)\beta Z_{t+1}]}{E_t[Z_{t+1}]}\\
+Z_t &= A_t -  \beta \frac{E_t[ A_{t+1}\alpha \delta + (1-\delta)\beta A_{t+1} - (1-\delta)\beta Z_{t+1}]}{E_t[Z_{t+1}]}
 \end{align*}
 
+Therefore, for the recursive function $Z_t$ which satisfies the expression,
+\begin{align*}
+ Z_t &= A_t -  \beta \frac{E_t[ A_{t+1}\alpha \delta + (1-\delta)\beta A_{t+1} - (1-\delta)\beta Z_{t+1}]}{E_t[Z_{t+1}]},
+\end{align*}
+
+ $C_t = Z_tK_t^{\alpha}$ satisfies the euler equation.
+
 \section{Question 7}
-Our solutions for Question 5 and Question 6 show that consumption and capital deviations from the steady state are perfectly correlated. This comes from the formulation for capital law of motion, which ensures that investment is perfectly correlated with capital deviations, and therefore consumption will also be perfectly correlated with capital levels via the resource constraint.
+Our solution for Question 5 shows that consumption and capital deviations from the steady state are perfectly correlated. This comes from the formulation for capital law of motion, which ensures that investment is perfectly correlated with capital deviations, and therefore consumption will also be perfectly correlated with capital levels via the resource constraint. In the real world, consumption and capital deviations are highly correlated, as we saw in lecture 4. This implies that the model may do a decent job of explaining fluctuations of consumption and capital levels.
+
+\section{Question 8 (bonus task)}
+A simple way of introducing labor follows:
+
+\begin{align*}
+U(C_t,L_t) &= log C_t - L_t^{2}/2,\\
+F(K_t,L_t) &= AK_t^{\alpha}L_t^{1-\alpha}
+\end{align*}
+
+In solving this model, almost everything will be the same, however there will be a labor-leisure tradeoff. After log linearlizing, the main difference will be an intratemporal relationship between labor and consumption. This can be used to solve for labor deviations from the steady state in terms of consumption deviations within the same period, and the rest of the Blanchard-Kahn method (eigenvector decomposition, solving for explosive roots, etc.) will be very similar to those solved for in part 5. Labor deviations can then be backed out. In other words, by introducing labor in this way we have not sacrificed analytical tractability.
 \end{document}
