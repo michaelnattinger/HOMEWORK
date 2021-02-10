@@ -1,0 +1,104 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Pset note}
+\author{Michael B. Nattinger}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Summary}
+Our equilibrium consists of the following equations:
+\begin{align}
+Y_{t} &= A_tK_t^{\alpha}L_t^{1-\alpha} \label{F}\\
+Y_{t} &= C_{t} + I_{t} + G_{t} \label{Y}\\
+L_{t}^{\phi}C_t^{\sigma} &= (1-\tau_{L,t})A_t(1-\alpha) K_t^{\alpha}L_t^{-\alpha} \label{L}\\
+C_t^{-\sigma}(1+\tau_{I,t}) &= \beta E_t[C_{t+1}^{-\sigma}[A_{t+1}\alpha K_{t+1}^{\alpha-1}L_{t+1}^{1-\alpha} + (1-\delta)(1+\tau_{I,t+1})]] \label{EE}
+\end{align}
+
+Log linearizing the labor supply equation we get the following:
+
+\begin{align}
+\phi l_t + \sigma c_t &= \frac{-\bar{\tau}_{L}}{1-\bar{\tau}_{L}}\hat{\tau}_{L,t}+\alpha k_t -\alpha l_t. \label{l}
+\end{align}
+
+Log linearizing the EE this is what I got:
+ 
+\begin{align}
+ \sigma(E_t[c_{t+1}]-  c_t) + \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &= \beta E_t\left[\frac{\alpha\bar{A} \bar{K}^{\alpha - 1} \bar{L}^{1-\alpha}}{1+\bar{\tau}_I}(a_{t+1} + (1-\alpha)(- k_{t+1} + l_{t+1})) + (1-\delta)\frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t+1} \right] \label{ee}
+\end{align}
+
+Note that $\bar{\tau}_{I}$ being 0 makes the $\hat{\tau}_I$ term drop out, and a similar problem exists for the labor wedge. I had initially thought we could just define $\tilde{\tau}_{I,t}:= \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t}$ (and a similar $\tilde{\tau}_{L,t}$), but if $\bar{\tau}_{I} = 0$ then $\tilde{\tau}_{I,t} = 0$. So this is probematic I think.
+
+\end{document}
