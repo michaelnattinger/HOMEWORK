@@ -29,6 +29,6 @@ lm = diag(Lambda);
 lam = lm(sel);
 Theta = (-1/lam)*C(sel,:)*inv(eye(4) -(1/lam)*diag([rhoa rhog rhoL rhoI]) );
 zs = [a g htauL];
-vs = [c k];
+vs = [k c ];
 htauI = Theta(4)^(-1) * ( vs* iQ(sel,:)' - (zs*Theta(1,1:3)')); % follows formula from writeup
 end

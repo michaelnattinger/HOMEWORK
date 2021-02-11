@@ -91,15 +91,57 @@ E[ZZ'] &= E\left[\colvec{2}{Z_1}{X_2} \colvec{2}{Z_1}{X_2}'\right]\\
 &= \begin{pmatrix} E[Z_1^2] &E[ Z_1X_2'] \\ E[ X_2 Z_1] & E[X_2 X'_2]  \end{pmatrix}
 \end{align*}
 
-Note that $E[X_2X_2']$ must be invertible for either $E[ZX']$ or $E[XX']$ to be invertible.
+Note that $E[X_2X_2']$ must be invertible for either $E[ZX']$ or $E[ZZ']$ to be invertible.\footnote{$E[X_2 X_2']$ not being invertible implies the existence of some $t$ such that $E[X_2 X_2']t = 0 \Rightarrow E[(X_2't)^2] = 0 \Rightarrow E[ZX'](0,t')' = E[ZX'](0,t')' = 0$ so $E[ZX']$ and $E[ZZ']$ are not invertible.}
 
-Block inversion implies that $E[ZX']$ is invertible iff $E[Z_1X_1] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2X_1] \neq 0$, and similarly $E[ZZ']$ is invertible iff $E[Z_1^2] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2Z_1] \neq 0$
+Block inversion implies that $E[ZX']$ is invertible iff $E[Z_1X_1] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2X_1] \neq 0$, and similarly $E[ZZ']$ is invertible iff $E[Z_1^2] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2Z_1] \neq 0$. We can rewrite these expressions as follows: $E[\hat{Z}_1 X_1] \neq 0, E[\tilde{Z}_1^2] \neq 0 $ for $\hat{Z}_1 := Z_1 - X_2'E[X_2X_2']^{-1}E[X_2Z_1].$ From FWL, for $\pi_1 = E[\tilde{Z}_1X_1].$ Together, $E[\tilde{Z}_1^2] \neq 0$ and $\pi_1 \neq 0$ imply that $E[\tilde{Z}_1X_1] \neq 0$, and the reverse direction comes from Cauchy-Schwarz:
+\begin{align*}
+0<E[Z_1X_1]^2 \leq E[\hat{Z}_1^2]E[ X_1^2].
+\end{align*}
 \subsection{Part ii}
+Under homoskedasticity, $\Omega = \sigma_{U}^2E[ZX']^{-1}E[ZZ']E[XZ']^{-1}$. We again go back to block inversion and find that:
+\begin{align*}
+E[ZX']^{-1} &= E[\tilde{Z}_1]^{-1}\begin{pmatrix} 1 & -E[Z_1X_2']E[X_2X_2']^{-1} \\ \dots & \dots \end{pmatrix},
+\end{align*}
+where the second block row does not enter into the upper left entry of $\Omega$. We then have the following:
+\begin{align*}
+\Omega_{1,1} &= \frac{ \sigma_{U}^2}{E[Z_1X_1']^2} (E[Z_1]^2 - E[Z_1X_2']^{-1}E[X_2Z_1])\\
+&= \frac{\sigma_{U}^2E[\tilde{Z}^2_1]}{E[Z_1X_1']^2}\\
+&= \frac{\sigma_{U}^2]}{E[\tilde{Z}_1^2]\pi_1^2}
+\end{align*}
 \subsection{Part iii}
+$\pi$ is the population projection (regression) coefficients mapping $Z$ into $X_1$, and $\tilde{Z}$ is $Z$ residualized at the population level with respect to $X_2$.
 \subsection{Part iv}
+\begin{align*}
+E[\tilde{Z}_1X_2] =  E[X_2Z_1 - X_2X_2'E[X_2X_2']^{-1}E[X_2Z_1]] = 0.
+\end{align*}
+
+The above expression implies the following:
+\begin{align*}
+E[\tilde{Z}_1X_2E[X_2X_2']^{-1}E[X_2E[X_1|Z]]] &= 0\\
+E[\tilde{Z}_1X_1] = E[\tilde{Z}_1E[X_1|Z]] - E[\tilde{Z}_1X_2E[X_2X_2']^{-1}E[X_2E[X_1|Z]]] &= E[\tilde{Z}Z_{*}]\\ 
+\end{align*}
+We apply Cauchy-Schwarz to achieve the desired inequality:
+\begin{align*}
+\Omega_{1,1} &= \frac{\sigma^2_UE[\tilde{Z}^2_1]}{E[\tilde{Z}Z_{*}]^2} \\
+&\geq \frac{\sigma^2_UE[\tilde{Z}^2_1]}{E[\tilde{Z}^2]E[Z_{*}^2]}\\
+&=    \frac{\sigma^2_U}{E[Z_{*}^2]}
+\end{align*}
+
+We will achieve the lower bound when $Z_{*} = \tilde{Z}_1\pi_1$. This occurs when $E[X_1|Z] = Z_1\pi_1 + X_2'\pi_2$.
 \subsection{Part v}
+If $X_2$ is just a constant, $\tilde{Z} = Z-E[Z],E[\tilde{Z}_{1}^2] = Var(Z_1), E[\tilde{Z}_1X_1] = Cov(Z_1,X_1).$ Thus,
+
+\begin{align*}
+\Omega_{1,1} &= \frac{\sigma_U^2Var(Z_1)}{Cov(Z_1,X_1)^2}.
+\end{align*}
+
 \section{Question 2}
 \subsection{Part i}
+\begin{align*}
+E[h(Z)(Y-X\beta)] &= E[h(Z)(X(\beta_1 - \beta)) + U)]\\
+&= E[h(Z)X](\beta_1 - \beta) + E[h(Z)U].
+\end{align*}
+If exogeneity holds, $E[h(Z)U] = E[h(Z)E[U|Z]] = 0$ so $E[h(Z)(Y-X\beta)] = 0 \iff \beta_1 = \beta.$
 \subsection{Part ii}
 \subsection{Part iii}
 \subsection{Part iv}

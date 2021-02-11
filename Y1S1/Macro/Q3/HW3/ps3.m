@@ -10,8 +10,7 @@ if reload
 save 'raw'
 else
 load 'raw'
-end % y = x(:,2:end);
-% dates = datetime(x(:,1));
+end 
 names = xt(1,2:end);
 dates = datetime(xt(2:end,1));
 dateI = datetime(it(2:end,1));
@@ -131,8 +130,8 @@ psigma = 1;
 pphi = 1;
 pGbar = (1/3); % as ratio of Y
 pAbar = 1;
-ptaubarL = 0;%.000001;%0.1; % TEMPORARY - ASK DUONG
-ptaubarI = 0;%.000001;%0.1; % TEMPORARY - ASK DUONG
+ptaubarL = 0;
+ptaubarI = 0;
 pbeta = 0.99; 
 a = y - palpha*k - (1-palpha)*l; 
 [Ybar,Cbar,Kbar,Lbar] = calc_ss(palpha, pbeta, pdelta, psigma, pphi, pAbar, pGbar, ptaubarI, ptaubarL);

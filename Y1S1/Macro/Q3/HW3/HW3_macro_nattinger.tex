@@ -137,7 +137,7 @@ L_{t}^{\phi}C_t^{\sigma} &= (1-\tau_{L,t})A_t(1-\alpha) K_t^{\alpha}L_t^{-\alpha
 C_t^{-\sigma}(1+\tau_{I,t}) &= \beta E_t[C_{t+1}^{-\sigma}[A_{t+1}\alpha K_{t+1}^{\alpha-1}L_{t+1}^{1-\alpha} + (1-\delta)(1+\tau_{I,t+1})]] \label{EE}
 \end{align}
 
-We will proceed by linearizing our condtions. First, the production function (\ref{F}):
+We will proceed by linearizing our conditions. First, the production function (\ref{F}):
 \begin{align}
 y_t &= a_t + \alpha k_t + (1-\alpha) l_t. \label{f}
 \end{align}
@@ -168,7 +168,7 @@ y_t &= \hat{\tau}_{I,t}\\
 \bar{X}(1+x_t) &= \bar{A}(1+a_{t})\alpha \bar{K}^{\alpha-1}(1+(\alpha-1)k_{t}) \bar{L}_{t}^{1-\alpha}(1+(1-\alpha)l_t) + (1-\delta)\bar{Y}(1+y_t) \\
 \bar{X}x_t &= \bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_t +(1-\alpha)(l_t - k_t)) + (1-\delta)\bar{Y}y_t\\
 x_t &= (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_t +(1-\alpha)(l_t - k_t)) + (1-\delta)y_t)/\bar{X}\\
-\sigma(E_t[c_{t+1}] - c_t) +  \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &= E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)y_{t+1})/\bar{X}]
+\sigma(E_t[c_{t+1}] - c_t) +  \hat{\tau}_{I,t} &= E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)y_{t+1})/\bar{X}]
 \end{align*}
 
 \begin{align*}
@@ -267,7 +267,7 @@ We calculate each period's capital by iterating forward from the law of motion o
 
 \includegraphics{wedgesg}
 
-It is interesting that, despite some of the wedges in the graphs of the wedges themselves having much less variance themselves, especially $a$, it is clear from the graph of the wedges' effects on GDP that all models result in broadly similar results for GDP. In my opinion it appears that $\tau_{L}$ tracks GDP the best, and in pre-2005 the $a$ line appeared to track GDP the best. However, $a$'s relationship to GDP seems to be less consistent post-2005. In the figures to come, we will zoom in to the financial crisis of 2008 and the recent Covid pandemic.
+The above figure shows the output series counterfactuals calculated using only one shock at a time. In my opinion it appears that $a$ tracks GDP the best, especially pre-2005. However, $a$'s relationship to GDP seems to be less consistent post-2005.$\tau_{I}$ also appears to track GDP closely, and appears to perform better during the Great Lockdown. In the figures to come, we will zoom in to the financial crisis of 2008 and the recent Covid pandemic.
 
 \includegraphics{wedgesfin}
 
@@ -283,7 +283,7 @@ In the above figure, we can observe the zoomed-in movements in the GDP implied b
 
 \includegraphics{wedgescovdiff}
 
-In the above figure we can see the change from the beginning of 2019 of GDP from all of the models. 
+In the above figure we can see the change from the beginning of 2020 of GDP from all of the models. 
 
 Overall, to summarize, during both recent crises it is apparent that most of the variation came from the investment wedge.  
 
