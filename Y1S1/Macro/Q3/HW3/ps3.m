@@ -131,14 +131,14 @@ psigma = 1;
 pphi = 1;
 pGbar = (1/3); % as ratio of Y
 pAbar = 1;
-ptaubarL = .000001;%0.1; % TEMPORARY - ASK DUONG
-ptaubarI = .000001;%0.1; % TEMPORARY - ASK DUONG
+ptaubarL = 0;%.000001;%0.1; % TEMPORARY - ASK DUONG
+ptaubarI = 0;%.000001;%0.1; % TEMPORARY - ASK DUONG
 pbeta = 0.99; 
 a = y - palpha*k - (1-palpha)*l; 
 [Ybar,Cbar,Kbar,Lbar] = calc_ss(palpha, pbeta, pdelta, psigma, pphi, pAbar, pGbar, ptaubarI, ptaubarL);
 Ibar = pdelta*Kbar;
 g = (1/pGbar)*(y - (Cbar/Ybar)*c - (Ibar/Ybar)*I);
-htauL = ((1-ptaubarL)/(-1*ptaubarL))*(pphi*l + psigma*c - palpha*k + palpha * l);
+htauL = (-1)*(pphi*l + psigma*c - palpha*k + palpha * l);
 % calculate shock persistance
 rhoa = a(1:end-1)\a(2:end); % just ols ar(1) with no intercept
 rhog = g(1:end-1)\g(2:end);

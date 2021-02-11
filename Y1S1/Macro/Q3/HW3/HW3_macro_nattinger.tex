@@ -145,17 +145,17 @@ Next, our market clearing condition (\ref{Y}):
 \begin{align}
 y_t &= \frac{\bar{C}}{\bar{Y}}c_t + \frac{\bar{I}}{\bar{Y}} i_t + \frac{\bar{G}}{\bar{Y}} g_t. \label{y}
 \end{align}
-Then, our labor supply equation (\ref{L}):
+Then, our labor supply equation (\ref{L}) (note that $\bar{\tau_{I}},\bar{\tau_{L}}$ equal 0 so $\tau_{I,t},\tau_{L,t}$ are linearized and not log linearized):
 
 \begin{align*}
-\bar{L}^{\phi}\bar{C}^{\sigma}(1+\phi c_t + \sigma l_t) &= \bar{X} \bar{A}(1-\alpha) \bar{K}^{\alpha}\bar{L}^{-\alpha}(1+x_t + a_t + \alpha k_t - \alpha l_t) \\
-\phi c_t + \sigma l_t &= x_t + a_t + \alpha k_t - \alpha l_t\\
-\bar{X}(1+x_t) &= 1-\bar{\tau}(1+\hat{\tau}_{L,t})\\
-x_t &= \frac{-\bar{\tau}_L}{1-\bar{\tau}_L} \hat{\tau}_{L,t}
+\bar{L}^{\phi}\bar{C}^{\sigma}(1+\sigma c_t + \phi l_t) &= \bar{X} \bar{A}(1-\alpha) \bar{K}^{\alpha}\bar{L}^{-\alpha}(1+x_t + a_t + \alpha k_t - \alpha l_t) \\
+\sigma c_t + \phi l_t &= x_t + a_t + \alpha k_t - \alpha l_t\\
+\bar{X}(1+x_t) &= 1-\hat{\tau}_{L,t}\\
+x_t &=\hat{\tau}_{L,t}
 \end{align*}
 
 \begin{align}
-\phi l_t + \sigma c_t &= \frac{-\bar{\tau}_{L}}{1-\bar{\tau}_{L}}\hat{\tau}_{L,t}+\alpha k_t -\alpha l_t. \label{l}
+\phi l_t + \sigma c_t &= -\hat{\tau}_{L,t}+\alpha k_t -\alpha l_t. \label{l}
 \end{align}
 Finally, we linearize our Euler equation:
 
@@ -163,21 +163,21 @@ Finally, we linearize our Euler equation:
 \bar{C}(1- \sigma c_t )\bar{Y}(1+y_t) &= \beta E_t[\bar{C}(1- \sigma c_{t+1})\bar{X}(1+x_{t+1})]\\
 \sigma(E_t[c_{t+1}] - c_t) + y_t &= E_t[x_{t+1}], \\
 Y_t &= 1+\tau_{I,t}\\
-\bar{Y}(1+y_t) &= 1 + \bar{\tau}_{I}(1+ \hat{\tau}_{I,t})\\
-y_t &= \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t}\\
+\bar{Y}(1+y_t) &= 1 + \hat{\tau}_{I,t}\\
+y_t &= \hat{\tau}_{I,t}\\
 \bar{X}(1+x_t) &= \bar{A}(1+a_{t})\alpha \bar{K}^{\alpha-1}(1+(\alpha-1)k_{t}) \bar{L}_{t}^{1-\alpha}(1+(1-\alpha)l_t) + (1-\delta)\bar{Y}(1+y_t) \\
 \bar{X}x_t &= \bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_t +(1-\alpha)(l_t - k_t)) + (1-\delta)\bar{Y}y_t\\
-x_t &= (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_t +(1-\alpha)(l_t - k_t)) + (1-\delta)(1+\bar{\tau}_{I})y_t)/\bar{X}\\
-\sigma(E_t[c_{t+1}] - c_t) +  \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &= E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)(1+\bar{\tau}_{I})y_{t+1})/\bar{X}]
+x_t &= (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_t +(1-\alpha)(l_t - k_t)) + (1-\delta)y_t)/\bar{X}\\
+\sigma(E_t[c_{t+1}] - c_t) +  \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &= E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)y_{t+1})/\bar{X}]
 \end{align*}
 
 \begin{align*}
-\bar{X} &= \beta^{-1}(1+\bar{\tau}_I)\\
- \sigma(E_t[c_{t+1}] - c_t) +  \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &=\frac{\beta}{(1+\bar{\tau}_I)} E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)(1+\bar{\tau}_{I})y_{t+1})]
+\bar{X} &= \beta^{-1}\\
+ \sigma(E_t[c_{t+1}] - c_t) + \hat{\tau}_{I,t} &=\beta E_t[ (\bar{A}\alpha \bar{K}^{\alpha-1} \bar{L}^{1-\alpha}(a_{t+1} +(1-\alpha)(l_{t+1} - k_{t+1})) + (1-\delta)y_{t+1})]
 \end{align*}
 
 \begin{align}
- \sigma(E_t[c_{t+1}]-  c_t) + \frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t} &= \beta E_t\left[\frac{\alpha\bar{A} \bar{K}^{\alpha - 1} \bar{L}^{1-\alpha}}{1+\bar{\tau}_I}(a_{t+1} + (1-\alpha)(- k_{t+1} + l_{t+1})) + (1-\delta)\frac{\bar{\tau}_{I}}{1+\bar{\tau}_{I}}\hat{\tau}_{I,t+1} \right] \label{ee}
+ \sigma(E_t[c_{t+1}]-  c_t) + \hat{\tau}_{I,t} &= \beta E_t\left[\alpha\bar{A} \bar{K}^{\alpha - 1} \bar{L}^{1-\alpha}(a_{t+1} + (1-\alpha)(- k_{t+1} + l_{t+1})) + (1-\delta)\hat{\tau}_{I,t+1} \right] \label{ee}
 \end{align}
 
 Given our data for $y_t,k_t,l_t,i_t$ we can easily back out exactly $a_t, g_t, \hat{\tau}_{L,t}$. Note that, first and foremost, we will need to solve a system of the following equations for certain steady state values:
@@ -285,5 +285,7 @@ In the above figure, we can observe the zoomed-in movements in the GDP implied b
 
 In the above figure we can see the change from the beginning of 2019 of GDP from all of the models. 
 
-Overall, to summarize, during both recent crises we can see from the counterfactuals that the effect of the labor wedge is by far the most important. This is despite the financial crisis being seen as being driven by financial dynamics, which would come through in the investment wedge. 
+Overall, to summarize, during both recent crises it is apparent that most of the variation came from the investment wedge.  
+
+%Overall, to summarize, during both recent crises we can see from the counterfactuals that the effect of the labor wedge is by far the most important. This is despite the financial crisis being seen as being driven by financial dynamics, which would come through in the investment wedge. 
 \end{document}

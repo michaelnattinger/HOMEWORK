@@ -3,10 +3,10 @@ function [A,B] = LOM(rhoI0,rhoa,rhog,rhoL,palpha,pdelta,psigma,pphi,pGbar,pAbar,
 syms C K Cp Kp I Ip L Lp g a htauL htauI gp ap htauLp htauIp
 % these equations form the law of motion of the endogenous variables
 f1 = a + palpha*K + (1-palpha)*L == (Cbar/Ybar)*C + (pdelta*Kbar/Ybar)*I + pGbar*g; % two formulations for Y
-f2 = pphi*L + psigma*C == (-1*ptaubarL/(1-ptaubarL))*htauL + palpha*K - palpha *L; % labor supply this period
+f2 = pphi*L + psigma*C == (-1)*htauL + palpha*K - palpha *L; % labor supply this period
 f3 = Kp == (1-pdelta)*K + pdelta*I;
-f4 = pphi*Lp + psigma*Cp == (-1*ptaubarL/(1-ptaubarL))*htauLp + palpha*Kp - palpha *Lp; % labor supply next period
-f5 = psigma*(Cp - C) + (ptaubarI/(1+ptaubarI))*htauI == pbeta*((1+ptaubarI)^(-1)*palpha*pAbar*Kbar^(palpha - 1)*Lbar^(1-palpha)*(ap + (1-palpha)*(Lp - Kp)) +(1-pdelta)*(ptaubarI/(1+ptaubarI))*htauIp);
+f4 = pphi*Lp + psigma*Cp == (-1)*htauLp + palpha*Kp - palpha *Lp; % labor supply next period
+f5 = psigma*(Cp - C) + htauI == pbeta*(palpha*pAbar*Kbar^(palpha - 1)*Lbar^(1-palpha)*(ap + (1-palpha)*(Lp - Kp)) +(1-pdelta)*htauIp);
 f6 = ap + palpha*Kp + (1-palpha)*Lp == (Cbar/Ybar)*Cp + (pdelta*Kbar/Ybar)*Ip + pGbar*gp; % two formulations for Y
 % these equations describe the shock process
 f7 = ap == rhoa*a;

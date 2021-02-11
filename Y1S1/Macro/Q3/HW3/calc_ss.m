@@ -1,5 +1,5 @@
 function [Ybar,Cbar,Kbar,Lbar] = calc_ss(palpha, pbeta, pdelta, psigma, pphi, pAbar, pGbar, ptaubarI, ptaubarL)
-syms Y K L C %pa palph pg pph psig ptL ptI pb pd
+syms Y K L C
 f1 = Y == pAbar*K^palpha * L^(1-palpha);
 f2 = Y == C + pdelta*K + pGbar*Y;
 f3 = L^pphi * C^psigma == (1-ptaubarL)*pAbar*(1-palpha)*K^(palpha)*L^(-palpha);
@@ -21,9 +21,6 @@ for j=1:length(soln.Y)
     end
 end
 if (sum(validY.*validL.*validC)==0); error('no valid solution'); end
-%if (sum(validL)==0); error('no valid solution'); end
-%if (sum(validC)==0); error('no valid solution'); end
-%if (sum(valid)>1); warning('multiple valid solution'); end
 ind = find((validY>0).*(validL>0) .*(validC>0));
 Ybar = eval(soln.Y(ind(1),1));
 Cbar = eval(soln.C(ind(1),1));

@@ -10,7 +10,6 @@ C = iQ*B;
 lm = diag(Lambda);
 lam = lm(sel);
 Theta = (-1/lam)*C(sel,:)*inv(eye(4) -(1/lam)*diag([rhoa rhog rhoL rhoI]) );
-
 for i=1:4
     switch i
         case 1
@@ -22,11 +21,9 @@ for i=1:4
         case 4
             z = [0*a 0*a 0*a htauI];
     end
-    % generate c,k time series counterfactual % I am doing this wrong
+    % generate c,k time series counterfactual
     vi = v;
     l = 0*v(:,1);
-    y = l;
-    
     for j=1:length(vi(:,1)) % k starts at its initial point
         vi(j,2) = (1/iQ(sel,2))*( -1*iQ(sel,1)*vi(j,1) + Theta*z(j,:)');
         l(j) = ((-psigma)/(pphi + palpha)) * vi(j,2) + ((palpha)/(pphi + palpha))* vi(j,1) + ((-1*ptaubarL)/((palpha + pphi)*(1-ptaubarL)))*z(j,3);
@@ -34,8 +31,6 @@ for i=1:4
             vi(j+1,1) = (1-pdelta)*vi(j,1) + pdelta*(Ybar/(pdelta*Kbar))*(z(j,1) + palpha*vi(j,1) + (1-palpha)*l(j) - (Cbar/Ybar)*vi(j,2) - pGbar*z(j,2));
         end
     end
-    % from c,k,tau_L calculate l
-    %l = ((-psigma)/(pphi + palpha)) * vi(:,2) + ((palpha)/(pphi + palpha))* vi(:,1) + ((ptaubarL)/((palpha + pphi)*(1-ptaubarL)))*z(:,3);
     % from a,k,l calculate y
     y = z(:,1) + palpha*vi(:,1) +(1-palpha)*l;
     switch i
