@@ -143,13 +143,55 @@ E[h(Z)(Y-X\beta)] &= E[h(Z)(X(\beta_1 - \beta)) + U)]\\
 \end{align*}
 If exogeneity holds, $E[h(Z)U] = E[h(Z)E[U|Z]] = 0$ so $E[h(Z)(Y-X\beta)] = 0 \iff \beta_1 = \beta.$
 \subsection{Part ii}
+Define $\hat{\beta}^{h}_1$ as the solution to the following:
+\begin{align}
+\frac{1}{n}\sum_{i}(h(Z_i)(Y_i - X_i \hat{\beta}^{h}_1)) = 0\\
+\Rightarrow \frac{1}{n}\sum_{i}(h(Z_i)(Y_i)) - \frac{1}{n}\sum_{i}(h(Z_i)X_i) \hat{\beta}^{h}_1 &= 0\\
+\Rightarrow \hat{\beta}^{h}_1 &= \left[\frac{1}{n}\sum_{i}(h(Z_i)X_i)\right]^{-1}\frac{1}{n}\sum_{i}(h(Z_i)(Y_i))
+\end{align}
 \subsection{Part iii}
+By applying the law of large numbers twice and continuous mapping theorem, we reach the following probability limit:
+\begin{align*}
+\hat{\beta}^{h}_1 &\rightarrow_p [E[h(Z)X]]^{-1}E[h(Z)Y]\\
+&= [E[h(Z)X]]^{-1}E[h(Z)(X\beta_1 +U)]\\
+&= [E[h(Z)X]]^{-1}E[h(Z)X]\beta_1 + [E[h(Z)X]]^{-1}E[h(Z)U]\\
+&=\beta_1 + [E[h(Z)X]]^{-1}E[h(Z)E[U|Z]]\\
+&= \beta_1.
+\end{align*}
+
+Now, we have the following:
+\begin{align*}
+\sqrt{n}(\hat{\beta}^h_1 - \beta_1) &=  \left[\frac{1}{n}\sum_{i}(h(Z_i)X_i)\right]^{-1}\frac{1}{\sqrt{n}}\sum_{i}(h(Z_i)(U_i))
+\end{align*}
+By LLN, $\frac{1}{n}\sum_{i}(h(Z_i)X_i)\rightarrow_p E[h(Z)X].$ Also, by the CLT,
+\begin{align*}
+\frac{1}{\sqrt{n}}\sum_{i}(h(Z_i)(U_i)) \rightarrow_d N(0,V)
+\end{align*}
+where $V = Var(h(Z)U) = E[(h(Z))^2 U^2] - E[h(Z)U]^2 = E[(h(Z))^2 U^2] - E[h(Z)E[U|Z]]^2 = E[(h(Z))^2 U^2].$ By the continuous mapping theorem,
+\begin{align*}
+\sqrt{n}(\hat{\beta}^h_1 - \beta_1) &\rightarrow_d N(0,E[h(Z)X]^{-2}E[(h(Z))^2U^2] )
+\end{align*}
+
 \subsection{Part iv}
-\subsection{Part v}
+We have from part (iii) that $\Omega^h = E[h(Z)X]^{-2}E[(h(Z))^2U^2]$. By applying the law of iterated expectations and then Cauchy-Schwarz,
+\begin{align*}
+\Omega^h &= \frac{E[(h(Z))^2U^2]}{E[h(Z)X]^2}\\
+&=  \frac{E[(h(Z))^2E[U^2|Z]]}{E\left[[h(Z)\sqrt{E[U^2|Z]}\frac{E[X|Z]}{\sqrt{E[U^2|Z]}}\right]^2}\\
+&\geq   \frac{E[(h(Z))^2E[U^2|Z]]}{E\left[(h(Z))^2E[U^2|Z]\right]\left(\frac{E[X|Z]^2}{E[U^2|Z]}\right)}\\
+&= \left(\frac{E[X|Z]^2}{E[U^2|Z]}\right)^{-1}
+\end{align*}
+
+We can find $h_{*}$ which achieves this lower bound. Let $h_{*} = E[X|Z](E[U^2|Z])^{-1}.$ Then,
+\begin{align*}
+\Omega^{h_{*}} &= \frac{E[(h_{*}(Z))^2U^2]}{E[h_{*}(Z)X]^2}\\
+&=  \frac{E[(E[X|Z](E[U^2|Z])^{-1})^2E[U^2|Z]]}{E[E[X|Z](E[U^2|Z])^{-1}E[X|Z]]^2} \\
+&= \frac{E[E[X|Z]^2(E[U^2|Z])^{-1}]}{E[E[X|Z]^2(E[U^2|Z])^{-1}]^2}\\
+&= \left(\frac{E[X|Z]^2}{E[U^2|Z]}\right)^{-1}.
+\end{align*}
 \section{Question 3}
-\subsection{Part i}
-\subsection{Part ii}
-\subsection{Part iii}
-\subsection{Part iv}
-\subsection{Part v}
+\begin{center}
+\input{ps3}
+\end{center}
+
+\includegraphics{hw3q3}
 \end{document}

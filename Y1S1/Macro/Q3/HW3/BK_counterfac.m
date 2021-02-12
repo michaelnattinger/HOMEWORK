@@ -26,7 +26,7 @@ for i=1:4
     l = 0*v(:,1);
     for j=1:length(vi(:,1)) % k starts at its initial point
         vi(j,2) = (1/iQ(sel,2))*( -1*iQ(sel,1)*vi(j,1) + Theta*z(j,:)');
-        l(j) = ((-psigma)/(pphi + palpha)) * vi(j,2) + ((palpha)/(pphi + palpha))* vi(j,1) + ((-1*ptaubarL)/((palpha + pphi)*(1-ptaubarL)))*z(j,3);
+        l(j) = ((-psigma)/(pphi + palpha)) * vi(j,2) + ((palpha)/(pphi + palpha))* vi(j,1) + ((-1)/((palpha + pphi)))*z(j,3);
         if j<length(vi(:,1))
             vi(j+1,1) = (1-pdelta)*vi(j,1) + pdelta*(Ybar/(pdelta*Kbar))*(z(j,1) + palpha*vi(j,1) + (1-palpha)*l(j) - (Cbar/Ybar)*vi(j,2) - pGbar*z(j,2));
         end
