@@ -1,4 +1,4 @@
-function [ga,gg,ghtauL,ghtauI] = BK_counterfac(rhoI,rhoa,rhog,rhoL,a,g,htauL,htauI,c,k,palpha,pdelta,psigma,pphi,pGbar,pAbar,ptaubarI,ptaubarL,pbeta,Ybar,Kbar,Cbar,Lbar)
+function [ga] = BK_counterfac_test(rhoI,rhoa,rhog,rhoL,a,g,htauL,htauI,c,k,palpha,pdelta,psigma,pphi,pGbar,pAbar,ptaubarI,ptaubarL,pbeta,Ybar,Kbar,Cbar,Lbar)
 v = [k c];
 z = [a g htauL htauI];
 [A,B] = LOM(rhoI,rhoa,rhog,rhoL,palpha,pdelta,psigma,pphi  ...
@@ -10,23 +10,23 @@ C = iQ*B;
 lm = diag(Lambda);
 lam = lm(sel);
 Theta = (-1/lam)*C(sel,:)*inv(eye(4) -(1/lam)*diag([rhoa rhog rhoL rhoI]) );
-for i=1:4
-    switch i
-        case 1
-            z = [a 0*a 0*a 0*a]; 
-        case 2
-            z = [0*a g 0*a 0*a];
-        case 3
-            z = [0*a 0*a htauL 0*a];
-        case 4
-            z = [0*a 0*a 0*a htauI];
-    end
+for i=1
+%     switch i
+%         case 1
+%             z = [a 0*a 0*a 0*a]; 
+%         case 2
+%             z = [0*a g 0*a 0*a];
+%         case 3
+%             z = [0*a 0*a htauL 0*a];
+%         case 4
+%             z = [0*a 0*a 0*a htauI];
+%     end
     % generate c,k time series counterfactual
     vi = v;
     l = 0*v(:,1);
     for j=1:length(vi(:,1)) % k starts at its initial point
         vi(j,2) = (1/iQ(sel,2))*( -1*iQ(sel,1)*vi(j,1) + Theta*z(j,:)');
-        l(j) = (1/(pphi + palpha))*z(j,1) + ((-psigma)/(pphi + palpha)) * vi(j,2) + ((palpha)/(pphi + palpha))* vi(j,1) + ((-1)/((palpha + pphi)))*z(j,3);
+        l(j) = ((-psigma)/(pphi + palpha)) * vi(j,2) + ((palpha)/(pphi + palpha))* vi(j,1) + ((-1)/((palpha + pphi)))*z(j,3);
         if j<length(vi(:,1))
             vi(j+1,1) = (1-pdelta)*vi(j,1) + pdelta*(Ybar/(pdelta*Kbar))*(z(j,1) + palpha*vi(j,1) + (1-palpha)*l(j) - (Cbar/Ybar)*vi(j,2) - pGbar*z(j,2));
         end
@@ -36,12 +36,12 @@ for i=1:4
     switch i
         case 1
             ga = y;
-        case 2
-            gg = y;
-        case 3
-            ghtauL = y;
-        case 4
-            ghtauI = y;
+%         case 2
+%             gg = y;
+%         case 3
+%             ghtauL = y;
+%         case 4
+%             ghtauI = y;
     end
 end
 end

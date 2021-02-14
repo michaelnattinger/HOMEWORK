@@ -300,3 +300,14 @@ saveas(gcf,'wedgescovdiff.png')
 cd('..')
 
 close all
+
+% test to ensure everything is right
+[gtest] = BK_counterfac_test(rhoI,rhoa,rhog,rhoL,a,g,htauL,htauI,c,k,palpha,pdelta,psigma,pphi,pGbar, ...
+    pAbar,ptaubarI,ptaubarL,pbeta,Ybar,Kbar,Cbar,Lbar);
+figure
+plot(dates,gtest,'k')
+hold on
+plot(dates,y,'r')
+hold off
+title('test comparison')
+set(gcf,'Color',[1 1 1])
