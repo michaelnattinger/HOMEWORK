@@ -132,13 +132,26 @@ The firms compete a la Cournot:
 
 \begin{align*}
 &\max_{P_{ik}} P_{ik}C_{ik} - WL_{ik}\\
-&\text{s.t.} C_{ik} = \left( \frac{P_{ik}}{P_k} \right)^{\theta}C_k\\
+&\text{s.t.} C_{ik} = P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C\\
 &\text{and } C_{ik} = A_{ik}L_{ik}
 \end{align*}
 Substituting, we form the following objective function:
 
 \begin{align*}
-\max_{P_{ik}} P_{ik}C_{ik} - WL_{ik}
+&\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C - WA_{ik}^{-\rho}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C \\
+\Rightarrow &\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}}  - WA_{ik}^{-\rho}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} 
+\end{align*}
+
+We take first order conditions:
+
+\begin{align*}
+(1-\theta)P_{ik}^{-\theta} P_k^{\theta - \rho} + \frac{ \theta-\rho}{\theta - 1} P_{ik}^{1-\theta} P_k^{1 - \rho} &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{-\theta - 1} P_k^{\theta - \rho} +\frac{ \theta-\rho}{\theta - 1}  P_{ik}^{-\theta} P_k^{1-\rho} \right]\\
+(1-\theta) P_k^{\theta } + \frac{ \theta-\rho}{\theta - 1} P_{ik} P_k &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{ - 1} P_k^{\theta} +\frac{ \theta-\rho}{\theta - 1}   P_k \right] \\
+(1-\theta)P_{ik}  + \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} &= wA_{ik}^{-1}\left[ (-\theta)  +\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta}P_{ik} \right] \\
+0 &= \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} + \left(1-\theta  - wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta} \right)P_{ik} + \theta wA^{-1}
+\end{align*}
+\begin{align*}
+\Rightarrow P_{ik} &=  \frac{wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta}  + (\theta - 1) \pm \sqrt{\left(1-\theta  - wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta} \right)^2 - 4\frac{ \theta-\rho}{\theta - 1}  P_k^{1-\theta} \theta wA^{-1}}}{2\frac{ \theta-\rho}{\theta - 1} P_k^{1-\theta}}
 \end{align*}
 \section{Question 3}
 \section{Question 4}
