@@ -6,7 +6,7 @@ grid = [10  0  0; ... % total payoff in each grid
     % solutions are in 'valid'
     % to check who matches with who,
     % ind`n' gives the column matched with row `n'
-    
+     
 [~,n] = size(grid);
 % solve for eqm - this is for 3d grid
 tot = zeros(n,n,n);

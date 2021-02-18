@@ -93,9 +93,9 @@ E[ZZ'] &= E\left[\colvec{2}{Z_1}{X_2} \colvec{2}{Z_1}{X_2}'\right]\\
 
 Note that $E[X_2X_2']$ must be invertible for either $E[ZX']$ or $E[ZZ']$ to be invertible.\footnote{$E[X_2 X_2']$ not being invertible implies the existence of some $t$ such that $E[X_2 X_2']t = 0 \Rightarrow E[(X_2't)^2] = 0 \Rightarrow E[ZX'](0,t')' = E[ZX'](0,t')' = 0$ so $E[ZX']$ and $E[ZZ']$ are not invertible.}
 
-Block inversion implies that $E[ZX']$ is invertible iff $E[Z_1X_1] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2X_1] \neq 0$, and similarly $E[ZZ']$ is invertible iff $E[Z_1^2] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2Z_1] \neq 0$. We can rewrite these expressions as follows: $E[\hat{Z}_1 X_1] \neq 0, E[\tilde{Z}_1^2] \neq 0 $ for $\hat{Z}_1 := Z_1 - X_2'E[X_2X_2']^{-1}E[X_2Z_1].$ From FWL, for $\pi_1 = E[\tilde{Z}_1X_1].$ Together, $E[\tilde{Z}_1^2] \neq 0$ and $\pi_1 \neq 0$ imply that $E[\tilde{Z}_1X_1] \neq 0$, and the reverse direction comes from Cauchy-Schwarz:
+Block inversion implies that $E[ZX']$ is invertible iff $E[Z_1X_1] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2X_1] \neq 0$, and similarly $E[ZZ']$ is invertible iff $E[Z_1^2] - E[Z_1X_2']E[X_2X_2']^{-1}E[X_2Z_1] \neq 0$. We can rewrite these expressions as follows: $E[\tilde{Z}_1 X_1] \neq 0, E[\tilde{Z}_1^2] \neq 0 $ for $\tilde{Z}_1 := Z_1 - X_2'E[X_2X_2']^{-1}E[X_2Z_1].$ From FWL, for $\pi_1 = E[\tilde{Z}_1X_1]E[\tilde{Z}_1^2].$ Together, $E[\tilde{Z}_1^2] \neq 0$ and $\pi_1 \neq 0$ imply that $E[\tilde{Z}_1X_1] \neq 0$, and the reverse direction comes from Cauchy-Schwarz:
 \begin{align*}
-0<E[Z_1X_1]^2 \leq E[\hat{Z}_1^2]E[ X_1^2].
+0<E[Z_1X_1]^2 \leq E[\tilde{Z}_1^2]E[ X_1^2].
 \end{align*}
 \subsection{Part ii}
 Under homoskedasticity, $\Omega = \sigma_{U}^2E[ZX']^{-1}E[ZZ']E[XZ']^{-1}$. We again go back to block inversion and find that:

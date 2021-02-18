@@ -1,0 +1,190 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
+\usepackage{endnotes}
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics HW4}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+The probability of defying is the following:
+\begin{align*}
+P(D) &= Pr(X=0 | Z=1 \cap X=1 |Z=1)\\
+&=Pr(-U_0 +U_1 \leq 0 \cap -U_0 > 0)
+\end{align*}
+
+By observing the above, it is clear that $P(D) > 0 \iff P( U_0<0 \cap U_1\leq U_0)>0$. Therefore, if $ P( U_0<0 \cap U_1 \leq U_0) = 0$, $P(D) = 0.$ 
+
+The probability of complying is the following:
+\begin{align*}
+P(C) &= Pr(X=1 | Z=1 \cap X=0 |Z=0)\\
+&= Pr(-U_0 +U_1 >0 \cap -U_0 \leq 0)
+\end{align*}
+
+Again by observing the above, it is clear that $P(C) = 0 \iff P(U_0\geq 0 \cap U_1>U_0) = 0$. Therefore, if $ P(U_0\geq 0 \cap U_1>U_0) > 0$, $P(C) > 0.$
+
+We are askeed to find conditions on $U$ such that $P(C)>0$ and $P(D) = 0.$ This is satisfied in a variety of ways. If $U_0 \geq 0$, the conditions are satisfied. Moreover, if $U_0<0,$ the conditions are still satisfied so long as $U_1>U_0$.
+\section{Question 2}
+\subsection{Part i}
+For notational convenience define $\theta_0 = 1$. 
+\begin{align*}
+\gamma (k) &= Cov(Y_t,Y_{t-k}) \\
+&= Cov(\mu + \epsilon_t + \theta_1\epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q},\mu + \epsilon_{t-k} + \theta_1\epsilon_{t-1 - k} + \dots + \theta_q \epsilon_{t-q-k})\\
+&= \begin{cases}
+0, |k|>q\\
+\sigma^2 \sum_{i=0}^{q - |k|}\theta_i \theta_{k+i}, q\geq |k|
+\end{cases}.
+\end{align*}
+
+\subsection{Part ii}
+\begin{align*}
+\rho(k) &= \frac{\gamma(k)}{\gamma(0)}\\
+&= \frac{\gamma(k)}{\sigma^2(1+\theta_1^2)}\\
+&= \begin{cases}
+0, |k|>1\\
+1, k = 0\\
+\frac{\theta_1}{(1+\theta_1^2)}, |k| = 1
+\end{cases}
+\end{align*}
+\subsection{Part iii}
+
+Notice that $\theta$ only appears in the functional form of $\rho(k)$ if $|k| = 1$. Note that $\rho(1) = \rho(-1)$. WLOG consider $\rho(1)$. Note that $\theta_1 = 0 \iff \rho(1) = 0$. Now, assume $\theta_1 \neq 0,$ Then, $\rho(1) = \frac{\theta_1}{1+\theta_1^2}$ is a quadratic function with two solutions, or one solution if $\theta_1 \in \{ -1,1 \}$. Note, in particular, that $\theta_1$ and $\theta_1^{-1}$ yield the same value of $\rho(1)$, and are the two solutions. Therefore, in general $\theta_1$ is not identified from $\rho(1).$
+%\begin{align*}
+%\rho(1) &= \frac{\theta_1}{1+\theta_1^2}\\
+%\Rightarrow 0 &= \theta_1^2 - \frac{1}{\rho(1)}\theta_1 + 1\\
+%\Rightarrow \theta_1 &=  \frac{1}{2\rho(1)} \pm (1/2) \sqrt{ \frac{1}{(\rho(1))^2} - 4}
+%\end{align*}
+%
+%Clearly this is going to cause issues if the radicand is negative. Therefore, we can solve for a real-valued $\theta_1 \iff \frac{1}{(\rho(1))^2} \geq 4 \iff |\rho(1) |\leq \frac{1}{2}$.
+
+\subsection{Part iv}
+
+If we are restricted to $\theta_1 \in [-1,1]$, then we can rule out one of our two solutions for $\theta_1$, namely the solution with $|\theta_1|>1$ and can exactly identify $\theta_1$.
+%Recall that $\rho(1) = \frac{\theta_1}{1+\theta_1^2}.$ Then, for $\theta \in [-1,1], \rho(1) \in \left[-\frac{1}{2},\frac{1}{2}\right]$ so we can calculate theta from our formula above without worrying about imaginary solutions. Note, however, that this will yield 2 possible solutions for $\theta_1$ unless $ \frac{1}{(\rho(1))^2} = 4.$ This will only occur if $\theta_1 = \pm 1.$ Therefore, $\theta_1$ is only uniquely identified from $\rho(1)$ if $\theta_1 \in \{-1, 0, 1\}$.
+
+\section{Question 3}
+\subsection{Part A}
+%\begin{align*}
+%E[Y_t] &= E[\alpha + Y_{t-1}\rho + U_t]\\
+%&= E[\alpha + (\alpha + Y_{t-2}\rho + U_{t-1})\rho + \epsilon_t + \theta\epsilon_{t-1}]\\
+%&= E[\alpha (1+\rho) + Y_{t-2}\rho^2 + U_{t-1}\rho + \epsilon_t + \theta\epsilon_{t-1}] \\
+%&= E[\alpha (1+\rho) + (\alpha + Y_{t-3}\rho + U_{t-2})\rho^2 + (\epsilon_{t-1} + \theta\epsilon_{t-2})\rho + \epsilon_t + \theta\epsilon_{t-1}]\\
+%&= E[\alpha(1+\rho + \rho^2) + Y_{t-3}\rho^3 + U_{t-2}\rho^2 + \epsilon_t + \epsilon_{t-1}(\theta+\rho) + \epsilon_{t-2}\theta \rho]\\
+%&= E\left[\alpha \left( \sum_{i=0}^t\rho^i \right) + Y_0\rho^t + U_{1} \rho^{t-1} + \epsilon_t + \sum_{i=1}^{t-1}\epsilon_{t-i}\rho^{i-1}(\theta + \rho)\right] \\
+%&= E\left[\alpha \left( \sum_{i=0}^t\rho^i \right) + (\mu + \epsilon_0 + \nu)\rho^t + (\epsilon_1 + \theta \epsilon_{0}) \rho^{t-1} + \epsilon_t +(\theta + \rho) \sum_{i=1}^{t-1}\epsilon_{t-i}\rho^{i-1}\right]
+%\end{align*}
+It is sufficient to find $\mu,\tau$ such that $E[Y_1] = E[Y_0], Var(Y_1) = Var(Y_0)$.
+\begin{align*}
+E[Y_0] &= E[\mu + \epsilon_0 + \nu]\\
+&= \mu\\
+E[Y_1] &= E[\alpha_0 + Y_0\rho + U_1]\\
+&= \alpha_0 + \mu\rho\\
+\Rightarrow \mu &= \alpha_0 + \mu\rho\\
+\Rightarrow \mu &= \frac{\alpha_0}{1-\rho}.\\
+Var(Y_0) &= Var(\mu + \epsilon_0 + \nu)\\
+&= \sigma^2 + \tau\\
+Var(Y_1)&= Var(\alpha_0 + Y_0\rho + U_1)\\
+&= Var(\epsilon_0\rho + \nu\rho + \epsilon_1 + \theta \epsilon_0)\\
+&= Var(\epsilon_0(\rho+\theta) + \nu\rho + \epsilon_1)\\
+&= (\rho+\theta)^2\sigma^2 + \tau\rho^2 + \sigma^2\\
+\Rightarrow \sigma^2 + \tau &=  (\rho+\theta)^2\sigma^2 + \tau\rho^2 + \sigma^2\\
+\Rightarrow \tau &= \frac{(\rho + \theta)^2\sigma^2}{1-\rho^2}.
+\end{align*}
+
+\subsection{Part B}
+To be a valid instrument, the instrument must satisfy $E[U_t|Y_{t-2}] = 0, Cov(Y_{t-1},Y_{t-2})\neq0$.
+\begin{align*}
+E[U_t|Y_{t-2}] &= E[\epsilon_t + \theta\epsilon_{t-1}|Y_{t-2}]\\
+&= E[\epsilon_t + \theta\epsilon_{t-1}|\nu,\epsilon_0,\dots,\epsilon_{t-2}]\\
+&= 0,\\
+ Cov(Y_{t-1},Y_{t-2}) &= Cov(\alpha_0 + Y_{t-2}\rho +\epsilon_{t-1} + \theta \epsilon_{t-2},Y_{t-2})\\
+&= \rho Var(Y_{t-2}) +\theta \sigma^2.
+\end{align*}
+
+By the covariance stationarity of $Y$, $Var(Y_{t-2}) = Var(Y_0) = \sigma^2 +\tau.$ Therefore,
+
+\begin{align*}
+ Cov(Y_{t-1},Y_{t-2}) &=\rho ( \sigma^2 +\tau) +\theta \sigma^2\\
+&= \sigma^2(\rho +\theta)  + \rho\frac{(\rho + \theta)^2\sigma^2}{1-\rho^2}\\
+&= \sigma^2(\rho +\theta)\left( 1 + \frac{\rho}{1-\rho^2}(\rho + \theta) \right) \\
+&= \sigma^2(\rho +\theta)\left( \frac{1-\rho\theta}{1-\rho^2} \right)
+\end{align*}
+
+We are given that $|\rho|<1,|\theta|<1$ so $Cov(Y_{t-1},Y_{t-2})  \neq 0 \iff \rho+\theta \neq 0.$
+\end{document}
