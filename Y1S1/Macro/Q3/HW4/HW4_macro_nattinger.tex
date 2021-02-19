@@ -115,16 +115,16 @@ We can substitute in our expressions into the definitions of $C,C_k$:
 \begin{align*}
 \left( \int \left[ \left( \frac{P_k}{P} \right)^{-\rho}C  \right]^{\frac{\rho - 1}{\rho}} dk \right)^{\frac{\rho}{\rho - 1}} &= C\\
 \Rightarrow \left( \int  \left( \frac{P_k}{P} \right)^{1-\rho} dk \right)^{\frac{\rho}{\rho - 1}}  &= 1\\
-\Rightarrow \left( \int  P_k^{1-\rho} dk \right)^{\frac{1}{\rho - 1}}  &= P, \\
+\Rightarrow \left( \int  P_k^{1-\rho} dk \right)^{\frac{1}{ 1-\rho}}  &= P, \\
 \left( \sum_i \left[ \left( \frac{P_{ik}}{P_k} \right)^{\theta} C_k \right]^{\frac{\theta - 1}{\theta}}\right)^{\frac{\theta}{\theta - 1}} &= C_k \\
-\Rightarrow \left( \sum_i P_{ik}^{\theta - 1} \right)^{\frac{1}{\theta - 1}} &= P_k
+\Rightarrow \left( \sum_i P_{ik}^{1-\theta} \right)^{\frac{1}{1-\theta}} &= P_k
 \end{align*}
 
 To summarize, we have the following:
 \begin{align}
-P_k &=  \left( \sum_i P_{ik}^{\theta - 1} \right)^{\frac{1}{\theta - 1}}\\
-P &=  \left( \int  \left[  \left( \sum_i P_{ik}^{\theta - 1} \right)^{\frac{1}{\theta - 1}} \right]^{1-\rho} dk \right)^{\frac{1}{\rho - 1}} \\
-C_{ik} &= P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C
+P_k &=  \left( \sum_i P_{ik}^{1-\theta} \right)^{\frac{1}{1-\theta}}\\
+P &=  \left( \int  \left[  \left( \sum_i P_{ik}^{1-\theta} \right)^{\frac{1}{1-\theta}} \right]^{1-\rho} dk \right)^{\frac{1}{1-\rho}} \\
+C_{ik} &= P_{ik}^{-\theta}\left( \sum_i P_{ik}^{1-\theta }\right)^{\frac{ \theta-\rho}{1-\theta }} P^{\rho} C
 \end{align}
 
 \section{Question 2}
@@ -132,27 +132,33 @@ The firms compete a la Cournot:
 
 \begin{align*}
 &\max_{P_{ik}} P_{ik}C_{ik} - WL_{ik}\\
-&\text{s.t.} C_{ik} = P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C\\
+&\text{s.t.} C_{ik} = P_{ik}^{-\theta}\left( \sum_i P_{ik}^{1-\theta }\right)^{\frac{ \theta-\rho}{1-\theta }} P^{\rho} C\\
 &\text{and } C_{ik} = A_{ik}L_{ik}
 \end{align*}
 Substituting, we form the following objective function:
 
 \begin{align*}
-&\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C - WA_{ik}^{-\rho}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} P^{\rho} C \\
-\Rightarrow &\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}}  - WA_{ik}^{-\rho}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{\theta - 1}\right)^{\frac{ \theta-\rho}{\theta - 1}} 
+&\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{1-\theta }\right)^{\frac{ \theta-\rho}{1-\theta}} P^{\rho} C - WA_{ik}^{-1}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{1-\theta }\right)^{\frac{ \theta-\rho}{1-\theta}} P^{\rho} C \\
+\Rightarrow &\max_{P_{ik}}P_{ik}^{1-\theta}\left( \sum_i P_{ik}^{1-\theta}\right)^{\frac{ \theta-\rho}{1-\theta}}  - WA_{ik}^{-1}P_{ik}^{-\theta}\left( \sum_i P_{ik}^{1-\theta}\right)^{\frac{ \theta-\rho}{1-\theta }} 
 \end{align*}
 
 We take first order conditions:
 
 \begin{align*}
-(1-\theta)P_{ik}^{-\theta} P_k^{\theta - \rho} + \frac{ \theta-\rho}{\theta - 1} P_{ik}^{1-\theta} P_k^{1 - \rho} &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{-\theta - 1} P_k^{\theta - \rho} +\frac{ \theta-\rho}{\theta - 1}  P_{ik}^{-\theta} P_k^{1-\rho} \right]\\
-(1-\theta) P_k^{\theta } + \frac{ \theta-\rho}{\theta - 1} P_{ik} P_k &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{ - 1} P_k^{\theta} +\frac{ \theta-\rho}{\theta - 1}   P_k \right] \\
-(1-\theta)P_{ik}  + \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} &= wA_{ik}^{-1}\left[ (-\theta)  +\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta}P_{ik} \right] \\
-0 &= \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} + \left(1-\theta  - wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta} \right)P_{ik} + \theta wA^{-1}
+(1-\theta)P_{ik}^{-\theta}P_k^{\theta - \rho} + P_{ik}^{1-\theta} \frac{\theta - \rho}{1-\theta}P_k^{2\theta - \rho - 1}(1-\theta)P_{ik}^{-\theta} &= \frac{W}{A_{ik}}\left[ (-\theta)P_{ik}^{-\theta-1}P_k^{\theta-\rho} + P_{ik}^{-\theta} \frac{\theta - \rho}{1-\theta} P_k^{2\theta - \rho - 1}(1-\theta)P_{ik}^{-\theta}\right]\\
+(1-\theta)P_k^{\theta } + P_{ik}^{1-\theta} (\theta - \rho)P_k^{2\theta  - 1} &= \frac{W}{A_{ik}}\left[ (-\theta)P_{ik}^{-1}P_k^{\theta} + P_{ik}^{-\theta} (\theta - \rho) P_k^{2\theta - 1}\right]
 \end{align*}
-\begin{align*}
-\Rightarrow P_{ik} &=  \frac{wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta}  + (\theta - 1) \pm \sqrt{\left(1-\theta  - wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta} \right)^2 - 4\frac{ \theta-\rho}{\theta - 1}  P_k^{1-\theta} \theta wA^{-1}}}{2\frac{ \theta-\rho}{\theta - 1} P_k^{1-\theta}}
-\end{align*}
+
+%\begin{align*}
+%(1-\theta)P_{ik}^{-\theta} P_k^{\theta - \rho} + \frac{ \theta-\rho}{1-\theta } P_{ik}^{1-\theta} P_k^{1 - \rho} &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{-\theta - 1} P_k^{\theta - \rho} +\frac{ \theta-\rho}{\theta - 1}  P_{ik}^{-\theta} P_k^{1-\rho} \right]\\
+%(1-\theta) P_k^{\theta } + \frac{ \theta-\rho}{\theta - 1} P_{ik} P_k &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{ - 1} P_k^{\theta} +\frac{ \theta-\rho}{\theta - 1}   P_k \right] \\
+%(1-\theta)P_{ik}  + \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} &= wA_{ik}^{-1}\left[ (-\theta)  +\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta}P_{ik} \right] \\
+%0 &= \frac{ \theta-\rho}{\theta - 1} P_{ik}^2 P_k^{1-\theta} + \left(1-\theta  - wA_{ik}^{-1}\frac{ \theta-\rho}{\theta - 1}   P_k^{1-\theta} \right)P_{ik} + \theta wA_{ik}^{-1}\\
+%0 &= P_{ik}^2  + \left(-\frac{(\theta-1)^2}{\theta - \rho}P_k^{\theta - 1}  - wA_{ik}^{-1} \right)P_{ik} + \frac{\theta(\theta - 1) P_k^{\theta - 1} wA_{ik}^{-1}}{\theta - \rho}
+%\end{align*}
+%\begin{align*}
+%\Rightarrow P_{ik} &=  \frac{w}{2A_{ik}}  +\frac{(\theta-1)^2}{2\left(\theta - \rho\right)}P_k^{\theta - 1} \pm \sqrt{\left(\frac{(\theta-1)^2}{2(\theta - \rho)}P_k^{\theta - 1}  + \frac{w}{2A_{ik}} \right)^2 - \frac{\theta(\theta - 1) P_k^{\theta - 1} wA_{ik}^{-1}}{\theta - \rho}}
+%\end{align*}
 \section{Question 3}
 \section{Question 4}
 \section{Question 5}
