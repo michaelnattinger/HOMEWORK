@@ -148,6 +148,12 @@ We take first order conditions:
 (1-\theta)P_{ik}^{-\theta}P_k^{\theta - \rho} + P_{ik}^{1-\theta} \frac{\theta - \rho}{1-\theta}P_k^{2\theta - \rho - 1}(1-\theta)P_{ik}^{-\theta} &= \frac{W}{A_{ik}}\left[ (-\theta)P_{ik}^{-\theta-1}P_k^{\theta-\rho} + P_{ik}^{-\theta} \frac{\theta - \rho}{1-\theta} P_k^{2\theta - \rho - 1}(1-\theta)P_{ik}^{-\theta}\right]\\
 (1-\theta) + P_{ik}^{1-\theta} (\theta - \rho)P_k^{\theta  - 1} &= \frac{W}{A_{ik}}\left[ (-\theta)P_{ik}^{-1} + P_{ik}^{-\theta} (\theta - \rho) P_k^{\theta - 1}\right]
 \end{align*}
+Denote the weighted price ratio $s_{ik}:= \left(\frac{P_{ik}}{P_{k}}\right)^{1-\theta}$:
+
+\begin{align*}
+P_{ik}[(1-\theta) +  s_{ik} (\theta - \rho)]&= \frac{W}{A_{ik}}\left[ (-\theta) + s_{ik} (\theta - \rho) \right]\\
+\Rightarrow P_{ik} &= \frac{W}{A_{ik}}\left[ 1 - \frac{1}{(1-\theta) +  s_{ik} (\theta - \rho)} \right]
+\end{align*}
 
 %\begin{align*}
 %(1-\theta)P_{ik}^{-\theta} P_k^{\theta - \rho} + \frac{ \theta-\rho}{1-\theta } P_{ik}^{1-\theta} P_k^{1 - \rho} &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{-\theta - 1} P_k^{\theta - \rho} +\frac{ \theta-\rho}{\theta - 1}  P_{ik}^{-\theta} P_k^{1-\rho} \right]\\
@@ -159,6 +165,15 @@ We take first order conditions:
 %\begin{align*}
 %\Rightarrow P_{ik} &=  \frac{w}{2A_{ik}}  +\frac{(\theta-1)^2}{2\left(\theta - \rho\right)}P_k^{\theta - 1} \pm \sqrt{\left(\frac{(\theta-1)^2}{2(\theta - \rho)}P_k^{\theta - 1}  + \frac{w}{2A_{ik}} \right)^2 - \frac{\theta(\theta - 1) P_k^{\theta - 1} wA_{ik}^{-1}}{\theta - \rho}}
 %\end{align*}
+
+We can derive demand elasticities $\frac{P_{ik}\partial C_{ik}}{C_{ik}\partial P_{ik}}$:
+
+\begin{align*}
+\frac{P_{ik}\partial C_{ik}}{C_{ik}\partial P_{ik}} &= \frac{P_{ik}}{C_{ik}}\left( (-\theta)P_{ik}^{-1-\theta}P_{k}^{\theta - \rho} + P_{ik}^{-\theta} \frac{ \theta-\rho}{1-\theta } P_{k}^{2\theta - \rho - 1}(1-\theta)P_{ik}^{-\theta}  \right) P^{\rho} C\\
+&=\left(P_{ik}^{1+\theta} P_{k}^{\rho - \theta} P^{-\rho} C^{-1} \right)\left( (-\theta)P_{ik}^{-1-\theta}P_{k}^{\theta - \rho} + P_{ik}^{-2\theta} (\theta-\rho) P_{k}^{2\theta - \rho - 1}  \right) P^{\rho} C\\
+&=\left( (-\theta) + P_{ik}^{1-\theta} (\theta-\rho) P_{k}^{\theta  - 1}  \right) \\
+&= (\theta - \rho)s_{ik} - \theta.
+\end{align*}
 \section{Question 3}
 \section{Question 4}
 \section{Question 5}
