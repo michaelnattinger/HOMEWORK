@@ -94,29 +94,29 @@ We will then write the Lagrangian as follows:
 We solve this maximization problem by taking first order conditions with respect to our choice variables, in this case $C_{ik},C_k$:
 \begin{align*}
 P_{k}  &= \frac{\rho}{\rho - 1} \left( \int C_k^{\frac{\rho - 1}{\rho}} dk \right)^{\frac{1}{\rho - 1}}\frac{\rho - 1}{\rho}C_k^{\frac{-1}{\rho}}\\
-\Rightarrow C_k &= \left(\frac{P_k}{P}\right)^{\rho} C. \\
+\Rightarrow C_k &= \left(\frac{P_k}{P}\right)^{-\rho} C. \\
 P_{ik} &= P_k  \frac{\theta}{\theta - 1}\left( \sum_{i=1}^{N_k} C_{ik}^{\frac{\theta - 1}{\theta}} \right)^{\frac{1}{\theta - 1}} \frac{\theta - 1}{\theta}C_{ik}^{-\frac{1}{\theta}}\\
-\Rightarrow C_{ik} &= \left(\frac{P_{ik}}{P_{k}}\right)^{\theta}C_{k}
+\Rightarrow C_{ik} &= \left(\frac{P_{ik}}{P_{k}}\right)^{-\theta}C_{k}
 \end{align*}
 %Note that:
 %\begin{align*}
 %\frac{\partial C_k}{\partial C_{ik}} &= \frac{\theta}{\theta - 1}\left( \sum_{i=1}^{N_k} C_{ik}^{\frac{\theta - 1}{\theta}} \right)^{\frac{1}{\theta - 1}} \frac{\theta - 1}{\theta}C_{ik}^{-\frac{1}{\theta}}\\
 %&= \left(\frac{C_{ik}}{C_k}\right)^{\frac{1}{\theta}}
 %\end{align*}
-We then can simplify our consumption first order condition to the following:
-\begin{align*}
-P_k  \left(\frac{C_{ik}}{C_k}\right)^{\frac{1}{\theta}}  &= P C^{\frac{1}{\rho}}C_k^{\frac{-1}{\rho}}\left(\frac{C_{ik}}{C_k}\right)^{\frac{1}{\theta}}\\
-\Rightarrow C_k &= \left( \frac{P_k}{P} \right)^{-\rho}C,
-\end{align*}
-
-a familiar expression to what we found in lecture.
+%We then can simplify our consumption first order condition to the following:
+%\begin{align*}
+%P_k  \left(\frac{C_{ik}}{C_k}\right)^{\frac{1}{\theta}}  &= P C^{\frac{1}{\rho}}C_k^{\frac{-1}{\rho}}\left(\frac{C_{ik}}{C_k}\right)^{\frac{1}{\theta}}\\
+%\Rightarrow C_k &= \left( \frac{P_k}{P} \right)^{-\rho}C,
+%\end{align*}
+%
+%a familiar expression.
 
 We can substitute in our expressions into the definitions of $C,C_k$:
 \begin{align*}
 \left( \int \left[ \left( \frac{P_k}{P} \right)^{-\rho}C  \right]^{\frac{\rho - 1}{\rho}} dk \right)^{\frac{\rho}{\rho - 1}} &= C\\
 \Rightarrow \left( \int  \left( \frac{P_k}{P} \right)^{1-\rho} dk \right)^{\frac{\rho}{\rho - 1}}  &= 1\\
 \Rightarrow \left( \int  P_k^{1-\rho} dk \right)^{\frac{1}{ 1-\rho}}  &= P, \\
-\left( \sum_i \left[ \left( \frac{P_{ik}}{P_k} \right)^{\theta} C_k \right]^{\frac{\theta - 1}{\theta}}\right)^{\frac{\theta}{\theta - 1}} &= C_k \\
+\left( \sum_i \left[ \left( \frac{P_{ik}}{P_k} \right)^{-\theta} C_k \right]^{\frac{\theta - 1}{\theta}}\right)^{\frac{\theta}{\theta - 1}} &= C_k \\
 \Rightarrow \left( \sum_i P_{ik}^{1-\theta} \right)^{\frac{1}{1-\theta}} &= P_k
 \end{align*}
 
@@ -128,7 +128,7 @@ C_{ik} &= P_{ik}^{-\theta}\left( \sum_i P_{ik}^{1-\theta }\right)^{\frac{ \theta
 \end{align}
 
 \section{Question 2}
-The firms compete a la Cournot:
+The firms compete a la Bertrand:
 
 \begin{align*}
 &\max_{P_{ik}} P_{ik}C_{ik} - WL_{ik}\\
@@ -155,6 +155,7 @@ P_{ik}[(1-\theta) +  s_{ik} (\theta - \rho)]&= \frac{W}{A_{ik}}\left[ (-\theta) 
 \Rightarrow P_{ik} &= \frac{W}{A_{ik}}\left[ 1 - \frac{1}{(1-\theta) +  s_{ik} (\theta - \rho)} \right]
 \end{align*}
 
+This yields a recursive expression for $P_{ik}$. In other words, we have a set of $i \times k$ nonlinear equations in $i \times k$ unknowns.
 %\begin{align*}
 %(1-\theta)P_{ik}^{-\theta} P_k^{\theta - \rho} + \frac{ \theta-\rho}{1-\theta } P_{ik}^{1-\theta} P_k^{1 - \rho} &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{-\theta - 1} P_k^{\theta - \rho} +\frac{ \theta-\rho}{\theta - 1}  P_{ik}^{-\theta} P_k^{1-\rho} \right]\\
 %(1-\theta) P_k^{\theta } + \frac{ \theta-\rho}{\theta - 1} P_{ik} P_k &= wA_{ik}^{-1}\left[ (-\theta) P_{ik}^{ - 1} P_k^{\theta} +\frac{ \theta-\rho}{\theta - 1}   P_k \right] \\
@@ -174,8 +175,51 @@ We can derive demand elasticities $\frac{P_{ik}\partial C_{ik}}{C_{ik}\partial P
 &=\left( (-\theta) + P_{ik}^{1-\theta} (\theta-\rho) P_{k}^{\theta  - 1}  \right) \\
 &= (\theta - \rho)s_{ik} - \theta.
 \end{align*}
+
 \section{Question 3}
+
+The markup of firm $i$ in industry $k$, $\mu_{ik}$, with marginal cost $M_{ik}$  is the following:
+
+\begin{align*}
+\mu_{ik} &= P_{ik} / M_{ik}\\
+&=  \frac{W}{A_{ik}}\left[ 1 - \frac{1}{(1-\theta) +  s_{ik} (\theta - \rho)} \right] / \frac{W}{A_{ik}}\\
+&=  \left[1 - \frac{1}{(1-\theta) +  s_{ik} (\theta - \rho)}\right]
+\end{align*}
+
+Taking the derivative with respect to $A_{ik}$:
+\begin{align*}
+\frac{\partial \mu_{ik}}{\partial A_{ik}} &= -\frac{\partial }{\partial A_{ik}}\left( \frac{1}{(1-\theta)+(\theta - \rho)s_{ik}} \right)\\
+&= \left( \frac{1}{(1-\theta)+(\theta - \rho)s_{ik}} \right)^{2}(\theta - \rho)\frac{\partial s_{ik}}{\partial A_{ik}}.
+\end{align*}
+
+Note that:
+\begin{align*}
+\frac{\partial s_{ik}}{\partial A_{ik}} &= (1-\theta)P_{k}^{1-\theta}P_{ik}^{-\theta}\frac{\partial P_{ik}}{\partial A_{ik}}\\
+\Rightarrow \frac{\partial \mu_{ik}}{\partial A_{ik}} &= \left( \frac{1}{(1-\theta)+(\theta - \rho)s_{ik}} \right)^{2}(\theta - \rho) (1-\theta)P_{k}^{1-\theta}P_{ik}^{-\theta}\frac{\partial P_{ik}}{\partial A_{ik}}\\
+&>0,
+\end{align*}
+where we have concluded that this term is positive by noting that the squared fraction, $(\theta - \rho)$, and price terms are positive and the $(1-\theta)$ and $\frac{\partial P_{ik}}{\partial A_{ik}}$ terms are negative.
 \section{Question 4}
+It is relatively straightforward to code the problem numerically as a fixed point problem. Given a tolerance, draws of $A_{ik}$, tuning parameter $\gamma \in [0,1)$ and starting guess $s_{ik}^{0,1}$, one can proceed using the following algorithm:
+\begin{enumerate}
+\item For all $ik$, calculate $P_{ik}^{n} = (W/A_{ik})\left[1 - \frac{1}{(1-\theta) +  s_{ik}^{n-1,1} (\theta - \rho)} \right]$. \label{step}
+\item For all $k$, calculate $P_{k}^{n} = \left( \sum_i (P_{ik}^{n})^{1-\theta} \right)^{\frac{1}{1-\theta}} $.
+\item For all $ik$, calculate $s_{ik}^{n,0} = \left(\frac{P_{ik}^{n}}{P_{k}^n}\right)^{1-\theta}$.
+\item Check for convergence: if $\sum_{k}\sum_{i}|s_{ik}^{n,0} - s_{ik}^{n-1,1}|$ is less than the tolerance, stop. Otherwise, set $s_{ik}^{n,1} = (1-\gamma) s_{ik}^{n,0} +  \gamma s_{ik}^{n-1,1}$ and return to step (\ref{step}).
+\end{enumerate}
+
+I note a couple of details here. First, note that the higher the tuning parameter $\gamma$, the slower $s_{ik}$ will move in-between iterations. This is particularly important when $\rho$ is near $1$. For $\gamma = 2$, the algorithm converges rapidly with a tuning parameter near 0, but when $\gamma = 1.1$ then the algorithm will converge many orders of magnitude slower with a tuning parameter near 0 than with an appropriately chosen tuning parameter, such as $\gamma = 0.5$. For this exercise, we were told to use $\rho = 1.$ This causes numerical issues as we end up dividing by $0$ in our algorithm above. To get around this issue, we instead use $\rho = 1+ \epsilon$, with $\epsilon<<1$. Specifically, I use $\epsilon = 10^{-9}$, which converges in under fifteen seconds using a tuning parameter of $\gamma = 0.6.$ The numerical results change very little as $\epsilon$ decreases further towards $0$, with no change to any reported digits in moving from $\epsilon = 10^{-6}$ to $\epsilon = 10^{-9}$.
+
 \section{Question 5}
+With our solution, computed in Question 4, for all $P_{ik},$ we can calculate $P$ and use the fact that $W = PC$ to solve for $C = WP^{-1}$. Given my set of productivity draws, I calculated that $C = 4.6062 $ (note: here, C is equal to the real wage).
+
+In the first-best outcome, firms charge their marginal cost: $P_{ik} = W/A_{ik}$. Given my set of draws, I calculated that $C_{SPP} = 7.2417$. Unlike the original Dixit-Stiglitz model where the result of the competitive equilibrium is equivalent to the first-best outcome, here there is a significant wedge owing to the market power firms have within their sectors.
 \section{Question 6}
+In the limit as $\theta \rightarrow \infty,$ goods within a sector become infinitely substitutable. Therefore, in the limit, consumers only buy goods from the cheapest (highest productivity) firm in the sector. The intra-sectoral dynamic then drops out, and the only competition is inter-sectoral. In other words, when $\theta \rightarrow \infty$, the problem  collapses to the one under Bertrand competition with homogeneous goods.
+
+Note that there is a subtle difference between these models, in that the models are equivalent assuming the draws of the highest-productivity firms within each sector of this sectoral model are equal to the productivity draws of the firms in the original Dixit-Stiglitz case. In other words, if each firm in the sectoral model have productivities drawn from a distribution $\mathcal{F}$, then the distribution of productivities of the highest-productivity firms within each sector, $\mathcal{G}$, is defined as follows:
+\begin{align*}
+\mathcal{G} \sim \max \{ A_{1k},\dots,A_{N_k k}: A_{1k},\dots, A_{N_k k} \sim \mathcal{F} \}
+\end{align*}
+Then, the sectoral model with firm productivities drawn from the $\mathcal{F}$ in the limit as $\theta \rightarrow \infty$ converges to the original Dixit-Stiglitz model with firm productivities drawn from the $\mathcal{G}$ distribution.
 \end{document}
