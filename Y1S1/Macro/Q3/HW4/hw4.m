@@ -29,12 +29,10 @@ while (diff>tol) && (iter<maxiter) % repeat until converged
 end
 % Solved.
 p = ((1/K)*sum(pk.^(1-prho))).^(1/(1-prho));
-rw = W/p;
-C = rw; % c here is the real wage
+C = W/p; % c here is the real wage
 pikspp = W./A; % best allocation
 pkspp = (sum(pikspp.^(1-ptheta),2)).^(1/(1-ptheta));
 pspp = ((1/K)*sum(pkspp.^(1-prho))).^(1/(1-prho));
-rwspp = W/pspp;
-Cspp = rwspp;
+Cspp = W/pspp;
 disp(['C = ' num2str(C)])
 disp(['Cspp = ' num2str(Cspp)])
