@@ -1,0 +1,215 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS5}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+We will begin with deriving the flexible price version of the model and add in the price stickiness after. Households maximize utility subject to their budget constraint. The first order conditions with respect to consumption, labor, and bond holdings yields the labor supply equation and Euler equation:
+\begin{align}
+C_t &= W_t/P_t \label{LS}\\
+1 &= E_t\left[ \beta \frac{C_t}{C_{t+1}} \frac{P_t}{P_{t+1}} (1+i_t) \right] \label{EE}
+\end{align}
+
+Note that, under flexible prices, disutility of labor drops out from the labor supply equation. Labor supplied will always equal $L_t = 1$. In other words, under flexible prices and the given utility formulation, the labor supply is perfectly inelastic and set to $1$.
+
+Under fully flexible prices, firms profit maximization yields the following optimal pricing equations a la Dixit-Stiglitz:
+\begin{align}
+P_{it} &= \frac{\theta}{\theta - 1}\frac{W_t}{A_{t}} \label{FP}\\
+P_{t} &= \left(\int P_{it}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{AP}
+\end{align}
+
+In the deterministic steady state of the economy, the above equations (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) imply the following:
+\begin{align}
+\bar{C} &= \bar{W}/\bar{P} \label{LSSS}\\
+1 &= \beta(1+\bar{i}) \label{EESS}\\
+\bar{P}_{i} &= \frac{\theta}{\theta - 1}\frac{\bar{W}}{\bar{A}} \label{FPSS}\\
+\bar{P} &= \left(\int \bar{P}_{i}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{APSS}
+\end{align}
+
+Note also that $L_t = 0 \Rightarrow \bar{L} = 1$.
+
+Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}),(\ref{APSS}) are the following:
+\begin{align*}
+c_t + p_t &= w_t\\
+ E_t[c_t - c_{t+1} + p_t - p_{t+1} +i_t] &= 0 \\
+p_{i,t} &= w_t - a_t \\
+p_t &= p_{i,t} \\
+l_t &= 0
+\end{align*}
+where the final equation comes from the fact that labor is perfectly inelastic under flexible prices. We can simplify the above equations to find the linearized consumption dynamics about the steady state:
+
+\begin{align}
+c_t &= a_t
+\end{align}
+
+In other words, our consumption log deviation from steady state follows the productivity deviation exactly in the first order approximation.
+
+\section{Question 2}
+We now consider the world of sticky prices. Our household dynamics (\ref{LS}),(\ref{EE}) still hold, however the firm dynamics change so we will explicitly solve the firm problem. From (\ref{EE}) we see that we can define the SDF as $\Theta_{t,t+j} := \beta^j \frac{C_tP_t}{C_{t+j}P_{t+j}}$.
+
+The firm maximizes expected (discounted) profits, taking for granted the decision making of the individual:
+\begin{align*}
+&\max_{P_{it}} E_t\sum_{j=0}^{\infty} \Theta_{t,t+j}\left( P_{it+j} C_{it+j} - W_{t+j}L_{it+j} - \frac{\varphi}{2} \left( \frac{P_{it+j} - P_{it+j-1}}{P_{it+j-1}} \right)^2 \right)\\
+&\text{s.t.} C_{it} = \left( \frac{P_{it}}{P_t} \right)^{-\theta}C_t, C_{it} = A_tL_{it}
+\end{align*}
+
+We substitute in the constraints to the maximization problem:
+
+\begin{align*}
+&\max_{P_{it}} E_t\sum_{j=0}^{\infty}  \beta^j \frac{C_tP_t}{C_{t+j}P_{t+j}}\left( P_{it+j}^{1-\theta}  P_{t+j}^{\theta}C_{t+j} - \frac{W_{t+j}}{A_{t+j}} \left( \frac{P_{it+j}}{P_{t+j}} \right)^{-\theta}C_{t+j} - \frac{\varphi}{2} \left( \frac{P_{it+j}}{P_{it+j-1}} - 1 \right)^2 \right)
+\end{align*}
+
+
+We take first order conditions with respect to $P_{it}$:
+\begin{align*}
+(1-\theta)C_{it} + \theta\frac{W_t}{A_t}C_{it}P_{it}^{-1} - \frac{\varphi}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi}{P_{it}^2}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]\\
+\Rightarrow  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} - \varphi \frac{P_{it}}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi}{P_{it}}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]
+\end{align*}
+
+Due to symmetry, all producers act the same $P_{it} = P_{jt} = P_t,C_{it}=C_t \forall i,j,t$. Moreover, define $\pi_t = \frac{P_t}{P_{t-1} }-1$. We can rewrite the first order condition as follows:
+\begin{align*}
+  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} &=\varphi E_t\left[ (\pi_t^2 + \pi_t) - \frac{\Theta_{t,t+1}}{P_{it}}\pi_{t+1}  \right]\\
+  (1-\theta)P_{it} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]
+\end{align*}
+
+Note that when $\varphi = 0$ (flexible prices), the right hand side drops out and we are left with the Dixit-Stiglit price equation (\ref{FP}). We will now log-linearize the above expression as follows:
+
+\begin{align*}
+ (1-\theta)P_{t} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]\\
+X_t &= \varphi E_t Z_t\\
+X_t &=  (1-\theta)P_{t} + \theta\frac{W_t}{A_t}
+\end{align*}
+
+Note that $\bar{\pi} = 0 \Rightarrow \bar{X} = 0, \bar{Y} = 0.$
+
+\begin{align*}
+x_t &= (1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t),\\
+Z_t &= C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}\\
+&= H_t - Q_t \\
+H_t &= \frac{\pi_t^2 + \pi_t}{C_t}\\
+&= I_t/C_t \\
+I_t &= \pi_t^2 + \pi_t\\
+i_t &= \hat{\pi}_t\\
+h_t &= i_t\bar{C}^{-1}(1-c_t)\\
+&= \bar{C}^{-1}i_t\\
+Q_t &= \beta\pi_{t+1}C_{t+1}^{-1}P_{t+1}^{-1}\\
+q_t &= \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}(1-c_t - p_t)\\
+&= \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}\\
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t) &= \varphi E_t[ \bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}]
+\end{align*}
+
+From our log linearized labor supply equation and market clearing for the consumption good, $c_t + p_t = w_t, c_t = y_t$:
+\begin{align*}
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}]\\
+((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1} ]
+\end{align*}
+Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
+\begin{align}
+ \frac{\theta\bar{W}\bar{C}}{\varphi\bar{A}}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\hat{\pi}_{t+1} ] &=\hat{\pi}_t. \label{NKPC}
+\end{align}
+
+In class, we derived a different NKPC using a Calvo pricing model:
+\begin{align*}
+\frac{(1-\lambda)(1-\beta\lambda)(\sigma + \phi)}{\lambda}\left(y_t - \frac{1+\phi}{\sigma + \phi}a_t\right) + \beta E_{t}[ \hat{\pi}_{t+1}] &= \hat{\pi}_t\\
+\frac{(1-\lambda)(1-\beta\lambda)}{\lambda}\left(y_t -a_t\right) + \beta E_{t}[ \hat{\pi}_{t+1}] &= \hat{\pi}_t,
+\end{align*}
+where we have substituted our values of $\sigma,\phi$. The differences between the curves are a different formulation for the coefficient on the output gap, owing to the different mechanisms for price stickiness, and the $\bar{P}^{-1}$ multiplying the coefficent on the expected future inflation term. The different coefficient on future inflation stems from the fact that changes in prices in the present affects where the price begins the next period, before the firms choose where to move their prices to in that period. In other words, the different coefficient on future inflation reflects the price change cost in the future being affected by today's price.
+\section{Question 3}
+The mechanism is quite different. In the Calvo model, the source of inflation costs is the labor misallocation - some of the firms are not being allowed by the 'Calvo fairy' to change their prices, which causes labor to be misallocated across firms. In this model, the inflation costs are instead directly caused by the firms having to pay the adjustment cost to change prices, rather than a misallocation of labor. The market here is completely symmetric, so there is no misallocation of labor. Instead, the firms are directly charged a 'menu cost' when they change prices, and this 'menu cost' is passed through to the households. Therefore, in this model the inflation costs are a direct cost to the firm, whereas in the Calvo model the inflation costs are indirect, and caused by a labor misallocation between firms.
+\section{Question 4}
+
+If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta\bar{W}\bar{C}}{\varphi\bar{A}}$, then our NKPC becomes the following:
+\begin{align*}
+\kappa x_t + \frac{\beta}{\bar{P}}E_t[\hat{\pi}_{t+1} ] &=\hat{\pi}_t.
+\end{align*}
+
+Now, our EE is the following:
+\begin{align*}
+\sigma E_t(c_{t+1} - c_t) = i_t - E_t [\pi_{t+1}] 
+\end{align*}
+
+If we define the natural rate $r_t^n$ to be the real rate that prevails under flexible prices:
+\begin{align*}
+r_t^n &= \sigma  E_t(a_{t+1} - a_t)\\
+\Rightarrow E_t(x_{t+1} - x_t) &= i_t - E_t [\pi_{t+1}] - r_t^n 
+\end{align*}
+
+Assume monetary policy follows the taylor rule: $i_t = \phi x_t + u_t$. Then, our Euler becomes the following:
+\begin{align*}
+E_t(x_{t+1} - x_t) &= \phi x_t - E_t [\pi_{t+1}] - r_t^n 
+\end{align*}
+\end{document}
