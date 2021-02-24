@@ -92,22 +92,22 @@ P_{it} &= \frac{\theta}{\theta - 1}\frac{W_t}{A_{t}} \label{FP}\\
 P_{t} &= \left(\int P_{it}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{AP}
 \end{align}
 
-In the deterministic steady state of the economy, the above equations (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) imply the following:
+Note that (\ref{AP}) and symmetry across firms implies that $P_{it} = P_t$.
+
+In the deterministic steady state of the economy, the above equations (\ref{LS}),(\ref{EE}),(\ref{FP}) imply the following:
 \begin{align}
 \bar{C} &= \bar{W}/\bar{P} \label{LSSS}\\
 1 &= \beta(1+\bar{i}) \label{EESS}\\
-\bar{P}_{i} &= \frac{\theta}{\theta - 1}\frac{\bar{W}}{\bar{A}} \label{FPSS}\\
-\bar{P} &= \left(\int \bar{P}_{i}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{APSS}
+\bar{P}_{i} &= \frac{\theta}{\theta - 1}\frac{\bar{W}}{\bar{A}} \label{FPSS}
 \end{align}
 
-Note also that $L_t = 0 \Rightarrow \bar{L} = 1$.
+Note also that $L_t = 1 \Rightarrow \bar{L} = 1$.
 
-Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}),(\ref{APSS}) are the following:
+Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}) are the following:
 \begin{align*}
 c_t + p_t &= w_t\\
  E_t[c_t - c_{t+1} + p_t - p_{t+1} +i_t] &= 0 \\
-p_{i,t} &= w_t - a_t \\
-p_t &= p_{i,t} \\
+p_{t} &= w_t - a_t \\
 l_t &= 0
 \end{align*}
 where the final equation comes from the fact that labor is perfectly inelastic under flexible prices. We can simplify the above equations to find the linearized consumption dynamics about the steady state:
@@ -123,33 +123,33 @@ We now consider the world of sticky prices. Our household dynamics (\ref{LS}),(\
 
 The firm maximizes expected (discounted) profits, taking for granted the decision making of the individual:
 \begin{align*}
-&\max_{P_{it}} E_t\sum_{j=0}^{\infty} \Theta_{t,t+j}\left( P_{it+j} C_{it+j} - W_{t+j}L_{it+j} - \frac{\varphi}{2} \left( \frac{P_{it+j} - P_{it+j-1}}{P_{it+j-1}} \right)^2 \right)\\
+&\max_{P_{it}} E_t\sum_{j=0}^{\infty} \Theta_{t,t+j}\left( P_{it+j} C_{it+j} - W_{t+j}L_{it+j} - \frac{\varphi W_{t+j}}{2} \left( \frac{P_{it+j} - P_{it+j-1}}{P_{it+j-1}} \right)^2 \right)\\
 &\text{s.t.} C_{it} = \left( \frac{P_{it}}{P_t} \right)^{-\theta}C_t, C_{it} = A_tL_{it}
 \end{align*}
 
 We substitute in the constraints to the maximization problem:
 
 \begin{align*}
-&\max_{P_{it}} E_t\sum_{j=0}^{\infty}  \beta^j \frac{C_tP_t}{C_{t+j}P_{t+j}}\left( P_{it+j}^{1-\theta}  P_{t+j}^{\theta}C_{t+j} - \frac{W_{t+j}}{A_{t+j}} \left( \frac{P_{it+j}}{P_{t+j}} \right)^{-\theta}C_{t+j} - \frac{\varphi}{2} \left( \frac{P_{it+j}}{P_{it+j-1}} - 1 \right)^2 \right)
+&\max_{P_{it}} E_t\sum_{j=0}^{\infty}  \beta^j \frac{C_tP_t}{C_{t+j}P_{t+j}}\left( P_{it+j}^{1-\theta}  P_{t+j}^{\theta}C_{t+j} - \frac{W_{t+j}}{A_{t+j}} \left( \frac{P_{it+j}}{P_{t+j}} \right)^{-\theta}C_{t+j} - \frac{\varphi W_t}{2} \left( \frac{P_{it+j}}{P_{it+j-1}} - 1 \right)^2 \right)
 \end{align*}
 
 
 We take first order conditions with respect to $P_{it}$:
 \begin{align*}
-(1-\theta)C_{it} + \theta\frac{W_t}{A_t}C_{it}P_{it}^{-1} - \frac{\varphi}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi}{P_{it}^2}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]\\
-\Rightarrow  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} - \varphi \frac{P_{it}}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi}{P_{it}}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]
+(1-\theta)C_{it} + \theta\frac{W_t}{A_t}C_{it}P_{it}^{-1} - \frac{\varphi W_t}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}}{P_{it}^2}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]\\
+\Rightarrow  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} - \varphi W_t \frac{P_{it}}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}}{P_{it}}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]
 \end{align*}
 
-Due to symmetry, all producers act the same $P_{it} = P_{jt} = P_t,C_{it}=C_t \forall i,j,t$. Moreover, define $\pi_t = \frac{P_t}{P_{t-1} }-1$. We can rewrite the first order condition as follows:
+Due to symmetry, all producers act the same $P_{it} = P_t,C_{it}=C_t \forall i,t$.\footnote{Let $P_{it} = K_t \forall i$. $P_t = \left(\int_{0}^1P_{kt}^{1-\theta}dk\right)^{\frac{1}{1-\theta}} = K_t\left(\int_{0}^1dk\right)^{\frac{1}{1-\theta}} = K_t = P_{it}.$ A similar argument shows $C_{it} = C_{t}$.} Moreover, define $\pi_t = \frac{P_t}{P_{t-1} }-1$. We can rewrite the first order condition as follows:
 \begin{align*}
-  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} &=\varphi E_t\left[ (\pi_t^2 + \pi_t) - \frac{\Theta_{t,t+1}}{P_{it}}\pi_{t+1}  \right]\\
-  (1-\theta)P_{it} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]
+  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} &=\varphi E_t\left[ W_{t}(\pi_t^2 + \pi_t) - W_{t+1}\frac{\Theta_{t,t+1}}{P_{it}}\pi_{t+1}  \right]\\
+  (1-\theta)P_{it} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_{t}}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]
 \end{align*}
 
 Note that when $\varphi = 0$ (flexible prices), the right hand side drops out and we are left with the Dixit-Stiglit price equation (\ref{FP}). We will now log-linearize the above expression as follows:
 
 \begin{align*}
- (1-\theta)P_{t} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]\\
+ (1-\theta)P_{t} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_t}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]\\
 X_t &= \varphi E_t Z_t\\
 X_t &=  (1-\theta)P_{t} + \theta\frac{W_t}{A_t}
 \end{align*}
@@ -158,43 +158,44 @@ Note that $\bar{\pi} = 0 \Rightarrow \bar{X} = 0, \bar{Y} = 0.$
 
 \begin{align*}
 x_t &= (1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t),\\
-Z_t &= C_t^{-1}(\pi_t^2 + \pi_t) - \frac{\beta}{C_{t+1}P_{t+1}}\pi_{t+1}\\
+Z_t &= \frac{W_t}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_t}{C_{t+1}P_{t+1}}\pi_{t+1}\\
 &= H_t - Q_t \\
-H_t &= \frac{\pi_t^2 + \pi_t}{C_t}\\
-&= I_t/C_t \\
+H_t &= W_t\frac{\pi_t^2 + \pi_t}{C_t}\\
+&= W_tI_t/C_t \\
 I_t &= \pi_t^2 + \pi_t\\
-i_t &= \hat{\pi}_t\\
-h_t &= i_t\bar{C}^{-1}(1-c_t)\\
-&= \bar{C}^{-1}i_t\\
-Q_t &= \beta\pi_{t+1}C_{t+1}^{-1}P_{t+1}^{-1}\\
-q_t &= \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}(1-c_t - p_t)\\
-&= \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}\\
-(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t) &= \varphi E_t[ \bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}]
+i_t &= \pi_t\\
+h_t &= i_t\frac{\bar{W}}{\bar{C}}(1+w_t-c_t)\\
+&= \bar{W}{\bar{C}}i_t\\
+Q_t &= \beta\pi_{t+1}W_{t+1}C_{t+1}^{-1}P_{t+1}^{-1}\\
+q_t &= \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}(1 + w_{t+1}-c_{t+1} - p_{t+1})\\
+&= \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}\\
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}]
 \end{align*}
 
 From our log linearized labor supply equation and market clearing for the consumption good, $c_t + p_t = w_t, c_t = y_t$:
 \begin{align*}
-(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1}]\\
-((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{C}^{-1}\hat{\pi}_t -  \beta\bar{C}^{-1}\bar{P}^{-1}\hat{\pi}_{t+1} ]
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta \bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}]\\
+((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1} ]
 \end{align*}
 Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
 \begin{align}
- \frac{\theta\bar{W}\bar{C}}{\varphi\bar{A}}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\hat{\pi}_{t+1} ] &=\hat{\pi}_t. \label{NKPC}
+ \frac{\theta\bar{C}}{\varphi\bar{A}}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
 \end{align}
 
 In class, we derived a different NKPC using a Calvo pricing model:
 \begin{align*}
-\frac{(1-\lambda)(1-\beta\lambda)(\sigma + \phi)}{\lambda}\left(y_t - \frac{1+\phi}{\sigma + \phi}a_t\right) + \beta E_{t}[ \hat{\pi}_{t+1}] &= \hat{\pi}_t\\
-\frac{(1-\lambda)(1-\beta\lambda)}{\lambda}\left(y_t -a_t\right) + \beta E_{t}[ \hat{\pi}_{t+1}] &= \hat{\pi}_t,
+\frac{(1-\lambda)(1-\beta\lambda)(\sigma + \phi)}{\lambda}\left(y_t - \frac{1+\phi}{\sigma + \phi}a_t\right) + \beta E_{t}[ \pi_{t+1}] &= \pi_t\\
+\frac{(1-\lambda)(1-\beta\lambda)}{\lambda}\left(y_t -a_t\right) + \beta E_{t}[ \pi_{t+1}] &= \pi_t,
 \end{align*}
 where we have substituted our values of $\sigma,\phi$. The differences between the curves are a different formulation for the coefficient on the output gap, owing to the different mechanisms for price stickiness, and the $\bar{P}^{-1}$ multiplying the coefficent on the expected future inflation term. The different coefficient on future inflation stems from the fact that changes in prices in the present affects where the price begins the next period, before the firms choose where to move their prices to in that period. In other words, the different coefficient on future inflation reflects the price change cost in the future being affected by today's price.
 \section{Question 3}
-The mechanism is quite different. In the Calvo model, the source of inflation costs is the labor misallocation - some of the firms are not being allowed by the 'Calvo fairy' to change their prices, which causes labor to be misallocated across firms. In this model, the inflation costs are instead directly caused by the firms having to pay the adjustment cost to change prices, rather than a misallocation of labor. The market here is completely symmetric, so there is no misallocation of labor. Instead, the firms are directly charged a 'menu cost' when they change prices, and this 'menu cost' is passed through to the households. Therefore, in this model the inflation costs are a direct cost to the firm, whereas in the Calvo model the inflation costs are indirect, and caused by a labor misallocation between firms.
+The mechanism is quite different. In the Calvo model, the source of inflation costs is the labor misallocation across firms - some of the firms are not being allowed by the 'Calvo fairy' to change their prices, which causes labor to be misallocated. In this model, the market is completely symmetric so there is no misallocation in this dimension. Instead,some of the workers are paid to change prices rather than produce goods, and this reduces the effective labor level when prices change.
+
 \section{Question 4}
 
-If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta\bar{W}\bar{C}}{\varphi\bar{A}}$, then our NKPC becomes the following:
+If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta\bar{C}}{\varphi\bar{A}}$, then our NKPC becomes the following:
 \begin{align*}
-\kappa x_t + \frac{\beta}{\bar{P}}E_t[\hat{\pi}_{t+1} ] &=\hat{\pi}_t.
+\kappa x_t + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t.
 \end{align*}
 
 Now, our EE is the following:
