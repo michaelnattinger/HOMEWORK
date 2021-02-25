@@ -203,12 +203,12 @@ If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  
 
 Now, our EE is the following:
 \begin{align*}
-\sigma E_t(c_{t+1} - c_t) = i_t - E_t [\pi_{t+1}] 
+ E_t(c_{t+1} - c_t) = i_t - E_t [\pi_{t+1}] 
 \end{align*}
 
 If we define the natural rate $r_t^n$ to be the real rate that prevails under flexible prices:
 \begin{align*}
-r_t^n &= \sigma  E_t(a_{t+1} - a_t)\\
+r_t^n &=  E_t(a_{t+1} - a_t)\\
 \Rightarrow E_t(x_{t+1} - x_t) &= i_t - E_t [\pi_{t+1}] - r_t^n 
 \end{align*}
 
@@ -237,5 +237,5 @@ F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \f
 >0 \iff \phi &> \kappa\frac{1-\frac{2}{\beta}}{1-\beta}
 \end{align*}
 
-Therefore, we have a unique solution so long as $\phi > \max\left\{ \frac{-\kappa - 1}{\beta} ,  \kappa\frac{1-\frac{2}{\beta}}{1-\beta}\right\}$. Note that $\phi>0$ is sufficient to satisfy this condition.
+Therefore, we have a unique solution so long as $\phi > \max\left\{ \frac{-\kappa - 1}{\beta} ,  \kappa\frac{1-\frac{2}{\beta}}{1-\beta}\right\}$. Note that $\phi>0$ is sufficient to satisfy this condition, but not necessary.
 \end{document}
