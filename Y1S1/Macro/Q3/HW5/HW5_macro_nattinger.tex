@@ -89,34 +89,35 @@ Note that, under flexible prices, disutility of labor drops out from the labor s
 Under fully flexible prices, firms profit maximization yields the following optimal pricing equations a la Dixit-Stiglitz:
 \begin{align}
 P_{it} &= \frac{\theta}{\theta - 1}\frac{W_t}{A_{t}} \label{FP}\\
-P_{t} &= \left(\int P_{it}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{AP}
+P_{t} &= \left(\int P_{it}^{1-\theta } di \right)^{\frac{1}{1-\theta}} \label{AP} \\
+Y_t = C_t &= A_tL_t \label{Y}
 \end{align}
 
-Note that (\ref{AP}) and symmetry across firms implies that $P_{it} = P_t$.
+Note that (\ref{AP}) and symmetry across firms implies that $P_{it} = P_t$. Note that we also have that 
 
-In the deterministic steady state of the economy, the above equations (\ref{LS}),(\ref{EE}),(\ref{FP}) imply the following:
+In the deterministic steady state of the economy, the above equations (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{Y}) imply the following:
 \begin{align}
 \bar{C} &= \bar{W}/\bar{P} \label{LSSS}\\
 1 &= \beta(1+\bar{i}) \label{EESS}\\
-\bar{P}_{i} &= \frac{\theta}{\theta - 1}\frac{\bar{W}}{\bar{A}} \label{FPSS}
+\bar{P}_{i} &= \frac{\theta}{\theta - 1}\frac{\bar{W}}{\bar{A}} \label{FPSS}\\
+\bar{Y} = \bar{C} &= \bar{A}\bar{L} \label{YSS}
 \end{align}
 
-Note also that $L_t = 1 \Rightarrow \bar{L} = 1$.
-
-Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{AP}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}) are the following:
+Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{Y}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}),(\ref{YSS}) are the following:
 \begin{align*}
 c_t + p_t &= w_t\\
  E_t[c_t - c_{t+1} + p_t - p_{t+1} +i_t] &= 0 \\
 p_{t} &= w_t - a_t \\
-l_t &= 0
+c_t &= a_t + l_t
 \end{align*}
-where the final equation comes from the fact that labor is perfectly inelastic under flexible prices. We can simplify the above equations to find the linearized consumption dynamics about the steady state:
+We can simplify the above equations to find the linearized consumption dynamics about the steady state:
 
 \begin{align}
-c_t &= a_t
+c_t &= a_t,\\
+l_t &= 0.
 \end{align}
 
-In other words, our consumption log deviation from steady state follows the productivity deviation exactly in the first order approximation.
+In other words, our consumption log deviation from steady state follows the productivity deviation exactly in the first order approximation, and labor does not deviate.
 
 \section{Question 2}
 We now consider the world of sticky prices. Our household dynamics (\ref{LS}),(\ref{EE}) still hold, however the firm dynamics change so we will explicitly solve the firm problem. From (\ref{EE}) we see that we can define the SDF as $\Theta_{t,t+j} := \beta^j \frac{C_tP_t}{C_{t+j}P_{t+j}}$.
@@ -177,9 +178,9 @@ From our log linearized labor supply equation and market clearing for the consum
 (1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta \bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}]\\
 ((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1} ]
 \end{align*}
-Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$ and $\bar{C} = \bar{L}\bar{A} = \bar{A}$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
+Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$ and $\bar{C} = \bar{L}\bar{A}$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
 \begin{align}
- \frac{\theta}{\varphi}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
+ \frac{\theta \bar{L}}{\varphi}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
 \end{align}
 
 In class, we derived a different NKPC using a Calvo pricing model:
@@ -193,7 +194,7 @@ The mechanism is quite different. In the Calvo model, the source of inflation co
 
 \section{Question 4}
 
-If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta}{\varphi}$, then our NKPC becomes the following:
+If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta \bar{L}}{\varphi}$, then our NKPC becomes the following:
 \begin{align*}
 \kappa x_t + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t.
 \end{align*}
@@ -211,6 +212,18 @@ r_t^n &= \sigma  E_t(a_{t+1} - a_t)\\
 
 Assume monetary policy follows the taylor rule: $i_t = \phi x_t + u_t$. Then, our Euler becomes the following:
 \begin{align*}
-E_t(x_{t+1} - x_t) &= \phi x_t - E_t [\pi_{t+1}] - r_t^n 
+E_t(x_{t+1} - x_t) &= \phi x_t - E_t [\pi_{t+1}]  + u_t - r_t^n 
 \end{align*}
+
+We can write down our law of motion and apply the Blanchard-Kahn method:
+\begin{align*}
+E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= \begin{pmatrix} -\frac{\kappa \bar{P}}{\beta} & \frac{\bar{P}}{\beta} \\ -\frac{\bar{P}}{\beta}  & \phi + 1 + \frac{\kappa \beta}{\bar{P}}  \end{pmatrix} \colvec{2}{\pi_t}{x_{t}} + \colvec{2}{0}{1}(u_t - r_t^n)
+\end{align*}
+
+We know that the eigenvalues of the matrix describing the law of motion must both have magnitude greater than 1. Denote $F(\lambda)$ as follows:
+
+\begin{align*}
+F(\lambda) &= \lambda^2 + \dots
+\end{align*}
+ Similarly to class, for the model to have a unique solution, the following two conditions must hold:
 \end{document}
