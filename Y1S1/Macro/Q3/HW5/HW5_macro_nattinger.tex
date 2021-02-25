@@ -137,20 +137,20 @@ We substitute in the constraints to the maximization problem:
 
 We take first order conditions with respect to $P_{it}$:
 \begin{align*}
-(1-\theta)C_{it} + \theta\frac{W_t}{A_t}C_{it}P_{it}^{-1} - \frac{\varphi W_t}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}}{P_{it}^2}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]\\
-\Rightarrow  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} - \varphi W_t \frac{P_{it}}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}}{P_{it}}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]
+(1-\theta)C_{it} + \theta\frac{W_t}{A_t}C_{it}P_{it}^{-1} - \frac{\varphi W_t}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}P_{it+1}}{P_{it}^2}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]\\
+\Rightarrow  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} - \varphi W_t \frac{P_{it}}{P_{it-1}}\left(\frac{P_{it}}{P_{it-1}} - 1 \right) &=-E_t\left[\Theta_{t,t+1}\frac{\varphi W_{t+1}P_{it+1}}{P_{it}}\left( \frac{P_{it+1}}{P_{it}} - 1 \right) \right]
 \end{align*}
 
 Due to symmetry, all producers act the same $P_{it} = P_t,C_{it}=C_t \forall i,t$.\footnote{Let $P_{it} = K_t \forall i$. $P_t = \left(\int_{0}^1P_{kt}^{1-\theta}dk\right)^{\frac{1}{1-\theta}} = K_t\left(\int_{0}^1dk\right)^{\frac{1}{1-\theta}} = K_t = P_{it}.$ A similar argument shows $C_{it} = C_{t}$.} Moreover, define $\pi_t = \frac{P_t}{P_{t-1} }-1$. We can rewrite the first order condition as follows:
 \begin{align*}
-  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} &=\varphi E_t\left[ W_{t}(\pi_t^2 + \pi_t) - W_{t+1}\frac{\Theta_{t,t+1}}{P_{it}}\pi_{t+1}  \right]\\
-  (1-\theta)P_{it} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_{t}}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]
+  (1-\theta)C_{it}P_{it} + \theta\frac{W_t}{A_t}C_{it} &=\varphi E_t\left[ W_{t}(\pi_t^2 + \pi_t) - W_{t+1}\Theta_{t,t+1}\frac{P_{t+1}}{P_t}\pi_{t+1}   \right]\\
+  (1-\theta)P_{it} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_{t}}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}}\pi_{t+1}  \right]
 \end{align*}
 
 Note that when $\varphi = 0$ (flexible prices), the right hand side drops out and we are left with the Dixit-Stiglit price equation (\ref{FP}). We will now log-linearize the above expression as follows:
 
 \begin{align*}
- (1-\theta)P_{t} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_t}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}P_{t+1}}\pi_{t+1}  \right]\\
+ (1-\theta)P_{t} + \theta\frac{W_t}{A_t} &=\varphi E_t\left[ \frac{W_{t}}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}}\pi_{t+1}  \right]\\
 X_t &= \varphi E_t Z_t\\
 X_t &=  (1-\theta)P_{t} + \theta\frac{W_t}{A_t}
 \end{align*}
@@ -159,7 +159,7 @@ Note that $\bar{\pi} = 0 \Rightarrow \bar{X} = 0, \bar{Y} = 0.$
 
 \begin{align*}
 x_t &= (1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t),\\
-Z_t &= \frac{W_t}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_t}{C_{t+1}P_{t+1}}\pi_{t+1}\\
+Z_t &= \frac{W_{t}}{C_t}(\pi_t^2 + \pi_t) - \frac{\beta W_{t+1}}{C_{t+1}}\pi_{t+1} \\
 &= H_t - Q_t \\
 H_t &= W_t\frac{\pi_t^2 + \pi_t}{C_t}\\
 &= W_tI_t/C_t \\
@@ -167,20 +167,20 @@ I_t &= \pi_t^2 + \pi_t\\
 i_t &= \pi_t\\
 h_t &= i_t\frac{\bar{W}}{\bar{C}}(1+w_t-c_t)\\
 &= \bar{W}{\bar{C}}i_t\\
-Q_t &= \beta\pi_{t+1}W_{t+1}C_{t+1}^{-1}P_{t+1}^{-1}\\
-q_t &= \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}(1 + w_{t+1}-c_{t+1} - p_{t+1})\\
-&= \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}\\
-(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}]
+Q_t &=\frac{\beta W_{t+1}}{C_{t+1}}\pi_{t+1}\\
+q_t &= \beta\bar{W}\bar{C}^{-1}\pi_{t+1}(1 + w_{t+1}-c_{t+1} )\\
+&= \beta\bar{W}\bar{C}^{-1}\pi_{t+1}\\
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(w_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\pi_{t+1}]
 \end{align*}
 
 From our log linearized labor supply equation and market clearing for the consumption good, $c_t + p_t = w_t, c_t = y_t$:
 \begin{align*}
-(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta \bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1}]\\
-((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\bar{P}^{-1}\pi_{t+1} ]
+(1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta \bar{W}\bar{C}^{-1}\pi_{t+1}]\\
+((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\pi_{t+1} ]
 \end{align*}
 Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$ and $\bar{C} = \bar{L}\bar{A}$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
 \begin{align}
- \frac{\theta \bar{L}}{\varphi}(y_t - a_t) + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
+ \frac{\theta \bar{L}}{\varphi}(y_t - a_t) + \beta E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
 \end{align}
 
 In class, we derived a different NKPC using a Calvo pricing model:
@@ -188,7 +188,7 @@ In class, we derived a different NKPC using a Calvo pricing model:
 \frac{(1-\lambda)(1-\beta\lambda)(\sigma + \phi)}{\lambda}\left(y_t - \frac{1+\phi}{\sigma + \phi}a_t\right) + \beta E_{t}[ \pi_{t+1}] &= \pi_t\\
 \frac{(1-\lambda)(1-\beta\lambda)}{\lambda}\left(y_t -a_t\right) + \beta E_{t}[ \pi_{t+1}] &= \pi_t,
 \end{align*}
-where we have substituted our values of $\sigma,\phi$. The differences between the curves are a different formulation for the coefficient on the output gap, owing to the different mechanisms for price stickiness, and the $\bar{P}^{-1}$ multiplying the coefficent on the expected future inflation term. The different coefficient on future inflation stems from the fact that changes in prices in the present affects where the price begins the next period, before the firms choose where to move their prices to in that period. In other words, the different coefficient on future inflation reflects the price change cost in the future being affected by today's price.
+where we have substituted our values of $\sigma,\phi$. The differences between the curves are a different formulation for the coefficient on the output gap, owing to the different mechanisms for price stickiness. In our case we do not have the 'Calvo fairy' linking inflation to output, but rather have the price adjustment cost, with labor needing to be hired to adjust prices.
 \section{Question 3}
 The mechanism is quite different. In the Calvo model, the source of inflation costs is the labor misallocation across firms - some of the firms are not being allowed by the 'Calvo fairy' to change their prices, which causes labor to be misallocated. In this model, the market is completely symmetric so there is no misallocation in this dimension. Instead,some of the workers are paid to change prices rather than produce goods, and this reduces the effective labor level when prices change.
 
@@ -196,7 +196,7 @@ The mechanism is quite different. In the Calvo model, the source of inflation co
 
 If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta \bar{L}}{\varphi}$, then our NKPC becomes the following:
 \begin{align*}
-\kappa x_t + \frac{\beta}{\bar{P}}E_t[\pi_{t+1} ] &=\pi_t.
+\kappa x_t + \beta E_t[\pi_{t+1} ] &=\pi_t.
 \end{align*}
 
 Now, our EE is the following:
@@ -217,7 +217,7 @@ E_t(x_{t+1} - x_t) &= \phi x_t - E_t [\pi_{t+1}]  + u_t - r_t^n
 
 We can write down our law of motion and apply the Blanchard-Kahn method:
 \begin{align*}
-E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= \begin{pmatrix} -\frac{\kappa \bar{P}}{\beta} & \frac{\bar{P}}{\beta} \\ -\frac{\bar{P}}{\beta}  & \phi + 1 + \frac{\kappa \beta}{\bar{P}}  \end{pmatrix} \colvec{2}{\pi_t}{x_{t}} + \colvec{2}{0}{1}(u_t - r_t^n)
+E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= \begin{pmatrix} -\frac{\kappa }{\beta} & \frac{1}{\beta} \\ -\frac{1}{\beta}  & \phi + 1 + \kappa \beta  \end{pmatrix} \colvec{2}{\pi_t}{x_{t}} + \colvec{2}{0}{1}(u_t - r_t^n)
 \end{align*}
 
 We know that the eigenvalues of the matrix describing the law of motion must both have magnitude greater than 1. Denote $F(\lambda)$ as follows:
