@@ -103,6 +103,8 @@ In the deterministic steady state of the economy, the above equations (\ref{LS})
 \bar{Y} = \bar{C} &= \bar{A}\bar{L} \label{YSS}
 \end{align}
 
+Note that (\ref{LSSS}),(\ref{FPSS}),(\ref{YSS}) imply that $\bar{L} = \frac{\theta - 1}{\theta}$
+
 Linearized dynamics of the optimality conditions  (\ref{LS}),(\ref{EE}),(\ref{FP}),(\ref{Y}) about the steady state defined by  (\ref{LSSS}),(\ref{EESS}),(\ref{FPSS}),(\ref{YSS}) are the following:
 \begin{align*}
 c_t + p_t &= w_t\\
@@ -178,9 +180,9 @@ From our log linearized labor supply equation and market clearing for the consum
 (1-\theta)\bar{P}p_t + \theta\bar{W}\bar{A}^{-1}(y_t + p_t - a_t) &= \varphi E_t[ \bar{W}\bar{C}^{-1}\pi_t -  \beta \bar{W}\bar{C}^{-1}\pi_{t+1}]\\
 ((1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} )p_t + \theta\bar{W}\bar{A}^{-1}(y_t - a_t) &= \varphi E_t[\bar{W}\bar{C}^{-1}\pi_t -  \beta\bar{W}\bar{C}^{-1}\pi_{t+1} ]
 \end{align*}
-Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$ and $\bar{C} = \bar{L}\bar{A}$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
+Noting that $\bar{X} = 0 \Rightarrow (1-\theta)\bar{P} + \theta\bar{W}\bar{A}^{-1} = 0$, $\bar{C} = \bar{L}\bar{A}$, and $\bar{L} = \frac{\theta - 1}{\theta}$, we have our NKPC: inflation written as a function of the output gap and expected future inflation.
 \begin{align}
- \frac{\theta \bar{L}}{\varphi}(y_t - a_t) + \beta E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
+ \frac{\theta - 1}{\varphi}(y_t - a_t) + \beta E_t[\pi_{t+1} ] &=\pi_t. \label{NKPC}
 \end{align}
 
 In class, we derived a different NKPC using a Calvo pricing model:
@@ -194,7 +196,7 @@ The mechanism is quite different. In the Calvo model, the source of inflation co
 
 \section{Question 4}
 
-If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta \bar{L}}{\varphi}$, then our NKPC becomes the following:
+If we define $x_t = y_t - a_t$ as our output gap, and further define $\kappa =  \frac{\theta - 1}{\varphi}$, then our NKPC becomes the following:
 \begin{align*}
 \kappa x_t + \beta E_t[\pi_{t+1} ] &=\pi_t.
 \end{align*}
