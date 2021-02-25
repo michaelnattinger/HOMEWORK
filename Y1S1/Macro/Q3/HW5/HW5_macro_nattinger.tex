@@ -212,20 +212,30 @@ r_t^n &= \sigma  E_t(a_{t+1} - a_t)\\
 \Rightarrow E_t(x_{t+1} - x_t) &= i_t - E_t [\pi_{t+1}] - r_t^n 
 \end{align*}
 
-Assume monetary policy follows the taylor rule: $i_t = \phi x_t + u_t$. Then, our Euler becomes the following:
+Assume monetary policy follows the Taylor rule: $i_t = \phi x_t + u_t$. Then, our Euler becomes the following:
 \begin{align*}
 E_t(x_{t+1} - x_t) &= \phi x_t - E_t [\pi_{t+1}]  + u_t - r_t^n 
 \end{align*}
 
 We can write down our law of motion and apply the Blanchard-Kahn method:
 \begin{align*}
-E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= \begin{pmatrix} -\frac{\kappa }{\beta} & \frac{1}{\beta} \\ -\frac{1}{\beta}  & \phi + 1 + \kappa \beta  \end{pmatrix} \colvec{2}{\pi_t}{x_{t}} + \colvec{2}{0}{1}(u_t - r_t^n)
+E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= \begin{pmatrix} \frac{1}{\beta} & -\frac{\kappa }{\beta}  \\ -\frac{1}{\beta}  & \phi + 1 + \frac{\kappa}{\beta}  \end{pmatrix} \colvec{2}{\pi_t}{x_{t}} + \colvec{2}{0}{1}(u_t - r_t^n)
 \end{align*}
 
 We know that the eigenvalues of the matrix describing the law of motion must both have magnitude greater than 1. Denote $F(\lambda)$ as follows:
 
 \begin{align*}
-F(\lambda) &= \lambda^2 + \dots
+F(\lambda)  &= \left|  \begin{pmatrix} \frac{1}{\beta} - \lambda &  -\frac{\kappa }{\beta}  \\ -\frac{1}{\beta}  & \phi + 1 + \frac{\kappa}{\beta} - \lambda  \end{pmatrix} \right|\\
+&= \left(  \frac{1 }{\beta} - \lambda \right) \left( \phi + 1 + \frac{\kappa}{\beta} - \lambda \right) + \frac{\kappa}{\beta^2} \\
+&= \lambda^2 - \left( \phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right)\lambda + \frac{1}{\beta}\left( \phi + 1 + \frac{2\kappa}{\beta}  \right) 
 \end{align*}
- Similarly to class, for the model to have a unique solution, the following two conditions must hold:
+ Similarly to class, for the model to have a unique solution, the following two conditions must hold: $F(0)>F(1) > 0$. Note that $F(0) - F(1) = \phi + \frac{\kappa}{\beta} + \frac{1}{\beta} $ so our first inequality holds so long as $\phi>\frac{-\kappa - 1}{\beta}$. Moreover,
+
+\begin{align*}
+F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \frac{1}{\beta}\left( \phi + 1 + \frac{2\kappa}{\beta}  \right) \\
+&= \phi \left( \frac{1}{\beta} - 1\right) + \kappa \left( \frac{2}{\beta^2}  - \frac{1}{\beta}\right)\\
+>0 \iff \phi &> \kappa\frac{1-\frac{2}{\beta}}{1-\beta}
+\end{align*}
+
+Therefore, we have a unique solution so long as $\phi > \max\left\{ \frac{-\kappa - 1}{\beta} ,  \kappa\frac{1-\frac{2}{\beta}}{1-\beta}\right\}$. Note that $\phi>0$ is sufficient to satisfy this condition.
 \end{document}
