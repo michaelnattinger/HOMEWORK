@@ -227,15 +227,15 @@ We know that the eigenvalues of the matrix describing the law of motion must bot
 \begin{align*}
 F(\lambda)  &= \left|  \begin{pmatrix} \frac{1}{\beta} - \lambda &  -\frac{\kappa }{\beta}  \\ -\frac{1}{\beta}  & \phi + 1 + \frac{\kappa}{\beta} - \lambda  \end{pmatrix} \right|\\
 &= \left(  \frac{1 }{\beta} - \lambda \right) \left( \phi + 1 + \frac{\kappa}{\beta} - \lambda \right) - \frac{\kappa}{\beta^2} \\
-&= \lambda^2 - \left( \phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right)\lambda + \frac{1}{\beta}\left( \phi + 1   \right) 
+&= \lambda^2 - \left( \phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right)\lambda + \frac{ \phi + 1 }{\beta}
 \end{align*}
- Similarly to class, for the model to have a unique solution, the following two conditions must hold: $F(0)>F(1) > 0$. Note that $F(0) - F(1) = \phi + \frac{\kappa}{\beta} + \frac{1}{\beta} $ so our first inequality holds so long as $\phi>\frac{-\kappa - 1}{\beta}$. Moreover,
+ Similarly to class, for the model to have a unique solution, the following two conditions must hold: $F'(1)<0, F(1) > 0$. Note that $F'(1)  = 2  - \phi - \frac{\kappa}{\beta} - \frac{1}{\beta} $ so our first inequality holds so long as $\phi>2 - \frac{\kappa + 1}{\beta}$. Moreover,
 
 \begin{align*}
-F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \frac{1}{\beta}\left( \phi + 1 \right) \\
+F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \frac{ \phi + 1 }{\beta} \\
 &= \phi \left( \frac{1}{\beta} - 1\right) - \frac{\kappa}{\beta}\\
 >0 \iff \phi &> \frac{\kappa}{1-\beta}
 \end{align*}
 
-Therefore, we have a unique solution so long as $\phi > \max\left\{ \frac{-\kappa - 1}{\beta} ,  \frac{\kappa}{1-\beta}\right\}$. Note that $\frac{\kappa}{1-\beta}>0>\frac{-\kappa - 1}{\beta} $. Therefore, $\phi >\frac{\kappa}{1-\beta}$ is necessary and sufficient for the model to have a unique solution.
+Therefore, we have a unique solution so long as $\phi > \max\left\{ 2 - \frac{\kappa + 1}{\beta} ,  \frac{\kappa}{1-\beta}\right\}$.
 \end{document}
