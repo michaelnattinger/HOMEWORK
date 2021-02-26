@@ -229,7 +229,7 @@ F(\lambda)  &= \left|  \begin{pmatrix} \frac{1}{\beta} - \lambda &  -\frac{\kapp
 &= \left(  \frac{1 }{\beta} - \lambda \right) \left( \phi + 1 + \frac{\kappa}{\beta} - \lambda \right) - \frac{\kappa}{\beta^2} \\
 &= \lambda^2 - \left( \phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right)\lambda + \frac{ \phi + 1 }{\beta}
 \end{align*}
- Similarly to class, for the model to have a unique solution, the following two conditions must hold: $F'(1)<0, F(1) > 0$. Note that $F'(1)  = 2  - \phi - \frac{\kappa}{\beta} - \frac{1}{\beta} $ so our first inequality holds so long as $\phi>2 - \frac{\kappa + 1}{\beta}$. Moreover,
+ Similarly to class, for the model to have a unique solution, the following two conditions must hold: $F'(1)<0, F(1) > 0$. Note that $F'(1)  = 1  - \phi - \frac{\kappa}{\beta} - \frac{1}{\beta} $ so our first inequality holds so long as $\phi>1 - \frac{\kappa + 1}{\beta}$. Moreover,
 
 \begin{align*}
 F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \frac{ \phi + 1 }{\beta} \\
@@ -237,5 +237,5 @@ F(1) &=  1 - \left(\phi + 1 + \frac{\kappa}{\beta} + \frac{1}{\beta}\right) + \f
 >0 \iff \phi &> \frac{\kappa}{1-\beta}
 \end{align*}
 
-Therefore, we have a unique solution so long as $\phi > \max\left\{ 2 - \frac{\kappa + 1}{\beta} ,  \frac{\kappa}{1-\beta}\right\}$.
+Therefore, we have a unique solution so long as $\phi > \max\left\{ 1 - \frac{\kappa + 1}{\beta} ,  \frac{\kappa}{1-\beta}\right\}$. Note that $\frac{\kappa}{1-\beta} >0 > 1 - \frac{\kappa + 1}{\beta}  $, so $\phi> \frac{\kappa}{1-\beta}$  is necessary and sufficient for the model to have a unique solution.
 \end{document}
