@@ -158,12 +158,10 @@ This implies that $P_1 = 2, P_2 = 3$. The store can make this happen by offering
 
 When the marginal cost varies by total quantity sold, the two problems become linked by the cost function and, therefore, we have a single optimization to solve.
 \begin{align*}
-\max_{Q_1,Q_2} P_1Q_1 + P_2Q_2 - (Q_1 + Q_2)^2\\
-\max_{Q_1,Q_2}  3Q_1 - Q_1^2 + 5Q_2 - Q_2^2 - (Q_1 + Q_2)^2\\
-\Rightarrow 3 = 2Q_1 + 2Q_1 + 2Q_2,\\ 
-\Rightarrow 5 = 2Q_2 + 2Q_2 + 2Q_1,\\
-\Rightarrow \colvec{2}{3}{5} = \begin{pmatrix}4 & 2\\2 & 4 \end{pmatrix} \colvec{2}{Q_1}{Q_2}\\
-\Rightarrow \colvec{2}{Q_1}{Q_2} = \colvec{2}{1/6}{7/6},\\
-\Rightarrow \colvec{2}{P_1}{P_2} = \colvec{2}{17/6}{23/6}.
+MR=MC,\\
+3 - 2q_1 = q_1 + q_2,\\
+5 - 2q_2 = q_1 + q_2.
 \end{align*}
+
+We solve this system: $q_1 = 1/2,q_2 = 3/2, p_1 = 5/2, p_2 = 7/2$.
 \end{document}
