@@ -21,11 +21,16 @@ hold off
 title('4 A')
 legend('D','MR','Location','SouthWest')
 
-S = xx.^(0.3);
+expo = linspace(0.2,0.4,length(xx(:)));
+S = 0*xx;
+for i=1:length(xx)
+S(i) = xx(i).^(expo(length(xx)-i+1)); % gotta change this to be increasing elasticity over time
+end
 subplot(3,1,2)
 plot(xx,S,'k')
 title('4 B')
 legend('S','Location','SouthEast')
+ylim([0 3])
 
 Cutoff = 2;
 Resume = 3;
