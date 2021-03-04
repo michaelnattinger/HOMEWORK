@@ -194,7 +194,6 @@ It is optimal to adopt inflation targeting instead of discretionary policy if th
 Taking the limit that $\beta \approx 1$, $\mathcal{W}^{\pi} < \mathcal{W}^{D} $ leads to the following:
 \begin{align*}
 \frac{\bar{u}^2 + \sigma^2}{2\kappa^2}&< \frac{\alpha}{2(1+\alpha\kappa^2)} \left[\left(   \frac{1 + 2\alpha\kappa^2 + \alpha^2\kappa^4 }{(\alpha\kappa^2 )^2} \right)\bar{u}^2 + \sigma^2 \right]\\
-\frac{\bar{u}^2 + \sigma^2}{\kappa^2}&< \frac{\alpha}{(1+\alpha\kappa^2)} \left[\left(   \frac{1 + 2\alpha\kappa^2 + \alpha^2\kappa^4 }{(\alpha\kappa^2 )^2} \right)\bar{u}^2 + \sigma^2 \right] \\
 \left(1+\alpha\kappa^2 - \alpha\kappa^2  \right)\sigma^2 &< \left( \frac{1 + 2\alpha\kappa^2 + \alpha^2\kappa^4 }{\alpha\kappa^2 }  - 1-\alpha\kappa^2\right)\bar{u}^2 \\
 \sigma^2 &< \left( \frac{1 + \alpha\kappa^2 }{\alpha\kappa^2 } \right)\bar{u}^2
 %\frac{\bar{u}^2 + \sigma^2}{2\kappa^2}&< \frac{\alpha}{2} \left[\left( \frac{1}{1+\alpha\kappa^2} +  \frac{1 + 3\alpha\kappa^2}{\alpha^2\kappa^4} \right)\bar{u}^2 + \frac{\sigma^2}{(1+\alpha\kappa^2)} \right] \\
@@ -239,18 +238,49 @@ We now assume no markup shocks, and a Taylor rule for monetary policy. The NKIS 
 \pi_t &= \kappa x_t + \beta E_t\pi_{t+1}
 \end{align*}
 
-Note that $i_t = r_t^n + \phi \pi_t$. Note also that as $\phi \rightarrow \infty, i_t \rightarrow r_t^n$ so $\pi_t \rightarrow 0 \Rightarrow x_t,p_t \rightarrow 0$. This matches our first-best allocation where, by equations (\ref{pt}),(\ref{xt}), our initial conditions $x_{-1} = 0 = p_{-1}$, and that $u_t = \bar{u} = 0$, $x_t = 0 = p_t = \pi_t \forall t$.
+%Note that $i_t = r_t^n + \phi \pi_t$. Note also that as $\phi \rightarrow \infty, i_t \rightarrow r_t^n$ so $\pi_t \rightarrow 0 \Rightarrow x_t,p_t \rightarrow 0$. This matches our first-best allocation where, by equations (\ref{pt}),(\ref{xt}), our initial conditions $x_{-1} = 0 = p_{-1}$, and that $u_t = \bar{u} = 0$, $x_t = 0 = p_t = \pi_t \forall t$.
 
-%Rewriting, and setting up for Blanchard-Kahn, we write the following:
-%\begin{align*}
-%\begin{pmatrix} 1 & \sigma \\ \beta  & 0 \end{pmatrix} \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} + \colvec{2}{-1}{0}r_{t}^n \\
-% \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} +\begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \colvec{2}{-1}{0}r_{t}^n \\
-% \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} 1/\beta & -\kappa/\beta \\ \phi/\sigma - 1/(\beta\sigma) & 1+\kappa/(\beta\sigma) \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} +\colvec{2}{0}{-1/\sigma}r_{t}^n
-%\end{align*}
-%
-%We can find the eigenvalues of the square matrix above:
-%\begin{align*}
-%0 &=\lambda^2 - \left( \frac{1}{\beta} + 1 + \frac{\kappa}{\beta\sigma}\right)\lambda +\frac{\phi\kappa}{\beta\sigma} + \frac{1}{\beta}\\
-%\lambda &= \frac{1}{2}\left( \frac{\sigma+\beta\sigma + \kappa}{\beta\sigma}\right) \pm \frac{1}{2}\sqrt{\left( \frac{\sigma+\beta\sigma + \kappa}{\beta\sigma}\right)^2 - 4\left( \frac{\sigma + \phi\kappa}{\beta\sigma}  \right)}
-%\end{align*}
+Rewriting, and setting up for Blanchard-Kahn, we write the following:
+\begin{align*}
+\begin{pmatrix} 1 & \sigma \\ \beta  & 0 \end{pmatrix} \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} + \colvec{2}{-1}{0}r_{t}^n \\
+ \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} +\begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \colvec{2}{-1}{0}r_{t}^n \\
+ \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} 1/\beta & -\kappa/\beta \\ \phi/\sigma - 1/(\beta\sigma) & 1+\kappa/(\beta\sigma) \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} +\colvec{2}{0}{-1/\sigma}r_{t}^n
+\end{align*}
+
+We can find the eigenvalues of the square matrix above:
+\begin{align*}
+0 &=\lambda^2 - \left( \frac{1}{\beta} + 1 + \frac{\kappa}{\beta\sigma}\right)\lambda +\frac{\phi\kappa}{\beta\sigma} + \frac{1}{\beta}\\
+\lambda &= \frac{1}{2}\left( \frac{\sigma+\beta\sigma + \kappa}{\beta\sigma}\right) \pm \frac{1}{2}\sqrt{\left( \frac{\sigma+\beta\sigma + \kappa}{\beta\sigma}\right)^2 - 4\left( \frac{\sigma + \phi\kappa}{\beta\sigma}  \right)} \\
+&=  \frac{1}{2}\left( \frac{\sigma+\beta\sigma + \kappa}{\beta\sigma}\right) \pm \frac{1}{2}\sqrt{\frac{\sigma^2+ 2\kappa\sigma +\beta^2\sigma^2 +2 \kappa\beta\sigma  + \kappa^2 - 2\beta\sigma^2 - 4\phi\kappa\beta\sigma}{\beta^2\sigma^2}   }
+\end{align*}
+
+Letting $\beta \approx 1$,
+\begin{align*}
+\lambda &= 1+\frac{ \kappa}{2\sigma} \pm \frac{1}{2\sigma}\sqrt{ 4\kappa\sigma   + \kappa^2  - 4\phi\kappa\sigma }
+\end{align*}
+
+\dots
+
+
+With our eigenvalues and eigenvectors, we can write the system as follows:
+\begin{align*}
+E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= Q\Lambda Q^{-1}\colvec{2}{\pi_{t}}{x_{t}} + \colvec{2}{0}{-1/\sigma}r_t^n\\
+E_tY_{t+1} &= \Lambda Y_t + C r_{t}^n 
+\end{align*}
+We have two control variables, and thus two eigenvalues greater than one, and two equations which must be satisfied. For each row $i$ of $Y$:
+\begin{align*}
+E_tY_{i,t+1} &= \lambda_i Y_{i,t} + C_ir_t^n\\
+Y_{i,t} &= \lambda_i^{-1}E_tY_{i,t+1} - \lambda_i^{-1}C_ir_t^n\\
+Y_{i,t} &= -\lambda_i^{-1}C_i E_t\sum_{j=1}^{\infty}\lambda_i^{-j}r_{t+j}^n
+\end{align*}
+
+We now have two ways to proceed: bound each $r_{t+j}^n$ (as we know it is a linearized variable) and show that the infinite sum is finite, and achieve bounds of $|Y_{i,t}|$ which go to $0$ in the limit or find an explicit form for $Y_{i,t}$ by making an assumption on $a_t$ and showing that $Y_{i,t} \rightarrow 0$ in the limit. I do the former here and the latter in a footnote.\footnote{Under flexible prices, the euler equation holds: $\sigma E_t \Delta c_{t+1} = i_t - E_t \pi_{t+1} \Rightarrow \sigma E_t\Delta a_{t+1} = r_t^n $. Assuming $a_t$ follow ar(1) processes,  $a_{t+1} = \rho a_t + \epsilon_{t+1}$ where $\epsilon_{t+1} \sim_{iid} N(0,\sigma_a^2), \sigma E_t\Delta a_{t+1} = \sigma(\rho - 1)a_t$. Plugging this into our equation above we get: $Y_{i,t} = -\lambda_i^{-1}C_i \sum_{j=1}^{\infty}\lambda_i^{-j} \sigma(\rho - 1)a_{t+j} = -\lambda_i^{-1}C_i  \sigma(\rho - 1)(1-\lambda_i^{-1}\rho)^{-1}a_{t}$. Noting that the $\lambda_i^{-1}C_t$ terms go to infinity as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.}
+
+As $r_t^n$ is linearized, we can safely assume $|r_t^n|<1$. Therefore,
+\begin{align*}
+|Y_{i,t}| &< \frac{\lambda_i^{-1}C_i}{1-\lambda_i^{-1}}.
+\end{align*}
+
+
+Noting that the $\lambda_i^{-1}C_t$ terms go to zero as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.
 \end{document}

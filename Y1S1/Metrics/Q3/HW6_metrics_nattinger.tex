@@ -194,7 +194,7 @@ Therefore, the asymptotic bias of $\hat{\beta}_{FE}$ is $-\frac{\delta}{T}$.
 
 \begin{align*}
 \hat{\beta}_{FD} &\rightarrow_p \beta_0 + \frac{E[\sum_{t=2}^T (X_{it} - X_{i,t-1})(\epsilon_{it} - \epsilon_{i,t-1})]}{E[\sum_{t=1}^T(X_{it} - X_{i,t-1})^2]}\\
-&= \beta_0 + \frac{E[\sum_{t=2}^T X_{it}\epsilon_{it} - X_{i,t-1}\epsilon_{it} -X_{it}\epsilon_{i,t-1} + X_{i,t-1}\epsilon_{i,t-1} ]}{E[\sum_{t=2}^TX^2_{it} - 2X_{it}X_{i,t-1} + X_{i,t-1}^2)^2]}\\
+&= \beta_0 + \frac{E[\sum_{t=2}^T X_{it}\epsilon_{it} - X_{i,t-1}\epsilon_{it} -X_{it}\epsilon_{i,t-1} + X_{i,t-1}\epsilon_{i,t-1} ]}{E[\sum_{t=2}^TX^2_{it} - 2X_{it}X_{i,t-1} + X_{i,t-1}^2]}\\
 &= \beta_0 + \frac{-(T-1)\delta \sigma_{x}^2  }{2(T-1)\sigma_x^2}\\
 &= \beta_0 + \frac{-\delta  }{2}
 \end{align*}
@@ -205,4 +205,25 @@ Therefore, the asymptotic bias of $\hat{\beta}_{FD}$ is $-\frac{\delta}{2}$.
 
 For $T=2$, the asymptotic biases are the same.
 \section{Question 3}
+\subsection{Part i}
+We run the simulation a single time, output is below:
+
+\begin{center}
+\input{ps6p2}
+\end{center}
+
+\subsection{Part ii}
+We run the simulation 10000 times. The output is below, and code follows at the end of the problem set:
+\begin{center}
+\input{ps6}
+\end{center}
+
+\subsection{Part iii}
+Our Monte-Carlo results demonstrate that the fixed effects estimation is unbiased, whereas the (incorrectly specified) OLS estimated coefficient is badly upwardly biased. It also demonstrates that the cluster standard errors have a coverage rate much closer to the correct value than the heteroskedasticity robust standard errors.  The cluster standard errors are just as robust in the case without autocorrelation in the error term as they are with autocorrelation, whereas the heteroskedasticity robust standard errors lose a lot of coverage in that case.
+
+\includegraphics{hw6p1}
+
+\includegraphics{hw6p2}
+
+\includegraphics{hw6p3}
 \end{document}
