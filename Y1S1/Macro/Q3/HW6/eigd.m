@@ -6,3 +6,7 @@ mat = [1/pbeta -pkappa/pbeta; ...
 mat = subs(mat,pbeta,1);
 [Q,Lambda] = eig(mat);
 iQ = inv(Q);
+C = [0; -1/psigma];
+C = iQ*C;
+il1inv = C(1)*Lambda(1)^(-1);
+il2inv = C(2)*Lambda(4)^(-1);

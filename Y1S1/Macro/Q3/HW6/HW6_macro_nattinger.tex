@@ -238,9 +238,16 @@ We now assume no markup shocks, and a Taylor rule for monetary policy. The NKIS 
 \pi_t &= \kappa x_t + \beta E_t\pi_{t+1}
 \end{align*}
 
+From the NKPC curve, we have that $E_{t}\pi_{t+1} = \frac{\pi_t-\kappa x_t }{\beta}$. Plugging this into our NKIS curve,
+\begin{align*}
+\sigma E_t \Delta x_{t+1} &= \phi \pi_t -\frac{\pi_t-\kappa x_t }{\beta} - r_t^n\\
+\pi_t &= \frac{\sigma E_t\Delta x_{t+1} + \kappa x_t/\beta - r_t^n}{\phi - \beta^{-1}}\\
+&\rightarrow_{\phi \rightarrow \infty} 0
+\end{align*}
+ Plugging this back into our NKPC curve, we similarly find that $x_t = 0$. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.
 %Note that $i_t = r_t^n + \phi \pi_t$. Note also that as $\phi \rightarrow \infty, i_t \rightarrow r_t^n$ so $\pi_t \rightarrow 0 \Rightarrow x_t,p_t \rightarrow 0$. This matches our first-best allocation where, by equations (\ref{pt}),(\ref{xt}), our initial conditions $x_{-1} = 0 = p_{-1}$, and that $u_t = \bar{u} = 0$, $x_t = 0 = p_t = \pi_t \forall t$.
 
-Rewriting, and setting up for Blanchard-Kahn, we write the following:
+In class, Dima asked us to solve this using Blanchard-Kahn. Rewriting, and setting up for Blanchard-Kahn, we write the following:
 \begin{align*}
 \begin{pmatrix} 1 & \sigma \\ \beta  & 0 \end{pmatrix} \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} + \colvec{2}{-1}{0}r_{t}^n \\
  \colvec{2}{E_t\pi_{t+1}}{E_tx_{t+1}} &=  \begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \begin{pmatrix} \phi & \sigma \\ 1 & -\kappa \end{pmatrix}\colvec{2}{\pi_{t}}{x_{t}} +\begin{pmatrix} 0 & 1/\beta \\ 1/\sigma  & -1/(\beta\sigma) \end{pmatrix} \colvec{2}{-1}{0}r_{t}^n \\
@@ -259,10 +266,7 @@ Letting $\beta \approx 1$,
 \lambda &= 1+\frac{ \kappa}{2\sigma} \pm \frac{1}{2\sigma}\sqrt{ 4\kappa\sigma   + \kappa^2  - 4\phi\kappa\sigma }
 \end{align*}
 
-\dots
-
-
-With our eigenvalues and eigenvectors, we can write the system as follows:
+With our eigenvalues $\Lambda$ and eigenvector matrix $Q$, which I compute in Matlab due to time constraints,  we can write the system as follows:
 \begin{align*}
 E_t\colvec{2}{\pi_{t+1}}{x_{t+1}} &= Q\Lambda Q^{-1}\colvec{2}{\pi_{t}}{x_{t}} + \colvec{2}{0}{-1/\sigma}r_t^n\\
 E_tY_{t+1} &= \Lambda Y_t + C r_{t}^n 
@@ -274,13 +278,19 @@ Y_{i,t} &= \lambda_i^{-1}E_tY_{i,t+1} - \lambda_i^{-1}C_ir_t^n\\
 Y_{i,t} &= -\lambda_i^{-1}C_i E_t\sum_{j=1}^{\infty}\lambda_i^{-j}r_{t+j}^n
 \end{align*}
 
-We now have two ways to proceed: bound each $r_{t+j}^n$ (as we know it is a linearized variable) and show that the infinite sum is finite, and achieve bounds of $|Y_{i,t}|$ which go to $0$ in the limit or find an explicit form for $Y_{i,t}$ by making an assumption on $a_t$ and showing that $Y_{i,t} \rightarrow 0$ in the limit. I do the former here and the latter in a footnote.\footnote{Under flexible prices, the euler equation holds: $\sigma E_t \Delta c_{t+1} = i_t - E_t \pi_{t+1} \Rightarrow \sigma E_t\Delta a_{t+1} = r_t^n $. Assuming $a_t$ follow ar(1) processes,  $a_{t+1} = \rho a_t + \epsilon_{t+1}$ where $\epsilon_{t+1} \sim_{iid} N(0,\sigma_a^2), \sigma E_t\Delta a_{t+1} = \sigma(\rho - 1)a_t$. Plugging this into our equation above we get: $Y_{i,t} = -\lambda_i^{-1}C_i \sum_{j=1}^{\infty}\lambda_i^{-j} \sigma(\rho - 1)a_{t+j} = -\lambda_i^{-1}C_i  \sigma(\rho - 1)(1-\lambda_i^{-1}\rho)^{-1}a_{t}$. Noting that the $\lambda_i^{-1}C_t$ terms go to infinity as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.}
+We now have two ways to proceed: bound each $r_{t+j}^n$ (as we know it is a linearized variable) and show that the infinite sum is finite, and achieve bounds of $|Y_{i,t}|$ which go to $0$ in the limit or find an explicit form for $Y_{i,t}$ by making an assumption on $a_t$ and showing that $Y_{i,t} \rightarrow 0$ in the limit. I do the former here and the latter in a footnote.\footnote{Under flexible prices, the euler equation holds: $\sigma E_t \Delta c_{t+1} = i_t - E_t \pi_{t+1} \Rightarrow \sigma E_t\Delta a_{t+1} = r_t^n $. Assuming $a_t$ follow ar(1) processes,  $a_{t+1} = \rho a_t + \epsilon_{t+1}$ where $\epsilon_{t+1} \sim_{iid} N(0,\sigma_a^2), \sigma E_t\Delta a_{t+1} = \sigma(\rho - 1)a_t$. Plugging this into our equation above we get: $Y_{i,t} = -\lambda_i^{-1}C_i \sum_{j=1}^{\infty}\lambda_i^{-j} \sigma(\rho - 1)a_{t+j} = -\lambda_i^{-1}C_i  \sigma(\rho - 1)(1-\lambda_i^{-1}\rho)^{-1}a_{t}$. Noting that the $|\lambda_i^{-1}C_i|$ terms go to infinity as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.}
 
 As $r_t^n$ is linearized, we can safely assume $|r_t^n|<1$. Therefore,
 \begin{align*}
-|Y_{i,t}| &< \frac{\lambda_i^{-1}C_i}{1-\lambda_i^{-1}}.
+|Y_{i,t}| &< \frac{|\lambda_i^{-1}C_i|}{1-|\lambda_i|^{-1}}.
+\end{align*}
+
+From Matlab, we have the following values for $\lambda_i^{-1}C_i$:
+\begin{align*}
+\lambda_1^{-1}C_1 &= -(\kappa + \sqrt{(\kappa (-4\phi\sigma^2 + 4\sigma + \kappa))})/((\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma +\kappa)}(\kappa + 2\sigma + \sqrt{\kappa(-4\phi\sigma^2 +4\sigma + \kappa)}))) \\
+\lambda_2^{-1}C_2 &= (\kappa - \sqrt{(\kappa (-4\phi\sigma^2 + 4\sigma + \kappa))})/((\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma +\kappa)}(\kappa + 2\sigma - \sqrt{\kappa(-4\phi\sigma^2 +4\sigma + \kappa)})))
 \end{align*}
 
 
-Noting that the $\lambda_i^{-1}C_t$ terms go to zero as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit. This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.
+Noting that the $|\lambda_i^{-1}C_i|$ terms go to zero as $\phi \rightarrow \infty$, $Y_{it}\rightarrow 0$ as $\phi \rightarrow \infty \forall i$ so $\pi_t,x_t \rightarrow 0$ in the limit.\footnote{This is because $Q^{-1}$ does not go to zero in the limit. From Matlab,\\ $Q^{-1} = \begin{pmatrix}(\phi\sigma - 1)/\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)} & (\kappa + \sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)})/(2\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)}) \\ -(\phi\sigma - 1)/\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)} & -(\kappa - \sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)})/(2\sqrt{\kappa(-4\phi\sigma^2 + 4\sigma + \kappa)}) \end{pmatrix}\\ \rightarrow_{\phi\rightarrow\infty} \begin{pmatrix}0 &1/2 \\0 & 1/2  \end{pmatrix}$. Therefore, $x_t = 0 \Rightarrow \pi_t = 0.$} This matches our first best allocation under no markup shocks, as equations (\ref{pt}),(\ref{xt}), along with our initial conditions $x_{-1} = p_{-1} = 0$ and no markup shocks, show that $x_t = p_t = 0 \forall t$.
 \end{document}
