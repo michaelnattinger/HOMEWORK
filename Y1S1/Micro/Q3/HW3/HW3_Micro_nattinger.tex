@@ -140,8 +140,36 @@ c_2^2 &= 50.
 \end{align*}
 
 \section{Question 4}
+The contract curve equates the marginal rates of substitutions between the two:
+\begin{align*}
+\frac{Y_A}{X_A} &= \frac{20 }{X_B}\\
+Y_A &= \frac{20 x_A}{30 - x_A}
+\end{align*}
+
+We draw the Edgeworth box, including the contract curve and our results from part (c) below.
+
+\includegraphics{edgeworth2}
+
+We now solve for the equilibria.
+
 Our optimality for the first consumer is the following:
 \begin{align*}
-\mathcal{L} &=
+\mathcal{L}^A &= x^1y^1 - \lambda_A(x^1+ y^1/(p_x/p_y) -30 )\\
+y^1 &= \lambda_A\\
+x^1 &= \lambda_A/(p_x/p_y)\\
+y^1 &= x^1 (p_x/p_y)\\
+x^1 &= 15 \\
+x^2 &= 15
 \end{align*}
+For the second consumer we have the following:
+\begin{align*}
+\mathcal{L}^B &= y^2 + 20log(x^2) - \lambda_B(x^2+ y^2/(p_x/p_y) - x_0^2 - y_0^2/(p_x/p_y))\\
+20/x^2 &= \lambda_B \\
+p_x/p_y &= \lambda_B\\
+20/x^2 &= p_x/p_y  \\
+4/3 &= p_x/p_y \\
+y^1 &= 20\\
+y^2 &= 0.
+\end{align*}
+
 \end{document}
