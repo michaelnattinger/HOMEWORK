@@ -1,0 +1,105 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS7}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+The collateral constraint is binding, i.e. $R_tB_t = Q_{t,t+1}^{min}K_t$. Our arbitrage condition is the following:
+\begin{align*}
+R_t = \frac{E_t[Q_{t+1}]+ \frac{1}{2}(\bar{K} - K_t) }{Q_t},
+\end{align*} 
+where the expectation is taken with respect to the realization of $a_{t+1}$. The budget constraint of the constrained household is the following:
+\begin{align*}
+Q_tK_t = (a_t + Q_t)K_{t-1} + B_t - R_{t-1}B_{t-1}\\
+Q_tK_t = (a_t + Q_t)K_{t-1} + \frac{Q_{t,t+1}^{min}K_t}{R_t}- R_{t-1}B_{t-1}\\
+Q_tK_t =  \frac{1}{1-\frac{Q_{t,t+1}^{min}}{R_tQ_t}}\left[ (a_t+Q_t)K_{t-1} - R_{t-1}B_{t-1} \right]
+\end{align*}
+
+Finally, optimality from the unconstrained household gives us that $R_t = \beta_2^{-1}$. Now we can rearrange to find something we can compute in Matlab:
+\begin{align}
+Q_t = \beta_{2}E_t[Q_{t+1}]+ \frac{\beta}{2}(\bar{K} - K_t) \label{fp}\\
+Q_tK_t = \frac{1}{1-\frac{Q_{t,t+1}^{min}}{R_tQ_t}}\left[ (a_t+Q_t)K_{t-1} - R_{t-1}B_{t-1} \right] \label{Kt}
+\end{align}
+
+The state variables in this case are $K_{t-1}$ and our realization of $a$.
+
+\section{Question 2}
+Across a grid of capital and prices we can initialize our guess for a function $Q(K_{t-1},a_t,B_{t-1})$, for a grid of $K_{t-1}$ levels, and for each grid point calculate $K_t$ using (\ref{Kt}) and then update $Q(K_{t-1},a_t,B_{t-1})$ using equation (\ref{fp}) and our guess of $E[Q(K_{t},a_{t+1})]$. We continue to iterate until this function has converged.
+\section{Question 3}
+\section{Question 4}
+
+\end{document}
