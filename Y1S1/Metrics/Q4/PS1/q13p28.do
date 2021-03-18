@@ -19,3 +19,6 @@ ivregress 2sls lwage exp exp2per south black urban (edu = public private pubage 
 ivregress gmm lwage exp exp2per south black urban (edu = public private pubage pubage2), r
 
 estat overid
+
+
+

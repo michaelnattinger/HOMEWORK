@@ -91,11 +91,11 @@ E[X(Y-X'\beta)] &= 0\\
 \frac{1}{n}\sum_{i=1}^nX_i(Y_i - X_i'\hat{\beta}) &= 0\\
 \hat{\beta} &= \left( \sum_{i=1}^n X_i X_i'\right)^{-1}\left( \sum_{i=1}^n X_i Y_i\right)\\
 E[Z\eta] &= 0\\
-E[Z(e^2 - Z'\eta)] &= 0\\
-E[Z((Y - X'\beta)^2 - Z'\eta)] &= 0\\
-\frac{1}{n}\sum_{i=1}^n \left(Z_i((Y_i - X_i'\hat{\beta})^2 - Z_i'\hat{\eta}) \right) &= 0\\
-\sum_{i=1}^n \left(Z_i(Y_i - X_i'\hat{\beta})^2\right) &=  \left(\sum_{i=1}^n Z_iZ_i' \right)\hat{\eta}\\
-\hat{\eta} &= \left( \sum_{i=1}^n Z_iZ_i'  \right)^{-1}\left(\sum_{i=1}^n \left(Z_i(Y_i - X_i'\hat{\beta})^2\right) \right)
+E[Z(e^2 - Z'\gamma)] &= 0\\
+E[Z((Y - X'\beta)^2 - Z'\gamma)] &= 0\\
+\frac{1}{n}\sum_{i=1}^n \left(Z_i((Y_i - X_i'\hat{\beta})^2 - Z_i'\hat{\gamma}) \right) &= 0\\
+\sum_{i=1}^n \left(Z_i(Y_i - X_i'\hat{\beta})^2\right) &=  \left(\sum_{i=1}^n Z_iZ_i' \right)\hat{\gamma}\\
+\hat{\gamma} &= \left( \sum_{i=1}^n Z_iZ_i'  \right)^{-1}\left(\sum_{i=1}^n \left(Z_i(Y_i - X_i'\hat{\beta})^2\right) \right)
 \end{align*}
 \section{Question 13.2}
 The GMM estimator is the following:
