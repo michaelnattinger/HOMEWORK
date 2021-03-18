@@ -1,0 +1,136 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro exam sheet}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Discussion 4 (ME)}
+\begin{itemize}
+\item Walrasian price stabilit: raise price if net demand is positive and lower if negative
+\item Marshallian quantity stability: raise supply quantity if demand price exceeds supply price
+\item Eqm may not be marshallian stable if the supply curve is the supply curve is backwards bending
+\item Demand elasticity $\epsilon = \frac{dQ_D P_D}{dP_D Q_D}$
+\item Supply elasticity $\eta = \frac{dQ_S P_S}{dP_S Q_S}$
+\item tax incidence theorem: the share of a small tax paid by demand is equal to $\frac{\eta}{\eta - \epsilon}$
+\item tax irrelevance theorem: the total amount of lost surplus is invariant to whom the tax is levied upon
+\item Costs are escapable if can be avoided, sunk if not.
+\item Costs are fixed if invariant to quantity, variable if not.
+\item In the short run, fixed costs are inescapable. All costs are escapable in LR.
+\item Starting at a LR allocation, firms will exit if average escapable cost $>p$, and will not otherwise.
+\end{itemize}
+\section{Discussion 5 (MP)}
+\begin{itemize}
+\item Perfect competition: firms are price takers with no market power. $P = MC$
+\item Monopoly: a single firm with market power, equates marginal revenue to marginal cost: $MR = P(Q) + QP'(Q) = MC$
+\item Cartels: finite number of firms acting together as a monopoly. $MC_i = MR$ where MR is the marginal revenue for the cartel as a whole. $MC_i = P(Q) + Q \frac{\partial P(Q)}{\partial q_i} =\frac{\partial TC}{ \partial q_i} = MR = P(Q) + QP'(Q)$
+\item Cournot: each firm independently maximizes their own profits. Firms take the production of others as given and sets $MR_i = P + q_iP'(Q) = MC_i$
+\item Stackleberg: Leader deduces follower's best response function, and maximizes their profits given the response function of the follower.
+\item First degree price discrimination: monopolists know the exact valuation of each consumer and can charge a personalized price to everyone. Monopolists extracts entire surplus but eliminates monopoly inefficiency.
+\item Second degree price discrimination: cannot distinguish between different types of consumers at all but can charge different rates for different selected quantities, i.e. bulk pricing.
+\item Third degree price discrimination: firm only knows a set of groups of consumers and charges a different price to each group.
+\end{itemize}
+\section{Discussion 6 (Externalities)}
+\begin{itemize}
+\item Piguovian tax $\tau$ makes private cost equal to total social cost. Let $\tau = \delta(q),$ set tax such that $B'(q) = C'(q) + \delta(q)$
+\item More useful, think of p. tax as adding in the externality that they are ignoring (from the other person) into their profit function.
+\item Coasian bargaining is another way to resolve externality issues. Property rights. Efficient outcome will arise regardless of who owns property rights, and piguovian tax in this case hurts welfare.
+\item Coase theorem: max total profits
+\item Public goods are nonexcludable - cannot prevent anybody from consuming them.
+\item Rival good - consumption by others increases difficulty or cost of consuming the public good.
+\item No congestion - pure public good.
+\item Tragedy of commons is classic example of rival public goods. Can be captured by game theory and fixed via pigouvian tax.
+\item Nonrival public goods: efficient funding of public goods occurs when the sum of everybody's marginal rate of substitution between private goods and public goods is equal to the marginal rate of transformation between the two goods. Samuelson condition, and $\sum_{i=1}^n \frac{u^i_G}{u^i_w}  = \frac{1}{f'(t)}$
+\item Lindahl equilibrium: charges different individuals different prices for units of the public good so as to make everyone willingly contribute to hit the efficient public good provision.
+\item a Lindahl eqm is an allocation and individual public good prices such that $(x_{i}^{*},G^{*}) = \argmax_{x_i,G}u^i(x_i,G) s.t. x_i + p_iG = w_i$
+\item Write utility (if quasilinear) $U^i = m - s_i S + u(S) $ and take FOCs for all $i$ to get $S^{*}$ as a function of price; all $S^{*}$ are in equilibrium so all are equal, and write shares in terms of other shares e.g. $s_1 = 2s_2$, and then prices sum to 1 e.g. $s_1 = 2/3, s_2 = 1/3.$ 
+\end{itemize}
+
+\section{Discussion 7 (GE)}
+\begin{itemize}
+\item Given prices solve for allocations - consumer side and firm side
+\item Market clearing to connect firm and household sides.
+\item Stochastic GE: Maximize expected utility (bernoulli) s.t. allocations
+\item market clearing to find prices of securities.
+\item Edgeworth box: fixed allocations, 2 goods, 2 consumers. Initial allocation. Contract curve equatios marginal rates of substitutions between the two consumers:
+\item $\frac{\partial U_X^1}{\partial U_Y^1} = \frac{\partial U_X^2}{\partial U_Y^2}$
+\item Note that if utilities are convex, equating MRS doess not find the optimum but rather a minimum in some sense, and (usually) the border of the box is the actual optimum.
+\item another thing to worry about are bliss points - if not lns. If both have it then contract curves connect the two (straight if preferences are circular)
+\item Trade offer curves: one agent, start at some initial allocation, plot where you end up given different price ratios froom $0$ to $\infty$.
+\item max utility s.t. constraints, solve for eqm using (opt conds)+(budget cons)+(mkt clr).
+\end{itemize}
+
+\end{document}
