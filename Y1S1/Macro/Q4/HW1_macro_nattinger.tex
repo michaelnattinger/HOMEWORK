@@ -162,10 +162,10 @@ FOC (lagrange multiplier $\mu$):
 \end{align*}
 
 \begin{align}
-\beta^t \pi_t(s^t)u'(c_t(s^t)) &=  Q_{t}(s^t) \label{Q}
+(0.95)^t \pi_t(s^t)(d_t(s^t))^{-2} &=  Q_{t}(s^t) \label{Q}
 \end{align}
 
-We can use the above expression to price claims in the sections that follow. Note that we are interested in prices in terms of the period $0$ good, i.e. we have assumed $Q_0(s_0) = 0.$ Note also that $u'(c_0) = u'(d_0) = u'(1) = 1.$
+We can use the above expression to price claims in the sections that follow. First, note that $c_t\leq d_t \Rightarrow c_t = d_t$ will maximize utility. Also, note that we are interested in prices in terms of the period $0$ good, i.e. we have assumed $Q_0(s_0) = 0.$ Note finally that $u'(c_0) = u'(d_0) = u'(1) = 1.$
 \subsubsection{Part B}
 Using equation (\ref{Q}), we can price the claim. $c_5 = d_5 = 0.97*0.97*1.03*0.97*1.03 = 0.968$. $\beta^5 = 0.774$. $\pi_t(s^t) = 0.8*0.8*0.2*0.1*0.2 = 0.00256$. Therefore, $Q_5 = ( 0.774)(0.00256)(0.968)^{-2} = 0.00211$.
 \subsubsection{Part C}
@@ -174,12 +174,12 @@ Using equation (\ref{Q}), we can price the claim. $c_5 = d_5 = 1.03*1.03*1.03*1.
 The price is the sum of the prices and endowments across states and time:
 \begin{align*}
 P^e &= \sum_{t=0}^{\infty}\sum_{s^t} d_t(s^t)Q_{t}(s^t)\\
-&= \sum_{t=0}^{\infty}\sum_{s^t} d_t(s^t)\beta^t \pi_t(s^t)u'(d_t(s^t))
+&= \sum_{t=0}^{\infty}\sum_{s^t} (0.95)^t \pi_t(s^t)(d_t(s^t))^{-1}
 \end{align*} 
 \subsubsection{Part E}
 The price is the sum of the prices and endowments across state histories at time $5$, conditional on the state at time $t=5$ being $\lambda_5 = 0.97$:
 \begin{align*}
-P^5 &= \sum_{s^5|s_5= 0.97} d(s^5)\beta^5 \pi_t(s^5)u'(d(s^5))
+P^5 &= \sum_{s^5|s_5= 0.97} (0.95)^5 \pi_5(s^5)(d_t(s^5))^{-1}
 \end{align*}
 \subsection{Part II}
 \subsubsection{Part F}
