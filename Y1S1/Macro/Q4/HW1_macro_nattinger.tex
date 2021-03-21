@@ -92,7 +92,16 @@ v'_{\theta}(c) &= \theta u'(c^1) \frac{\partial  c^1}{\partial c} + (1-\theta)w'
 &= \theta u'(c^1) = (1-\theta)w'(c^2) .
 \end{align*}
 
-Since $u,w$ are twice differentiable, from the envelope theorem $v_{\theta}$ is twice differentiable and $v''_{\theta} = \theta u''(c^1) + (1-\theta) u''(c^2)<0$ since $u,v$ are concave. Thus, $v_{\theta}$ is concave.
+Now we will think about concavity. This is slightly more involved as the envelope theorem holds only for the first derivative.
+
+Define the compact set $B(c) = \{x= (c_1,c_2) \in \mathbb{R}^2: c_1+c_2\leq c, c_1\geq 0, c_2\geq 0\}$. Define on this set the function $V(x) = \theta u(c^1) + (1-\theta)c^2$. Then, observe that $v(c) = \max_{x\in B(c)}V(x)$. Since $u,w$ are continuous, $V$ is continuous so it achieves its maximum on the compact set $B(c)$. Define $X(c)$ as the corresponding argmax - since $V$ is strictly concave, it achieves its max at a unique point. Now, let $c,C \geq 0,\lambda \in [0,1]$. Then,
+\begin{align*}
+\lambda v(c) + (1-\lambda)v(C) &= \lambda V(X(c)) + (1-\lambda) V(X(C))\\
+&\leq V(\lambda X(c) + (1-\lambda) X(C))\\
+&\leq v(\lambda c + (1-\lambda) C).
+\end{align*}
+Therefore, $v(c)$ is concave.
+%Since $u,w$ are twice differentiable, from the envelope theorem $v_{\theta}$ is twice differentiable and $v''_{\theta} = \theta u''(c^1) + (1-\theta) u''(c^2)<0$ since $u,v$ are concave. Thus, $v_{\theta}$ is concave.
 
 %Now we will show $v_{\theta}(c)$ is concave.
 %
@@ -103,7 +112,7 @@ Since $u,w$ are twice differentiable, from the envelope theorem $v_{\theta}$ is 
 %\end{align*}
 \section{Question 2: Exercise 8.3}
 \subsection{Part A}
-A competitive equilibrium is a set of prices $\{Q_t\}_{t=0}^{\infty}$ and endowments $\{ c_t^1,c_t^2 \}_{t=0}^{\infty}$ such that both consumers optimize (maximize the sum of discounted utility) and markets clear ($c^1_t + c^2_t = y_t^1 + y_t^2 = 1 \forall t$).
+A competitive equilibrium is a set of prices $\{Q_t\}_{t=0}^{\infty}$ and allocations $\{ c_t^1,c_t^2 \}_{t=0}^{\infty}$ such that both consumers optimize (maximize the sum of discounted utility) and markets clear ($c^1_t + c^2_t = y_t^1 + y_t^2 = 1 \forall t$).
 \subsection{Part B}
 Agent $i$ solves the following optimization problem:
 \begin{align*}
@@ -183,13 +192,12 @@ P^5 &= \sum_{s^5|s_5= 0.97} (0.95)^5 \pi_5(s^5)(d_t(s^5))^{-1}
 \end{align*}
 \subsection{Part II}
 \subsubsection{Part F}
-A competitive equilibrium is a set of prices $\{q_t(s^t|s_{t+1})\}_{t=0}^{\infty}$ and allocations $\{ c_t(s^t),a_{t+1}(s^t,s_{t+1})  \}_{t=0}^{\infty}$ such that agents optimize and markets clear $c_t(s^t)  = d_t(s^t) \forall t.$
+A recursive competitive equilibrium is a pricing kernel $\{q_t(s^t|s_{t+1})\}_{t=0}^{\infty}$ and decision rules $ c(s_t,a_{t}),a_{t+1}(s_t,a_{t}) $ such that agents optimize ($v(s_t,a_t) = \max_{c,a_{t+1}} u(c) + \beta E[v(s_{t+1},a_{t+1})]$) and markets clear $c_t  = d_t, a_{t} = 0 \forall t.$
 \subsubsection{Part G}
-The natural debt limit for a state in the future $A_{t+1}(s^t,s_{t+1})$ is the maximum amount one can repay in that state, i.e. the amount they could repay if they chose no consumption and no buying of future assets:
+The natural debt limit for a state in the future $A_{t+1}(s^t,s_{t+1})$ is the maximum amount one can repay eventually, i.e. present discounted value of future income. It takes a recursive form:
 \begin{align*}
-A_{t+1}(s^t,s_{t+1}) = d_{t+1}(s^{t+1})
+A(s_t) = d_{t} + \beta\sum_{s_{t+1}}Q(s_{t+1}|s_t)A(s_{t+1})
 \end{align*}
-Is this right? Check with others.
 \subsubsection{Part H}
 In each period, the agent solves the following maximization problem: 
 \begin{align*}
@@ -201,7 +209,7 @@ Taking first order conditions, we have the following:
 q_t(s^t,s_{t+1}) &= \beta \frac{u'(c_{t+1}(s^t,s_{t+1}))}{u'(c_t(s^t))}\pi(s_{t+1}|s^t)
 \end{align*}
 
-Since the endowments are governed by a markov process, and since we know that the feasible allocations satisfy $c_t \leq d_t \Rightarrow c_t = d_t$ optimizes utility, we can rewrite the first order conditions as follows:
+Since the endowments are governed by a Markov process, and since we know that the feasible allocations satisfy $c_t \leq d_t \Rightarrow c_t = d_t$ optimizes utility, we can rewrite the first order conditions as follows:
 \begin{align*}
 q_t(s^t,s_{t+1}) &= \beta \frac{u'(d_{t+1}(s^t,s_{t+1}))}{u'(d_t(s^t))}\pi(s_{t+1}|s_t)\\
 &= \beta \left(\frac{d_t(s^t)}{d_{t+1}(s^t,s_{t+1})}\right)^2 \pi(s_{t+1}|s_t)\\
@@ -216,8 +224,8 @@ Finally, since we know $c_t(s^t) = d_t(s^t)$, it must immediately hold by induct
 We can use our pricing kernel to price this bond.
 
 \begin{align*}
-p^b(s_t) &= \sum_{s_{t+1}} \beta  (\lambda_{t+1}(s_{t+1}))^{-2}\pi(s_{t+1}|s_t) \\
-\Rightarrow p^b(\lambda_t) &= \begin{cases} (0.95) ((0.97)^{-2}(0.8) + (1.03)^{-2}(0.2) ) , \lambda_t = 0.97 \\ (0.95) ((0.97)^{-2}(0.1) + (1.03)^{-2}(0.9) ) , \lambda_t = 1.03\end{cases},\\
-p^b(\lambda_t) &= \begin{cases} 0.987 , \lambda_t = 0.97 \\ 0.907 , \lambda_t = 1.03\end{cases}.
+p^b(s_t) &= \sum_{s^{t+1}}\sum_{s^{t+2}} \beta^2  (\lambda_{t+1}(s_{t+1}))^{-2}\pi(s_{t+1}|s_t)(\lambda_{t+2}(s_{t+2}))^{-2}\pi(s_{t+2}|s_{t+1})  \\
+\Rightarrow p^b(\lambda_t) &= \begin{cases} (0.95)^2 ((0.97)^{-2}(0.8)(0.97^{-2}(0.8) + (1.03)^{-2}(0.2)) + (1.03)^{-2}(0.2)((0.9)(1.03)^{-2}+(0.1)(0.97)^{-2}) ) , \lambda_t = 0.97 \\(0.95)^2 ((0.97)^{-2}(0.1)(0.97^{-2}(0.8) + (1.03)^{-2}(0.2)) + (1.03)^{-2}(0.9)((0.9)(1.03)^{-2}+(0.1)(0.97)^{-2}) )  , \lambda_t = 1.03\end{cases},\\
+p^b(\lambda_t) &= \begin{cases} 0.96 , \lambda_t = 0.97 \\ 0.83 , \lambda_t = 1.03\end{cases}.
 \end{align*}
 \end{document}

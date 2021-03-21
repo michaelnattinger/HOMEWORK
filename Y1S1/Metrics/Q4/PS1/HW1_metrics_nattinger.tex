@@ -173,8 +173,8 @@ Our formula for efficient GMM then reads:
 
 where
 \begin{align*}
-a_n &= \frac{1}{n}\left( \sum_i x_i^2 \right) \bar{E}[X^4e^2] - \frac{1}{n}\left( \sum_i x_i^3 \right) \bar{E}[X^3e^2], \\
-a_n &= -\frac{1}{n}\left( \sum_i x_i^2 \right) \bar{E}[X^3e^2] + \frac{1}{n}\left( \sum_i x_i^3 \right) \bar{E}[X^2e^2].
+a_n &= \frac{1}{n}\left( \sum_i x_i^2 \right) \hat{E}[X^4e^2] - \frac{1}{n}\left( \sum_i x_i^3 \right) \hat{E}[X^3e^2], \\
+b_n &= -\frac{1}{n}\left( \sum_i x_i^2 \right) \hat{E}[X^3e^2] + \frac{1}{n}\left( \sum_i x_i^3 \right) \hat{E}[X^2e^2].
 \end{align*}
 
 OLS and 2SLS yield the same estimated coefficient in this case, and given $X$ is a scalar we have $\hat{\beta}_{2sls} =\hat{\beta}_{ols} = \frac{\sum_{i=1}^n x_iy_i}{\sum_{i=1}^n x_i^2}.$
