@@ -117,14 +117,14 @@ A competitive equilibrium is a set of prices $\{Q_t\}_{t=0}^{\infty}$ and alloca
 Agent $i$ solves the following optimization problem:
 \begin{align*}
 &\max_{\{ c_{t}^i\}_{t=0}^{\infty}} \sum_{i=1}^{\infty}\beta^t u(c_{t}^i)\\
-&\text{s.t.} \sum_{t=0}^{\infty}Q_tC_{t}^i \leq \sum_{t=0}^{\infty} Q_t y_{t}^i
+&\text{s.t.} \sum_{t=0}^{\infty}Q_tc_{t}^i \leq \sum_{t=0}^{\infty} Q_t y_{t}^i
 \end{align*}
 
 Denoting the Lagrange multiplier of agent $i$ as $\mu_i$, first order conditions take the following form:
 
 \begin{align*}
 \beta u'(c_t^i) &= \mu_i Q_t\\
-\Rightarrow \frac{u'(c_t^1)}{u'(c_t^1)} &= \mu_i/\mu_j
+\Rightarrow \frac{u'(c_t^1)}{u'(c_t^2)} &= \mu_1/\mu_2
 \end{align*}
 
 Note that the right hand side is independent of $t$, and since the total endowment of the economy is also constant (1), the consumption of each agent must also be constant for all time, i.e. $c_t^1 = c^1, c_t^2 = c^2.$ Market clearing also implies $c^1+c^2 = 1.$
@@ -136,7 +136,7 @@ Moreover, the first order conditions also yield the following:
 
 Constant consumption implies that $Q_{t+1} = \beta Q_t$. We can normalize $Q_0 = 1$ and then we have that $Q_{t} = \beta^t$. Now we have the following:
 \begin{align*}
-\sum_{t=0}^{\infty}\beta^t c^1 &= \sum_{t=0}^{\infty}\beta y_{t}^i\\
+\sum_{t=0}^{\infty}\beta^t c^1 &= \sum_{t=0}^{\infty}\beta^t y_{t}^i\\
 \frac{c^1}{1-\beta} &= \frac{1}{1-\beta^3}\\
 \Rightarrow c^1 &= \frac{1-\beta}{1-\beta^3},\\
 c^2 &= \frac{\beta - \beta^3}{1-\beta^3}.
