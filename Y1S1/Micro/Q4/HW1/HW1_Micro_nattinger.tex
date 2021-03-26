@@ -128,8 +128,18 @@ b_i &=  \frac{aN-a}{aN-a+1}(\theta_i)^{aN-a+1}
 \end{align*}
 Therefore , $b(\theta) =  \frac{aN-a}{aN-a+1}(\theta)^{aN-a+1}$ is a best response to the other players playing the same strategy. Thus, it constitutes an equilibrium.
 \subsection{Part D}
-As $a$ increases, bids will shrink for given types less than 1, so the bidding will become less competitive for a given type. Intuitively, as $a$ rises, more of the distribution mass is near $1$ so for a fixed $\theta$ value less than one the odds of winning decrease, and therefore the bid decreases. However, note that there is a competing effect here: the bids for a given type is decreasing, however as $a$ increases the probability mass of types shifts to the right so the drawn types tend to be higher. In the limit as $a\rightarrow \infty$ this effect dominates and the bids tend to increase, converging (in probability) to 1. 
+As $a$ increases, bids will shrink for given types less than 1, so the bidding will become less competitive for a given type. Intuitively, as $a$ rises, more of the distribution mass is near $1$ so for a fixed $\theta$ value less than one the odds of winning decrease, and therefore the bid decreases. However, note that there is a competing effect here: the bids for a given type is decreasing, however as $a$ increases the probability mass of types shifts to the right so the drawn types tend to be higher. In the limit as $a\rightarrow \infty$ this effect dominates and the bids tend to increase. 
 \subsection{Part E}
+
+Before drawing a type, the expected bid is the following:
+\begin{align*}
+E[b_i(\theta)] &= \int_{0}^{1} \frac{aN-a}{aN-a+1}(\theta)^{aN-a+1}  a\theta^{a-1} d\theta \\
+&=  \frac{a(aN-a)}{aN-a+1} \int_{0}^{1}\theta^{aN}d\theta\\
+&=   \frac{a(aN-a)}{aN-a+1}\frac{1}{(aN+1)} 
+\end{align*}
+
+I originally interpreted the question as being the expected return of the bidder before and after drawing the type. This is not what the question asks but I still have it below.
+
 After drawing a type, person $i$ with type $\theta_i \sim F$ bids $b(\theta_i) =  \frac{aN-a}{aN-a+1}(\theta_i)^{aN-a+1}$ and wins payoff $\theta_i$ with some probability:
 \begin{align*}
 E[\pi|\theta] &= \theta_i Pr(\theta_i>\theta_{-i})^{N-1} - b(\theta_i)\\
@@ -150,7 +160,7 @@ In the first-price auction, both people will bid below their valuations, to try 
 \subsection{Part B}
 In the second-price auction, both people will bid their valuations. If both bids are above $r$, then the seller with the higher bid will pay the seller the second-highest price, and will receive the object. If fewer than two bids are above the reserve price then the seller will not sell the object.
 \subsection{Part C}
-The seller should choose the second-price auction. They should set the reserve price to be their own cost, c. The person with type drawn from $F(x) = x^2$ has more probability mass near 1 so this person wins more often.
+The seller should choose the first-price auction as the two auction types have the same expected revenue, but the first price auction has the smaller spread. They should set the reserve price to be their own cost, c. The person with type drawn from $F(x) = x^2$ has more probability mass near 1 so this person wins more often.
 \subsection{Part D}
 The discount should be offered to the type that tends to have the lowest valuation $F(x) = x$. The idea is to try to get them to bid over their valuation, so that their bid gets above the bid of the type which tends to be high, raising the sale price of the good. We calculate the optimal discount.
 
