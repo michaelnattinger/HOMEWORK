@@ -89,7 +89,7 @@ This is essentially just a regression of $Y$ on $D$ with state fixed effects, so
 \begin{align*}
 \hat{\theta} &= \frac{\sum_{t=0}^{T}\sum_{i=0}^{N}(D_{it} - \bar{D}_{i})(Y_{it} - \bar{Y}_{i})}{\sum_{t=i}^{T}\sum_{i=1}^{N}(D_{it} - \bar{D}_{i})^2},
 \end{align*}
-where $\bar{D}_i = (1/n)\sum_{t=1}^n D_{it},\bar{Y}_i = (1/n)\sum_{t=1}^n Y_{it}$.
+where $\bar{D}_i = (1/T)\sum_{t=1}^T D_{it},\bar{Y}_i = (1/T)\sum_{t=1}^T Y_{it}$.
 \subsection{Part B}
 For the untreated sample, $D_{it} = 0 \forall t,$ so $D_{it} - \bar{D}_i = 0 \forall t,$ so $\hat{\theta} =  \frac{\sum_{t=0}^{T}\sum_{i=0}^{N}(D_{it} - \bar{D}_{i})(Y_{it} - \bar{Y}_{i})}{\sum_{t=0}^{T}\sum_{i=0}^{N}(D_{it} - \bar{D}_{i})^2} =  \frac{\sum_{t=0}^{T}(D_{1t} - \bar{D}_{1})(Y_{1t} - \bar{Y}_{1})}{\sum_{t=0}^{T}(D_{1t} - \bar{D}_{1})^2}$ which is a function only of the treated sample.
 \subsection{Part C}
@@ -100,7 +100,7 @@ If the time trend is not important then the control group would have no change o
 For both, if all interaction dummies were included then there would be perfect collinearity and the $X'X$ matrix would not be invertible. Intuitively one of the groups serve as a baseline from which the other groups are compared.
 \section{Question 18.5}
 \subsection{Part A}
-The difference in Wisconsin is $16.72 - 15.23 = 1.49$. The difference in Minnesota is $18.01-16.42 = 1.59$. The difference in difference estimate is therefore $1.49 - 1.59 = -0.1$.
+The difference in Wisconsin is $16.72 - 15.23 = 1.49$. The difference in Minnesota is $18.10-16.42 = 1.68$. The difference in difference estimate is therefore $1.49 - 1.68 = -0.19$.
 \subsection{Part B}
 $\hat{\beta} = -0.1$.
 \subsection{Part C}

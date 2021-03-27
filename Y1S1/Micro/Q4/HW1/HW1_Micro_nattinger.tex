@@ -156,13 +156,79 @@ E[\pi] &= \int_{0}^1 E[\pi|\theta] f(\theta)d\theta \\
 \end{align*}
 \section{Question 2}
 \subsection{Part A}
-In the first-price auction, both people will bid below their valuations, to try to earn surplus. If the highest bid is above $r$ then the seller will sell the object to the highest bidder at the highest bid price. If none of the bids is above $r$ then the seller keeps the object.
+Suppose there exists bidding strategies $b_1(x),b_2(x)$ for individuals $F_1(x) = x,F_2(x) = x^2$ which are known to all individuals and form an equilibrium (non-symmetric due to non-iid types). For each bidder with valuation $x_i$ we can think of the bidder as choosing the $X_i$ they pretend to be by submitting bid $b_i(X_i)$. The bidder will win iff $X_i>x_j$. The payoff for person 1 is then the following:
+\begin{align*}
+(x_1-b_1(X_1))Pr(X_1>x_2) &= (x_1-b_1(X_1))X_1^2
+\end{align*}
+
+Taking FOCs wrt $X_1$:
+\begin{align*}
+2X_1x_1 -2X_1b_1(X_1) - X_1^2b_1'(X_1) &= 0
+\end{align*}
+If $b_1$ is an equilibrium then $X_1 = x_1$ so our FOC reads $2x_1^2 -2x_1b_1(x_1) - x_1^2b_1'(x_1) = 0$. This is a first order differential equation. A bidder with value $r$ cannot earn a positive surplus and thus will bid $r$, this forms our boundary condition by which we can solve:
+\begin{align*}
+2x_1^2&= 2x_1b_1(x_1) + x_1^2b_1'(x_1) \\
+2x_1^2&= (x_1^2 b_1(x_1))'\\
+\frac{2}{3}x_1^3 + c &= x_1^2b_1(x_1) \\
+b_1(x_1) &= \frac{2}{3}x_1 + \frac{c}{x_1^2}\\
+b_1(r) = r &= \frac{2}{3}r + c/(r^2)\\
+\frac{r^3}{3} &= c\\
+b_1(x_1) &= \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}.
+\end{align*}
+
+The payoff for person 2 is then the following:
+\begin{align*}
+(x_2-b_1(X_2))Pr(X_2>x_1) &= (x_2-b_2(X_2))X_2
+\end{align*}
+
+Taking FOCs wrt $X_2$:
+\begin{align*}
+x_2 -b_2(X_2) - X_2b_2'(X_2) &= 0
+\end{align*}
+If $b_2$ is an equilibrium then $X_2 = x_2$ so our FOC reads $x_2 -b_2(x_2) - x_2b_2'(x_2) = 0$. This is a first order differential equation. A bidder with value $r$ cannot earn a positive surplus and thus will bid $r$, this forms our boundary condition by which we can solve:
+\begin{align*}
+x_2&= b_2(x_2) + x_2b_2'(x_2) \\
+&= (x_2b_2(x_2))'\\
+\frac{x_2^2}{2} + c &= x_2b_2(x_2)\\
+b_2(x_2) &= \frac{x_2}{2} + \frac{c}{x_2}\\
+b_2(r) = r &= \frac{r}{2} + \frac{c}{r}\\
+c&= r^2/2\\
+b_2(x_2) &= \frac{x_2^2 + r^2}{2x_2} 
+\end{align*}
+
+$b_1,b_2$ form the equilibrium bidding strategies for the two people. The highest type agent will win, so long as their type is above $r$.
 \subsection{Part B}
-In the second-price auction, both people will bid their valuations. If both bids are above $r$, then the seller with the higher bid will pay the seller the second-highest price, and will receive the object. If fewer than two bids are above the reserve price then the seller will not sell the object.
+In the second-price auction, both people will bid their valuations - we saw in class that the strategy was weakly dominant in the second price auction without reserve price, and the same logic holds here. If both bids are above $r$, then the seller with the higher bid will pay the seller the second-highest price, and will receive the object. If one valuation is above $r$ then that individual will pay $r$ and receive the object. If both valuations are below $r$ then no trade will occur.
 \subsection{Part C}
-The seller should choose the first-price auction as the two auction types have the same expected revenue, but the first price auction has the smaller spread. They should set the reserve price to be their own cost, c. The person with type drawn from $F(x) = x^2$ has more probability mass near 1 so this person wins more often.
+The revenue equivalence theorem does not hold here as the agents are drawn from different distributions, and the type $2$ agent is more likely to win as their type distribution first order stochastically dominates the type 1 agent. We can find the optimal $r$ to pick for both types of auction, and then calculate the revenue at the optimums and compare the two types of auctions.
+
+First we will maximize profit of the first-price auction. The highest type will win conditional on having a type above $r$:
+\begin{align*}
+\pi^1 &= E[b_1(x_1) - c| x_1>r>x_2]P(x_1>r>x_2) + E[b_1(x_1) - c| x_1>x_2>r]P(x_1>x_2>r) \\&+ E[b_2(x_2) - c|x_2>r>x_1 ]P(x_2>r>x_1) + E[b_2(x_2) - c|x_2>x_1>r ]P(x_2>x_1>r)\\
+&= E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2} - c| x_1>r\right]P(x_1>r>x_2) + E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}- c| x_1>x_2>r\right]P(x_1>x_2>r) \\&+ E\left[ \frac{x_2^2 + r^2}{2x_2}  - c|x_2>r\right]P(x_2>r>x_1) + E\left[ \frac{x_2^2 + r^2}{2x_2} - c|x_2>x_1>r \right]P(x_2>x_1>r)\\
+&= \left( \int_{r}^1 \frac{2}{3}x + \frac{r^3}{3x^2} dx - c \right)\int_{r}^1\int_{0}^r 2x_2 dx_2dx_1 \\&+\left(\int_r^1\int_{r}^{x_1} 2x_2dx_2\left( \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}\right) dx_1- c\right) \int_{r}^1\int_{r}^{x_1} 2x_2 dx_2dx_1  \\&+ \left( \int_{r}^1 x^2 + r^2 dx - c \right)\int_{r}^1\int_{0}^r  dx_1 2x_2 dx_2 + \left(\int_r^1\int_{r}^{x_2}  dx_1\left( x_2^2 + r^2\right)dx_2- c\right) \int_{r}^1\int_{r}^{x_2}  dx_1 2x_2 dx_2\\
+&= \left( \frac{1}{3}(1-r^3) - c \right)(r^2-r^3) + \left( \frac{1}{6}(1-r)^2(2r^3 + r^2 + 2r +1) - c \right)\left( \frac{1}{3}(1-r)^2(2r+1)\right) \\
+&+ \left(r^2 -\frac{4}{3}r^3 +\frac{1}{3} - c \right)(r-r^3) + \left(\frac{1}{12}(1-r)^2(7r^2+2r+3)  - c \right)\frac{1}{3}\left( r^3 - 3r + 2 \right)
+\end{align*}
+$r^{1*}$ satisfies the first order condition of the above expression with respect to $r$. I will solve computationally. Then, maximum profits can be computed as a function of c.
+
+
+Next we will maximize profit of the second-price auction. 
+\begin{align*}
+\pi^2 &=  E[r - c| x_1>r>x_2]P(x_1>r>x_2) + E[x_2 - c| x_1>x_2>r]P(x_1>x_2>r) \\&+ E[r - c|x_2>r>x_1 ]P(x_2>r>x_1) + E[x_1 - c|x_2>x_1>r ]P(x_2>x_1>r) \\
+&= (r - c)\int_{r}^1\int_{0}^r 2x_2 dx_2dx_1+ \left( \int_{r}^1 \int_r^{x_1}2x_2^2 dx_2 dx_1 - c \right) \int_{r}^1\int_{r}^{x_1} 2x_2 dx_2dx_1 \\&+ (r - c)\int_{r}^1\int_{0}^r  dx_1 2x_2 dx_2 + \left( \int_{r}^1 \int_r^{x_2}2x_2x_1 dx_1 dx_2 - c \right)\int_{r}^1\int_{r}^{x_2}  dx_1 2x_2 dx_2 \\
+&= (r-c)(r^2-r^3) + \left(\frac{1}{6}(3r^4 - 4r^3 + 1) - c \right) \left( \frac{1}{3}(r-1)^2(2r+1) \right) \\ &+ (r-c)(r-r^3) + \left(\frac{1}{4}(r^2-1)^2 - c\right)
+\frac{1}{3}(r^3 - 3r + 2)\end{align*}
+$r^{2*}$ satisfies the first order condition of the above expression with respect to $r$. I will solve computationally. Then, maximum profits can be computed as a function of c. We can then compare to the first price auction.
+
+\includegraphics{argmax}
+
+\includegraphics{profit}
+
+We can see from the above figures that the profit-maximizing seller will choose the second price auction as they receive strictly higher profit for $c\in [0,1]$.
+
 \subsection{Part D}
-The discount should be offered to the type that tends to have the lowest valuation $F(x) = x$. The idea is to try to get them to bid over their valuation, so that their bid gets above the bid of the type which tends to be high, raising the sale price of the good. We calculate the optimal discount.
+The discount should be offered to the type that tends to have the lowest valuation $F(x) = x$. The idea is to try to get them to bid over their valuation, while staying the second-highest bidder, raising the sale price of the good. We calculate the optimal discount.
 
 The type that receives the discount will bid such that they would receive no surplus buying the item at that price: $\alpha b - x = 0\Rightarrow b = \frac{x}{\alpha}$. The other type bids their valuation. The seller chooses $\alpha$ to maximize expected revenue:
 
