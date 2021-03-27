@@ -112,8 +112,8 @@ We will integrate and make a variable substitution $y = \frac{X_i - x}{h}\Righta
 \begin{align*}
 E[X^*] &= \int x \frac{1}{nh} \sum_{i=1}^n K((X_i - x)/h) dx\\
 &= \frac{1}{nh}\sum_{i=1}^n \int x K((X_i - x)/h) dx \\
-&= \frac{1}{n}\sum_{i=1}^n \int (X_i + hy) K(y) dy  \\
-&= \frac{1}{n}\sum_{i=1}^n X_i \int K(y) dy + \frac{h}{n}\sum_{i=1}^n \int y K(y) dy \\
+&= \frac{1}{n}\sum_{i=1}^n \int (X_i - hy) K(y) dy  \\
+&= \frac{1}{n}\sum_{i=1}^n X_i \int K(y) dy - \frac{h}{n}\sum_{i=1}^n \int y K(y) dy \\
 &= \frac{1}{n}\sum_{i=1}^n X_i \\
 &= \bar{X}_n,
 \end{align*}
@@ -123,8 +123,8 @@ We will again ust the same substitution.
 \begin{align*}
 Var(X^*) &= E[X^{*2}] - E[X^*]^2\\
 &= \int x^2 \frac{1}{nh} \sum_{i=1}^n K((X_i - x)/h) dx -\bar{X}_n^2 \\
-&= \frac{1}{n}\sum_{i=1}^N \int (X_i+hy)^2K(y)dy -\bar{X}_n^2\\
-&= \frac{1}{n}\sum_{i=1}^N X_i^2 \int K(y)dy + \frac{2h}{n}\sum_{i=1}^N X_i \int yK(y)dy + \frac{h^2}{n}\sum_{i=1}^N \int y^2K(y)dy -\bar{X}_n^2\\
+&= \frac{1}{n}\sum_{i=1}^N \int (X_i-hy)^2K(y)dy -\bar{X}_n^2\\
+&= \frac{1}{n}\sum_{i=1}^N X_i^2 \int K(y)dy - \frac{2h}{n}\sum_{i=1}^N X_i \int yK(y)dy + \frac{h^2}{n}\sum_{i=1}^N \int y^2K(y)dy -\bar{X}_n^2\\
 &= \frac{1}{n}\sum_{i=1}^N X_i^2  + h^2 - \bar{X}_n^2\\
 &= \hat{\sigma}^2 + h^2.
 \end{align*}

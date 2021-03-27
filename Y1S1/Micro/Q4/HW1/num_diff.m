@@ -20,9 +20,10 @@ end
 %     obj2 = @(r) pr2(r,cg(i));
 %     [r2(i),p2(i)] = fmincon(obj2,0.5,[1;-1],[1;0],[],[],[],[],[],options);
 % end
-% fmincon fails too much
 
-p1 = -1*p1;
+% fmincon fails too much - switch to grid search
+
+p1 = -1*p1; % convert from negative of profit to profit
 p2 = -1*p2;
 r1 = rgrid(r1);
 r2 = rgrid(r2);
@@ -32,7 +33,9 @@ hold on
 plot(cg,r2,'r-.')
 plot(cg,cg,'k-')
 hold off
-title('Profit-maximizing r')
+title('(Expected) Profit Maximizing r')
+ylabel('Optimal r')
+xlabel('c')
 legend('First-price','Second-price','c','Location','SouthEast')
 set(gcf,'Color',[1 1 1])
 cd('pings')
@@ -43,8 +46,10 @@ plot(cg,p1,'b--')
 hold on
 plot(cg,p2,'r-.')
 hold off
-title('Profit')
-legend('First-price','Second-price','Location','SouthEast')
+title('Expected Profit')
+legend('First-price','Second-price','Location','NorthEast')
+ylabel('Expected profit')
+xlabel('c')
 set(gcf,'Color',[1 1 1])
 cd('pings')
 saveas(gcf,'profit.png')
