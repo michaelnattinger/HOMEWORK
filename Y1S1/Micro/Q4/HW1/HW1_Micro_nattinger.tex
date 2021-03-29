@@ -128,7 +128,7 @@ b_i &=  \frac{aN-a}{aN-a+1}(\theta_i)^{aN-a+1}
 \end{align*}
 Therefore , $b(\theta) =  \frac{aN-a}{aN-a+1}(\theta)^{aN-a+1}$ is a best response to the other players playing the same strategy. Thus, it constitutes an equilibrium.
 \subsection{Part D}
-As $a$ increases, bids will shrink for given types less than 1, so the bidding will become less competitive for a given type. Intuitively, as $a$ rises, more of the distribution mass is near $1$ so for a fixed $\theta$ value less than one the odds of winning decrease, and therefore the bid decreases. However, note that there is a competing effect here: the bids for a given type is decreasing, however as $a$ increases the probability mass of types shifts to the right so the drawn types tend to be higher. In the limit as $a\rightarrow \infty$ this effect dominates and the bids tend to increase. 
+As $a$ increases, bids will shrink for given types less than 1, so the bidding will become less competitive for a given type. Intuitively, as $a$ rises, more of the distribution mass is near $1$ so for a fixed $\theta$ value less than one the odds of winning decrease, and therefore the bid decreases. There is also a second effect here. For very low values of $a$, the probability of having a competitor with the same or higher valuation is very small, so by increasing $a$ marginally over low values of $a$ the likelihood of having a competitor near the value near your own fixed $\theta$ value rises, so your bid increases to reflect this increased competitveness of others relative to your type. To summarize, over very low values of $a$ the bids increase with a, but for all other $a$ values the bids are decreasing in $a$.
 \subsection{Part E}
 
 Before drawing a type, the expected bid is the following:
@@ -156,47 +156,34 @@ E[\pi] &= \int_{0}^1 E[\pi|\theta] f(\theta)d\theta \\
 \end{align*}
 \section{Question 2}
 \subsection{Part A}
-Suppose there exists bidding strategies $b_1(x),b_2(x)$ for individuals $F_1(x) = x,F_2(x) = x^2$ which are known to all individuals and form an equilibrium (non-symmetric due to non-iid types). For each bidder with valuation $x_i$ we can think of the bidder as choosing the $X_i$ they pretend to be by submitting bid $b_i(X_i)$. The bidder will win iff $X_i>x_j$. The payoff for person 1 is then the following:
+Suppose there exists bidding strategies $b_1(x),b_2(x)$ for individuals $F_1(x) = x,F_2(x) = x^2$ which are known to all individuals and form an equilibrium (non-symmetric due to non-iid types). The payoff for person 1 is then the following:
 \begin{align*}
-(x_1-b_1(X_1))Pr(X_1>x_2) &= (x_1-b_1(X_1))X_1^2
+(x_1-b_1)Pr(b_1>b_2(x_2)) &= (x_1-b_1)(b_2^{-1}(b_1))^2
 \end{align*}
 
-Taking FOCs wrt $X_1$:
+Taking FOCs wrt $b_1$:
 \begin{align*}
-2X_1x_1 -2X_1b_1(X_1) - X_1^2b_1'(X_1) &= 0
+\frac{2(x_1 - b_1)b_2^{-1}(b_1)}{b_2'(b_2^{-1}(b_1))}-(b_2^{-1}(b_1))^2 &= 0
 \end{align*}
-If $b_1$ is an equilibrium then $X_1 = x_1$ so our FOC reads $2x_1^2 -2x_1b_1(x_1) - x_1^2b_1'(x_1) = 0$. This is a first order differential equation. A bidder with value $r$ cannot earn a positive surplus and thus will bid $r$, this forms our boundary condition by which we can solve:
-\begin{align*}
-2x_1^2&= 2x_1b_1(x_1) + x_1^2b_1'(x_1) \\
-2x_1^2&= (x_1^2 b_1(x_1))'\\
-\frac{2}{3}x_1^3 + c &= x_1^2b_1(x_1) \\
-b_1(x_1) &= \frac{2}{3}x_1 + \frac{c}{x_1^2}\\
-b_1(r) = r &= \frac{2}{3}r + c/(r^2)\\
-\frac{r^3}{3} &= c\\
-b_1(x_1) &= \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}.
-\end{align*}
+\begin{align}
+b_1(x_1) &= x_1 - (1/2)b_2'(b_2^{-1}(b_1(x_1)))(b_2^{-1}(b_1(x_1)))  \label{de1}
+\end{align}
 
 The payoff for person 2 is then the following:
 \begin{align*}
-(x_2-b_1(X_2))Pr(X_2>x_1) &= (x_2-b_2(X_2))X_2
+(x_2-b_2)b_1^{-1}(b_2)
 \end{align*}
 
-Taking FOCs wrt $X_2$:
+Taking FOCs wrt $b_2$:
 \begin{align*}
-x_2 -b_2(X_2) - X_2b_2'(X_2) &= 0
-\end{align*}
-If $b_2$ is an equilibrium then $X_2 = x_2$ so our FOC reads $x_2 -b_2(x_2) - x_2b_2'(x_2) = 0$. This is a first order differential equation. A bidder with value $r$ cannot earn a positive surplus and thus will bid $r$, this forms our boundary condition by which we can solve:
-\begin{align*}
-x_2&= b_2(x_2) + x_2b_2'(x_2) \\
-&= (x_2b_2(x_2))'\\
-\frac{x_2^2}{2} + c &= x_2b_2(x_2)\\
-b_2(x_2) &= \frac{x_2}{2} + \frac{c}{x_2}\\
-b_2(r) = r &= \frac{r}{2} + \frac{c}{r}\\
-c&= r^2/2\\
-b_2(x_2) &= \frac{x_2^2 + r^2}{2x_2} 
+\frac{(x_2 - b_2)}{b_1'(b_1^{-1}(b_2))}-b_1^{-1}(b_2) &= 0
 \end{align*}
 
-$b_1,b_2$ form the equilibrium bidding strategies for the two people. The highest type agent will win, so long as their type is above $r$.
+\begin{align}
+b_2(x_2) &= x_2 - b_1'(b_1^{-1}(b_2(x_2)))b_1^{-1}(b_2(x_2)) \label{de2}
+\end{align}
+
+$b_1,b_2$ are equilibrium bidding strategies which satisfy the differential equations (\ref{de1}),(\ref{de2}). They also satisfy the fact that $b_1(r) = r = b_2(r)$, as agents who draw type $r$ should receive no surplus. These form the boudary conditions on the differential equations. We cannot solve analytically, but we can solve numerically. Note that the fact that these equations are positive and (strictly) increasing implies that both bidders bid below their valuations, which can be seen directly in equations (\ref{de1}),(\ref{de2}).
 \subsection{Part B}
 In the second-price auction, both people will bid their valuations - we saw in class that the strategy was weakly dominant in the second price auction without reserve price, and the same logic holds here. If both bids are above $r$, then the seller with the higher bid will pay the seller the second-highest price, and will receive the object. If one valuation is above $r$ then that individual will pay $r$ and receive the object. If both valuations are below $r$ then no trade will occur.
 \subsection{Part C}
@@ -204,14 +191,13 @@ The revenue equivalence theorem does not hold here as the agents are drawn from 
 
 First we will maximize profit of the first-price auction. The highest type will win conditional on having a type above $r$:
 \begin{align*}
-\pi^1 &= E[b_1(x_1) - c| x_1>r>x_2]P(x_1>r>x_2) + E[b_1(x_1) - c| x_1>x_2>r]P(x_1>x_2>r) \\&+ E[b_2(x_2) - c|x_2>r>x_1 ]P(x_2>r>x_1) + E[b_2(x_2) - c|x_2>x_1>r ]P(x_2>x_1>r)\\
-&= E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2} - c| x_1>r\right]P(x_1>r>x_2) + E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}- c| x_1>x_2>r\right]P(x_1>x_2>r) \\&+ E\left[ \frac{x_2^2 + r^2}{2x_2}  - c|x_2>r\right]P(x_2>r>x_1) + E\left[ \frac{x_2^2 + r^2}{2x_2} - c|x_2>x_1>r \right]P(x_2>x_1>r)\\
-&= \left( \int_{r}^1 \frac{2}{3}x + \frac{r^3}{3x^2} dx - c \right)\int_{r}^1\int_{0}^r 2x_2 dx_2dx_1 \\&+\left(\int_r^1\int_{r}^{x_1} 2x_2dx_2\left( \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}\right) dx_1- c\right) \int_{r}^1\int_{r}^{x_1} 2x_2 dx_2dx_1  \\&+ \left( \int_{r}^1 x^2 + r^2 dx - c \right)\int_{r}^1\int_{0}^r  dx_1 2x_2 dx_2 + \left(\int_r^1\int_{r}^{x_2}  dx_1\left( x_2^2 + r^2\right)dx_2- c\right) \int_{r}^1\int_{r}^{x_2}  dx_1 2x_2 dx_2\\
-&= \left( \frac{1}{3}(1-r^3) - c \right)(r^2-r^3) + \left( \frac{1}{6}(1-r)^2(2r^3 + r^2 + 2r +1) - c \right)\left( \frac{1}{3}(1-r)^2(2r+1)\right) \\
-&+ \left(r^2 -\frac{4}{3}r^3 +\frac{1}{3} - c \right)(r-r^3) + \left(\frac{1}{12}(1-r)^2(7r^2+2r+3)  - c \right)\frac{1}{3}\left( r^3 - 3r + 2 \right)
+\pi^1 &= E[b_1(x_1) - c| b_1(x_1)>r>b_2(x_2)]P(b_1(x_1)>r>b_2(x_2)) \\&+ E[b_1(x_1) - c|b_1(x_1)>b_2(x_2)>r]P(b_1(x_1)>b_2(x_2)>r) \\&+ E[b_2(x_2) - c|b_2(x_2)>r>b_1(x_1) ]P(b_2(x_2)>r>b_1(x_1)) \\&+ E[b_2(x_2) - c|b_2(x_2)>b_1(x_1)>r ]P(b_2(x_2)>b_1(x_1)>r)\\
+%&= E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2} - c| x_1>r\right]P(x_1>r>x_2) + E\left[ \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}- c| x_1>x_2>r\right]P(x_1>x_2>r) \\&+ E\left[ \frac{x_2^2 + r^2}{2x_2}  - c|x_2>r\right]P(x_2>r>x_1) + E\left[ \frac{x_2^2 + r^2}{2x_2} - c|x_2>x_1>r \right]P(x_2>x_1>r)\\
+%&= \left( \int_{r}^1 \frac{2}{3}x + \frac{r^3}{3x^2} dx - c \right)\int_{r}^1\int_{0}^r 2x_2 dx_2dx_1 \\&+\left(\int_r^1\int_{r}^{x_1} 2x_2dx_2\left( \frac{2}{3}x_1 + \frac{r^3}{3x_1^2}\right) dx_1- c\right) \int_{r}^1\int_{r}^{x_1} 2x_2 dx_2dx_1  \\&+ \left( \int_{r}^1 x^2 + r^2 dx - c \right)\int_{r}^1\int_{0}^r  dx_1 2x_2 dx_2 + \left(\int_r^1\int_{r}^{x_2}  dx_1\left( x_2^2 + r^2\right)dx_2- c\right) \int_{r}^1\int_{r}^{x_2}  dx_1 2x_2 dx_2\\
+%&= \left( \frac{1}{3}(1-r^3) - c \right)(r^2-r^3) + \left( \frac{1}{6}(1-r)^2(2r^3 + r^2 + 2r +1) - c \right)\left( \frac{1}{3}(1-r)^2(2r+1)\right) \\
+%&+ \left(r^2 -\frac{4}{3}r^3 +\frac{1}{3} - c \right)(r-r^3) + \left(\frac{1}{12}(1-r)^2(7r^2+2r+3)  - c \right)\frac{1}{3}\left( r^3 - 3r + 2 \right)
 \end{align*}
 $r^{1*}$ satisfies the first order condition of the above expression with respect to $r$. I will solve computationally. Then, maximum profits can be computed as a function of c.
-
 
 Next we will maximize profit of the second-price auction. 
 \begin{align*}
