@@ -24,7 +24,7 @@ b20 = b10;
 tol = 1e-10;
 maxiter = 1e8;
 tune = 0.05;
-ndraws = 1e7;
+ndraws = 5e6;
 [r1(ic),p1(ic)] = calc_opt_r(grid,c(ic),b10,b20,tol,maxiter,tune,ndraws);
 end
 
