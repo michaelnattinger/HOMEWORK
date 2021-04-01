@@ -91,7 +91,7 @@ The equilibrium is a set of prices $R$ and allocations $c^h,c^l$ such that the a
 
 Agents maximize utility subject to the budget constraint and the endogenous debt constraint:
 \begin{align*}
-&\max \sum_{t=0}^{\infty} u(c_{it})\\
+&\max \sum_{t=0}^{\infty} \beta^t u(c_{it})\\
 &\text{s.t.} c_{it} + b_{it+1} = e_{it} + R_tb_{it}\\
 &\text{and } b_{it+1} \geq -\phi.
 \end{align*}
@@ -162,7 +162,7 @@ log(e^h - \phi(1+R))+\beta log(\phi(1+R) + e^l) &= log\left(\frac{Re^h + e^l}{R+
 log\left(e^h - \frac{\beta R e^h - e^l}{(1+\beta R)}\right)+\beta log\left( \frac{\beta R e^h - e^l}{(1+\beta R)} + e^l\right) &= log\left(\frac{Re^h + e^l}{R+\beta R}\right) + \beta log\left( \frac{e^l \beta R + \beta R e^h }{1+\beta }\right) \\
 log\left(\frac{e^h + e^l}{(1+\beta R)}\right)+\beta log\left( \frac{\beta R e^h + \beta Re^l}{(1+\beta R)} \right) &= log\left(\frac{Re^h + e^l}{R+\beta R}\right) + \beta log\left( \frac{e^l \beta R + \beta R e^h }{1+\beta }\right) 
 \end{align*}
-It is clear that $R=1$ satisfies the above equation. Then, $\phi = \frac{\beta e^h - e^l}{2(1+\beta )} $.
+It is clear that $R=1$ satisfies the above equation. Then, $\phi = \frac{\beta e^h - e^l}{2(1+\beta )} $. Note that autarky, $\phi =0,R=\frac{e^l}{\beta e^h}$ also satisfies the equilibrium.
 \subsection{Part E}
 In class we solved the autarky case so I will jump to the solution in that case: $(c^h,c^l) = (10,9)$. For the same calibrations for the model in this question we have $ c^h = e^h - \phi(1+R) = 15 - \frac{0.5(15) - 4}{1.5} = 12 +\frac{2}{3}, c^l = 19-c^h = 6 + \frac{1}{3}$. This model yields less consumption smoothing compared to autarky.
 \subsection{Part F}
