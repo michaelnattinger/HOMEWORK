@@ -1,0 +1,167 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS3}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+Take the environment from class as given. Given prices and taxes, the household's first order conditions yield the following (Lagrange multiplier $p(s^t)$):
+\begin{align*}
+\beta^t \mu(s^t) U_c(s^t) &= p(s^t)\\
+\beta^t \mu(s^t) U_l(s^t) &= - (1-\tau(s^t)) w(s^t)p(s^t)\\
+p(s^t) &=  \sum_{s^{t+1}|s^t}p(s^{t+1}) R_b(s^{t+1}) \\
+p(s^t) &=  \sum_{s^{t+1}|s^t}p(s^{t+1}) R_k(s^{t+1}) \\
+c(s^t) + k(s^t) + b(s^t) &= (1-\tau(s^t))w(s^t) l(s^t) + R_k(s^t)k(s^{t-1}) + R_b(s^t)b(s^{t-1}),
+\end{align*}
+where the final equation is the household budget constraint. We can multiply both sides by $p(s^t)$ and sum across time and states:
+\begin{align*}
+\sum_{t,s^t}[c(s^t) - (1-\tau(s^t))w(s^t) l(s^t) ]p(s^t) &= \sum_{t,s^t} [ - k(s^t) - b(s^t)+ R_k(s^t)k(s^{t-1}) + R_b(s^t)b(s^{t-1})]p(s^t) \\
+\sum_{t,s^t} \beta^t \mu(s^t) [U_c(s^t)c(s^t) +U_l(s^t)l(s^t)] &= p(s_0)[R_k(s_0)k(s_{-1}) + R_b(s_0)b(s_{-1})]  \\&+ \sum_{t,s^t} [ R_k(s^{t+1})k(s^{t}) + R_b(s^{t+1})b(s^{t})]p(s^{t+1})\\
+&- \sum_{t,s^t} [k(s^t) + b(s^t)] p(s^{t}).
+\end{align*}
+The two sums on the RHS of the last line cancel from the FOCs, with leftover terms taken in the limit going to zero by the transversality condition. We then have the following:
+\begin{align}
+\sum_{t,s^t} \beta^t \mu(s^t) [U_c(s^t)c(s^t) +U_l(s^t)l(s^t)] &= U_c(s_0)[R_k(s_0)k(s_{-1}) + R_b(s_0)b(s_{-1})], \label{IC} \\
+c(s^t) + g(s^t) + k(s^t) &= F(k(s^{t-1}),l(s^t),s_t) + (1-\delta)k(s^{t-1}) \label{RC}
+\end{align}
+where (\ref{IC}) is the implementability constraint from above, with the FOC wrt consumption at date 0 substituted in, and (\ref{RC}) is the aggregate resource constraint (which was given to us).
+
+We worked through the above in class, but now we must work through the opposite direction. Take as given the same general setup, and the IC (\ref{IC}) and household budget constraints (and by extension the aggregate resource constraint) as given. As before, we will multiply both sides of the HHBC by $p(s^t)$ and sum across future states and time:
+\begin{align*}
+\sum_{\tau=t+1}^{\infty}\sum_{s^{\tau}|s^t} \beta^{\tau - t}\mu(s^{\tau}|s^t)[U_c(s^{\tau})c(s^{\tau})+U_l(s^{\tau})l(s^{\tau})] &= U_c(s^t)[b(s^t)+k(s^t)] \\
+ \sum_{\tau=t+1}^{\infty}\sum_{s^{\tau}|s^t} \beta^{\tau - t}\mu(s^{\tau}|s^t)\frac{[U_c(s^{\tau})c(s^{\tau})+U_l(s^{\tau})l(s^{\tau})]}{U_c(s^t)} - k(s^t)  &= b(s^t)
+\end{align*}
+The above expression and (\ref{IC}) imply transversality holds. Moreover, if we let $w(s^t) = F_l(k(s^{t-1}),l(s^t),s^t), r(s^t) = F_k(k(s^{t-1}),l(s^t),s^t)$. Then, we can set the labor tax such that the correct labor supply equation holds:
+\begin{align*}
+U_c(s^t) &= (1-\tau(s^t))w(s^t)U_l(s^t)
+\end{align*}
+
+We can now set $R_k(s^{t+1}),R_{b}(s^{t+1})$ to satisfy the euler conditions and HHBC:
+
+\begin{align*}
+U_c(s^t) &= \sum_{s^{t+1}|s^t} \beta \mu(s^{t+1}|s^t)U_c(s^{t+1})R_k(s^{t+1})\\
+U_c(s^t) &= \sum_{s^{t+1}|s^t} \beta \mu(s^{t+1}|s^t)U_c(s^{t+1})R_b(s^{t+1})\\
+c(s^{t+1}) + k(s^{t+1}) + b(s^{t+1}) &= [1-\tau(s^{t+1})]w(s^{t+1})l(s^{t+1}) + R_k(s^{t+1})k(s^t) + R_b(s^{t+1})b(s^t)
+\end{align*}
+
+Note that we have more unkowns than equations here (both Eulers hold for each period and one budget constraint per $s^{t+1}$ per period, but two interest rate variables per $s^{t+1}$ per period). These extra degrees of freedom means that the system is not exactly pinned down, and gives the government the degrees of freedom necessary to implement an optimal taxation scheme. Note also that given $R_k(s^t)$ and $r(s^t)$ we can then back out $\theta(s^t)$ from the definition of $R_k(s^t).$
+\section{Question 2}
+The setup is much the same as before however now we have the following household budget constraint:
+\begin{align*}
+(1+\tau_{c}(s^t))c(s^t) + k(s^t) + b(s^t) &= (1-\tau(s^t))w(s^t) l(s^t) + R_k(s^t)k(s^{t-1}) + R_b(s^t)b(s^{t-1}),
+\end{align*}
+which just has the tax term tacked onto consumption. The first order conditions for the household are now the following:
+\begin{align*}
+\beta^t \mu(s^t) U_c(s^t) &= p(s^t)(1+\tau_c(s^t))\\
+\beta^t \mu(s^t) U_l(s^t) &= - (1-\tau(s^t)) w(s^t)p(s^t)\\
+p(s^t) &=  \sum_{s^{t+1}|s^t}p(s^{t+1}) R_b(s^{t+1}) \\
+p(s^t) &=  \sum_{s^{t+1}|s^t}p(s^{t+1}) R_k(s^{t+1}) 
+\end{align*}
+
+ We can multiply both sides by $p(s^t)$ and sum across time and states:
+\begin{align*}
+\sum_{t,s^t}[(1+\tau_c(s^t))c(s^t) - (1-\tau(s^t))^{-1}w(s^t) l(s^t) ]p(s^t) &= \sum_{t,s^t} [ - k(s^t) - b(s^t)+ R_k(s^t)k(s^{t-1}) + R_b(s^t)b(s^{t-1})]p(s^t) \\
+\sum_{t,s^t} \beta^t \mu(s^t) [U_c(s^t)c(s^t) +U_l(s^t)l(s^t)] &= p(s_0)[R_k(s_0)k(s_{-1}) + R_b(s_0)b(s_{-1})]  \\&+ \sum_{t,s^t} [ R_k(s^{t+1})k(s^{t}) + R_b(s^{t+1})b(s^{t})]p(s^{t+1})\\
+&- \sum_{t,s^t} [k(s^t) + b(s^t)] p(s^{t}).
+\end{align*}
+The two sums on the RHS of the last line cancel from the FOCs, with leftover terms taken in the limit going to zero by the transversality condition. We then have the following:
+\begin{align}
+\sum_{t,s^t} \beta^t \mu(s^t) [U_c(s^t)c(s^t) +U_l(s^t)l(s^t)] &= (1+\tau_c(s_0))^{-1}U_c(s_0)[R_k(s_0)k(s_{-1}) + R_b(s_0)b(s_{-1})]. \label{IC2}
+\end{align}
+Equation (\ref{IC2}) yields our implementability constraint under the conditions which include the consumption tax.
+\section{Question 3}
+\subsection{Part A}
+A competitive equilibrium is a set of allocations $\{c(s^t),k(s^t),l(s^t),b(s^t) \}$, prices $(R_k(s^t),R_b(s^t))$, and policies $\{ \tau_c(s^t),\tau(s^t) \}$ such that agents maximize utility, the government's budget constraint holds, and markets clear.
+
+Agent maximization:
+\begin{align*}
+&\max_{c(s^t),k(s^t),l(s^t)} U(c(s^t),l(s^t))\\
+&\text{s.t.} c(s^t)(1+\tau_c(s^t)) + k(s^t) + b(s^t) \leq l(s^t) (1-\tau(s^t))w(s^t) + R_k(s^t)k(s^{t-1}) +R_b(s^t)b(s^{t-1})   
+\end{align*}
+
+Government BC:
+\begin{align*}
+g(s^t) &= \tau(s^t)l(s^t) + \tau_c(s^t) c(s^t)
+\end{align*}
+
+Market clearing:
+\begin{align*}
+c(s^t) + g(s^t) + k(s^t) &= F(k(s^{t-1}),l(s^t),s_t) + (1-\delta)k(s^{t-1}).
+\end{align*}
+
+\subsection{Part B}
+This is pretty straightforward to see: note that the resource constraint is the same in both cases. The only difference is the $(1+\tau_c(s_0))^{-1}$ term on the RHS of the IC. This term only affects date $0$ prices so by making a simple adjustment to date $0$ prices in the two formulations we can get the same allocations in either one. More formally, let $R_k(s^t),R_b(s^t)$ be the returns on capital and bonds in the environment with the consumption tax, and assume some allocation and set of policies, along with the prices $R_k(s^t),R_b(s^t)$, satisfies the IC and RC of that environment. Then, for the same allocations in the environment with capital income taxes we can find prices $R'_k(s^t),R'_b(s^t)$ such that the allocation satisfies the IC and RC. The RC holds trivially as it is the same in both environments, and is a function only of the allocations. For the IC to hold, note that if we let $R'_k(s_0) = R_k(s_0)(1+\tau_c(s_0))^{-1},R_b'(s_0) = R_b(s_0)(1+\tau_c(s_0))^{-1}$ then the IC will also hold in the environment with capital tax, and the implied policies can be backed out.
+\end{document}
