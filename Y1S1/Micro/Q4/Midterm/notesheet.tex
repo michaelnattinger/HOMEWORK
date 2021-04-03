@@ -84,9 +84,31 @@
 \begin{itemize}
 \item FPA $\iff$ Dutch
 \item SPA $\iff$ English
-\item Players, types, actions, strategies, payoffs, and beliefs
+\item Players, types, actions, payoffs, and beliefs
 \item Ex ante: know distributions of types for all players
 \item Interim: know own type and distributions of others
 \item Ex post: know all types
+\item An interim BNE of a bayesian game is  a set of optimum strategies $s^* = (s^*_1,\dots,s^*_I)$ such that $\sum_{\theta_{-i}\in \Theta_{-i}} p_i(\theta_{-i}|\theta_i)u_i(s_i^*(\theta_i),s_{-i}^*(\theta_{-i}),(\theta_i,\theta_{-i})) \geq $ any other strategy set for all  $i,a_i,\theta_i$.
+\item An ex ante BNE ... $\sum_{\theta\in \Theta} p(\theta_{-i},\theta_i)u_i(s_i^*(\theta_i),s_{-i}^*(\theta_{-i}),(\theta_i,\theta_{-i})) \geq $
+\item Interim and ex ante are identical BNEs. 
+\item Ex post: $u_i(s_i^*(\theta_i),s_{-1}^*(\theta_{-i}),(\theta_i,\theta_{-i})) \geq u_i(a_i,s_{-i}^*(\theta_{-i}),(\theta_i,\theta_{-i}))\forall i,a_i,\theta_i,\theta_{-i}$
 \end{itemize}
+
+\subsection{Lec 3}
+\begin{itemize}
+\item FPA: bid is expected value of the highest type competitor (given my bid is the highest)
+\item SPA: bid is own value (weakly dominant strategy regardless of bids of others)
+\item Easy to see that revenue equivalence holds across FPA, SPA by taking expectation of winning bid and applying LIE.
+\end{itemize}
+\subsection{Lec 4}
+\begin{itemize}
+\item F fosd G if $F(x)\leq G(x)$ for all $x$ on support. Then, $E_F(x)\geq E_G(x)$.
+\item Assume equal expectations. F sosd G if $\int_{0}^{x}F(y)dy \leq \int_0^x G(y)dy \forall x$ (less spread is better).
+\item For a risk-adverse person (seller), choosing between two auction types with equal expected revenue, they will choose the auction with less spread.
+\item FPA has less spread than SPA
+\item If buyers have risk aversion they will bid more - higher ER for FPA.
+\item correlated values will also break the revenue equivalence 
+\end{itemize}
+For reference of order statistics, see \href{https://www2.stat.duke.edu/courses/Spring12/sta104.1/Lectures/Lec15.pdf}{these slides.} \\
+Revenue Equivalence Theorem: Consider a single good auction (design) environment with independent private values. Suppose A1 and A2 are two auction formats (e.g. FPA, SPA etc.), E1 is a BNE in A1, E2 is a BNE in A2. Suppose each type of each bidder has same interim expected probability of getting the good in (A1, E1) and (A2, E2), and the lowest type of each bidder has the same interim expected utility in (A1, E1) and (A2, E2), then (A1, E1) and (A2, E2) give the same interim expected payment for each type of each bidder and the ex-ante revenue of the seller is the same in (A1, E1) and (A2, E2).
 \end{document}
