@@ -148,13 +148,15 @@ A competitive equilibrium is a set of allocations $\{c(s^t),k(s^t),l(s^t),b(s^t)
 
 Agent maximization:
 \begin{align*}
-&\max_{c(s^t),k(s^t),l(s^t)} U(c(s^t),l(s^t))\\
-&\text{s.t.} c(s^t)(1+\tau_c(s^t)) + k(s^t) + b(s^t) \leq l(s^t) (1-\tau(s^t))w(s^t) + R_k(s^t)k(s^{t-1}) +R_b(s^t)b(s^{t-1})   
+&\max_{c(s^t),k(s^t),l(s^t)} \sum_{t,s^t}\beta\mu(s^t)U(c(s^t),l(s^t))\\
+&\text{s.t.} c(s^t)(1+\tau_c(s^t)) + k(s^t) + b(s^t) \leq l(s^t) (1-\tau(s^t))w(s^t) + R_k(s^t)k(s^{t-1}) +R_b(s^t)b(s^{t-1}),
 \end{align*}
+
+where $R_k(s^t) = 1-\delta + r(s^t)$.
 
 Government BC:
 \begin{align*}
-g(s^t) &= \tau(s^t)l(s^t) + \tau_c(s^t) c(s^t)
+g(s^t) &= \tau(s^t)w(s^t)l(s^t) + \tau_c(s^t) c(s^t) + b(s^t) - R_b(s^t)b(s^{t-1}) 
 \end{align*}
 
 Market clearing:
