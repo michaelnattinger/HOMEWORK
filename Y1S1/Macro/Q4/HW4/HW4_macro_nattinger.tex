@@ -1,0 +1,198 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS4}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+The household solves the following problem:
+\begin{align*}
+&\max_{\{ c_t,l_t \}_{t=0}^{\infty}} \beta^t\left[ \frac{c_t^{1-\sigma}}{1-\sigma} + \nu(l_t) \right] \\
+&\text{s.t. } (1+\tau_{ct})c_t +k_{t+1} + b_{t+1} = (1-\delta + r_t)k_t + R_tb_t +w_t(1-l_t)
+\end{align*}
+
+Taking FOCs (Lagrange multiplier $\lambda_t$) yields the following:
+\begin{align*}
+\beta^t c_t^{-\sigma} &= \lambda_t(1+\tau_{ct})\\
+\beta^t \nu'(l_t) &=  \lambda_t w_t\\
+\lambda_t &=  (1-\delta + r_{t+1}) \lambda_{t+1} \\
+\lambda_t &=  R_{t+1}\lambda_{t+1}.
+\end{align*}
+
+Simplifying,
+\begin{align*}
+w_t &= (1+\tau_{ct})\nu'(l_t)c_t^{\sigma} \\
+1&=\beta\left(\frac{c_t}{c_{t+1}}\right)^{\sigma}\frac{1+\tau_{ct+1}}{1+\tau_{ct}}R_{t+1}\\
+R_{t} &= 1-\delta + r_t.
+\end{align*}
+
+The above formulas represent the solution to the household's problem. Now we can set up the Ramsey problem. The resource constraint is the following:
+\begin{align*}
+c_t + k_{t+1} &= (1-\delta)k_t + F(k_t,(1-l_t)).
+\end{align*}
+
+Our implementability constraint takes the following form:
+\begin{align*}
+\sum_{t=0}^{\infty}\beta^t [c_t^{1-\sigma} - (1-l_t)\nu'(l_t) ] &= \frac{c_0^{-\sigma}}{1+\tau_{c0}}[(1-\delta + r_0)k_{-1} + R_0b_{-1}],
+\end{align*}
+where we make standard assumptions on $\tau_{c0}$ to rule out the effective lump-sum tax solution.
+
+Defining $W(c_t,l_t,\lambda) =  \frac{c_t^{1-\sigma}}{1-\sigma} + \nu(l_t) + \lambda[c_t^{1-\sigma} - (1-l_t)\nu'(l_t)] $, then the Ramsey problem consists of solving the following maximization problem:
+
+\begin{align*}
+\max \sum_t \beta^t[W(c_t,l_t,\lambda) - \lambda \frac{c_0^{-\sigma}}{1+\tau_{c0}}[(1-\delta+r_0)k_{-1} + R_{0}b_{-1}]
+\end{align*}
+
+The intertemporal first order condition is the following:
+\begin{align*}
+W_{ct} &= \beta W_{ct+1} R_{t+1}
+\end{align*}
+
+We are almost to our solution. We just need to look at $W_{ct}$:
+\begin{align*}
+c_t^{-\sigma} +\lambda c_t^{-\sigma}(1-\sigma) &= c_t^{-\sigma}(1+\lambda(1-\sigma))\\
+\Rightarrow \frac{W_{ct+1}}{W_{ct}} &= \left(\frac{c_t}{c_{t+1}}\right)^{\sigma}
+\end{align*}
+
+Coming back to our intertemporal FOC for the Ramsey problem,
+\begin{align*}
+W_{ct} &= \beta W_{ct+1} R_{t+1} \\
+1  &=\beta\left(\frac{c_t}{c_{t+1}}\right)^{\sigma}R_{t+1}
+\end{align*}
+
+Comparing to our first order conditions for the HH problem we can see immediately that $\tau_{ct} = \tau_{ct+1} \forall t$.
+\section{Question 2}
+\subsection{Part A}
+A competitive equilibrium is a set of prices $\{ p_t,w_t,R_t \}$ and allocations $\{ c_{1t},c_{2t},n_t,M_t,B_t,T_t \}$ such that agents optimize, markets clear, and the government budget constraint holds.
+
+Agents solve the following:
+\begin{align*}
+&\max_{c_{1t},c_{2t},n_t}\sum_{t=0}^{\infty}\beta^t( log(c_{1t}) + \alpha log(c_{2t}) + \gamma log(1-n_t))\\
+&\text{s.t. } p_{t}c_{1t} \leq M_t\\
+&\text{and }M_t + B_t \leq (M_{t-1} - p_{t-1}c_{1t-1}) - p_{t-1}c_{2t-1} + w_{t-1}n_{t-1}  + R_{t-1}B_{t-1} - T_{t}
+\end{align*}
+
+Market clearing is the following:
+\begin{align*}
+c_{1t} + c_{2t} &= n_t.
+\end{align*}
+
+GBC:
+\begin{align*}
+M_t - M_{t-1} + B_t &= R_{t-1}B_{t-1} - T_t
+\end{align*}
+
+Finally, we are given that monetary policy acts to make $R_t = R$ $\forall t.$
+\subsection{Part B}
+The consumer's FOCs are the following:
+\begin{align*}
+\beta^t c_{1t}^{-1} &= \lambda_{t+1} p_{t} + \gamma_t p_t\\
+\beta^t \alpha c_{2t}^{-1} &= \lambda_{t+1}p_{t}\\
+\beta^t \gamma (1-n_t)^{-1} &= \lambda_{t+1}w_t\\
+\lambda_t &= \gamma_t + \lambda_{t+1} \\
+\lambda_{t} &= \lambda_{t+1} R_{t}.
+\end{align*}
+
+Simplifying,
+\begin{align*}
+\beta^t c_{1t}^{-1} &= p_t\lambda_t\\
+\Rightarrow \frac{c_{2t}}{\alpha c_{1t}} &= R_t = R, \\
+\frac{\gamma c_{2t}}{\alpha(1-n_t)} &= \frac{w_t}{p_t}
+\end{align*}
+
+Note that the real wage $\frac{w_t}{p_t}$ must be one because that is the marginal productivity of labor from the firm side. We now have 3 equations in 3 unkowns we can solve for allocations:
+\begin{align}
+\frac{c_{2t}}{\alpha c_{1t}} &= R, \\
+\frac{\gamma c_{2t}}{\alpha(1-n_t)} &= 1, \\
+c_{1t} + c_{2t} &= n_t.
+\end{align}
+
+\begin{align*}
+n_t &= 1 - \frac{\gamma c_{2t}}{\alpha},\\
+c_{2t} &= \alpha Rc_{1t},\\
+c_{1t}(1+\alpha R) &= 1 - \gamma  Rc_{1t} \\
+\Rightarrow c_{1t} &= \frac{1}{1+(\alpha+\gamma) R} \\
+\Rightarrow c_{2t} &= \frac{\alpha R}{1+(\alpha+\gamma) R} \\
+\Rightarrow n_t &= 1 - \frac{\gamma R}{1+(\alpha+\gamma) R} \\
+&= \frac{1+\alpha R}{1+(\alpha+\gamma) R}
+\end{align*}
+From Wolfram Alpha,
+\begin{align*}
+\frac{\partial n_t}{\partial R} &= - \frac{\gamma}{(1+(\alpha+\gamma)R)^2}\\
+&<0.
+\end{align*}
+Therefore, $n_t$ is decreasing in $R$.
+\end{document}
