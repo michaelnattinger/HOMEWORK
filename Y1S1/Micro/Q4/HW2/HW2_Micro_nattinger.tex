@@ -1,0 +1,168 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW2}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, Ryan Mather, and Tyler Welch. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+The statement is true. Signaling is effective only in the separating equilibrium, so assume for the sake of contradiction that there exists some separating equilibrium of the model we studied is true. Then, for general cost function $c_i(e)$, $ 0 \leq e(1) < e(2), w(e(1))< w(e(2)).$ Let $c_1(e(1)) = c_1(e(1)), c_1(e(2)) = c_2(e(2))$. Then, from the high type's choice we know that $w(e(1)) - c_2(e(1))\leq w(e(2)) - c_2(e(2)) \Rightarrow w(e(1)) - c_1(e(1))\leq w(e(2)) - c_1(e(2))$ so the low type person is (weakly) worse off by staying with the low education choice.
+
+\section{Question 2}
+\subsection{Part A}
+The buyer's maximum willingness to pay for a car is the expected value conditional on all of the high-type sellers being willing to sell. Note that if the high-type sellers are willing to sell, then the low-type ones will be as well. Therefore, the maximum willingness to pay is $0.5(\$10000)+0.5(\$2000) = \$6000$.
+\subsection{Part B}
+Assume first that the sellers value the high-quality cars at $\$8000$. Then, when the market price is $\$6000$ the high-type sellers are not willing to sell. Only the low-type cars would sell. The buyers would lose $50(\$4000) = \$200000$ in surplus.
+
+Assume next that the sellers value the low-quality cars at $\$6000$. Then, the market can clear at $\$6000$ and all of the cars are sold. The sellers gain no surplus on aggregate, but at least they do not lose surplus on aggregate.
+
+\section{Question 3}
+\subsection{Part A}
+The first incentive constraint is that the high-quality monopolist does not want to offer the low-quality package:
+\begin{align}
+p_H - c_H - q_Hc_H \geq p_L - c_H \label{ich}
+\end{align}
+The second incentive constraint is that the low-quality monopolist does not want to offer the high-quality package:
+\begin{align}
+p_L - c_L \geq p_H - c_L - q_Lc_L \label{icl}
+\end{align}
+%In the next subsection I will guess and verify that the first constraint binds and the second is slack.
+\subsection{Part B}
+We would like the consumer to be willing to buy both types:
+\begin{align*}
+(1-q_H)S + q_HS - p_H \geq 0\\
+\Rightarrow S\geq p_H, \\
+(1-q_L)S -p_L \geq 0\\
+\Rightarrow S\geq \frac{p_L}{1-q_L}
+\end{align*}
+
+From (\ref{ich}),(\ref{icl}) we have the following as well:
+\begin{align*}
+p_H - q_Hc_H &\geq p_L\\
+p_L &\geq p_H - q_Lc_L\\
+\Rightarrow p_H - q_Hc_H &\geq p_H - q_Lc_L\\
+\Rightarrow q_Lc_L &\geq q_Hc_H
+\end{align*}
+
+The final, simplified set of restrictions that must be satisfied are the following:
+\begin{align}
+S \geq \max \left\{p_H,\frac{p_L}{1-q_L}\right\},\\
+p_H  - q_Hc_H \geq p_L, \\
+p_L  \geq p_H - q_Lc_L,
+\end{align}
+and any set of parameters which satisfy the above will also satisfy that $q_Lc_L\geq q_Hc_H$.
+\section{Question 4}
+\subsection{Part A}
+If the seller can observe $\theta$ then they have to pay no information rent and can extract the entire surplus from the consumer. Therefore, the buyer will receive no utility and for a given $\theta,q; t=\theta q.$
+
+Let $\theta = 1$. Then the seller maximizes profit:
+\begin{align*}
+&\max_q  q - q^2\\
+&q = 1/2.
+\end{align*} 
+Note in this case that $t=1/2$.
+
+Instead let $\theta = 2.$ The seller again maximizes profits:
+\begin{align*}
+&\max_q 2q - q^2\\
+&q = 1.
+\end{align*}
+Note in this case that $t=2$.
+Therefore, the quality offered when $\theta = 2$ ($1$) is twice the quality offered when $\theta = 1$ ($1/2$).
+\subsection{Part B}
+Say the seller cannot observe $\theta$. Assume the seller posts the price-quantity pairs from Part A on their menu. The high type buyer receives $1/2$ utility from buying the low quality bundle and $0$ utility from buying the high-quality bundle. The price-quality pairs are therefore not incentive compatible - they violate the high-type buyer's incentive compatibility constraint. 
+\subsection{Part C}
+We need to find a set of restrictions which will allow us to solve for price-quality pairs. The first restriction we can use is that the low-type individual has no information rent, so they have no utility: $q_1 - t_1 = 0 \Rightarrow t_1 = 1/4$. We can form two additional restrictions by setting the high-types IC and the seller's nonnegative profit for the high-type seller constraints to hold with equality, and verify that the IC of the low type and nonnegative profit for the low-type seller hold ex-post. 
+
+\begin{align*}
+2q_2 - t_2 &= 1/4\\
+t_2 - q_2^2 &= 0\\
+\Rightarrow 2q_2 - q_2^2 &= 1/4
+\end{align*}
+
+One of the solutions to the above equation is $q_2 = 1 + \frac{\sqrt{3}}{2}$. We need only to find one set of price-quality pairs so we ignore the other solution. $t_2 = q_2^2 = \frac{7}{4} + \sqrt{3}$. By construction these satisfy the incentive constraint of the high-type and nonnegative profit constraint of the high-type seller. We can now verify that the low-type IC holds, and that the low-type seller receives nonnegative profit.
+
+\begin{align*}
+q_1 - t_1 &\geq q_2 - t_2\\
+0&\geq 1 + \frac{\sqrt{3}}{2} -\left(\frac{7}{4} + \sqrt{3}\right)\\
+&= -\frac{3}{4} - \frac{\sqrt{3}}{2}.\\
+t_1 - q_1^2 &\geq 0\\
+ 1/4 - 1/16 &\geq 0.
+\end{align*}
+
+Both constraints hold so the price-quality pairs that we derived satisfy all necessary constraints. To summarize, these pairs are $\{(q_1,t_1),(q_2,t_2)\} = \{ (1/4,1/4),(1 + \frac{\sqrt{3}}{2},\frac{7}{4} + \sqrt{3})\}$.
+\end{document}

@@ -111,4 +111,13 @@
 \end{itemize}
 For reference of order statistics, see \href{https://www2.stat.duke.edu/courses/Spring12/sta104.1/Lectures/Lec15.pdf}{these slides.} \\
 Revenue Equivalence Theorem: Consider a single good auction (design) environment with independent private values. Suppose A1 and A2 are two auction formats (e.g. FPA, SPA etc.), E1 is a BNE in A1, E2 is a BNE in A2. Suppose each type of each bidder has same interim expected probability of getting the good in (A1, E1) and (A2, E2), and the lowest type of each bidder has the same interim expected utility in (A1, E1) and (A2, E2), then (A1, E1) and (A2, E2) give the same interim expected payment for each type of each bidder and the ex-ante revenue of the seller is the same in (A1, E1) and (A2, E2).
+
+The Game is, –Players: The N bidders. –Actions: Each player $i\in{1,2,...,N}$. Set of actions is $Ai\subseteq\mathbb{R}^+$.–Types: Each player’s type is given by his valuations, so $\Theta_i = \Theta = [0,V].$ –Payoffs: Each player payoffs is a function $ui: \Theta \times A_i\rightarrow \mathbb{R}$.–Strategy:A strategy is a bid function, that maps types to actions, namely $bi: \Theta \rightarrow A_i\subseteq R^+$.–Beliefs:Each player beliefs is a function $pi: \Theta \rightarrow \Theta_{-i}$.  In this case given by thecommon distribution F(v). The Bayesian Nash Equilibriumis a set of strategies and beliefs $({b^*_i (vi)}Ni=1,{\pi}^N_{i=1})$ such that, $E_{v_{-i}}[u_i(b^*_i(vi),b^*_{-i}(v_{-i}),v_i)|v_i] \geq E_{v_{-i}}[u_i(a_i,b^*_{-i}(v_{-i}),v_i)|v_i]$ for all $i\in {1,2,...,N},ai\in A_i $ and all $v_i\in\Theta$, where the expectation is taken over therealization of the other player’s types conditional on player $i$'s type $v_i$.
+
+To use the revenue equivalence theorem to solve for a bid function for a hybrid auction, calculate the interim expected payment for a player and this is the same across auction types. In other words, if you know one (i.e. all pay bid) then that equals the expected payment of the hybrid auction at that valuation.
+
+The density of the $k$-th order statistic given that player with valuation $v$ wins is:
+\begin{align*}
+g(x) &= \frac{(N-1)!}{(k-2)!(N-k)!}f(x) F(x)^{N-k}[F(v) - F(x)]^{k-2}
+\end{align*}
 \end{document}
