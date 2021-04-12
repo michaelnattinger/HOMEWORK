@@ -85,16 +85,16 @@
 
 \section{Question 22.1}
 \subsection{Part A}
-Given the PDF of $e, \exists F(e)$, the corresponding CDF. Note now that $P(y_i \leq y | x_i = x) = P(x_i'\theta + e_i \leq y|x_i = x) = P(e_i\leq y-x_i'\theta|x_i = x).$ From the independence of $e,x$ we have: $P(e_i \leq y-x_i'\theta|x_i=x) = P(e_i \leq y-x_i'\theta) = F(y-x_i\theta).$ By differentiation we find $f(y|x) = f(f-x'\theta)$.
+Given the PDF of $e, \exists F(e)$, the corresponding CDF. Note now that $P(y_i \leq y | x_i = x) = P(x_i'\theta + e_i \leq y|x_i = x) = P(e_i\leq y-x_i'\theta|x_i = x).$ From the independence of $e,x$ we have: $P(e_i \leq y-x_i'\theta|x_i=x) = P(e_i \leq y-x_i'\theta) = F(y-x_i\theta).$ By differentiation we find $f(y|x) = f(y-x'\theta)$.
 \subsection{Part B}
-We have some functional form for the density of $e$ so we can write our objective function as (negative) log likelihood (negative since we are minimizing).  Then, $\rho_i(\theta) = - log(y_i - x_i\theta), \\ \psi_i(\theta) = \frac{\partial}{\partial \theta}\rho_i(\theta)  = \frac{f'(y_i - x_i'\theta)}{f(y_i - x_i'\theta)}x_i$.
+We have some functional form for the density of $e$ so we can write our objective function as (negative) log likelihood (negative since we are minimizing).  Then, $\rho_i(\theta) = - log(f(y_i - x_i\theta)), \\ \psi_i(\theta) = \frac{\partial}{\partial \theta}\rho_i(\theta)  = \frac{f'(y_i - x_i'\theta)}{f(y_i - x_i'\theta)}x_i$.
 \subsection{Part C}
 $\Omega = E[\psi_i \psi_i'] = E[\left(\frac{f'(y_i - x_i'\theta)}{f(y_i - x_i'\theta)}\right)^2x_ix_i'] = E[\left(\frac{f'(e_i)}{f(e_i)}\right)^2x_ix_i'] = E[\left(\frac{f'(e_i)}{f(e_i)}\right)^2]E[x_ix_i']$. As stated in the textbook, for correctly specified MLE $Q=\Omega, V = \Omega^{-1} = E[\left(\frac{f'(e_i)}{f(e_i)}\right)^2]^{-1}E[x_ix_i']^{-1}$
 \section{Question 23.1}
 \subsection{Part A}
 Due to the nonlinearity of $exp(\cdot )$, the conditional mean is nonlinear in $\theta$. This would be a nonlinear regression model.
 \subsection{Part B}
-We can define $\gamma = exp(\theta)$ and write $Y=\gamma + e$. Then we can estimate $\hat{\gamma} = \bar{Y}_n$, and obtain our estimate $\hat{\theta} = log(\gamma).$
+We can define $\gamma = exp(\theta)$ and write $Y=\gamma + e$. Then we can estimate $\hat{\gamma} = \bar{Y}_n$, and obtain our estimate $\hat{\theta} = log(\hat{\gamma}).$
 \subsection{Part C}
 M-estimators are invariant under reparameterization so this is the same.
 \section{Question 23.2}
@@ -127,7 +127,7 @@ Asymptotically they are the same but under a finite sample they are different in
 \subsection{Part C}
 You would prefer LAD over OLS if you were worried about outliers in your data which may have too much of an influence in finite samples. Otherwise you would use OLS as it is conditionally unbiased and efficient in this context.
 \section{Question 24.5}
-Our colleague is being a bit ridiculous. The OLS estimate $\hat{\beta}_{ols}$ is guaranteed to have a lower $R^2$ than the LAD estimate $\hat{\beta}_{lad}$ by construction: \\\begin{align*}R^2_{ols} = 1 - \frac{(y-\hat{\beta}_{ols}x)'(y-\hat{\beta}_{ols}x)}{(y-\bar{y})'(y-\bar{y})} \geq  1 - \frac{(y-\hat{\beta}_{lad}x)'(y-\hat{\beta}_{lad}x)}{(y-\bar{y})'(y-\bar{y})} = R^2_{lad}.\end{align*} Comparing $R^2$ is an unfair test for determining which estimate to trust.
+Our colleague is being a bit ridiculous. The OLS estimate $\hat{\beta}_{ols}$ is guaranteed to have a higher $R^2$ than the LAD estimate $\hat{\beta}_{lad}$ by construction: \\\begin{align*}R^2_{ols} = 1 - \frac{(y-\hat{\beta}_{ols}x)'(y-\hat{\beta}_{ols}x)}{(y-\bar{y})'(y-\bar{y})} \geq  1 - \frac{(y-\hat{\beta}_{lad}x)'(y-\hat{\beta}_{lad}x)}{(y-\bar{y})'(y-\bar{y})} = R^2_{lad}.\end{align*} Comparing $R^2$ is an unfair test for determining which estimate to trust.
 \section{Question 24.14} 
 
 \includegraphics{qrfig}
