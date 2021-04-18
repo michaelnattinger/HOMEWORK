@@ -1,0 +1,184 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Macro PS5}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Question 1}
+\subsection{Part 1}
+The utilitarian planner solves the following optimization problem (note the $2S$ as there is a measure of $1/2$ of each type of agent, and the first and second constraints are multiplied through by 2):
+\begin{align*}
+&\max_{c_1^1,c_2^1,c_1^2,c_2^2,S,y} u(c_1^1) - v(y) + \beta u(c_2^1)+u(c_1^2) + \beta u(c_2^2)\\
+&\text{s.t. } c_1^1 + c_1^2 + 2S \leq y\\
+&\text{and } c_2^1 + c_2^2 \leq 2RS \\ % do these need to be adjusted somewhat?
+&\text{and } u(c_1^1) - v(y) + \beta u(c_2^1) \geq u(c_1^2) + \beta u(c_2^2)
+\end{align*}
+
+Writing the Lagrangian:
+\begin{align*}
+\mathcal{L} &= u(c_1^1) - v(y) + \beta u(c_2^1) + u(c_1^2) + \beta u(c_2^2) +\lambda (c_1^1 + c_1^2 + 2S - y)  \\ &+ \mu (c_2^1 + c_2^2 - R2S) + \nu (u(c_1^1) - v(y) + \beta u(c_2^1) - u(c_1^2) - \beta u(c_2^2))  
+\end{align*}
+
+Taking FOCs,
+\begin{align*}
+u'(c_1^1) + \lambda + \nu u'(c_1^1)  &= 0\\
+u'(c_1^2) + \lambda - \nu u'(c_1^2) &= 0 \\
+-v'(y) - \lambda &= 0\\
+\beta u'(c_2^1) + \mu + \nu\beta u'(c_2^1) &= 0 \\
+\beta u'(c_2^2) + \mu  - \nu\beta u'(c_2^2)&= 0 \\
+2\lambda - 2R\mu &= 0.
+\end{align*}
+
+Solving, and using the fact that $\beta R = 1$,
+\begin{align*}
+%u'(c_1^1) &= u'(c_1^2)\\
+%&= v'(y) \\
+%&= u'(c_2^1) \\
+%&= u'(c_2^2)
+(1+\nu)u'(c_1^1) &= v'(y)\\
+&= (1-\nu)u'(c_1^2)\\
+&= (1+\nu)u'(c_1^1) \\
+&= (1-\nu)u'(c_2^2)
+\end{align*}
+
+So, $c_1^1 = c_2^1 > c_1^2 = c_2^2$ by the above equations, the fact that the IC must bind otherwise the planner is not optimizing, and complimentary slackness of $\nu$.
+\subsection{Part 2}
+\subsubsection{Gov't can observe output, but not labor}
+Let $c^{1*},c^{2*},y^{*}$ be the solutions to the planner's problem above. The government now has only the linear tax $\tau$ to raise revenue, but has the retirement plan as a mechanism to support the equilibrium. What the government's plan of action can be to support the equilibrium is the following:
+\begin{enumerate}
+\item Tax the production at a rate such that producing $y^*$ yields all of the government revenue required to afford the first-period government transfers that will occur.
+\item Pay every household $c^{2*}$ in the first period.
+\item Pay agents in the second period according to the following 'retirement' plan:
+\begin{itemize}
+\item Agents who do not produce in the first period are paid a retirement consumption bundle of $c^{2*}$.
+\item Agents who produce $y^*$ in the first period are 'paid' a retirement consumption bundle of $-c^{2*}$.
+\item Agents who produce any other amount in the first period are 'paid' $-\infty$ in the second period.
+\end{itemize}
+\end{enumerate}
+
+It is trivial that low-type households will not deviate - they cannot. Let us first address deviation of high-type to the low-type production. By what we showed in the  first section, the equilibrium was constructed such that it was incentive compatible for the high-type. Therefore, the high-type would prefer to produce $y^{*}$ to producing $0$. Finally, let us consider deviation of high type to some $0<y\neq y^{*}$. Clearly, they will receive $-\infty$ utility from doing so, so they will not choose this production level.
+
+The $\tau$ necessary to afford the transfers in the first period is $\tau = \frac{2c^{2*}}{y^*}$ because $(1/2)\tau y^{*} = c^{2*} $.
+
+The high-type households will consume only $c^{1*}$ in the first period from their post-tax, post-transfer income because $\beta R = 1$ so they would like to perfectly smooth consumption across periods. They can do so by consuming $c^{1*}$ in both periods. 
+\subsubsection{Gov't can observe labor, but not output}
+
+Finally, the question of what would happen if the government could only observe labor, and not output. In this case we can achieve the first-best allocation. We cannot, however, achieve the separating equilibrium above. 
+
+
+What is the first-best allocation? Consider the setup from part A but without the high-type IC constraint. The first-order conditions yield the following set of equalities:
+\begin{align*}
+u'(c_1^1) &=  v'(y)\\
+&= u'(c_1^2)\\
+&= u'(c_1^1) \\
+&= u'(c_2^2)
+\end{align*}
+
+Clearly the first-best allocation is $c_1^1 = c_1^2 = c_2^1 = c_2^2 = c^{'*}$ for the unique $c^{'*}$ which satisfies $u'(c^{'*}) = v'(2(1+\beta)c^{'*})$. The optimal amount of labor is, therefore, $l^{'*} = y^{'*} = 2(1+\beta)c^{'*}$.
+
+Consider the following tax, transfer, and retirement plan:
+
+\begin{enumerate}
+\item Tax the production at a rate of $\tau = 1$.
+\item Pay every household $(1+\beta)c^{'*}$ in the first period.
+\item Pay agents in the second period according to the following 'retirement' plan:
+\begin{itemize}
+\item Agents who work the optimal amount in the first period are paid a retirement consumption bundle of $0$.
+\item Agents who work any other amount in the first period are 'paid' $-\infty$ in the second period.
+\end{itemize}
+\end{enumerate}
+
+This achieves the optimal allocation. Nobody would like to deviate as they would receive $-\infty$ utility. This works because the low type has no disutility of labor. Therefore, we can force everyone to work the amount that we would like the high-productivity households to work, and the low type is no worse off for it. The IC for the high type holds trivially in this case because pretending to be the low type would entail the exact same labor choice.
+
+Separating equilibrium with the high-type being paid more than the low type in this case are, however, not possible. Consider a potential separating equilibrium where the high type is paid more according to some labor observation. Then, the low types would be better off pretending to be high-types and the equilibrium would collapse to a pooling equilibrium.
+
+\section{Question 2}
+
+\subsection{Part A}
+The planner chooses labor and output to maximize total utility. The planner sees the signals of type, which have correlation $q>0.5$ with type. Each household is associated with a productivity type and a signal, so denote $c_i^j,y_i^j$ to be the consumption and output of a type $i$ productivity household who possesses the signal of type $j$. Individuals of a certain signal and productivity type may pretend to be of the same signal type and different productivity type. The planner solves the following optimization problem:
+\begin{align}
+\max_{\{c_i^j,y_i^j\}} &pq\left(u(c_H^H) - v\left( \frac{y_H^H}{\theta_H}\right)\right) + p(1-q)\left(u(c_H^L) - v\left( \frac{y_H^L}{\theta_H}\right)\right) \nonumber \\&+ (1-p)q\left(u(c_L^L) - v\left( \frac{y_L^L}{\theta_L}\right)\right) + (1-p)(1-q)\left(u(c_L^H) - v\left( \frac{y_L^H}{\theta_L}\right)\right) \nonumber \\
+\text{s.t. } & u(c_H^H) - v\left( \frac{y_H^H}{\theta_H}\right) \geq u(c_L^H) - v\left( \frac{y_L^H}{\theta_H}\right), \label{ic1}\\
+& u(c_L^H) - v\left( \frac{y_L^H}{\theta_L}\right) \geq u(c_H^H) - v\left( \frac{y_H^H}{\theta_L}\right), \label{ic2}\\
+& u(c_L^L) - v\left( \frac{y_L^L}{\theta_L}\right) \geq u(c_H^L) - v\left( \frac{y_H^L}{\theta_L}\right), \label{ic3}\\
+& u(c_H^L) - v\left( \frac{y_H^L}{\theta_H}\right) \geq u(c_L^L) - v\left( \frac{y_L^L}{\theta_H}\right), \label{ic4}
+\end{align}
+where (\ref{ic1}),(\ref{ic2}),(\ref{ic3}),(\ref{ic4}) are the IC constraints for each combination of type and signal.
+\subsection{Part B}
+Conditional on having a certain signal, the low type with that signal would not want to pretend to be the high type, as they would not like to work more. Therefore, there is no distortion of the allocations for the high types of either signal. The distortions would be on the low type of each signal, to ensure that the high types are not incentivized to pretend to be low given either signal type.
+
+Thus, the allocations $(c_H^H,y_H^H),(c_H^L,y_H^L)$ are ex-post efficient. The other allocations are not.
+\end{document}
