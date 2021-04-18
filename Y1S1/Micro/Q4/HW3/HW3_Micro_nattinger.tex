@@ -1,0 +1,127 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Micro HW3}
+\author{Michael B. Nattinger\footnote{I worked on this assignment with my study group: Alex von Hafften, Andrew Smith, and Ryan Mather. I have also discussed problem(s) with Emily Case, Sarah Bass, Katherine Kwok, and Danny Edgel.}}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+\subsection{Part A}
+The reason behind this intuition is that the agent is risk-averse whereas the principal is risk-neutral. The cheapest way in expectation for the principal to incentivize the agent to act in a certain way is to offer risk-free contracts for the agent. Therefore, if we assume for the purpose of contradiction that the optimal contracts $(w_H^{e_1},w_L^{e_1}),(w_H^{e_2},w_L^{e_2})$ have the property that $w_H^{e_i} \neq w_L^{e_i} $ for some $i$ then $\exists (w_H^{'e_i},w_L^{'e_i}), w_H^{'e_i}=w_L^{'e_i}$ which give the same expected utility to the agent but yield strictly higher expected profit for the principal, conditional on the agent choosing effort level $e_i$.
+\subsection{Part B}
+We can show that, if effort is observable, the optimal effort level that the principal should implement is the high level of effort. First we can note that the principal can make it so that the agent would never choose a certain effort level by setting $w_i<g(e_i)^2$ for that effort level, e.g. $w_i = 0$. So we only need to consider the expected profit the principal can make by setting the wage of the implemented effort level such that $w = g(e)^2$, and we do not have to worry about the agent deviating to the other effort level as we can assume that the offered contract for the deviation in effort level will result in negative utility for the agent, and therefore the agent would rather opt out entirely.
+
+If the principal implements high effort they can pay $w_1 = g(e_1)^2 = 1.$ The principal's expected profit is $8(1/2) - 1 = 3.$ If the principal instead implements low effort they can pay $w_2 = g(e_2)^2 = 1/4 $ and the expected profit is $8(1/4) - 1/4 = 7/4<3$. Therefore, the principal should implement high effort as they can achieve higher expected profit.
+
+\subsection{Part C}
+If effort is not observable, the agent can be payed contingent on outcome to incentivize them to choose the high effort level. If this results in less expected profit for the principal than just paying the low wage and accepting the low effort level, then the principal will choose to do that instead and will set $w = 1/4$ for all outcomes and achieve an expected profit of $7/4$. 
+
+Let us investigate whether or not the principal can do better by conditioning on outcomes, and trying to incentivize the worker to choose higher effort. Given a payment scheme, the expected utility of the agent for exerting high effort must be higher than the expected utility of the agent for exerting low effort. The expected utility of the agent for exerting high effort must also be higher than the opt-out value of $0$. The cheapest way to satisfy both the IR and IC will be for both constraints to be binding.
+
+\begin{align*}
+(1/2)\sqrt{w_H} + (1/2)\sqrt{w_L} - 1 &= (1/4)\sqrt{w_H} + (3/4)\sqrt{w_L} - 1/2\\
+(1/2)\sqrt{w_H} + (1/2)\sqrt{w_L} - 1 &= 0
+\end{align*}
+
+The above system of equations yields a single solution: $(w_H,w_L) = (4,0).$ The expected profit of the principal under such a wage scheme is $(8-4)(1/2) + 0(1/2) = 2>7/4$ so this wage scheme yields higher expected profit than implementing low effort.
+
+To summarize, even when only outcome, and not effort, is observable, the principal yields higher profits by incentivizing the agent to work with a high effort level. The principal can accomplish this goal by implementing a wage scheme, conditional on outcome, of $(w_H,w_L) = (4,0)$.
+\section{Question 2} % assume P2z1<r?
+The IR constraint of the entrepreneur ensures that the entrepreneur ensures that the entrepreneur would rather complete a project (with high effort) than not take out a loan at all:
+\begin{align*}
+xP_1 - c_1 &\geq 0\\
+\Rightarrow x &\geq \frac{c_1}{P_1}
+\end{align*}
+The IC constraint for the entrepreneur ensures that the entrepreneur would rather complete a project with high effort rather than low effort:
+\begin{align*}
+xP_1 - c1 &\geq x P_2 \\
+\Rightarrow x &\geq \frac{c_1}{P_1-P_2}
+\end{align*}
+Note that satisfying the IC constraint trivially satisfies the IR constraint for the entrepreneur. The profit-maximizing contract for the bank is the smallest $x$ which satisfies both, i.e. $x = \frac{c_1}{P_1-P_2}$, so long as the expected profit for the bank is nonnegative. Otherwise the bank will not offer a contract. The profit of the bank is $P_1(z-x) -r = P_1\left(z - \frac{c_1}{P_1 - P_2}\right) - r$. So long as this quantity is positive, the optimal loan contract of the bank is to offer $x = \frac{c_1}{P_1-P_2}$, otherwise the bank should not offer a contract.
+\section{Question 3}
+\subsection{Part A}
+The pure-strategy PBE in this game is for the consumers to believe that the good is of quality $q=0$ with probability $1$. The firm chooses quality $q=0$, offers a price of $p = 0$, and neither the firm nor the individual makes any surplus. 
+
+Say instead we were to try to implement a PBE where the consumers believed that the goods are of quality $q=1$ with probability $P>0$. Then the firm could charge a price $p = P$ and the individuals would buy the good, however the firm's profit maximizing decision on the quality of the good would be to produce a good of quality $q=0$ with probability $1$. The beliefs of the consumers would then not be Bayesian, so this is a contradiction.
+\subsection{Part B}
+Let the uninformed consumers believe with probability $P=1$ that the goods are of quality $q=1$, then note that they would be willing to pay price $p=P=1$. Note also that the informed consumers will be willing to pay $p=1>c_1$ if the quality is of type $q=1$, and will not pay any positive price if the quality is of type $q=0$. If the firm decides to choose $q=1,$ their profit-maximizing price is $p=1$ and they make a positive profit of $\pi_1 = p-c_1 = 1-c_1>0$.
+
+If, instead, the firm decides to produce quality $q=0$, then the informed consumers will not buy for any positive price. The firm should, then, still price the good at $p = P = 1$ so that they can maximize their revenue from the uninformed consumers, given that they can make no revenue from the informed consumers. Their profit, then, is $\pi_0 = 1-\alpha$.
+
+A pure-strategy equilibrium of the game, in which all consumers buy a high-quality good can exist if and only if $\pi_1\geq \pi_0\Rightarrow 1-c_1 \geq 1-\alpha \Rightarrow \alpha \geq c_1$.
+
+\end{document}

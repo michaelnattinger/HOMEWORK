@@ -18,7 +18,7 @@ X = x(men,[1 4 3]);
 race = x(men,11);
 black = race==2; % is this right?
 X = [X black];
-[B,~,stats] = mnrfit(X,Y);
+[B,~,stats] = mnrfit(X,Y,'Model','ordinal','Link','probit');
 tab = table(B,stats.se,stats.t,'VariableNames',{'Coeff','SE','T'}, ...
     'RowNames',{'intercept','age','education','hispanic','black'});
 table2latex(tab,'tab1.tex')
