@@ -84,7 +84,7 @@ The utilitarian planner solves the following optimization problem (note the $2S$
 &\max_{c_1^1,c_2^1,c_1^2,c_2^2,S,y} u(c_1^1) - v(y) + \beta u(c_2^1)+u(c_1^2) + \beta u(c_2^2)\\
 &\text{s.t. } c_1^1 + c_1^2 + 2S \leq y\\
 &\text{and } c_2^1 + c_2^2 \leq 2RS \\ % do these need to be adjusted somewhat?
-&\text{and } u(c_1^1) - v(y) + \beta u(c_2^1) \geq u(c_1^2) + \beta u(c_2^2)
+&\text{and } u(c_1^1) - v(y) + \beta u(c_2^1) \geq u(c_1^2) - v(0) + \beta u(c_2^2)
 \end{align*}
 
 Writing the Lagrangian:
