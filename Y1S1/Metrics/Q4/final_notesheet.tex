@@ -1,0 +1,244 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
+\usepackage{endnotes}
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Econometrics Notesheet}
+\author{Michael B. Nattinger}
+
+\begin{document}
+\maketitle
+
+\section{GMM}
+\begin{itemize}
+\item Given moment equations $E[g_i(\beta)] = 0,$ where $\beta$ is $k$ dimensional and $g$ is $l$ dimensional, if $l=k$ then we have exact identification from the method of moments estimator: $\frac{1}{n} \sum_{i=1}^n g_i(\hat{\beta}_{mm}) = 0$.
+\item If $l>k$ then we have overidentification. We need the sample moment equations $g$ to be small in some sense. We define the criterion as follows:
+\item $J(\beta) = n \bar{g}_n(\beta)'W\bar{g}_n(\beta)$. $\hat{\beta}_{gmm} = \argmin_\beta J(\beta)$.   
+\item In general the efficient GMM uses the weight matrix $\Omega^{-1}$ where $\Omega = E[g_i(\beta)g_i(\beta)']$ 
+\item For IV go straight to the textbook starting at pdf page 435.
+\item For Wald testing see pdf page 441.
+\item For restricted GMM see pdf page 442-4.
+\item Best way to conduct inference of a restriction is via the distance test. See 445-447.
+\item A separate test is overidentification test. This tests if the assumptions of the model are valid. See page 447.
+\item To conduct inference via bootstrapping one needs to recenter s.t. the moment equations have value zero. See 451.
+\end{itemize}
+
+\section{DiD}
+\begin{itemize}
+\item This is just common sense so I'm not going to write notes.
+\end{itemize}
+
+\section{Non-parametric regression}
+\begin{itemize}
+\item Binned means estimator: Take mean of observations within each bin.
+\item Kernel regression: essentially just a generalized binned mean estimator, with observations near a point weighted more highly.
+\item Nadaraya-Watson estimator is the following: $\hat{m}_{nw}(X) = \frac{\sum_{i=1}^n K\left( \frac{X_i - x}{h}\right) Y_i}{\sum_{i=1}^nK\left( \frac{X_i - x}{h}\right) }$
+\item Local linear is a further generalization. Estimate WLS for each point.
+\item Smoothing bias is a concern. Boundary bias is a concern for NW, less so for LL.
+\item Asymptotic MSE and asymptotic integrated MSE are on pdf page 694. Can take FOC wrt h to solve for optimal bandwidth.
+\item the Epanechnikov kernel minimizes AIMSE. The efficiency loss of using other kernels are really small though. Gaussian in a sense is actually better owing to its smoothness.
+\item Generally although there is an 'optimal' bandwidth in theory, in practice it is a better idea to use CV to choose.
+\end{itemize}
+
+\section{Series regression}
+\begin{itemize}
+\item Another way to approximate a (possibly) nonlinear conditional expectation function is to make a series expansion. Estimate via OLS.
+\item Generally we use a quardratic expansion of order $p$, then this has number of parameters $K=p+1$ due to the constant.
+\item Can also use splines. These have join points called knots.
+\item Linear: $m_k(x) = \beta_0 + \beta_1x + \beta_2(x-\tau)1\{x\geq \tau\}$.
+\item Linear is continuous, quadratic has continuous first derivative, etc.
+\item Variance formulas are pdf pages 738-739.
+\end{itemize}
+
+\section{Regression Discontinuity}
+\begin{itemize}
+\item If a treatment is assigned as $D = 1\{ X\geq c\}$ then $\bar{\theta} = m(c+) - m(c-).$
+\item Can often calculate $m$ as through local-linear technique.
+\item Equivalent form to LL using rectangular bandwidth: Estimate $Y = \beta_0 + \beta_1X + \beta_3(X-c)D + \theta D + e$ on the subsample of observations such that $|X-c|\leq h$.
+\item Fuzzy RD: $\bar{\theta} = \frac{m(c+) - m(c-)}{p(c+) - p(c-)}$.
+\end{itemize}
+
+\section{M-Estimators}
+\begin{itemize}
+\item $\hat{\theta} = \argmin_{\theta} \frac{1}{n}\sum_{i=1}^n \rho(Y_i,X_i,\theta)$ for some objective (or criterion) function. 
+\item Let $\theta_0 = \argmin E[\rho(Y,X,\theta]$. If $\theta_0$ is unique then $\theta$ is identified.
+\item Asymptotic details are given in pages 777-780.
+\end{itemize}
+
+\section{NLLS}
+\begin{itemize}
+\item If you want to estimate a particular functional form of a conditional expectation function then you estimate parameters of the functional form to be the argmin of the sum of squared errors.
+\item If part of the problem is linear than can use nested minimization with OLS on the inside.
+\item Asymptotics page 788-789.
+\end{itemize}
+
+\section{QR}
+\begin{itemize}
+\item Generalization of least absolute deviation. Just tilt the absolute value lines.
+\item let $\rho_{\tau}(x) = x(\tau - 1\{ x<0\})$ be the tilted absolute loss function.
+\item Then $\beta_{\tau} = \argmin_b E[\rho_{\tau}(Y-X'b)]$ is the best linear quantile predictor.
+\item Requires $Q_{\tau}[e|X] = 0.$
+\end{itemize}
+
+\section{Binary Choice}
+\begin{itemize}
+\item $Y = P(X) + e, e = 1-P(X) w.p. P(X), e=-P(X) w.p. 1-P(X)$.
+\item Probit: $P(x) = \Phi(X'\beta)$
+\item Logit: $P(x) = \Lambda(x'\beta) = (1+exp(-x'\beta))^{-1}$
+\item all of the other binary choice models are trash
+\item $Y^{*} = X'\beta + e, e\sim G(e), Y = 1\{Y^{*}>0 \}$
+\item $Y=1 \iff Y^{*}>0 \iff X'\beta+e>0 \Rightarrow P(Y=1|X) = P(e>-X'\beta) = 1-G(-X'\beta) = G(X'\beta) $ where the last equality holds iff $G(\cdot)$ is symmetric around 0.
+\item note that scale of variance of e and $\beta$ are not uniquely identified so standardize variance of e as a normalization to achieve identification.
+\item Estimate these models by maximum likelihood. Helpful math if this is relevant is on pdf page 826.
+\item Let $P(Y=1|X=x) = G(x'\beta).$ $\frac{\partial}{\partial x}P(x) = \beta g(x'\beta)$.
+\item Average marginal effect $AME = \beta E[g(X'\beta)]$.
+\end{itemize}
+
+\section{Multiple Choice}
+\begin{itemize}
+\item Multinomial logit is $P_j(x) = \frac{exp(x'\beta_j)}{\sum_{l=1}^{L}exp(x'\beta_l)}$
+\item Again log likelihood is estimation method. See 842 if necessary.
+\item Conditional logit is very slightly different: $P_j(x) = \frac{exp(x_j'\gamma)}{\sum_{l=1}^{L}exp(x_l'\gamma)}$
+\item Conditional logit can be a combination of the two: $P_j(w,x) = \frac{exp(w'\beta_j + x_j'\gamma)}{\sum_{l=1}^{L}exp(x'\beta_l +x_l'\gamma)}$
+\item Again cond'l logit use maximum likelihood.
+\item Log likelihood of these models and average marginal effect 844.
+\item Problem: independence of irrelevant alternatives: $\frac{P_j(W,X|\theta)}{P_l(W,X|\theta)} = \frac{exp(W'\beta_j + X_j' \gamma)}{exp(W'\beta_l + X_l' \gamma)}$
+\item Nested logit fixes this. This basically is logit on categories, and then within the categories you have a nested logit for the individual items. 847-849.
+\item Mixed logit is conditional logit which allows the coefficients $\gamma$ on the alternative-varying regressors to be random across individuals. This is estimated by MCMC. 850.
+\end{itemize}
+
+\section{Censoring}
+\begin{itemize}
+\item Model: $Y^{*} = X'\beta + e, E|X \sim N(0,\sigma^2), Y = \max (Y^{*},0). Y^{\#} = Y$ if $Y>0,$ or missing if $Y=0$. 
+\item $Y$ is censored, $Y^{\#}$ is truncated. Truncated is worse in terms of bias than censored, generally.
+\item $P(Y^{*}<0|X) = P(e<-X'\beta|X) = \Phi\left(-\frac{X'\beta}{\sigma}\right)$
+\item $m^{*}(X) = X'\beta$
+\item $m(X) = X'\beta \Phi \left( \frac{X'\beta}{\sigma} \right) + \sigma \phi \left( \frac{X'\beta}{\sigma} \right)$
+\item $m^{\#}(X) = X'\beta + \sigma \lambda \left( \frac{X'\beta}{\sigma} \right) $
+\item Under a lot of assumptions $\beta_{BLP} = \beta (1-\pi)$ where $\pi$ is the censoring probability. See 865.
+\item Tobit estimator (note it is mixed continuous/discrete measure as opposed to continuous density):
+\item $F(y|x) = 0, y<0; \Phi \left( \frac{y-x'\beta}{\sigma} \right), y\geq 0$. Conditional 'density' and other details are page 866.
+\item Estimate by maximum likelihood. 866-867.
+\item CLAD is basically LAD (QR for median quantile) with censoring added in:
+\item $\hat{\beta}_{CLAD} = \argmin_{\beta} \frac{1}{n}\sum_{i=1}^n |Y_i - \max \{ X_i'\beta, 0 \}|$
+\item This works well because the conditional quantiles are unaffected by censoring, so long as the conditional quantiles are above $0$.
+\item CQR is QR with censoring: $\hat{\beta}_{CQR} = \argmin_{\beta} \frac{1}{n}\sum_{i=1}^n \rho_{\tau}(Y_i - \max \{ X_i'\beta, 0 \})$ where $\rho_{\tau}$ is from the tilted absolute loss function from the QR section.
+\item Heckman's model: $Y^{*} = X'\beta + e, S^{*} = Z'\gamma + u, S = 1\{ S^{*} > 0 \}, Y = Y^{*}$ if $S=1$ and missing otherwise. $(e,u)' \sim N(0,V)$ where the off-diagonal element of $V$ are not necessarily $0$. Normalize $u: \sigma^2_u = 1$.
+\item Estimate via maximum likelihood. Details of this model are 872-874.
+\item Nonparametric selection is similar to Heckman but with non-specified functions in equations for $Y^{*},S^{*}.$
+\end{itemize}
+
+\section{Model selection}
+\begin{itemize}
+\item AIC, BIC, and Cross-Validation are the criterion we discussed. Minimizing these criterion is good (small squared error, minimize negative log likelihood).
+\item CV is the sum of squared leave-one-out prediction errors.
+\item Linear: $BIC = n+nlog(2\pi\hat{\sigma}^2) + Klog(n), AIC = n + nlog(2\pi\hat{\sigma}^2) + 2K$
+\item ML estimation: $BIC = -2l_n(\hat{\theta}) + Klog(n), AIC = -2l_n(\hat{\theta}) + 2K$.
+\item BIC is appropriate for parametric models estimated by ML and is used to select the model with the highest approximate probability of being the true model.
+\item Under a diffuse prior and other standard regularity conditions then $-2log(p(Y)) = BIC+O(1)$. (e.g. approximately selects ML-estimated model which would be most likely under a Bayesian setting with a flat prior).
+\item AIC selects the model whose estimated density is closest to the true density. It also is designed for parametric models estimated by maximum likelihood.
+\item Details of AIC, BIC are pages 880-885.
+\item Mallows criterion was also mentioned in machine learning chapter, it is appropriate for linear estimators of homoskedastic regression models. 886
+\item K-fold cross validation : split your data up into 'folds' (subsamples) and treat each fold as a hold-out sample.
+\item BIC tends to select fewer variables than AIC, CV. As a result, asymptotically BIC will kick-out all variables with nonzero true parameters while AIC, CV do not.
+\end{itemize}
+
+\section{Machine Learning} % James- stein page 904 <- add this in
+\begin{itemize}
+\item Ridge regression has a dual representation:
+\item $\hat{\beta}_{ridge} = (X'X + \lambda I_p )^{-1} X'Y, \lambda>0$
+\item $= \min_{\beta'\beta \leq \tau} (Y-X\beta)'(Y-X'\beta), \tau>0$
+\item $\tau = Y'X(X'X+\lambda I_p)^{-1} (X'X + \lambda I_p)^{-1}X'Y$
+\item Typically choose $\lambda$ via CV.
+\item This shrinks parameters but DOES NOT go to corner solutions in general.
+\item Statistical properties/asymptotics page 936-937.
+\item LASSO regression has a dual representation:
+\item $\hat{\beta}_{lasso} = \argmin_{\beta} (Y-X\beta)'(Y-X\beta) + \lambda \sum_{j=1}^p |\beta_j|, \lambda>0$
+\item $= \min_{|\beta| \leq \tau} (Y-X\beta)'(Y-X'\beta), \tau>0$
+\item Typically choose $\lambda$ via k-fold CV (bc computationally expensive in each iteration, so wouldn't want to do straight-up CV).
+\item This shrinks parameters and TYPICALLY DOES go to corner solutions in general.
+\item Elastic net is somewhere in between (literally, in terms of objective function):
+\item $\hat{\beta}_{EN} = \argmin_{\beta} (Y-X\beta)'(Y-X\beta) + \lambda( \alpha\norm{\beta_j}_2^2 + (1-\alpha))\norm{\beta_j}_1)$
+\item Can jointly select parameters $\lambda,\alpha$ via CV/K-fold CV
+\item Regression trees: split the sample into subsamples (branches) via splits (nodes). Increasing the number of branches is growing a tree, pruning is decreasing the number of branches.
+\item Go through all of your available variables and find the split in each one which yields the lowest squared error across groups. Choose the split which results in lowest squared error.
+\item Generally you keep growing a tree until you can split no more, then go through and prune. Prune a branch if pruning decreases (improves) Mallows criterion.
+\item Bagging is bootstrap aggregating. Bootstrap and take as expectation the mean of the conditional expectation across bootstrap samples.
+\item Problem: correlation of branches across bootstrap samples. Solution: Random forests.
+\item RF: Like bagging, but for each bootstrap sample you randomly choose a subset of your x variables to use in the splitting ($p/3$ is typical.)
+\end{itemize}
+\end{document}

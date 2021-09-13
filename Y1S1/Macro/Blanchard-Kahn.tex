@@ -1,0 +1,140 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} 
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Blanchard-Kahn Procedure}
+\author{Michael B. Nattinger}
+
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Solution method}
+Let $X_t$ be a vector of $n_c$ control variables $C_t$ and $n_s$ state variables $S_t$, $X_t = [C_t'\text{ }S_t']'$. Moreover, let there be a vector of $n_e$ shocks $e_t.$ It is assumed that we can write the evolution of the system in the form of a first-order difference equations:
+\begin{align*}
+E_tX_{t+1} &= AX_t +B e_t
+\end{align*}
+
+We can solve the equation by implementing the following procedure, known as the Blanchard-Kahn method.
+
+We apply spectral decomposition to  $A = Q \Lambda Q^{-1}$, where $\Lambda$ is the matrix with the eigenvalues of $A$ on the main diagonal and zeros elsewhere, and the columns of $Q$ are the corresponding eigenvectors. Defining $Y_t := Q^{-1}X_t, D := Q^{-1} B $ we can rewrite the difference equation:
+
+\begin{align}
+E_tY_{t+1} &= \Lambda Y_t + D e_t \label{general}
+\end{align}
+
+Given our current state variables, which were determined prior to this period, and our selection of choice variables today, our law of motion of state variables is already determined. What is undetermined is our selection of choice variables today. To solve, we make use of the fact that $\lim_{j\rightarrow \infty}E_t Y_{i,t+j} = 0$ $\forall i,$ i.e. that we expect to be in our steady state as time $t\rightarrow\infty$. Noting that we need to pin down our selection of $n_c$ control variables, and that variable $Y_i$ with corresponding eigenvalues $|\lambda_i|<1$ goes to zero in expectation as  $t\rightarrow \infty$ regardless of our selection of choice variables (assuming standard shock processes, such as stable AR$(p)$ or VAR$(p)$ systems), we must have $n_c$ eigenvalues with $|\lambda_i|>1$. These correspond to elements $Y_i$ which are not guaranteed to go to zero as $t\rightarrow \infty$. Note also that we assume none of our eigenvalues have unit magnitudes $|\lambda_i| \neq 1$ as these would be poorly behaved in general.\footnote{Solving in this case is outside the scope of these notes; broadly speaking one would have to make specific assumptions that would depend on the setup of the problem.} Having a number of explosive eigenvalues $n>n_c$ overidentifies the system and in general yields no solutions, while $n<n_c$ underidentifies the system and yields a continuum of solutions but no unique solution.
+
+Without loss of generality, assume eigenvalues $i \in \{1,\dots, n_c\}$ have magnitude $|\lambda_i|>1$. Then, row $i$ of (\ref{general}) reads as the following:
+\begin{align}
+E_tY_{i,t+1} &=\lambda_i Y_{i,t} + D_i e_t \label{row}
+\end{align}
+
+We can solve (\ref{row}) forward and iterate to infinity, and apply our limit condition:
+\begin{align}
+Y_{i,t} &= \lambda_i^{-1}E_tY_{i,t+1} + \lambda_i^{-1} D_i e_t \nonumber\\
+&= \lambda_i^{-1}E_t(\lambda_i^{-1}E_tY_{i,t+2} - \lambda_i^{-1} D_i e_{t+1}) - \lambda_i^{-1} D_i e_t \nonumber \\
+&= - \lambda_i^{-1}D_iE_t\left[ \sum_{j=0}^{\infty}\lambda_i^{-j}e_{t+j}\right] + \underbrace{\lim_{j\rightarrow \infty} \lambda_i^{-j} Y_{i,t+j}}_{=0} \label{errors}
+\end{align}
+
+Here we will specialize to solve the problem in closed form: Let $e_t$ be VAR$(1): e_t = \rho e_{t-1} + \epsilon_t$ where $\epsilon_t \sim_{iid} N(0,V),$  $\rho$ has all eigenvalues within the unit circle (i.e., the VAR system is nonexplosive), and $V$ is some covariance matrix. Now we can write equation (\ref{errors}) as the following:
+\begin{align}
+Y_{i,t} &= -\lambda_i^{-1}D_i\left[ \sum_{j=0}^{\infty}\lambda_i^{-j}\rho^j\right] e_{t} \nonumber\\
+&= - \lambda_i^{-1}D_i(I_{n_e} - \lambda_i^{-1}\rho)^{-1}e_t \nonumber \\
+&= - D_i(\lambda_i I_{n_e} - \rho)^{-1}e_t \nonumber \\
+\Rightarrow [Q^{-1}]_i X_{t} &= - D_i(\lambda_i I_{n_e} - \rho)^{-1}e_t\label{soln}
+\end{align}
+
+Equation (\ref{soln}) for $i \in \{1,\dots, n_c\}$ yields our $n_c$ equations which pin down  $n_c$ control variables $c_t$ given $n_s$ state variables $s_t$ and $n_e$ exogenous state variables (i.e. shock variables) $e_t$. Note that, if there are no shocks in the system (i.e. the system is deterministic), then equation (\ref{soln}) with the RHS replaced with zero holds, and thus you still have $n_c$ equations which determine the selection of $n_c$ control variables given $n_s$ state variables.
+
+\section{Two-variable systems with one shock.}
+If we specialize further to a two-variable system with one shock, we can write the system down even more explicitly. Note that we must have at least one control variable, but we can also have 2 control variables with no endogenous state variables. We will also assume that only one shock is driving the system, for convenience.
+
+Let $A = \begin{pmatrix} a_{1,1} & a_{1,2} \\ a_{2,1} & a_{2,2} \end{pmatrix}, B = \colvec{2}{b_1}{b_2}, X_t = \colvec{2}{x_{1,t}}{x_{2,t}}.$ Note that we will later assume that $a_{1,2}$ is nonzero. If it is zero, then you can reorder the elements in $X_t$ and proceed, unless $A$ is already diagonal in which case you do not need to diagonalize. Then, our eigenvalues take the following form:
+\begin{align*}
+\lambda_{1,2} &= \frac{a_{1,1} + a_{2,2}}{2} \pm \sqrt{\left(\frac{a_{1,1} + a_{2,2}}{2}\right)^2 - a_{1,1}a_{2,2} + a_{1,2}a_{2,1} }\\
+&= \frac{a_{1,1} + a_{2,2}}{2} \pm \sqrt{\left(\frac{a_{1,1} - a_{2,2}}{2}\right)^2  + a_{1,2}a_{2,1} }.
+\end{align*}
+
+Given our eigenvalues, we can write $Q$ as the following:
+
+\begin{align*}
+Q &= \begin{pmatrix} -a_{1,2} &  -a_{1,2} \\ a_{1,1} - \lambda_1 & a_{1,1} - \lambda_2 \end{pmatrix}\\
+\Rightarrow Q^{-1} &= \frac{1}{a_{1,2}(\lambda_2 - \lambda_1)} \begin{pmatrix} a_{1,1} - \lambda_2 &  a_{1,2} \\ -a_{1,1} + \lambda_1 & -a_{1,2} \end{pmatrix}
+\end{align*}
+
+We can now apply equation (\ref{soln}), again assuming one shock with an AR$(1)$ process:
+\begin{align}
+(a_{1,1} - \lambda_2) x_{1,t} + a_{1,2} x_{2,t} &=  \frac{b_1(\lambda_2 - a_{1,1} ) - b_2a_{1,2}}{\lambda_1 - \rho}e_t \label{first} \\
+(a_{1,1} - \lambda_1) x_{1,t} + a_{1,2} x_{2,t} &= \frac{b_1(\lambda_1 - a_{1,1}) - b_2a_{1,2}}{\lambda_2 - \rho}e_t \label{second},
+\end{align}
+where (\ref{first}) holds if there is at least one control variable, and (\ref{second}) holds if there are two control variables. 
+\end{document}
