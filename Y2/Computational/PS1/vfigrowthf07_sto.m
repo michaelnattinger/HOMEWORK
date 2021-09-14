@@ -4,7 +4,7 @@ clear; close all; clc
 % This program generates the value function and decision rules for
 % a nonstochastic growth model.
 % Date: 2/17/03
-tic
+
 % PARAMETERS
 b=.99; %discount factor 
 d=0.025; %depreciation rate
@@ -18,9 +18,11 @@ P_bg = 0.074;
 
 % ASSET VECTOR % none of this changes
 klb=0.01; %lower bound of grid points
-inc=0.025; %increments
+%inc=0.025; %increments
 kub=75;%upper bound of grid points
-k=[klb:inc:kub];% asset (row) vector
+%k=[klb:inc:kub];% asset (row) vector
+nkg = 3000;
+k=linspace(klb,kub,nkg);
 N=size(k);
 N=N(1,2);
 c1=ones(N,1); % column vector of ones
@@ -54,6 +56,7 @@ visr=squeeze(us(:,1,:))'; %choose utility associated with k'=0
 
 pcntol=1; %tolerance for value function iteration
 n=1; %if want to run vfi for a set number of iterations
+tic
 while pcntol >.0001
     %% MORE CHANGES IN HERE
    vis_g=c1*visr(1,:); %generates future value function matrix from above row vector

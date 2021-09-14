@@ -5,7 +5,7 @@
     α::Float64 = 0.36 #capital share
     k_min::Float64 = 0.01 #capital lower bound
     k_max::Float64 = 75.0 #capital upper bound
-    nk::Int64 = 3000#1000 #number of capital grid points
+    nk::Int64 = 1000#1000 #number of capital grid points
     k_grid::Array{Float64,1} = collect(range(k_min, length = nk, stop = k_max)) #capital grid
     Zg::Float64 = 1.25
     Zb::Float64 = 0.2
