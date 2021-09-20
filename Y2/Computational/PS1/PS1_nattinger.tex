@@ -78,7 +78,7 @@
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 \title{Computational Problem Set 1}
-\author{Michael B. Nattinger}
+\author{Michael B. Nattinger, Sarah J. Bass}
 
 \begin{document}
 \maketitle
@@ -92,7 +92,7 @@ V(K,Z) &= \max_{K'} log(ZK^{\alpha} + (1-\delta)K - K') + \beta E_t[V(K',Z')]\\
 
 We will proceed to solve in Matlab, Julia, Fortran, and parallelized Fortran, as instructed.
 
-Matlab results: Runtime is 18 seconds (not including figure making). Capital grid was extended to 75 from 45, and has 1000 elements. In Julia, computation is substantially quicker and convergence was achieved in 2.6 seconds to solve the same problem. Note: this is with difference computed as the sup norm of value function changes, and not normalized to the scale of value function, rather absolute size with a tolerance of $10^{-4}$. Fortran runs in 5.8 seconds. Figures below are from Matlab solution to the stochastic problem, with a capital grid with 3000 elements instead of 1000. Figures from Julia and Fortran are identical.
+Matlab results: Runtime is 18 seconds (not including figure making). Capital grid was extended to 75 from 45, and has 1000 elements. In Julia, computation is substantially quicker and convergence was achieved in 2.6 seconds to solve the same problem. Note: this is with difference computed as the sup norm of value function changes, and not normalized to the scale of value function, rather absolute size with a tolerance of $10^{-4}$. Fortran runs in 5.6 seconds. Figures below are from Matlab solution to the stochastic problem, with a capital grid with 3000 elements instead of 1000. Figures from Julia and Fortran are identical.
 
 Note also: Matlab code is structured very differently from the Fortran/Julia code and is not optimized for performance. I would not consider  this to be a fair comparison of the speed of Matlab; rather,  I see it as a reasonably fast baseline for sub-optimal ("naively-written") code.
 

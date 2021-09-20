@@ -1,5 +1,6 @@
 mkdir('pings')
 clear; close all; clc
+
 % PROGRAM NAME: 387vfigrowth.M
 % This program generates the value function and decision rules for
 % a nonstochastic growth model.
