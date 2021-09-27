@@ -84,6 +84,7 @@
 \maketitle
 
 \section{Question 1}
+\subsection{Part (a)}
 The demand curve with constant elasticity can be written as $Q = aP^{-c}$. Rewriting, the corresponding inverse demand function is $P(Q) = a^{1/c}Q^{-1/c}.$ Then, $P'(Q) = (-1/c)a^{1/c}Q^{-(1+c)/c}$, $P''(Q) = (-1/c)(-(1+c)/c) a^{1/c}Q^{-(1+2c)/c} = ((1+c)/c^2) a^{1/c}Q^{-(1+2c)/c}$ We then have the following:
 \begin{align*}
 P'(Q) + Q P''(Q) &=  (-1/c)a^{1/c}Q^{-(1+c)/c} + Q( ((1+c)/c^2) a^{1/c}Q^{-(1+2c)/c}) \\
@@ -91,19 +92,32 @@ P'(Q) + Q P''(Q) &=  (-1/c)a^{1/c}Q^{-(1+c)/c} + Q( ((1+c)/c^2) a^{1/c}Q^{-(1+2c
 &=(1/c^2)a^{1/c}Q^{-(1+c)/c}>0.
 \end{align*}
 
+\subsection{Part (b)}
 Next, let N firms be competing a la Cournot.\\ Assumption (A1) is that $0\geq P''(Y)y_i + P'(Y) \forall y_i<Y.$ \\Assumption (A2) states that $0\geq P'(Y) - C''_i(y_i) \forall y_i < Q.$ We are given that each firm has identical cost functions, so $C_i(y) = C(y).$ Note that (A2) therefore states that $C''(y_i) \geq P'(Y)$. With identical costs, in equilibrium $y_i = y = Y/N$. Using this, (A1) becomes \\ $0\geq P''(Y)Y/N + P'(Y)$ % show (A1),(A2) imply price and per-firm quantity in eqlm decreasing in N. 
 
 Let us set up the maximization problem for each firm:
 \begin{align*}
 &\max_{y_i} P(y_i + Y_{-i})y_i - C(y_i)\\
 &\Rightarrow P'(Y)y_i + P(Y) - C'(y_i) = 0\\
-&\Rightarrow P(Ny) = C'(y) - P'(Ny)y
+&\Rightarrow P(Y) = C'(Y/N) - P'(Y)Y/N \label{eq1} \tag{1}
 \end{align*}
 Differentiating both sides with respect to $N$,
 \begin{align*}
-\frac{\partial P(Y)}{\partial N} &= -P''(Y)y^2 \\
-&\geq P'(Y)y 
+\frac{\partial P(Y)}{\partial N} &= -C''(Y/N)(Y/N^2) +P'(Y)(Y/N^2) \\
+&= (Y/N^2)(P'(Y) - C''(y))\\
+&\leq 0.
 \end{align*}
+
+Now we can rewrite (\ref{eq1}) for $y$ and differentiate with respect to $N$:
+\begin{align*}
+y &= \frac{C'(y) - P(Ny)}{P'(Ny)}\\
+\frac{\partial y}{\partial N} &= -\frac{C'(y)}{(P'(Ny))^2 }P''(Ny)y - y + \frac{P(Ny)}{(P'(Ny))^2}P''(Ny)y\\
+&= -y - \frac{P''(Y)y}{P'(Y)^2}(P(Y) - C'(y)) \\
+&= -y- \frac{P''(Y)y}{P'(Y)^2}P'(Y)y \\
+&= y\left(-1 -\frac{P''(Y)y}{P'(Y)}\right)
+&\leq 0,
+\end{align*}
+where the final inequality uses our rewritten form of (A1).
 
 \section{Question 2}
 Each bidder chooses a bid $b_i \in \mathbb{R}$ to maximize their payoffs:
@@ -124,23 +138,70 @@ Now consider the all-pay auction. The expected payoff $\pi(b,b_{-i})$ is given b
 
 First we will show that a pure strategy Nash equilibrium does not exist. Suppose it does. Then, $b_i = b_{-i}$ because otherwise the highest bidder would be strictly better off by reducing their bid by an $\epsilon$. Consider, then, $b_i = b_{-i} = b$. If $b<V$ then either bidder would be better off increasing their bid by an $\epsilon$ and winning $V$ surely. If $b\geq V$ then either bidder would be better off not bidding (or bidding zero). Therefore no pure strategy Nash equilibrium can exist.
 
-Consider an equilibrium where each bidder bids $b>0$ with probability $p$ and $0$ with probability $1-p$. Each player must be indifferent between bidding $b$ and not bidding in order to mix. Taking as given that player $-i$ is playing this strategy, indifference of player $i$ implies:
-\begin{align*}
-p((1/2)V-b) + (1-p)(V - b) &= 0 \\
-(p/2 + (1-p))V &= b
-\end{align*}
+We will now search for a mixed-strategy Nash equilibrium. The equilibrium solves for a pair of distributions from which bids are drawn, $(F_1(b),F_2(b)$ are the corresponding CDFs. We know that the distributions satisfy boundary conditions $F_i(0) = 0, F_i(V) = 1$ by nonnegativity of our bids and from the value of the object being $V$. Given these distributions, and assuming differentiability, the maximization problem and first order conditions are the following:
 
-Moreover, the $b$ must be such that one is weakly better off choosing $0$ than $b-\epsilon$, with equality in the limit:
 \begin{align*}
-p(0) + (1-p)V - b+\epsilon \leq 0\\
-\Rightarrow b \geq \epsilon + (1-p)V\\
+\max_{b} F_{-i}(b)V - b\\
+Vf_{-i}(b) &= 1\\
 \end{align*}
+From this first order condition we see that the pdf $f_{j}(b)$ is constant across the support of the distribution, implying a uniform distribution across our support. Our CDFs then take the functional form $F_i(b) = b/V$. The seller's expected revenue is $E[R] = 2E[b_i] = 2V/2 = V$.
 
-Taking $\lim_{\epsilon\rightarrow 0}$, $b = (1-p)V$. Combining with our previous expression, $(p/2 + (1-p))V = b = (1-p)V$. Simplifying, this expression yields a unique $p$: $p = 0$.
+It is important to note that the bidders are just indifferent between mixing in this way and not bidding (or bidding zero surely). That is, each individual's $E[\pi] = P(\text{winning}_{i})V - E[b_i] = (1/2)V - V/2 = 0$. If the seller sets a reserve price then (applying symmetry) the probability of winning for each bidder will not change, so their expected bid will not increase (or they would be strictly better off by not bidding at all). Since each bidder's expected bid is will not change, the expected revenue for the seller will not increase.
+
+
+
+%Consider an equilibrium where each bidder bids $b>0$ with probability $p$ and $0$ with probability $1-p$. Each player must be indifferent between bidding $b$ and not bidding in order to mix. Taking as given that player $-i$ is playing this strategy, indifference of player $i$ implies:
+%\begin{align*}
+%p((1/2)V-b) + (1-p)(V - b) &= 0 \\
+%(p/2 + (1-p))V &= b
+%\end{align*}
+%
+%Moreover, the $b$ must be such that one is weakly better off choosing $0$ than $b-\epsilon$, with equality in the limit:
+%\begin{align*}
+%p(0) + (1-p)V - b+\epsilon \leq 0\\
+%\Rightarrow b \geq \epsilon + (1-p)V\\
+%\end{align*}
+%
+%Taking $\lim_{\epsilon\rightarrow 0}$, $b = (1-p)V$. Combining with our previous expression, $(p/2 + (1-p))V = b = (1-p)V$. Simplifying, this expression yields a unique $p$: $p = 0$.
 
 %Moreover, $b$ must be the best choice of bid for any nonzero bid. Bidding $b+\epsilon$ to win surely must be worse, with equality in the limit as $\epsilon \rightarrow 0$.
 %\begin{align*}
 %p(p(1/2)V + (1-p)V - b) \geq p(V - b-\epsilon)\\
 %p(1/2)V \geq \epsilon
 %\end{align*}
+
+\section{Question 3}
+
+Consumers derive $v = 3$ from coffee. Starbucks coffee locations are at locations $0,1$ and have prices $p_0,p_1$ respectively. Esquire is at location $0.5$ and has price $q$. Marginal cost is 0. Travel cost of the consumer is $d^2$ where $d$ is the distance (in miles) from the consumer to the coffee shop. We first solve for the indifferent consumers, under the assumption of existence. The indifferent consumer between Starbucks $0$ and Esquire has the following expressions:
+
+\begin{align*}
+v - p_0 - x^2 &= v - q - (0.5 - x)^2 \\
+q-p_0 &= x^2 - x^2 + x - 0.25\\
+x &= (q-p_0) + (1/4)
+\end{align*}
+
+The indifferent consumer between Starbucks $1$ and Esquire has the following similar expression:
+
+\begin{align*}
+ v - q - (0.5 - y)^2 &= v - p_1 - (1-y)^2\\
+p_1 - q - y^2 + y - 0.25 &= -y^2 + 2y - 1\\
+(3/4) + p_1 - q  &= y .
+\end{align*}
+
+Given $p_0,p_1$, Esquire sets $q$ to maximize profits:
+
+\begin{align*}
+&\max_{q} q(y - x) \\
+&\max_{q} q((1/2) + p_1 - 2q  + p_0)\\
+&\Rightarrow (1/2) + p_1 + p_0 = 4q \\
+&\Rightarrow q = 1/8 + (1/4)(p_1 + p_0)
+\end{align*}
+
+Given $q$, Starbucks sets $p_1,p_0$ to maximize profits:
+%\begin{align*}
+%
+%\end{align*}
+
+\section{Question 4}
+
 \end{document}

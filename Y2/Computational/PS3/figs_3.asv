@@ -1,0 +1,9 @@
+mkdir('pings')
+clear; close all; clc
+
+dat = dlmread('pfs_.dat');
+
+v_50 = dat(:,1);
+
+figure
+plot(
