@@ -198,10 +198,84 @@ Given $p_0,p_1$, Esquire sets $q$ to maximize profits:
 \end{align*}
 
 Given $q$, Starbucks sets $p_1,p_0$ to maximize profits:
-%\begin{align*}
-%
-%\end{align*}
+\begin{align*}
+&\max_{p_0,p_1} p_0 x + p_1 (1-y)\\
+&\max_{p_0,p_1} p_0 ((q-p_0) + (1/4)) + p_1(1-((3/4) + p_1 - q)) \\
+&\Rightarrow p_0 = q/2 +1/8\\
+&\Rightarrow p_1 =  q/2 +1/8 = p_0
+\end{align*}
+
+Combining our expressions, we reach the following:
+\begin{align*}
+q &= 1/8 + (1/2)(q/2 + 1/8)\\
+q &= 1/4\\
+p_0 = p_1 &= 1/4
+\end{align*}
+
+Given these prices, the indifferent consumers are at $x = 1/4, y = 3/4$. From this we can see that the market shares are split evenly between Esquire and Starbucks, each with a share of $1/2$ of the market.
+
+Now we can consider what would happen if Starbucks and Esquire were to swap houses. WLOG let Starbucks control the coffee houses at points $(1/2),1$ and let Esquire control the coffee house at $0$. Given $p_0,p_1$ Esquire sets $q$ to maximize profits:
+
+\begin{align*}
+&\max_{q} qx\\
+&\max_{q} q((p_0 - q) + 1/4)\\
+&\Rightarrow q = p_0/2 + 1/8.
+\end{align*}
+
+Given $q,$ Starbucks sets $p_0,p_1$ to solve the following:
+
+\begin{align*}
+&\max_{p_0,p_1} p_0(y-x) + p_1(1-y)\\
+&\max_{p_0,p_1} p_0(p_1 - p_0 + (3/4) - (1/4) - (p_0 - q)) + p_1(1 - (3/4) - p_1 + p_0)\\
+&\Rightarrow p_1 - 4p_0 + (1/2) + q  = 0 \\
+&\Rightarrow p_0  + (1/4) - 4p_1 + p_0 = 0  \\
+&\Rightarrow p_0 = (5/28) + (2/7)q \\
+&\Rightarrow p_1 = (3/14) + (1/7)q
+\end{align*}
+
+Combining our expressions,
+\begin{align*}
+q &= (1/8) + (1/7)q + (5/56)\\
+q &= 1/4 \\
+p_0 &= (5/28) + (2/7)(1/2) \\
+p_0 &= 9/28\\
+p_1 &= (3/14) + 1/28 \\
+p_1 &= 1/4
+\end{align*}
+
+In terms of market shares, Esquire now controls $x = 1/4 + p_0 - q = 1/4 + 1/14 = 9/28$. Starbucks controls $1-x = 19/28$. Starbucks sets higher prices to earn more profit, and as a result loses on market share.
+
+Considering sales, the result is the same as the result just derived. Prices will be set in the same way, and therefore market share will be equivalent; the sale will just result in a transfer between Starbucks and Esquire.
 
 \section{Question 4}
+Agents Jack and Jim select locations to maximize profits. With prices $p$ fixed, denote $D_i(x,x_{-i})$ as demand for agent $i$ given they decide to locate at $x$. Taking as given the location of the other agent, agent $i$ sets location to maximize demand:
+
+\begin{align*}
+\max_{x}D_i(x,x_{-i}).
+\end{align*}
+
+We must deduce the form of $d_i(x,x_{-i})$. First, note that with equal prices the consumers will attend the bar which is closest to them:
+
+\begin{align*}
+D_i(x,x_{-i}) &= \begin{cases} \int_{0}^{(1/2)x_{-i} + (1/2) x }1 dx, x\leq x_{-i}\\ \int_{(1/2)x_{-i} + (1/2) x }^{1} dx, x>x_{-i}  \end{cases}.
+\end{align*}
+
+In equilibrium, both establishments will be at $(1/2)$. First note that this is indeed an equilibrium - deviation away will only reduce profits by the deviating party. Next note that any other set of locations cannot be an equilibrium. Suppose not. Then, for any other set of locations there will either be one bar with more market share, in which case the losing bar will be best off moving such that they instead control the majority of market power, or the market share will be split. If the market share is split then 2 cases are possible: the bars are symmetrically located about $1/2$, in which case either bar is better off deviating towards (1/2) to increase market power, or the bars are located on the same location (not at $1/2$), again at which point either bar has incentive to deviate by moving an $\epsilon$ towards $1/2$ which will strictly increase market share. So, the only equilibrium is for both establishments to be located at $1/2$.
+
+No, I do not think this is optimal, the social planner would like to distribute the bars in different places to reduce total costs. The planner solves:
+\begin{align*}
+\min_{a,b}\int_{0}^{1/2}(i-a)^2di + \int_{1/2}^1 (i-b)^2 di \\
+\min_{a,b}(1/24) - a/4 + a^2/2 + (7/24) - (3/4)b + b^2/2 \\
+\end{align*}
+
+Taking FOCs,
+\begin{align*}
+(1/4) = a \\
+(3/4) = b. 
+\end{align*}
+
+So, the social planner would locate one bar at $1/4$ and the other at $3/4$.
+
+\section{Question 5}
 
 \end{document}
