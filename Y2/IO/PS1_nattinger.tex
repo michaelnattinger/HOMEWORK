@@ -243,9 +243,9 @@ p_1 &= (3/14) + 1/28 \\
 p_1 &= 1/4
 \end{align*}
 
-In terms of market shares, Esquire now controls $x = 1/4 + p_0 - q = 1/4 + 1/14 = 9/28$. Starbucks controls $1-x = 19/28$. Starbucks sets higher prices to earn more profit, and as a result loses on market share.
+In terms of market shares, Esquire now controls $x = 1/4 + p_0 - q = 1/4 + 1/14 = 9/28$. Starbucks controls $1-x = 19/28$. Starbucks wins out by increasing their market share.
 
-Considering sales, the result is the same as the result just derived. Prices will be set in the same way, and therefore market share will be equivalent; the sale will just result in a transfer between Starbucks and Esquire.
+If they sold to Seattle Best, the situation is equivalent to the original setup and the prices will be $p_0 = p_1 = q = 1/4$ and the market shares will be $(1/4,1/2,1/4)$. 
 
 \section{Question 4}
 Agents Jack and Jim select locations to maximize profits. With prices $p$ fixed, denote $D_i(x,x_{-i})$ as demand for agent $i$ given they decide to locate at $x$. Taking as given the location of the other agent, agent $i$ sets location to maximize demand:
@@ -257,7 +257,7 @@ Agents Jack and Jim select locations to maximize profits. With prices $p$ fixed,
 We must deduce the form of $d_i(x,x_{-i})$. First, note that with equal prices the consumers will attend the bar which is closest to them:
 
 \begin{align*}
-D_i(x,x_{-i}) &= \begin{cases} \int_{0}^{(1/2)x_{-i} + (1/2) x }1 dx, x\leq x_{-i}\\ \int_{(1/2)x_{-i} + (1/2) x }^{1} dx, x>x_{-i}  \end{cases}.
+D_i(x,x_{-i}) &= \begin{cases} \int_{0}^{(1/2)x_{-i} + (1/2) x } dx, x\leq x_{-i}\\ \int_{(1/2)x_{-i} + (1/2) x }^{1} dx, x>x_{-i}  \end{cases}.
 \end{align*}
 
 In equilibrium, both establishments will be at $(1/2)$. First note that this is indeed an equilibrium - deviation away will only reduce profits by the deviating party. Next note that any other set of locations cannot be an equilibrium. Suppose not. Then, for any other set of locations there will either be one bar with more market share, in which case the losing bar will be best off moving such that they instead control the majority of market power, or the market share will be split. If the market share is split then 2 cases are possible: the bars are symmetrically located about $1/2$, in which case either bar is better off deviating towards (1/2) to increase market power, or the bars are located on the same location (not at $1/2$), again at which point either bar has incentive to deviate by moving an $\epsilon$ towards $1/2$ which will strictly increase market share. So, the only equilibrium is for both establishments to be located at $1/2$.
@@ -277,5 +277,81 @@ Taking FOCs,
 So, the social planner would locate one bar at $1/4$ and the other at $3/4$.
 
 \section{Question 5}
+Firm $2$ takes the prices $p_{1L},p_{1R}$ as given and and sets $p_2$ to maximize profit. Note that they will never set $p_{2}>p_{1R}$ because otherwise they will receive no profit. The indifferent consumer, given prices, solves the following: $1 - i^{*} - P_{1L}  = 1 - (1- i^{*}) - P_2 \\ \Rightarrow i^{*} = (1/2) + (1/2)(p_2 - p_{1L})$. Consumers to the right of $i^{*} $ buy from Firm 2, consumers to the left buy from firm 1. Firm 2 chooses $p_2$ to maximize the following:
+\begin{align*}
+\max_{p_2\leq p_{1R}} p_2(1 - ((1/2) + (1/2)( p_2 - p_{1L}))) \\
+\max_{p_2\leq p_{1R}} (1/2)p_2( 1 - ( p_2 - p_{1L})) 
+\end{align*}
+
+\begin{align*}
+1 + p_{1L} &= 2p_2 \\
+p_2 &= (1/2) + (1/2)p_{1L}
+\end{align*}
+Note that the above is assuming $p_2<p_{1R}$. As I will show imminently firm 1 will actually set $p_{1R} = 0$ so firm 2 doesn't actually have a choice of $p_2$ to make any profit.
+
+Firm 1 takes $p_{2}$ as fixed and will set $p_{1R},p_{1L}$ to maimize profits. Note that, since the indifferent consumer will purchase from Firm 2, Firm 1 takes this as given and will set $p_{1R} = p_{2} - \epsilon$. Note that this means that the only equilibrium has $p_{1R} = p_{2} = 0$. The consumer that is indifferent between buying from firm 2 at price 0 and buying from firm 1 has $1 - i - p_{1L} = 1-(1-i) \Rightarrow i^{*} = (1/2)(1 - p_{1L})$. The firm then solves the following:
+\begin{align*}
+&\max_{p_{1L}} (1/2)p_{1L}(1-p_{1L}) \\
+&\Rightarrow p_{1L} = 1/2 
+\end{align*}
+
+In equilibrium, profits for firm 1 are $1/8$.
+
+If instead firm 1 exited the market at R then now the problem is simple. Firm 2 takes $p_{1} = p_{1L}$ as given and sets $p_2$:
+\begin{align*}
+&\max_{p_2} (1/2)p_2( 1 - ( p_2 - p_{1})) \\
+&\Rightarrow p_2 = (1/2) + (1/2)p_{1}
+\end{align*}
+
+Now firm 1 takes as given $p_2$ and sets $p_1$. The indifferent consumer satisfies $1 - i - p_{1L} = 1-(1-i) - p_2$:
+\begin{align*}
+&\max_{p_{1}} (1/2)p_{1}(1+p_2-p_{1}) \\
+&\Rightarrow p_{1} = 1/2 + (1/2)p_2 
+\end{align*}
+
+In equilibrium,
+\begin{align*}
+p_1 = p_2 = 1\\
+(1/2)p_{1}(1+p_2-p_{1}) = 1/4\\
+ (1/2)p_2( 1 - ( p_2 - p_{1})) = 1/4
+\end{align*}
+So, here firm 1 is better off exiting the $R$ market. By trying to compete in that market, they bring the price down so far that it influences their profit in the L market. In this case, the loss of profit in the L market makes them worse off overall by trying to compete in each.
+
+\section{Question 6}
+If the monopolist has two goods with qualities $s=1,s=2$, then the marginal cost of these goods are $c,2c$ respectively. Consumer $\theta$ who is indifferent between purchasing the two goods has $2(\theta - p_2) = \theta - p_1 \Rightarrow \theta = 2p_2 - p_1.$ Similarly, consumer $\theta'$ who is indifferent between buying and not buying the cheap good will satisfy $\theta' = p_1$. The monopolist then solves:
+\begin{align*}
+\max_{p_1,p_2} (1 - 2p_2 + p_1)(p_2 - 2c) + (2p_2 -  2p_1)(p_1 - c) \\
+\Rightarrow p_2 - 2c + 2p_2 - 4p_1 + 2c = 0\\
+\Rightarrow p_1 = (3/4)p_2 \\
+\Rightarrow 1 - 4p_2 + p_1 +4c + 2p_1 - 2c = 0 \\
+\Rightarrow p_2 = (1/4) + (3/4)p_1 +(1/2)c \\
+\Rightarrow p_2 = (1/4) + (9/16)p_2 + (1/2)c \\
+\Rightarrow p_2 = (4/7) + (8/7)c \\
+\Rightarrow p_1 = (3/7) +(6/7)c
+\end{align*}
+
+If the monopolist has only one good with quality $s=1$, the marginal cost of this good is $c$. Consumer $\theta$ has utility $U(p) = \theta - p$. They will purchase so long as $\theta>p$. The firm solves:
+\begin{align*}
+\max_{p} p(1-p) - c(1-p) \\
+\Rightarrow 1 - 2p +c = 0 \\
+\Rightarrow p = \frac{1+c}{2}.
+\end{align*}
+
+%Under the one-good case, the profit of the monopolist is: $\pi ' =\left(\frac{1-c}{2}\right)^2$. Under the two-good case, the profit of the monopolist is the following:
+%\begin{align*}
+%\pi &= 
+%\end{align*}
+
+Consider the efficient solution. Note that this will correspond to the case where price equals marginal cost. It is efficient for consumer $\theta$ to consume good $2$ if $\theta>2c$, and efficient for consumer $\theta'$ to consume good 1 if $c\leq \theta' < 2c$. Note that this implies that for $c<1/2$ that producing only quality $s=1$ is strictly inefficient. Consider now the case of the monopolist producing both goods. The mass of households that buy good 2 is $1 - 2((4/7) + (8/7)c) + (3/7) +(6/7)c = (2/7) - (10/7)c$. This equals the mass in the efficient case iff $ (2/7) - (10/7)c = 1 - 2c \Rightarrow c = 5/4$ which is above $1/2$ and therefore is a contradiction.
+
+Now let $p_2 \in [2c,1]$. Person $\theta$ will buy product 1 if both $2(\theta - p_2)<\theta - p_1 \Rightarrow \theta<2p_2 - p_1$ and $\theta>p_1$. The demand for firm 1 is then $D(p;p_2) = (2p_2 - 2p)$. Firm 1 then solves the following:
+
+\begin{align*}
+\max_{p} (p-c)(2p_2 - 2p)\\
+\Rightarrow 2p_2 + 2c &= 4p\\
+p_{br} &= (p_2+c)/2
+\end{align*}
+
+
 
 \end{document}
