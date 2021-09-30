@@ -78,7 +78,7 @@ integer, parameter :: n_samples = 5 ! must be >3
 ! -----------------------------------------------------------------------
 ! Set up for discritizing the state space 
 integer				  :: 				i_a, i_apr									! Ieration Counters for k_today and k_tomorrow grid
-integer, parameter 				  :: 				n_a 				= 1000																! Size of k grid
+integer, parameter 				  :: 				n_a 				= 5000																! Size of k grid
 double precision 						:: 				grid_a(n_a)																				! Allocate Space for k grid
 double precision, parameter :: 				min_a 			= 0d0															! Minimum of k grid
 double precision, parameter :: 				max_a 			= 75d0																! Maximum of k grid

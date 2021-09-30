@@ -57,7 +57,7 @@ integer 										:: 				converged		= 0			! Dummy for VFI Convergence
 ! ****************************GRID SET**********************************
 ! -----------------------------------------------------------------------
 ! Set up for discritizing the state space (Capital Grid)
-integer						 				  :: 				i_k, i_kpr																				! Ieration Counters for k_today and k_tomorrow grid
+integer						 				  :: 				i_k, i_kpr				! Ieration Counters for k_today and k_tomorrow grid
 integer, parameter 				  :: 				n_k 				= 1000																! Size of k grid
 double precision 						:: 				grid_k(n_k)																				! Allocate Space for k grid
 double precision, parameter :: 				min_k 			= 0.01d0															! Minimum of k grid

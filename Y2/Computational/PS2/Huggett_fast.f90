@@ -51,7 +51,7 @@ double precision, parameter :: 				cPuu 				= 0.5d0	! Probability of bad -> bad 
 
 
 ! Tolerance level for convergence and max itations
-double precision, parameter :: 				tol			 		= 1d-6 	! Convergence Tolerance
+double precision, parameter :: 				tol			 			= 1d-6 	! Convergence Tolerance
 double precision, parameter :: 				q_tol			 		= 1d-3 	! Convergence Tolerance for a market clearing (q loop tol)
 double precision, parameter :: 				pmf_tol			 		= 1d-9 	! Convergence Tolerance for pmf
 integer, parameter 					:: 				max_it 			= 10000 ! Maximum Number of Iterations

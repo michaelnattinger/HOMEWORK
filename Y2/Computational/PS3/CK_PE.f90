@@ -64,8 +64,8 @@ double precision :: res_cv(n_exp)
 ! Tolerance level for convergence and max itations
 double precision :: 				tune_K			 		= 0.995d0!0.99d0
 double precision :: 				tune_L			 		= 0.995d0!0.99d0
-double precision, parameter :: 				a_tol			 		= 1d-4
-double precision, parameter :: 				l_tol			 		= 1d-4  
+double precision, parameter :: 				a_tol			 		= 1d-2
+double precision, parameter :: 				l_tol			 		= 1d-3  
 double precision, parameter :: 				tol			 		= 1d-6 	! Convergence Tolerance
 double precision, parameter :: 				q_tol			 		= 1d-3 	! Convergence Tolerance for a market clearing (q loop tol)
 double precision, parameter :: 				pmf_tol			 		= 1d-9 	! Convergence Tolerance for pmf
@@ -328,9 +328,9 @@ double precision :: age_prod( J_retire-1)
 double precision :: L_init = 0.387!0.4
 double precision :: K_init = 5.68!8 ! these are just guesses for now
 
-	  age_prod(1) = 0.59923239  ! I do not know how to read data into fortran yet lol
-	  age_prod(2) = 0.63885106 
-	  age_prod(3) = 0.67846973 
+ age_prod(1) = 0.59923239  ! I do not know how to read data into fortran yet lol
+ age_prod(2) = 0.63885106 
+ age_prod(3) = 0.67846973 
       age_prod(4) = 0.71808840 
       age_prod(5) = 0.75699959 
       age_prod(6) = 0.79591079 
@@ -374,71 +374,12 @@ double precision :: K_init = 5.68!8 ! these are just guesses for now
       age_prod(44) =  1.0200000
       age_prod(45) =  1.0110000
 
-! Outermost loop: run over each experiment
-do i_exp = 1,n_exp
-!do i_exp = 3,4
 
-converged_outer = 0
-!write(*,*) "i_exp: ", i_exp
-if (i_exp<1.5) then
-cTHETA = 0.11d0
-cGAMMA = 0.42d0
-cZh = 3.0d0
-L_init = 0.431 ! these are *good* guesses becauese I am impatient
-K_init = 3.64
-tune_K = 0.9
-tune_L = 0.9
-else if (i_exp<2.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 0.42d0
-cZh = 3.0d0
-L_init = 0.449
-K_init = 4.88
-tune_K = 0.9
-tune_L = 0.9
-else if (i_exp<3.5) then
-cTHETA = 0.11d0
-cGAMMA = 0.42d0
-cZh = 0.5d0!3.0d0
-L_init = 0.161
-K_init = 1.06
-tune_K = 0.95
-tune_L = 0.95
-!converged_outer = 1
-else if (i_exp<4.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 0.42d0
-cZh = 0.5d0!3.0d0
-L_init = 0.169
-K_init = 1.31
-tune_K = 0.95
-tune_L = 0.95
-else if (i_exp<5.5) then
-cTHETA = 0.11d0
-cGAMMA =1d0! 0.42d0
-cZh = 3.0d0
-L_init = 0.754
-K_init = 7.42
-tune_K = 0.9
-tune_L = 0.9
-else if (i_exp >5.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 1d0!0.42d0
-cZh = 3.0d0
-L_init = 0.754
-K_init = 10.6
-tune_K = 0.9
-tune_L = 0.9
-end if
 
-! write  loop out here and try to compute
-L_demand = L_init
-K_demand = K_init
 
-do while (converged_outer==0)
-rental = cALPHA* ((K_demand)**(cALPHA - 1))*((L_demand)**(1 - cALPHA)) - cDELTA !note: delta here!
-wage = (1-cALPHA)* ((K_demand)**(cALPHA))*((L_demand)**(-1*cALPHA))
-benefits = cTHETA*wage*L_demand/(1-working_mass)
+rental = 0.05!cALPHA* ((K_demand)**(cALPHA - 1))*((L_demand)**(1 - cALPHA)) - cDELTA !note: delta here!
+wage = 1.05!(1-cALPHA)* ((K_demand)**(cALPHA))*((L_demand)**(-1*cALPHA))
+benefits = 0.2!cTHETA*wage*L_demand/(1-working_mass)
 !if (i_exp==4) then
 !write(*,*) "rental: ", rental
 !write(*,*) "benefits: ", benefits
@@ -518,7 +459,7 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 		else
 			eff_w = (1-cTHETA)*wage*cZl*age_prod(age)
 		end if
-		do while (decl == 0 .and. i_apr<=n_a)				
+		do while (decl == 0 .and. i_apr<=n_a)
 			a_tomorrow = grid_a(i_apr)
 			l_today_temp = (cGAMMA * eff_w - (1-cGAMMA)*((1+rental)*a_today - a_tomorrow))/eff_w!
 			c_today_temp = eff_w*l_today_temp + (1+rental)*a_today - a_tomorrow
@@ -608,101 +549,10 @@ do age = 1,(N_lifetime)
 	end do
 end do
 
-! need to calculate labor supply, capital supply
-L_supply = 0
-do i_z = 1,2
-if (i_z<1.5) then
-Z = cZh
-else
-Z = cZl
-end if
-do i_age = 1,(J_retire - 1)
-	do i_a = 1,n_a
-		if (pmf(i_a,i_z,i_age)>0d0) then
-			if (i_z < 1.5) then
-			L_supply = L_supply + pmf(i_a,i_z,i_age)*Z*age_prod(i_age)*pf_l(i_a,i_age)
-			else
-			L_supply = L_supply + pmf(i_a,i_z,i_age)*Z*age_prod(i_age)*pf_l_b(i_a,i_age)
-			end if
-		end if
-	end do
-end do
-end do
-K_supply = 0
-do i_z = 1,2
-do i_age = 1,N_lifetime
-	do i_a = 1,n_a
-	if (pmf(i_a,i_z,i_age)>0d0) then
-	if (i_z<1.5) then
-			K_supply = K_supply + pmf(i_a,i_z,i_age)*pf_a(i_a,i_age)
-	else
-			K_supply = K_supply + pmf(i_a,i_z,i_age)*pf_a_b(i_a,i_age)
-	end if
-	end if
-	end do
-end do
-end do
-
-diff_a = abs(K_supply - K_demand)
-diff_l = abs(L_supply - L_demand)
-!write(*,*) "K supply: ", K_supply
-!write(*,*) "K demand: ", K_demand
-!write(*,*) "L supply: ", L_supply
-!write(*,*) "L demand: ", L_demand
-if ((diff_a<a_tol).and.(diff_l<l_tol)) then
-converged_outer = 1
-else
-K_demand = tune_K *K_demand + (1-tune_K) * K_supply
-L_demand = tune_L *L_demand + (1-tune_L) * L_supply
-end if
-end do
-! save results of experiment
-res_K(i_exp) = K_demand
-res_L(i_exp) = L_demand
-res_w(i_exp) = wage
-res_r(i_exp) = rental
-res_b(i_exp) = benefits
-res_welf(i_exp) = 0d0
-do i_a = 1,n_a
-	do i_age = 1,N_lifetime
-		res_welf(i_exp) = res_welf(i_exp) + pmf(i_a,1,i_age)*pf_v(i_a,i_age) + pmf(i_a,2,i_age)*pf_v_b(i_a,i_age)
-	end do
-end do
-res_cv(i_exp) = 0d0! I do not know what this is supposed to be
-mu = 0d0
-do i_a = 1,n_a
-	do i_age = 1,(J_retire-1) 
-		mu = mu + ((1+rental)*grid_a(i_a)+pf_l(i_a,i_age)*wage*age_prod(i_age)*cZh)*pmf(i_a,1,i_age) + &
-		((1+rental)*grid_a(i_a)+pf_l_b(i_a,i_age)*wage*age_prod(i_age)*cZl)*pmf(i_a,2,i_age)
-	end do
-	do i_age = J_retire,N_lifetime
-		mu = mu + ((1+rental)*grid_a(i_a)+benefits)*pmf(i_a,1,i_age) + ((1+rental)*grid_a(i_a) + &
-			benefits)*pmf(i_a,2,i_age)
-	end do
-end do 
-
-do i_a = 1,n_a
-	do i_age = 1,(J_retire-1)
-		sig = sig + ((1+rental)*grid_a(i_a)+pf_l(i_a,i_age)*wage*age_prod(i_age)*cZh - mu)**(2)*pmf(i_a,1,i_age) + &
-		((1+rental)*grid_a(i_a)+pf_l_b(i_a,i_age)*wage*age_prod(i_age)*cZl - mu)**(2)*pmf(i_a,2,i_age)
-	end do
-	do i_age = J_retire,N_lifetime
-		sig = sig + ((1+rental)*grid_a(i_a)+benefits - mu)*pmf(i_a,1,i_age) + ((1+rental)*grid_a(i_a) + &
-			benefits - mu)*pmf(i_a,2,i_age)
-	end do
-end do 
-
-sig = sig**(1/2)
-
-res_cv(i_exp) = sig/mu
-
-write(*,*) ""
-write(*,*) "Exp: ", i_exp
-write(*,*) "K: ", K_demand
-write(*,*) "L: ", L_demand
 
 
-end do
+
+
 return
 
 end subroutine bellman
@@ -727,11 +577,11 @@ implicit none
 
 write(*,*) ""
 write (*,*) "Writing PFs to DAT file"
-open(unit = 2, file = 'pfs_K.dat', status = 'replace', action = 'write', iostat = i_stat)
+open(unit = 2, file = 'pfs_.dat', status = 'replace', action = 'write', iostat = i_stat)
 200 format(f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x) !,f25.15,2x,f25.15,2x
 
-do i_exp = 1,n_exp
-     write(2,200) res_K(i_exp), res_L(i_exp), res_w(i_exp), res_r(i_exp), res_b(i_exp), res_welf(i_exp), res_cv(i_exp) !pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20), pf_a(i_a,1), pf_a_b(i_a,2), &
+do i_a = 1,n_a
+     write(2,200) pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20)!res_K(i_exp), res_L(i_exp), res_w(i_exp), res_r(i_exp), res_b(i_exp), res_welf(i_exp), res_cv(i_exp) !pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20), pf_a(i_a,1), pf_a_b(i_a,2), &
       !pmf(i_a,1,N_lifetime), pmf(i_a,2,N_lifetime)
      !, pf_i_apr(i_a,1), pf_i_apr(i_a,2)!grid_a(i_a), pf_c(i_a), pf_a(i_a), pf_v(i_a), pmf(i_a,1), pmf(i_a,2), pmf_init_flat(i_a,1), pmf_init_flat(i_a,2)!, pf_i_apr(i_a,1), pf_i_apr(i_a,2)
 end do

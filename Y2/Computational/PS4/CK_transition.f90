@@ -2,12 +2,7 @@
 ! 
 ! Author : Michael Nattinger
 !
-! ! I wrote CK.f90 which implements CK taking as given prices. Now I write
-! CK_K.f90 which ensures the labor and capital markets clear; and that
-! the government budget constraint clears.
-!
-! Now that CK_K has been written, I write this file which runs the six 
-! specifications asked of us. 
+! Implements transition between two steady states: from with SS to without.
 ! ************************************************************************
 
 ! ************************************************************************
@@ -59,13 +54,18 @@ double precision :: res_r(n_exp)
 double precision :: res_b(n_exp)
 double precision :: res_welf(n_exp)
 double precision :: res_cv(n_exp)
+double precision :: K_0ss
+double precision :: K_Tss
+integer, parameter :: N_transition = 60 ! number of periods over which transition will take place. Old SS at 0, at 1 change.
+double precision :: K_0transition(N_transition)
+double precision :: K_1transition(N_transition)
 
 
 ! Tolerance level for convergence and max itations
 double precision :: 				tune_K			 		= 0.995d0!0.99d0
 double precision :: 				tune_L			 		= 0.995d0!0.99d0
-double precision, parameter :: 				a_tol			 		= 1d-4
-double precision, parameter :: 				l_tol			 		= 1d-4  
+double precision, parameter :: 				a_tol			 		= 1d-6
+double precision, parameter :: 				l_tol			 		= 1d-6  
 double precision, parameter :: 				tol			 		= 1d-6 	! Convergence Tolerance
 double precision, parameter :: 				q_tol			 		= 1d-3 	! Convergence Tolerance for a market clearing (q loop tol)
 double precision, parameter :: 				pmf_tol			 		= 1d-9 	! Convergence Tolerance for pmf
@@ -82,6 +82,7 @@ integer, parameter :: n_samples = 5 ! must be >3
 ! Set up for discritizing the state space 
 integer				  :: 				i_a, i_apr									! Ieration Counters for k_today and k_tomorrow grid
 integer, parameter 				  :: 				n_a 				= 5000																! Size of k grid
+integer, parameter :: n_z = 2
 double precision 						:: 				grid_a(n_a)																				! Allocate Space for k grid
 double precision, parameter :: 				min_a 			= 0d0															! Minimum of k grid
 double precision, parameter :: 				max_a 			= 75d0																! Maximum of k grid
@@ -101,15 +102,19 @@ double precision 						:: 				v_tomorrow
 
 
 ! Allocating space for Policy Functions
-double precision 						:: 				pf_c(n_a,N_lifetime) ! Allocate Space for Conumption Policy Function ! no _b means it is implicitly _g
-double precision 						:: 				pf_a(n_a,N_lifetime) ! Allocate Space for Capital Policy Function
-double precision 						:: 				pf_v(n_a,N_lifetime) ! Allocate Space for Value Function
-double precision 						:: 				pf_l(n_a,N_lifetime) ! Allocate Space for Value Function
+double precision 						:: 				pf_c(n_a,n_z,N_lifetime) ! Allocate Space for Conumption Policy Function ! no _b means it is implicitly _g
+double precision 						:: 				pf_a(n_a,n_z,N_lifetime) ! Allocate Space for Capital Policy Function
+double precision 						:: 				pf_v(n_a,n_z,N_lifetime) ! Allocate Space for Value Function
+double precision 						:: 				pf_l(n_a,n_z,N_lifetime) ! Allocate Space for Value Function
 
-double precision 						:: 				pf_c_b(n_a,N_lifetime) ! Allocate Space for Conumption Policy Function
-double precision 						:: 				pf_a_b(n_a,N_lifetime) ! Allocate Space for Capital Policy Function
-double precision 						:: 				pf_v_b(n_a,N_lifetime) ! Allocate Space for Value Function
-double precision 						:: 				pf_l_b(n_a,N_lifetime) ! Allocate Space for Value Function
+
+! Allocate space for transition path functions
+double precision :: tran_pf_v(n_a,n_z,N_lifetime,N_transition+1)
+double precision :: tran_pf_a(n_a,n_z,N_lifetime,N_transition)
+double precision :: tran_pf_c(n_a,n_z,N_lifetime,N_transition)
+double precision :: tran_pmf(n_a,n_z,N_lifetime,N_transition)
+integer :: tran_pf_i_apr(n_a,n_z,N_lifetime,N_transition)
+
 
 double precision :: pmf_init(n_a,2,N_lifetime)
 double precision :: pmf(n_a,2,N_lifetime)
@@ -159,7 +164,7 @@ write(*,*) "Total elapsed time = ", real(end - beginning) / real(rate)," seconds
 write(*,*) "******************************************************"
 
 ! Write results
-call coda()
+!call coda()
 
 write(*,*) ""
 write(*,*) "**************************************"
@@ -208,22 +213,19 @@ end do
 ! Setting up Policy Function guesses
 do i_a = 1,n_a
 do i_age = 1,N_lifetime
-	pf_c(i_a,i_age) 			    = 0d0
-	pf_a(i_a,i_age) 		    	= 0d0
-	pf_v(i_a,i_age)    	      = 0d0
-	pf_l(i_a,i_age)    	      = 0d0
-
-	pf_c_b(i_a,i_age) 			    = 0d0
-	pf_a_b(i_a,i_age) 		    	= 0d0
-	pf_v_b(i_a,i_age)    	      = 0d0
-	pf_l_b(i_a,i_age)    	      = 0d0
+	pf_c(i_a,1,i_age) 			    = 0d0
+	pf_a(i_a,1,i_age) 		    	= 0d0
+	pf_v(i_a,1,i_age)    	      = 0d0
+	pf_l(i_a,1,i_age)    	      = 0d0
+	pf_c(i_a,2,i_age) 			    = 0d0
+	pf_a(i_a,2,i_age) 		    	= 0d0
+	pf_v(i_a,2,i_age)    	      = 0d0
+	pf_l(i_a,2,i_age)    	      = 0d0
 
 	pmf_init(i_a,1,i_age) = 0d0
 	pmf_init(i_a,2,i_age) = 0d0
 	pf_i_apr(i_a,1,i_age) = 0
 	pf_i_apr(i_a,2,i_age) = 0
-	!pmf_init_flat(i_a,1) = 1d0/(dble(n_a) * 2d0)
-	!pmf_init_flat(i_a,2) = 1d0/(dble(n_a) * 2d0)
 end do
 end do
 ! calc working mass
@@ -275,25 +277,18 @@ use params_grid
 
 implicit none
 ! allocating space for policy function updates
-double precision 						:: 				pf_c_up(n_a,N_lifetime)
-double precision 						:: 				pf_a_up(n_a,N_lifetime)
-double precision 						:: 				pf_v_up(n_a,N_lifetime)
-double precision 						:: 				pf_l_up(n_a,N_lifetime)
-double precision 						:: 				pf_c_up_b(n_a,N_lifetime)
-double precision 						:: 				pf_a_up_b(n_a,N_lifetime)
-double precision 						:: 				pf_v_up_b(n_a,N_lifetime)
-double precision 						:: 				pf_l_up_b(n_a,N_lifetime)
+double precision 						:: 				pf_c_up(n_a,n_z,N_lifetime)
+double precision 						:: 				pf_a_up(n_a,n_z,N_lifetime)
+double precision 						:: 				pf_v_up(n_a,n_z,N_lifetime)
+double precision 						:: 				pf_l_up(n_a,n_z,N_lifetime)
 
 double precision 						:: 				diff_c
 double precision 						:: 				diff_a
 double precision 						:: 				diff_v
 double precision 						:: 				diff_l
-double precision 						:: 				diff_c_b
-double precision 						:: 				diff_a_b
-double precision 						:: 				diff_v_b
-double precision 						:: 				diff_l_b
 double precision 						:: 				pmf_diff
 double precision 						:: 				max_diff
+double precision :: del
 double precision :: l_today_temp
 double precision :: l_today_max
 double precision :: eff_w
@@ -312,12 +307,16 @@ integer :: decl
 integer :: i_sample
 integer :: i_min(1)
 integer :: i_mid 
+integer :: i_n
+integer :: n
 integer :: n_mid = (n_samples+1)/2
 integer :: age 
 integer :: converged_outer = 0
+integer :: i_apr_max
 double precision :: apr_sum
 double precision :: mu
 double precision :: sig
+double precision :: l_today
 
 double precision :: pmf_prime(n_a,2)
 double precision :: q_min = cBET!0.5!cBET!0.99!0.99!cBET - 0.1!0.4d0
@@ -374,61 +373,26 @@ double precision :: K_init = 5.68!8 ! these are just guesses for now
       age_prod(44) =  1.0200000
       age_prod(45) =  1.0110000
 
-! Outermost loop: run over each experiment
-do i_exp = 1,n_exp
-!do i_exp = 3,4
 
+do i_exp = 1,2 ! First thing to do: calculate the steady states with the two different theta values
 converged_outer = 0
-!write(*,*) "i_exp: ", i_exp
 if (i_exp<1.5) then
 cTHETA = 0.11d0
-cGAMMA = 0.42d0
+cGAMMA = 1d0 ! labor is exogenous here
 cZh = 3.0d0
-L_init = 0.431 ! these are *good* guesses becauese I am impatient
-K_init = 3.64
-tune_K = 0.9
-tune_L = 0.9
+L_init = 0.7542561 
+K_init = 7.4156
+tune_K = 0.5 ! I know where these are so I am going to converge fast
+tune_L = 0.0 ! what is going to happen is on the first run I will calculate L and then
+			 ! it will stay there forever
 else if (i_exp<2.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 0.42d0
+cTHETA = 0.0d0
+cGAMMA = 1d0 ! labor is exogenous here
 cZh = 3.0d0
-L_init = 0.449
-K_init = 4.88
-tune_K = 0.9
-tune_L = 0.9
-else if (i_exp<3.5) then
-cTHETA = 0.11d0
-cGAMMA = 0.42d0
-cZh = 0.5d0!3.0d0
-L_init = 0.161
-K_init = 1.06
-tune_K = 0.95
-tune_L = 0.95
-!converged_outer = 1
-else if (i_exp<4.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 0.42d0
-cZh = 0.5d0!3.0d0
-L_init = 0.169
-K_init = 1.31
-tune_K = 0.95
-tune_L = 0.95
-else if (i_exp<5.5) then
-cTHETA = 0.11d0
-cGAMMA =1d0! 0.42d0
-cZh = 3.0d0
-L_init = 0.754
-K_init = 7.42
-tune_K = 0.9
-tune_L = 0.9
-else if (i_exp >5.5) then
-cTHETA = 0d0!0.11d0
-cGAMMA = 1d0!0.42d0
-cZh = 3.0d0
-L_init = 0.754
-K_init = 10.6
-tune_K = 0.9
-tune_L = 0.9
+L_init = 0.7542561 
+K_init = 10.5665
+tune_K = 0.5
+tune_L = 0.0 
 end if
 
 ! write  loop out here and try to compute
@@ -438,16 +402,12 @@ K_demand = K_init
 do while (converged_outer==0)
 rental = cALPHA* ((K_demand)**(cALPHA - 1))*((L_demand)**(1 - cALPHA)) - cDELTA !note: delta here!
 wage = (1-cALPHA)* ((K_demand)**(cALPHA))*((L_demand)**(-1*cALPHA))
-benefits = cTHETA*wage*L_demand/(1-working_mass)
-!if (i_exp==4) then
-!write(*,*) "rental: ", rental
-!write(*,*) "benefits: ", benefits
-!write(*,*) "wage: ", wage
-!end if
+benefits = cTHETA*wage*L_demand/(1-working_mass) ! none of this changes
+
 converged = 0
 it = 1
 ! We use backwards induction here.
-do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
+do i_age = 1,N_lifetime 
 	age = N_lifetime + 1 - i_age !
 	do i_z = 1,2 	! productivity in current age
 	apr_floor = 1													! loop over productivity states
@@ -468,18 +428,13 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 		if (age == N_lifetime) then ! we eat our budget
 			c_today = y_today
 			if (c_today>0d0) then
-			v_today = ((c_today) ** ((1-cSIGMA)*cGAMMA))/(1-cSIGMA)
+			v_today = (c_today ** (1-cSIGMA))/(1-cSIGMA)
 			else
 			v_today = -1d10
 			end if
 			a_tomorrow = 0
 			l_today_max = 0d0
-
-			!if ((i_exp==4).and. (i_a <100d0)) then
-			! 	write(*,*) "v_today",v_today
-			!end if
 		else if (age>=J_retire) then
-			!if (i_z < 1.5) then ! then I need to calculate opt, otherwise opt is same as i_z = 1 case
 			i_apr = apr_floor
 			decl = 0
 			do while (decl == 0 .and. i_apr<=n_a)
@@ -487,13 +442,11 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 				c_today_temp = y_today - a_tomorrow
 				if (c_today_temp>0d0) then 
 					if (i_z < 1.5) then
-					v_tomorrow = cPhh*pf_v(i_apr,age+1) + cPhl*pf_v_b(i_apr,age+1) 
+					v_tomorrow = cPhh*pf_v(i_apr,1,age+1) + cPhl*pf_v(i_apr,2,age+1) 
 				else
-					v_tomorrow = cPlh*pf_v(i_apr,age+1) + cPll*pf_v_b(i_apr,age+1) 
+					v_tomorrow = cPlh*pf_v(i_apr,1,age+1) + cPll*pf_v(i_apr,2,age+1) 
 				end if
-					!v_today_temp = ((c_today_temp)**(cGAMMA)*(1-l_today_temp)**(1-cGAMMA) )**(1-cSIGMA)/(1-cSIGMA) + cBET*v_tomorrow
-					v_today_temp = ((c_today_temp)**(cGAMMA*(1-cSIGMA)))/(1-cSIGMA) + cBET*v_tomorrow
-
+					v_today_temp = (c_today_temp**(1-cSIGMA))/(1-cSIGMA) + cBET*v_tomorrow
 					if (v_today_temp >= v_today) then ! if "temp" value is best so far, record value and capital choice
 						v_today = v_today_temp
 						a_tomorrow_max = a_tomorrow
@@ -508,10 +461,9 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 			a_tomorrow = a_tomorrow_max
 			c_today = y_today - a_tomorrow
 			l_today_max = 0d0
-		else	!working years					
-		!do i_apr = apr_floor,n_a ! Loop over all possible capital chocies
-		i_apr = apr_floor	! keep this at 1 until I verify increasing a' choice
-		decl = 0 ! this can stay	
+		else	!working years
+		i_apr = apr_floor
+		decl = 0 	
 		a_tomorrow_max =0d0
 		if (i_z < 1.5) then 
 			eff_w = (1-cTHETA)*wage*cZh*age_prod(age)
@@ -520,22 +472,22 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 		end if
 		do while (decl == 0 .and. i_apr<=n_a)				
 			a_tomorrow = grid_a(i_apr)
-			l_today_temp = (cGAMMA * eff_w - (1-cGAMMA)*((1+rental)*a_today - a_tomorrow))/eff_w!
-			c_today_temp = eff_w*l_today_temp + (1+rental)*a_today - a_tomorrow
+			!l_today_temp = 1!(cGAMMA * eff_w - (1-cGAMMA)*((1+rental)*a_today - a_tomorrow))/eff_w!
+			c_today_temp = eff_w+ (1+rental)*a_today - a_tomorrow
 			if (c_today_temp>0d0) then 	! if this thing is negative then don't check it
 			if (i_z <1.5) then
-				v_tomorrow = cPhh*pf_v(i_apr,age+1) + cPhl*pf_v_b(i_apr,age+1)  							
+				v_tomorrow = cPhh*pf_v(i_apr,1,age+1) + cPhl*pf_v(i_apr,2,age+1)  							
 			else
-				v_tomorrow = cPlh*pf_v(i_apr,age+1) + cPll*pf_v_b(i_apr,age+1)  
+				v_tomorrow = cPlh*pf_v(i_apr,1,age+1) + cPll*pf_v(i_apr,2,age+1)  
 			end if
-			v_today_temp = ((c_today_temp)**(cGAMMA)*(1-l_today_temp)**(1-cGAMMA) )**(1-cSIGMA)/(1-cSIGMA) + cBET*v_tomorrow
+			v_today_temp = (c_today_temp**(1-cSIGMA))/(1-cSIGMA) + cBET*v_tomorrow
 
 			if (v_today_temp >= v_today) then ! if "temp" value is best so far, record value and capital choice
 				v_today = v_today_temp
 				a_tomorrow_max = a_tomorrow
-				l_today_max = l_today_temp
+				!l_today_max = l_today_temp
 				apr_floor = i_apr
-				pf_i_apr(i_a,i_z,age) = i_apr!apr_floor
+				pf_i_apr(i_a,i_z,age) = i_apr
 			else
 				decl = 1
 			end if
@@ -543,32 +495,21 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 			i_apr = i_apr+1
 		end do
 		a_tomorrow = a_tomorrow_max
-		c_today = eff_w*l_today_max + (1+rental)*a_today - a_tomorrow
+		c_today = eff_w + (1+rental)*a_today - a_tomorrow
 		end if
    		! *******************************
 	  	! ****Update Policy Functions****
 	  	! *******************************
-	  	if (i_z < 1.5) then 
-	  		pf_c_up(i_a,age) = c_today 												
-	  		pf_a_up(i_a,age) = a_tomorrow												
-	  		pf_v_up(i_a,age) = v_today	
-	  		pf_l_up(i_a,age) = l_today_max
-	  	else
-	  		pf_c_up_b(i_a,age) = c_today 												 
-	  		pf_a_up_b(i_a,age) = a_tomorrow												 
-	  		pf_v_up_b(i_a,age) = v_today	
-	  		pf_l_up_b(i_a,age) = l_today_max
-	  	end if											
+	  	pf_c_up(i_a,i_z,age) = c_today 												
+	  	pf_a_up(i_a,i_z,age) = a_tomorrow												
+	  	pf_v_up(i_a,i_z,age) = v_today	
+	  	pf_l_up(i_a,i_z,age) = 1									
 	end do
 	end do
 	pf_c 		= pf_c_up
 	pf_a 		= pf_a_up
 	pf_v			= pf_v_up
 	pf_l			= pf_l_up
-	pf_c_b 		= pf_c_up_b
-	pf_a_b 		= pf_a_up_b
-	pf_v_b		= pf_v_up_b
-	pf_l_b			= pf_l_up
 end do
 pmf = pmf_init
 pmf(1,1,1) = cERGO_g
@@ -592,7 +533,7 @@ do age = 1,(N_lifetime - 1)
 	end do
 end do
 
-sum_pmf = 0d0 ! normalize the pdf by 
+sum_pmf = 0d0 ! need to make pmf sum to 1
 do age = 1,(N_lifetime)
 	do i_a = 1,n_a
 		do i_z = 1,2
@@ -619,11 +560,7 @@ end if
 do i_age = 1,(J_retire - 1)
 	do i_a = 1,n_a
 		if (pmf(i_a,i_z,i_age)>0d0) then
-			if (i_z < 1.5) then
-			L_supply = L_supply + pmf(i_a,i_z,i_age)*Z*age_prod(i_age)*pf_l(i_a,i_age)
-			else
-			L_supply = L_supply + pmf(i_a,i_z,i_age)*Z*age_prod(i_age)*pf_l_b(i_a,i_age)
-			end if
+			L_supply = L_supply + pmf(i_a,i_z,i_age)*Z*age_prod(i_age)*pf_l(i_a,i_z,i_age)
 		end if
 	end do
 end do
@@ -633,11 +570,7 @@ do i_z = 1,2
 do i_age = 1,N_lifetime
 	do i_a = 1,n_a
 	if (pmf(i_a,i_z,i_age)>0d0) then
-	if (i_z<1.5) then
-			K_supply = K_supply + pmf(i_a,i_z,i_age)*pf_a(i_a,i_age)
-	else
-			K_supply = K_supply + pmf(i_a,i_z,i_age)*pf_a_b(i_a,i_age)
-	end if
+		K_supply = K_supply + pmf(i_a,i_z,i_age)*pf_a(i_a,i_z,i_age)
 	end if
 	end do
 end do
@@ -645,10 +578,6 @@ end do
 
 diff_a = abs(K_supply - K_demand)
 diff_l = abs(L_supply - L_demand)
-!write(*,*) "K supply: ", K_supply
-!write(*,*) "K demand: ", K_demand
-!write(*,*) "L supply: ", L_supply
-!write(*,*) "L demand: ", L_demand
 if ((diff_a<a_tol).and.(diff_l<l_tol)) then
 converged_outer = 1
 else
@@ -656,53 +585,114 @@ K_demand = tune_K *K_demand + (1-tune_K) * K_supply
 L_demand = tune_L *L_demand + (1-tune_L) * L_supply
 end if
 end do
-! save results of experiment
-res_K(i_exp) = K_demand
-res_L(i_exp) = L_demand
-res_w(i_exp) = wage
-res_r(i_exp) = rental
-res_b(i_exp) = benefits
-res_welf(i_exp) = 0d0
+
+
+if (i_exp<1.5) then
+K_0ss = K_demand
 do i_a = 1,n_a
-	do i_age = 1,N_lifetime
-		res_welf(i_exp) = res_welf(i_exp) + pmf(i_a,1,i_age)*pf_v(i_a,i_age) + pmf(i_a,2,i_age)*pf_v_b(i_a,i_age)
-	end do
+do i_z = 1,n_z
+do i_age = 1,N_lifetime
+tran_pmf(i_a,i_z,i_age,1) = pmf(i_a,i_z,i_age)
 end do
-res_cv(i_exp) = 0d0! I do not know what this is supposed to be
-mu = 0d0
-do i_a = 1,n_a
-	do i_age = 1,(J_retire-1) 
-		mu = mu + ((1+rental)*grid_a(i_a)+pf_l(i_a,i_age)*wage*age_prod(i_age)*cZh)*pmf(i_a,1,i_age) + &
-		((1+rental)*grid_a(i_a)+pf_l_b(i_a,i_age)*wage*age_prod(i_age)*cZl)*pmf(i_a,2,i_age)
-	end do
-	do i_age = J_retire,N_lifetime
-		mu = mu + ((1+rental)*grid_a(i_a)+benefits)*pmf(i_a,1,i_age) + ((1+rental)*grid_a(i_a) + &
-			benefits)*pmf(i_a,2,i_age)
-	end do
-end do 
-
-do i_a = 1,n_a
-	do i_age = 1,(J_retire-1)
-		sig = sig + ((1+rental)*grid_a(i_a)+pf_l(i_a,i_age)*wage*age_prod(i_age)*cZh - mu)**(2)*pmf(i_a,1,i_age) + &
-		((1+rental)*grid_a(i_a)+pf_l_b(i_a,i_age)*wage*age_prod(i_age)*cZl - mu)**(2)*pmf(i_a,2,i_age)
-	end do
-	do i_age = J_retire,N_lifetime
-		sig = sig + ((1+rental)*grid_a(i_a)+benefits - mu)*pmf(i_a,1,i_age) + ((1+rental)*grid_a(i_a) + &
-			benefits - mu)*pmf(i_a,2,i_age)
-	end do
-end do 
-
-sig = sig**(1/2)
-
-res_cv(i_exp) = sig/mu
-
-write(*,*) ""
-write(*,*) "Exp: ", i_exp
-write(*,*) "K: ", K_demand
-write(*,*) "L: ", L_demand
-
-
 end do
+end do
+
+else
+K_Tss = K_demand
+end if
+end do
+write(*,*) "K_0ss: ", K_0ss
+write(*,*) "K_Tss: ", K_Tss
+
+! initialize guess of transition to capital
+del = (K_Tss - K_0ss)/N_transition
+do i_a = 1,N_transition
+	K_0transition(i_a) = K_0ss + i_a * del
+end do
+do i_a = 1,n_a
+do i_z = 1,n_z
+do i_age = 1,N_lifetime
+tran_pf_v(i_a,i_z,i_age,N_transition+1) = pf_v(i_a,i_z,i_age) ! final tran_pf_v is new ss
+end do
+end do
+end do
+! ----------------------------------------------------------
+! HERE I DO THE TRANSITION PATH STUFF
+! ----------------------------------------------------------
+!! NEW LOOP - BACKWARDS INDUCT AT EACH STAGE TO GET EQM
+converged_outer = 0
+do while (converged_outer == 0)
+do i_n = 1,N_transition
+n = N_transition + 1 - i_n
+K_demand = K_0transition(n)
+! calc prices
+rental = cALPHA* ((K_demand)**(cALPHA - 1))*((L_demand)**(1 - cALPHA)) - cDELTA !note: delta here!
+wage = (1-cALPHA)* ((K_demand)**(cALPHA))*((L_demand)**(-1*cALPHA))
+benefits = cTHETA*wage*L_demand/(1-working_mass) ! none of this changes
+! iterate backwards to get transition rule
+do i_age = 1,N_lifetime
+age = N_lifetime + 1 - i_age
+do i_z = 1,2
+if (i_z<1.5) then
+Z = cZh
+else
+Z = cZl
+end if
+do i_a = 1,n_a
+a_today = grid_a(i_a)
+if (age == N_lifetime) then ! old, about to die
+c_today = (1+rental)* a_today + benefits
+v_today = (c_today**(1-cSIGMA))/(1- cSIGMA)
+l_today = 0
+a_tomorrow_max = 0
+i_apr_max = 0
+else if (age >= J_retire) then ! old, will live another period
+! loop through a' possibilities and pick
+! I have some fancy pantsy stuff to make this fast
+
+else !! working age 
+! loop through a' possibilities and pick
+! I have some fancy pantsy stuff to make this fast
+
+end if
+! okay now I have my choice variables. 
+
+tran_pf_v(i_a,i_z,age,n) = v_today
+tran_pf_a(i_a,i_z,age,n) = a_tomorrow_max
+tran_pf_c(i_a,i_z,age,n) = c_today
+tran_pf_i_apr(i_a,i_z,age,n) = i_apr_max
+end do
+end do
+end do
+end do
+! okay now I have transition functions, now I need to figure out where ppl are
+
+do i_n = 1,(N_transition-1) ! for each point in the transition path ...
+do i_a = 1,n_a ! for each current asset holdings ...
+do i_z = 1,n_z ! for each productivity state ...
+tran_pmf(i_a,i_z,1,i_n+1) = cERGO_g
+tran_pmf(i_a,i_z,1,i_n+1) = cERGO_b
+do i_age = 1,(N_lifetime-1) ! for each current age that will be alive next period ...
+! figure out where they will be next period.
+if (i_z<1.5) then
+tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,1,i_n+1) = tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,1,i_n+1) + tran_pmf(i_a,i_z,i_age,i_n) * cPhh
+tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,2,i_n+1) = tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,2,i_n+1) + tran_pmf(i_a,i_z,i_age,i_n) * cPhl
+else
+tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,1,i_n+1) = tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,1,i_n+1) + tran_pmf(i_a,i_z,i_age,i_n) * cPlh
+tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,2,i_n+1) = tran_pmf(tran_pf_i_apr(i_a,i_z,i_age,i_n),i_z,2,i_n+1) + tran_pmf(i_a,i_z,i_age,i_n) * cPll
+end if
+end do
+end do
+end do
+end do
+
+! iterate forwards to get capital levels
+! check convergence
+converged_outer = 1
+end do
+! display how close we got to final tolerance level
+
+
 return
 
 end subroutine bellman
