@@ -21,6 +21,7 @@ hold off
 set(gcf,'Color',[1 1 1])
 title('A prime (age 20) vs asset holdings')
 legend('High prod','Low prod')
+saveas(gcf,'apr.png')
 figure
 plot(x,a_20_h - x','k')
 hold on

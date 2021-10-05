@@ -403,6 +403,11 @@ do i_age = 1,N_lifetime ! = N+1-i_age period agent - need to work backwards here
 		do while (decl == 0 .and. i_apr<=n_a)				
 			a_tomorrow = grid_a(i_apr)
 			l_today_temp = (cGAMMA * eff_w - (1-cGAMMA)*((1+rental)*a_today - a_tomorrow))/eff_w!
+			if (l_today_temp<0d0) then
+			l_today_temp = 0d0
+			else if (l_today_temp>1d0) then
+			l_today_temp = 1d0
+			end if
 			c_today_temp = eff_w*l_today_temp + (1+rental)*a_today - a_tomorrow
 			if (c_today_temp>0d0) then 	! if this thing is negative then don't check it
 			if (i_z <1.5) then

@@ -1,0 +1,252 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
+\usepackage{endnotes}
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{IO Problem Set 2}
+\author{Michael B. Nattinger}
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+Note: lots of omitted algebra done by hand on scratch paper.
+\subsection{Part (a)}
+We have $Q = \frac{a_0 - P - \nu}{a_1}$. $\epsilon = - \frac{P \partial Q}{Q \partial P} = \frac{P}{Qa_1} = \frac{a_0 - a_1 Q + \nu}{a_1Q} = \frac{a_0 + \nu}{a_1Q} - 1.$ Thus, $\frac{\partial \epsilon}{\partial Q} = -\frac{\nu + a_0}{a_1Q^2} \leq 0$. Similarly, $\frac{\partial \epsilon}{\partial  \nu} = \frac{1}{a_1Q} \geq 0$. Thus, as Q increases, elasticity of demand decreases; and as $\nu$ increases, the elasticity of demand increases.
+
+\subsection{Part (b)}
+We have $c = F + (b_0 + \nu)Q$. The firm takes the quantities of the other firms as given and maximizes profit:
+\begin{align*}
+\max_{q}[a_0 - a_1(q + Q_{-i})]q - [F+(b_0 + \eta)q]\\
+\Rightarrow a_0 -2a_1q - a_1Q_{-i} - b_0 - \eta = 0 
+\end{align*}
+
+Applying symmetry, $Q = Nq \Rightarrow q = \frac{a_0 + \nu - b_0 - \nu}{a_1(N+1)}$. Quantity is $Q = N\frac{a_0 + \nu - b_0 - \nu}{a_1(N+1)}$; prices are $P = \frac{a_0 + \nu + N(b_0 + \eta)}{N+1}$.
+
+\subsection{Part (c)}
+Individual firm profits are $Pq - C =  \frac{a_0 + \nu + N(b_0 + \eta)}{N+1} \frac{a_0 + \nu - b_0 - \nu}{a_1(N+1)} - F - \frac{(b_0 + \eta)(a_0 + \nu - b_0 - \eta)}{a_1(N+1)} = \frac{1}{a_1}\left[ \frac{a_0 + \nu - b_0 - \eta}{N+1}\right]^2 - F$. Firms enter until profits are zero: $0 = \frac{1}{a_1}\left[ \frac{a_0 + \nu - b_0 - \eta}{N+1}\right]^2 - F \Rightarrow N = \frac{1}{\sqrt{Fa_1}}(a_0 + \nu - b_0 - \eta) - 1$.
+\subsection{Part (d)}
+\begin{align*}
+L_I &= \frac{P - mc}{P} = \frac{\frac{a_0 + \nu + N(b_0 + \eta)}{N+1} - (b_0 + \eta)}{\frac{a_0 + \nu + N(b_0 + \eta)}{N+1}} \\
+&= \frac{a_0 + \nu - b_0 - \eta}{a_0 + \nu + N(b_0 + \eta)} \\
+&=  \frac{a_0 + \nu - b_0 - \eta}{a_0 + \nu + \left(\frac{1}{\sqrt{Fa_1}}(a_0 + \nu - b_0 - \eta) - 1\right)(b_0 + \eta)} \\
+&= \frac{\sqrt{Fa_1}}{\sqrt{Fa_1}+b_0 + \eta}.
+\end{align*}
+
+Firms are identical so the Herfindahl index is $H=\frac{1}{N} = \frac{\sqrt{F a_1}}{a_0 + \nu - b_0 - \eta - \sqrt{F a_1}}$.
+
+\begin{align*}
+\epsilon &= \frac{a_0 + \nu - N\left( \frac{a_0 + \nu - b_0 - \eta}{N+1}\right)}{ N\left( \frac{a_0 + \nu - b_0 - \eta}{N+1}\right)} \\
+&= \frac{b_0 + \eta + \sqrt{Fa_1}}{a_0 + \nu - b_0 - \eta - \sqrt{Fa_1}}.
+\end{align*}
+
+\subsection{Part (e)}
+\begin{align*}
+\frac{\partial \epsilon}{\partial F} &= \frac{\sqrt{a_1}(a_0 + \nu)}{2\sqrt{F}(a_0 + \nu - b_0 - \eta - \sqrt{Fa_1})^2} \\
+& \geq 0, \\
+\frac{\partial \epsilon}{\partial \nu} &= -\frac{b_0 + \eta + \sqrt{Fa_1}}{(a_0 + \nu - b_0 - \eta - \sqrt{Fa_1})^2}\\
+& \leq 0, \\
+\frac{\partial \epsilon}{\partial \eta} &= \frac{a_0 + \nu}{(a_0 + \nu - b_0 - \eta - \sqrt{Fa_1})^2} \\
+& \geq 0.
+\end{align*}
+
+\begin{align*}
+log(L_I) &= (1/2)log(Fa_1) - log(\sqrt{Fa_1} + b_0 + \eta),\\
+log(H) &= (1/2)log(Fa_1) - log(a_0 + \nu - b_0 - \eta - \sqrt{Fa_1}).
+\end{align*}
+
+\begin{align*}
+\frac{\partial log(L_I)}{\partial F} &= \frac{1}{2F} - \frac{\sqrt{a_1}}{(\sqrt{Fa_1} + b_0 + \eta)2\sqrt{F}},\\
+\frac{\partial log(H)}{\partial F} &= \frac{1}{2F} + \frac{\sqrt{a_1}}{(-\sqrt{Fa_1} + a_0 + \nu - b_0 - \eta)2\sqrt{F}} ,\\
+&\neq \frac{\partial log(L_I)}{\partial F}. \\
+\frac{\partial log(L_I)}{\partial \nu} &= 0, \\
+\frac{\partial log(H)}{\partial \nu} &= -\frac{1}{a_0 + \nu - b_0 - \eta - \sqrt{Fa_1}}, \\
+&\neq \frac{\partial log(L_I)}{\partial \nu}. \\
+\frac{\partial log(L_I)}{\partial \eta} &= -\frac{1}{\sqrt{Fa_1} + b_0 + \eta}, \\
+\frac{\partial log(H)}{\partial \eta} &= \frac{1}{a_0 + \nu - b_0 - \eta - \sqrt{Fa_1}}, \\
+&\neq \frac{\partial log(L_I)}{\partial \eta}. 
+\end{align*}
+Clearly, $log(L_I),log(H)$ do not change at the same rate in responses to $F,\nu,\eta$.
+\subsection{Part (f)}
+Colluding firms have:
+\begin{align*}
+\max_Q (a_0 - a_1Q + \nu)Q - (b_0+\eta)Q - F \\
+\Rightarrow a_0 - 2a_1Q + \nu - b_0 - \eta = 0\\
+\Rightarrow Q = \frac{a_0 + \nu - b_0 - \eta}{2a_1},\\
+\Rightarrow P = (1/2)(a_0 + \nu + b_0 + \eta), \\
+\Rightarrow \pi = \frac{(a_0 + \nu - b_0 - \eta)^2}{4Na_1} - F.
+\end{align*}
+Firms enter until profits are zero $\Rightarrow N = \frac{(a_0  + \nu - b_0 - \eta)^2}{4Fa_1}$. $L_I = \frac{P - mc}{P} = \frac{a_0 + \nu - b_0 - \eta}{a_0 + \nu + b_0 + \eta}$. $H = \frac{1}{N} = \frac{4Fa_1}{(a_0 + \nu - b_0 - \eta)^2}$. $\epsilon = -\frac{P \partial Q}{Q \partial P} = \frac{a_0 + \nu + b_0 + \eta}{a_0 + \nu - b_0 - \eta}$.
+
+\subsection{Part (g)}
+We now have $Q = exp((1/c_1)(c_0 - log(P) + \xi))$. $\epsilon = (P/Q)(exp((1/c_1)(c_0 - log(P) + \xi))) = (1/Q)exp((1/c_1)(c_0 - log(P) + \xi))$.
+
+\begin{align*}
+\frac{\partial \epsilon}{\partial Q} &= -\frac{1}{Q^2}exp((1/c_1)(c_0 - log(P) + \xi)) \\
+&\leq 0 \\
+\frac{\partial \epsilon}{\partial Q} &= (1/Q)exp((1/c_1)(c_0 - log(P) + \chi))\\
+&\geq 0.
+\end{align*}
+
+Under the new inverse supply curve, the firm maximizes profit:
+\begin{align*}
+\max_{q} exp(c_0 - c_1log(q + Q_{-i}) + \xi)q  - (b_0 + \eta)q - F\\
+\Rightarrow exp(c_0 - c_1log(q + Q_{-i}) + \xi) - exp(c_0 - c_1log(q + Q_{-i}) + \xi)\frac{qc_1}{Q} - b_0 - \eta = 0
+\end{align*}
+Applying symmetry across firms,
+\begin{align*}
+exp(c_0 - c_1 log(Nq) + \xi) &= \frac{N}{N-c_1}(b_0 + \eta)\\
+\Rightarrow q &= \frac{1}{N}exp((1/c_1)(c_0 + \xi - log((N/(N-c_1)(b_0 + \eta))))), \\
+Q &= exp((1/c_1)(c_0 + \xi - log((N/(N-c_1)(b_0 + \eta))))), \\
+P &= exp(c_0 - c_1log(exp((1/c_1)(c_0 + \xi - log((N/(N-c_1)(b_0 + \eta))))))+ \xi), \\
+\Rightarrow P &= \frac{N}{N-c_1}(b_0 + \eta).
+\end{align*}
+
+\begin{align*}
+L_I &= \frac{\frac{N}{N-c_1}(b_0 + \eta) - (b_0 + \eta)}{\frac{N}{N-c_1}(b_0 + \eta)}\\
+&= \frac{c_1}{N}. \\
+H &= \frac{1}{N}. \\
+\epsilon &= (1/Q)exp((1/c_1)(c_0 - log(P) + \xi)) \\
+&= \frac{1}{c_1}.
+\end{align*}
+
+In this case, since we are told to keep $N$ as exogenously determined, all of the partial derivatives are zero:
+\begin{align*}
+\frac{\partial \epsilon}{\partial F} = \frac{\partial \epsilon}{\partial \nu} = \frac{\partial \epsilon}{\partial \eta} = \frac{\partial log(L_I)}{\partial F} = \frac{\partial log(L_I)}{\partial \nu} = \frac{\partial log(L_I)}{\partial \eta} = \frac{\partial log(H)}{\partial F} = \frac{\partial log(H)}{\partial \nu} = \frac{\partial log(H)}{\partial \eta} = 0.
+\end{align*}
+Therefore, $log(L_I),log(H)$ do change at the same rate in response to changes in $F,\nu,\eta: 0$.
+\section{Question 2}
+I computed in Matlab. Results follow.
+
+\bigskip
+\begin{center}
+Figure 1: Regression tables and F test results for price given by equation (3).
+\begin{tabular}{l | lll}
+\hline
+ & Pooled & Collusion & No Collusion \\
+\hline \hline
+\input{regs_1}
+\hline
+\input{regs_1_2}
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+In our initial regressions, we see that results differ greatly across groups. For cities with no collusion, the coefficient is tightly identified to be near 1. In fact, we cannot reject the F test with the null hypothesis being that this coefficient is exactly 1. With collusion, however, the coefficient is not statistically different from zero, and we can thoroughly reject the null hypothesis that the coefficient is 1. The pooled case, unsurprisingly, is somewhere in the middle, but we do still reject that the coefficient is equal to one.
+
+Note that, without collusion, the $H$ index and true $L_I$ index are identical. This is why the regression coefficients are 1 in this case.
+
+\bigskip
+
+\begin{center}
+Figure 2: Regression tables and F test results for price given by equation (1).
+\begin{tabular}{l | lll}
+\hline
+ & Pooled & Collusion & No Collusion \\
+\hline \hline
+\input{regs_2}
+\hline
+\input{regs_2_2}
+\hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+With the different price equation, note that we no longer have identical $H$ index and true $L_I$ index. Thus, none of the coefficients are close to 1, and the F test rejects that the true coefficient is 1 for all cases. However, we do still have a positive relationship between $H$ and true $L_I$. Our formula for $L_I = \frac{a_0 + \nu - b_0 - \eta}{a_0 + \nu + N(b_0 + \eta)}$ without collusion compared to $H = \frac{1}{N}$. It is clear that $Cov(log(H),log(L_I))>0$ from the functional form.
+
+What can we do that is positive from what we have found? In both cases, the OLS coefficients are higher without collusion than with. If we want to show that a subset of markets features collusion then we can run these regressions on those markets and the magnitude of the coefficient can be indicative of likely presence of collusion. I would hesitate to extrapolate this fact to more general model.
+
+\section{Question 3}
+
+\begin{center}
+\begin{tabular}{l | ll}
+\hline
+ & $\nu \sim U[-1,1]$ &  $\eta \sim U[-1,1]$ \\
+\hline \hline
+\input{reg3}
+\hline
+\end{tabular}
+\end{center}
+
+Above are the results from the simulated regressions. The differences are quite stark, and in line with theory. Our theory predicts that $H =  \frac{\sqrt{F a_1}}{a_0 + \nu - b_0 - \eta - \sqrt{F a_1}}$, $L_I = \frac{\sqrt{Fa_1}}{\sqrt{Fa_1}+b_0 + \eta}$. The only differences across markets are in $\nu$ in the first case, and in $\eta$ in the second case. In the first case, as $\nu$ varies, $H$ is affected but $L_I$ is unaffected as it is independent of $\nu$. Therefore, we expect to see no statistically significant relationship between $H,L_I$ In the second hand, in contrast, $H$ is increasing in $\eta$ and $L_I$ is decreasing in $\eta$, so we expect a negative sign on the regression coefficient - and our results do show a negative relationshop.
+
+The elasticities are increasing in $\eta$ and decreasing in $\nu$, so we would expect $\epsilon$ would positively correlate with $log(H)$ in both experiments, and negatively correlate with $L_I$ only in the experiment where $\eta$ varies and $\nu$ is fixed.
+ % In particular, what are the effects of $\nu$ and $\eta$ on the equilibrium Lerner index, Herfindahl, and elasticity?
+\end{document}
