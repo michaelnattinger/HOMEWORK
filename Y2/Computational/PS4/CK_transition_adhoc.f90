@@ -51,20 +51,18 @@ double precision :: K_0ss
 double precision :: K_Tss
 double precision :: L_0ss
 double precision :: L_Tss
-integer, parameter :: N_transition = 90 ! number of periods over which transition will take place. Old SS at 0, at 1 change.
+integer, parameter :: N_transition = 150 ! number of periods over which transition will take place. Old SS at 0, at 1 change.
 double precision :: K_0transition(N_transition)
 double precision :: K_1transition(N_transition)
 double precision :: L_0transition(N_transition)
 double precision :: L_1transition(N_transition)
-double precision :: K_tran_1(N_transition)
-double precision :: L_tran_1(N_transition)
 
 
 ! Tolerance level for convergence and max itations
 double precision :: 				tune_K			 		= 0.995d0!0.99d0
 double precision :: 				tune_L			 		= 0.995d0!0.99d0
-double precision, parameter :: 				a_tol			 		= 1d-6
-double precision, parameter :: 				l_tol			 		= 1d-6  
+double precision, parameter :: 				a_tol			 		= 1d-4
+double precision, parameter :: 				l_tol			 		= 1d-4  
 double precision, parameter :: 				tol			 		= 1d-3 	! Convergence Tolerance on capital transition path
 double precision, parameter :: 				q_tol			 		= 1d-3 	! Convergence Tolerance for a market clearing (q loop tol)
 double precision, parameter :: 				pmf_tol			 		= 1d-9 	! Convergence Tolerance for pmf
@@ -80,11 +78,11 @@ integer, parameter :: n_samples = 5 ! must be >3
 ! -----------------------------------------------------------------------
 ! Set up for discritizing the state space 
 integer				  :: 				i_a, i_apr									! Ieration Counters for k_today and k_tomorrow grid
-integer, parameter 				  :: 				n_a 				= 1000!500!2000																! Size of k grid
+integer, parameter 				  :: 				n_a 				= 500																! Size of k grid
 integer, parameter :: n_z = 2
 double precision 						:: 				grid_a(n_a)																				! Allocate Space for k grid
 double precision, parameter :: 				min_a 			= 0d0															! Minimum of k grid
-double precision, parameter :: 				max_a 			= 40d0																! Maximum of k grid
+double precision, parameter :: 				max_a 			= 60d0																! Maximum of k grid
 double precision, parameter :: 				step_a 			= (max_a - min_a)/(dble(n_a) - 1d0) 	! Step of k grid
 double precision					  :: 				a_today
 double precision					  :: 				a_tomorrow
@@ -105,9 +103,7 @@ double precision 						:: 				pf_c(n_a,n_z,N_lifetime) ! Allocate Space for Conu
 double precision 						:: 				pf_a(n_a,n_z,N_lifetime) ! Allocate Space for Capital Policy Function
 double precision 						:: 				pf_v(n_a,n_z,N_lifetime) ! Allocate Space for Value Function
 double precision 						:: 				pf_l(n_a,n_z,N_lifetime) ! Allocate Space for Value Function
-double precision :: V_0ss(n_a,n_z,N_lifetime)
-double precision :: EV(n_exp)
-double precision :: vote(n_exp)
+
 
 ! Allocate space for transition path functions
 double precision :: tran_pf_v(n_a,n_z,N_lifetime,N_transition+1)
@@ -313,7 +309,8 @@ double precision :: l_today
 double precision :: mass_newborn
 double precision :: popweights_true(N_lifetime)
 double precision :: del_L
-
+integer :: i_con
+double precision :: kdiff
 double precision :: pmf_prime(n_a,2)
 double precision :: q_min = cBET!0.5!cBET!0.99!0.99!cBET - 0.1!0.4d0
 double precision :: q_max = 1.0!2.0!0.5!1.0!cBET + 0.05!cBET
@@ -378,23 +375,23 @@ if (i_exp<1.5) then
 cTHETA = 0.11d0
 cGAMMA = 0.42d0!1d0 ! labor is exogenous here
 cZh = 3.0d0
-L_init =  0.34327!0.7542561 
-K_init =  3.36271!4.55470!3.64!7.2388
-tune_K = 0.5 ! I know where these are so I am going to converge fast
-tune_L = 0.5 ! what is going to happen is on the first run I will calculate L and then
+L_init = 0.343207!0.7542561 
+K_init =  3.35963!4.55470!3.64!7.2388
+tune_K = 0.95 ! I know where these are so I am going to converge fast
+tune_L = 0.95 ! what is going to happen is on the first run I will calculate L and then
 			 ! it will stay there forever
 else if (i_exp<2.5) then
 cTHETA = 0.0d0
 cGAMMA = 0.42d0!1d0 ! labor is exogenous here
 cZh = 3.0d0
-L_init = 0.36476!0.7542561 
-K_init =   4.5737!9.89349
-tune_K = 0.5
-tune_L = 0.5 
+L_init = 0.36532!0.7542561 
+K_init =  4.60341!9.89349
+tune_K = 0.95
+tune_L = 0.95 
 end if
 
-tune_KK = 0.5!0.9d0
-tune_LL = 0.5!0.9d0
+tune_KK = 0.5d0
+tune_LL = 0.5d0
 ! write  loop out here and try to compute
 L_demand = L_init
 K_demand = K_init
@@ -589,12 +586,16 @@ converged_outer = 1
 else
 K_demand = tune_K *K_demand + (1-tune_K) * K_supply
 L_demand = tune_L *L_demand + (1-tune_L) * L_supply
+!write(*,*) "K supply: ", K_supply
+!write(*,*) "K demand: ", K_demand
+!write(*,*) "L supply: ", L_supply
+!write(*,*) "L demand: ", L_demand
 end if
 end do
 
 
 if (i_exp<1.5) then
-V_0ss = pf_v
+!if (i_exp>1.5) then
 K_0ss = K_supply
 L_0ss = L_supply
 do i_a = 1,n_a
@@ -608,6 +609,7 @@ do n = 1,N_transition
 do i_z = 1,n_z
 tran_pmf(1,i_z,1,n) = pmf(1,i_z,1) !newborn mass in all periods 
 end do
+!write(*,*) "Newborn mass: ", (tran_pmf(1,1,1,n)+tran_pmf(1,2,1,n)) ! all correct here
 end do
 
 do i_age = 1,N_lifetime
@@ -618,6 +620,9 @@ sum_pmf = sum_pmf + pmf(i_a,i_z,i_age)
 end do
 end do
 popweights_true(i_age) = sum_pmf
+!if (i_age>1.5) then
+!write(*,*) "implied growth rate: ", popweights_true(i_age)/popweights_true(i_age-1)
+!end if
 end do
 
 else
@@ -630,14 +635,9 @@ write(*,*) "L_0ss: ", L_0ss
 write(*,*) "K_Tss: ", K_Tss
 write(*,*) "L_Tss: ", L_Tss
 
-
-! initialize guess of transition to capital
-del = (K_Tss - K_0ss)/N_transition
-del_L = (L_Tss - L_0ss)/N_transition
-do i_a = 1,N_transition
-	K_0transition(i_a) = K_0ss + (i_a-1) * del ! first k_0transition is at K_0ss because at the moment of MIT shock the households are in old SS asset positions
-	L_0transition(i_a) = L_0ss + (i_a-1) * del_L
-end do
+! debugging 
+!K_0ss = K_Tss
+!L_0ss = L_Tss
 
 do i_a = 1,n_a
 do i_z = 1,n_z
@@ -646,25 +646,30 @@ tran_pf_v(i_a,i_z,i_age,N_transition+1) = pf_v(i_a,i_z,i_age) ! final tran_pf_v 
 end do
 end do
 end do
+
+do i_exp = 1,3!,3
+! initialize guess of transition to capital
+del = (K_Tss - K_0ss)/N_transition
+del_L = (L_Tss - L_0ss)/N_transition
+do i_a = 1,N_transition
+	K_0transition(i_a) = K_0ss + (i_a-1) * del ! first k_0transition is at K_0ss because at the moment of MIT shock the households are in old SS asset positions
+	L_0transition(i_a) = L_0ss + (i_a-1) * del_L
+end do
+
 ! ----------------------------------------------------------
 ! HERE I DO THE TRANSITION PATH STUFF
 ! ----------------------------------------------------------
 !! NEW LOOP - BACKWARDS INDUCT AT EACH STAGE TO GET EQM
-cTHETA = 0d0
-do i_exp = 1,2 ! first problem, then second
+
+
 converged_outer = 0
 do while (converged_outer == 0)
-do i_n = 1,N_transition
-! What is theta? Depends on the period...
 n = N_transition + 1 - i_n
-if (i_exp<1.5) then
-if (n<1.5) then
-cTHETA = 0.11d0
-else
+do i_n = 1,N_transition
+if (i_exp<2.5) then
 cTHETA = 0d0
-end if
 else
-if (n<22.5) then
+if (n<22) then !dean's indexing starts at 0, mine starts at 1
 cTHETA = 0.11d0
 else
 cTHETA = 0d0
@@ -691,7 +696,7 @@ do i_a = 1,n_a
 a_today = grid_a(i_a)
 if (age == N_lifetime) then ! old, about to die
 c_today = (1+rental)* a_today + benefits
-if (c_today>1d-12) then
+if (c_today>1d-10) then
 v_today = (c_today**((1-cSIGMA)*cGAMMA))/(1- cSIGMA)
 else
 v_today = -10d10
@@ -805,6 +810,28 @@ end do
 end do
 end do
 
+!do i_n = 1,N_transition 
+!sum_pmf = 0d0
+!do i_a = 1,n_a ! for each current asset holdings ...
+!do i_z = 1,n_z ! for each productivity state ...
+!do i_age = 1,1!1,(N_lifetime) ! for each current age that will be alive next period ...
+!sum_pmf = sum_pmf + tran_pmf(i_a,i_z,i_age,i_n)
+!if (i_a>1 .and. tran_pmf(i_a,i_z,i_age,i_n)>0d0) then
+!write(*,*) "UNEXPECTED MASS AT GRID POINT i_a: ", i_a
+!write(*,*) "UNEXPECTED MASS AT GRID POINT i_z: ", i_z
+!end if 
+!end do
+!end do
+!end do
+!write(*,*) "mass sums to ", sum_pmf
+!if (abs(sum_pmf - 1)>1d-9) then
+!write(*,*) "--------------------------"
+!write(*,*) "time ", i_n
+!write(*,*) "young mass sums to ", sum_pmf
+!write(*,*) "--------------------------"
+!end if
+!end do
+
 
 ! iterate forwards to get capital levels
 do i_n = 1,(N_transition-1) ! for each point in the transition path ...
@@ -849,6 +876,13 @@ do i_z = 1,n_z ! for each productivity state ...
 end do
 end do
 end do
+!do i_a = 1,n_a ! for each current asset holdings ...
+!do i_z = 1,n_z ! for each productivity state ...
+!do i_age = 1,(N_lifetime) ! for each current age that will be alive next period ... (note: N_lifetime will be dead next period so their mass drops out)
+!tran_pmf(i_a,i_z,i_age,i_n+1) = tran_pmf(i_a,i_z,i_age,i_n+1)/sum_pmf
+!end do
+!end do
+!end do
 end do
 
 
@@ -881,6 +915,7 @@ write(*,*) "Max diff: ", diff_a
 do i_n = 1,N_transition
 K_0transition(i_n) = tune_KK*K_0transition(i_n) + (1-tune_KK)*K_1transition(i_n)
 L_0transition(i_n) = tune_LL*L_0transition(i_n) + (1-tune_LL)*L_1transition(i_n)
+!converged_outer = 1
 end do
 end if
 end do
@@ -888,29 +923,31 @@ end do
 
 write(*,*) "Final K diff: ", K_1transition(N_transition)-K_Tss
 write(*,*) "Final L diff: ", L_1transition(N_transition)-L_Tss
-
 if (i_exp<1.5) then
-K_tran_1 = K_0transition
-L_tran_1 = L_0transition
+! figure out "new steady state"
+kdiff = 10d0
+i_con = 0
+do i_n = 1,(N_transition-1)
+if (abs(K_1transition(i_n+1)-K_1transition(i_n))<kdiff) then
+kdiff = abs(K_1transition(i_n+1)-K_1transition(i_n))
+i_con = i_n
+end if
+end do
+
+
+do i_a = 1,n_a
+do i_z = 1,n_z
+do i_age = 1,N_lifetime
+tran_pf_v(i_a,i_z,i_age,N_transition+1) = tran_pf_v(i_a,i_z,i_age,i_con)
+end do
+end do
+end do
+
+K_Tss = K_1transition(i_con)
 end if
 
-! Last thing: compute EV and voting results
-EV(i_exp) = 0d0
-vote(i_exp) = 0d0
-do i_age = 1,(N_lifetime) ! for each current age that will be alive next period ... 
-do i_a = 1,n_a ! for each current asset holdings ...
-do i_z = 1,n_z ! for each productivity state ...
-EV(i_exp) = EV(i_exp) + tran_pmf(i_a,i_z,i_age,1) * &
-		((tran_pf_v(i_a,i_z,i_age,1)/V_0ss(i_a,i_z,i_age)))**(1/(cGAMMA*(1-cSIGMA)))
-		if (((tran_pf_v(i_a,i_z,i_age,1)/V_0ss(i_a,i_z,i_age)))**(1/(cGAMMA*(1-cSIGMA)))>1) then
-			vote(i_exp) = vote(i_exp) + tran_pmf(i_a,i_z,i_age,1)
-		end if
-end do
-end do
 end do
 
-
-end do
 return
 
 end subroutine bellman
@@ -936,17 +973,11 @@ implicit none
 write(*,*) ""
 write (*,*) "Writing PFs to DAT file"
 open(unit = 2, file = 'pfs_K.dat', status = 'replace', action = 'write', iostat = i_stat)
-200 format(f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,&
-	f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x,f25.15,2x) !,f25.15,2x,f25.15,2x
+200 format(f25.15,2x,f25.15,2x,f25.15,2x) !,f25.15,2x,f25.15,2x
 
 do i_exp = 1,N_transition
-     write(2,200) K_0transition(i_exp), K_0ss, K_Tss, L_0transition(i_exp), &
-     (1-cALPHA)*(K_0transition(i_exp)**(cALPHA))*(L_0transition(i_exp))**(-1*cALPHA),&  !res_K(i_exp), res_L(i_exp), res_w(i_exp), res_r(i_exp), res_b(i_exp), res_welf(i_exp), res_cv(i_exp) !pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20), pf_a(i_a,1), pf_a_b(i_a,2), &
-      (cALPHA)*(K_0transition(i_exp)**(cALPHA-1))*(L_0transition(i_exp))**(1-cALPHA),&
-      K_tran_1(i_exp), L_tran_1(i_exp), &
-     (1-cALPHA)*(K_tran_1(i_exp)**(cALPHA))*(L_tran_1(i_exp))**(-1*cALPHA),&  !res_K(i_exp), res_L(i_exp), res_w(i_exp), res_r(i_exp), res_b(i_exp), res_welf(i_exp), res_cv(i_exp) !pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20), pf_a(i_a,1), pf_a_b(i_a,2), &
-      (cALPHA)*(K_tran_1(i_exp)**(cALPHA-1))*(L_tran_1(i_exp))**(1-cALPHA),&
-      EV(1), EV(2), vote(1), vote(2)
+     write(2,200) K_0transition(i_exp), K_0ss, K_Tss !res_K(i_exp), res_L(i_exp), res_w(i_exp), res_r(i_exp), res_b(i_exp), res_welf(i_exp), res_cv(i_exp) !pf_v(i_a,50), pf_a(i_a,20), pf_a_b(i_a,20), pf_a(i_a,1), pf_a_b(i_a,2), &
+      !pmf(i_a,1,N_lifetime), pmf(i_a,2,N_lifetime)
      !, pf_i_apr(i_a,1), pf_i_apr(i_a,2)!grid_a(i_a), pf_c(i_a), pf_a(i_a), pf_v(i_a), pmf(i_a,1), pmf(i_a,2), pmf_init_flat(i_a,1), pmf_init_flat(i_a,2)!, pf_i_apr(i_a,1), pf_i_apr(i_a,2)
 end do
 
