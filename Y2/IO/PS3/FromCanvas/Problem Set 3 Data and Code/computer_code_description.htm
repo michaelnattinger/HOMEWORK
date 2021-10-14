@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Generator" CONTENT="Microsoft FrontPage 5.0">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.03 [en] (WinNT; I) [Netscape]">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#C0C0C0" LINK="#0000FF" VLINK="#551A8B" ALINK="#FF0000">
+
+<CENTER><B>Computer Code</B></CENTER>
+
+
+<P>Attached below is a Matlab script file and eight accompanying Matlab
+functions that compute the random coefficients discrete choice model
+described in "A Practitioner's Guide to Estimation of Random
+Coefficients Logit Models of Demand" (Journal of Economics & Management
+Strategy, 9(4), 513-548, 2000) and "Measuring Market Power in the
+Ready-to-Eat Cereal Industry" (Econometrica, 69(2), 307-342, 2001).
+
+<P>The code is provided for academic research. Users of this code (or a
+modified version of it) should reference the above papers. The code includes
+minimal documentation, and is provided with out any additional support.
+The code was successfully run using Matlab 5.1 on a Windows NT operating
+system. Questions regarding Matlab should be referred to <A
+HREF="http://www.mathworks.com">MathWorks</A>.
+
+<P>The data used by this program is described in the file
+<a href="supplementary%20materials/data.htm">readme.html.</a>
+These data were motivated by real scanner data; however, they are not real
+and should not be used to make any inference. The only purpose these data
+serve is to provide an example of the inputs required by the program. The
+results I obtained can be found in
+<a href="supplementary%20materials/results.txt">results.txt. </a>
+
+<P>The program consists of the following files (all Matlab m-files):
+<BR><A HREF="rc_dc.m">rc_dc.m</A> - A script file that reads in the data
+and calls the other functions;
+<BR><a href="Data&Code/gmmobj.m">gmmobj.m </a>- This function computes the GMM objective
+function;
+<BR><A HREF="meanval.m">meanval.m</A> - This function computes the mean
+utility level;
+<BR><a href="Data&Code/mufunc.m">mufunc.m</a> - This function computes the non-linear
+part of the utility (mu_ijt in the Guide);
+<BR><a href="mktsh.m">mktsh.m</a> - This function computes the market share
+for each product;
+<BR><a href="ind_sh.m">ind_sh.m</a> - This function computes the "individual"
+probabilities of choosing each brand;
+<BR><A HREF="gradobj.m">gradobj.m</A> - This function computes the gradient
+of the objective function;
+<BR><A HREF="jacob.m">jacob.m</A> - This function computes the Jacobian
+of the implicit function that defines the mean utility;
+<BR><A HREF="var_cov.m">var_cov.m</A> - This function computes the VCov
+matrix of the estimates.
+<BR><A HREF="cr_dum.m">cd_dum.m</A> - This function creates a set of
+dummy variables
+
+<P>
+<HR WIDTH="100%">
+<BR><FONT SIZE=-1>Last update March 30, 2001, by Aviv Nevo</FONT>
+<BR><FONT SIZE=-1></FONT>&nbsp;
+</BODY>
+</HTML>
