@@ -19,12 +19,12 @@ end
 @with_kw struct Grids
     k_lb::Float64 = 0.001
     k_ub::Float64 = 20.0
-    n_k::Int64 = 30#21
+    n_k::Int64 = 40#21
     k_grid::Array{Float64,1} = range(k_lb, stop = k_ub, length = n_k)
 
     K_lb::Float64 = 10.0
     K_ub::Float64 = 15.0
-    n_K::Int64 = 20#11
+    n_K::Int64 = 30#11
     K_grid::Array{Float64,1} = range(K_lb, stop = K_ub, length = n_K)
 
     eps_l::Float64 = 0.0
@@ -323,28 +323,20 @@ function Solve_model(P::Params, G::Grids, S::Shocks, R::Results, idio_state::Arr
     # # given policy function, transition all households
     k_timeseries = 0*idio_state
     KK_timeseries = 0*agg_state #zeros(P.T)
-    #k_interp = interpolate(G.k_grid, BSpline(Linear()))
     pf_k_interp = interpolate(R.pf_k, BSpline(Linear()))
     KK_timeseries[1] = 11.55
     for ii=1:P.N
         k_timeseries[ii,1] = 11.55
     end
-    for tt = 2:P.T # and each time
-        KK_timeseries[tt] = 0
-        if agg_state[tt-1]==1
-        KK_expected = exp(R.a0+R.a1*log(KK_timeseries[tt-1]))
-        else
-        KK_expected = exp(R.b0+R.b1*log(KK_timeseries[tt-1]))
-        end
-    for ii = 1:P.N # for each individual
-        k_timeseries[ii,1] = 11.55
-        ind = get_index(k_timeseries[ii,tt-1], G.k_grid)
-        KK_ind = get_index(KK_expected,G.K_grid)
-        k_timeseries[ii,tt] = pf_k_interp(ind,agg_state[tt-1],KK_ind,idio_state[ii,tt-1])
-        # = k_interp(i_k)
-        KK_timeseries[tt] = KK_timeseries[tt]+k_timeseries[ii,tt]
+    for tt = 1:P.T-1 # and each time
+    KK_ind = get_index(KK_timeseries[tt],G.K_grid)
+    for ii = 1:P.N # for each individual=
+        ind = get_index(k_timeseries[ii,tt], G.k_grid)
+        k_timeseries[ii,tt+1] = pf_k_interp(ind,agg_state[tt],KK_ind,idio_state[ii,tt])
+        KK_timeseries[tt+1] = KK_timeseries[tt+1]+k_timeseries[ii,tt+1]
     end
-    KK_timeseries[tt] = KK_timeseries[tt]/P.N # calculate aggregate capital levels
+    KK_timeseries[tt+1] = KK_timeseries[tt+1]/P.N
+     # calculate aggregate capital levels
     end
 
     # run OLS
@@ -366,7 +358,7 @@ function Solve_model(P::Params, G::Grids, S::Shocks, R::Results, idio_state::Arr
     #println("BB", BB')
     R2 = 1.0 .- float((rr'*rr)./(dYY'*dYY))
     # check for convergence on ols coefficients and R2
-    err = maximum(BB - BB0)
+    err = maximum(abs.(BB - BB0))
     BB0 = BB
     R.a0 = (1-tune)*BB[1,1]+(tune)*R.a0
     R.a1 = (1-tune)*BB[2,1]+(tune)*R.a1
