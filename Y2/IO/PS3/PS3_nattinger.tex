@@ -1,0 +1,238 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
+\usepackage{endnotes}
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{IO Problem Set 3}
+\author{Michael B. Nattinger}
+
+\begin{document}
+\maketitle
+\section{Question 1}
+We estimate the 4 specifications, as desired.
+
+\begin{center}
+\begin{tabular}{r |c c c c}
+\hline \hline
+Constant & -2.99 & -2.74 & -2.85 & -2.61 \\
+ & (0.11) & (0.09) & (0.11) & (0.09) \\
+Price & -10.12 & -28.95 & -11.31 & -29.40 \\
+ & (0.88) & (0.99) & (0.88) & (0.96) \\
+Sugar & 0.05 & -0.02 & 0.05 & -0.02 \\
+ & (0.004) & (0.003) & (0.004) & (0.003) \\
+Mushy & 0.05 & 0.49 & 0.04 & 0.50 \\
+ & (0.05) & (0.04) & (0.05) & (0.04) \\
+\hline
+Specification & OLS & OLS & IV & IV \\
+Brand FE & N & Y & N & Y \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Question 2}
+We can calculate estimated markups in a straightforward fashion. As described in class, we compute cross-price derivatives of demand and define $\hat{\Omega}$ s.t. $\hat{\Omega}_{jr} = \begin{cases} - \frac{\partial s_{jt}}{\partial p_{rt}}, \text{firm f produces j and r} \\ 0 , \text{o.w.} \end{cases}.$ We then compute markups as $\hat{b} = \hat{\Omega}^{-1} \hat{s}_{jt}$. Then, $\hat{mc} = \hat{p} - \hat{b}$ where $\hat{p}$ is the price. Results are below.
+
+\begin{center}
+\begin{tabular}{r |c c c c}
+\hline \hline
+Mean Markups & 0.117 & 0.041 & 0.105 & 0.040 \\
+Median Markups & 0.115 & 0.040 & 0.103 & 0.040 \\
+St. Dev Markups & 0.014 & 0.005 & 0.013 & 0.005 \\
+Mean MC & 0.009 & 0.085 & 0.021 & 0.085 \\
+Median MC & 0.008 & 0.083 & 0.020 & 0.084 \\
+St. Dev MC & 0.034 & 0.030 & 0.033 & 0.030 \\
+\hline
+Specification & OLS & OLS & IV & IV \\
+Brand FE & N & Y & N & Y \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Question 3}
+We compute the equilibrium prices and quantities post-merger using the following procedure:
+\begin{enumerate}
+\item Initialize price vector $p_0$ (decent guess is old prices)
+\item Compute $\hat{\delta}_{jt} = \hat{\alpha}p_0 + x_{jt}\hat{\beta} + \hat{\xi}$
+\item Compute $\hat{s}_{ijt}$ using $\hat{\Pi}, \hat{\Sigma}, \hat{\delta}$ for individuals $i \in \{1,\dots,20\}$
+\item Aggregate market shares $\hat{s}_{jt} = \frac{1}{20}\sum_{i=1}^{20} \hat{s}_{ijt}$
+\item Compute derivatives $\frac{\partial s_{jt}}{\partial p_{kt}}$ and form $\hat{\Omega}$
+\item Using new predicted markups $\hat{b} = \hat{\Omega}^{-1}\hat{s}_{jt}$, update prices $p_1 = \hat{mc} + \hat{b}$
+\item Check for convergence. If $||p_1 - p_0||<$tol, stop. Otherwise return to step 2. 
+\end{enumerate}
+
+Results follow. First: Post-Nabisco merger:
+
+\begin{center}
+\begin{tabular}{r |c c c c}
+\hline \hline
+Mean Prices & 0.126 & 0.129 & 0.126 & 0.129 \\
+Median Prices & 0.124 & 0.127 & 0.124 & 0.127 \\
+St. Dev Prices & 0.029 & 0.029 & 0.029 & 0.029 \\
+Mean Market Shares & 0.020 & 0.024 & 0.020 & 0.024 \\
+Median Market Shares & 0.011 & 0.008 & 0.011 & 0.008 \\
+St. Dev Market Shares & 0.026 & 0.051 & 0.025 & 0.050 \\
+\hline
+Specification & OLS & OLS & IV & IV \\
+Brand FE & N & Y & N & Y \\
+\hline
+\end{tabular}
+\end{center}
+
+Next, GM-Quaker merger:
+
+\begin{center}
+\begin{tabular}{r |c c c c}
+\hline \hline
+Mean Prices & 0.130 & 0.132 & 0.130 & 0.132 \\
+Median Prices & 0.128 & 0.130 & 0.128 & 0.130 \\
+St. Dev Prices & 0.030 & 0.030 & 0.030 & 0.030 \\
+Mean Market Shares & 0.020 & 0.022 & 0.020 & 0.022 \\
+Median Market Shares & 0.011 & 0.008 & 0.011 & 0.008 \\
+St. Dev Market Shares & 0.026 & 0.048 & 0.025 & 0.047 \\
+\hline
+Specification & OLS & OLS & IV & IV \\
+Brand FE & N & Y & N & Y \\
+\hline
+\end{tabular}
+\end{center}
+
+Overall, OLS and IV results are quite similar.
+
+\section{Question 4}
+
+We are assuming product characteristics (including marginal cost) remain constant. This doesn't seem to be a very good assumption as mergers are typically defended under the argument that the merger will reduce marginal costs. It also excludes the possibility that the merged firms can combine technology (in the case of cereal, perhaps crossover products would be an example). Without prior information on the likely effects of the mergers in these dimensions, our model would have to be far expanded to accurately predict the effects of the merger accounting for the endogeneity of product characteristics and production efficiencies.
+
+\section{Question 5}
+
+Here we run the full model. Coefficient and interaction terms are reported:
+
+\begin{center}
+\begin{tabular}{r |c c c c c}
+\hline \hline
+ & Coefficient & Int: Income & Int: Income$^2$ & Int: Age & Int: Child\\
+\hline
+Constant & -5.59 & 0.47 & 2.61 & 0.56 & 0.28 \\
+ & (0.16) & (0.34) & (0.73) & (0.22) & (0.45) \\
+Price & -31.42 & 3.10 & 13.30 & -0.49 & 0.33 \\
+ & (1.70) & (0.59) & (0.58) & (0.074) & (0.452) \\
+Sugar & 0.045 & -0.143 & -0.57 & -0.035 & -0.001\\
+ & (0.01) & (0.55) & (0.77) & (0.53) & (0.28) \\
+Mushy & 0.73 & 0.52 & 1.36 & 0.37 & -0.47 \\
+ & (0.07) & (0.37) & (1.33) & (0.09) & (0.44) \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Question 6}
+We recompute 2) using results from 5):
+
+\begin{center}
+\begin{tabular}{r |c }
+\hline \hline
+Mean Markups & 0.04 \\
+Median Markups & 0.04 \\
+St. Dev Markups & 0.01\\
+Mean MC & 0.08 \\
+Median MC & 0.08\\
+St. Dev MC & 0.03\\
+\hline
+\end{tabular}
+\end{center}
+Markups and MC estimates are fairly in line with Brand FE specifications from before, as expected.
+
+\section{Question 7}
+We recompute 3) using results from 5):
+
+\begin{center}
+\begin{tabular}{r |c }
+\hline \hline
+Mean Prices & 0.13 & 0.14 \\
+Median Prices & 0.13 & 0.13 \\
+St. Dev Prices & 0.03 & 0.04\\
+Mean Market Shares & 0.01 & 0.001 \\
+Median Market Shares & 0.01 & 0.001\\
+St. Dev Market Shares & 0.02 & 0.02 \\
+\hline
+\end{tabular}
+\end{center}
+The full model predicts higher prices than other specifications, with lower market shares as a natural consequence. We now move on to the PyBLP section:
+
+\section{Question 8} % actually do these
+
+\section{Question 9}
+
+\end{document}

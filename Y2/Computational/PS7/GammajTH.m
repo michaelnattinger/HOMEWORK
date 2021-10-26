@@ -1,0 +1,15 @@
+function Gamm = GammajTH(j,x1,P)
+m1 = zeros(2,P.H);
+for ii=1:P.H
+    mx = mean(x1(:,ii));
+    m1(:,ii) = [mx ((x1(:,ii) - mx)'*(x1(:,ii) - mean(x1(:,ii))))/P.T ]';
+end
+MTH = mean(m1,2);
+Gamm = zeros(2);
+for hh = 1:P.H
+    xbar = mean(x1(:,hh));
+    for tt = j+1:P.T
+        Gamm = Gamm + (1/((P.T)*P.H))*(([x1(tt,hh) ; (x1(tt,hh) -xbar)^2] -MTH)*([x1(tt-j,hh); (x1(tt-j,hh) -xbar)^2 ]-MTH)');
+    end
+end
+end

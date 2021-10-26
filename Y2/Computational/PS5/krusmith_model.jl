@@ -332,7 +332,7 @@ function Solve_model(P::Params, G::Grids, S::Shocks, R::Results, idio_state::Arr
     KK_ind = get_index(KK_timeseries[tt],G.K_grid)
     for ii = 1:P.N # for each individual=
         ind = get_index(k_timeseries[ii,tt], G.k_grid)
-        k_timeseries[ii,tt+1] = pf_k_interp(ind,agg_state[tt],KK_ind,idio_state[ii,tt])
+        k_timeseries[ii,tt+1] = pf_k_interp(ind,idio_state[ii,tt],KK_ind,agg_state[tt])
         KK_timeseries[tt+1] = KK_timeseries[tt+1]+k_timeseries[ii,tt+1]
     end
     KK_timeseries[tt+1] = KK_timeseries[tt+1]/P.N
