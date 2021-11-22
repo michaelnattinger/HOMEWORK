@@ -1,0 +1,167 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{amssymb}
+\usepackage{amsmath}
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage{bbm}
+\usepackage{endnotes}
+\usepackage{rotating}
+
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+        \global\colveccount#1
+        \begin{pmatrix}
+        \colvecnext
+}
+\def\colvecnext#1{
+        #1
+        \global\advance\colveccount-1
+        \ifnum\colveccount>0
+                \\
+                \expandafter\colvecnext
+        \else
+                \end{pmatrix}
+        \fi
+}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\title{Corporate Problem Set 3}
+\author{Michael B. Nattinger}
+
+\begin{document}
+\maketitle
+\section{Question 1}
+The problems our perfectly competitive lenders solve are:
+\begin{align*}
+&\max_{R_b} p_H^i R_b\\
+&\text{s.t. } p_H^i R_b \geq p_L^i R_b + B\\
+&\text{and } p_H^i (R^i-R_b^i) \geq I-A \\
+\iff &\max_{R_b} p_H^i R_b\\
+&\text{s.t. } \Delta p R_b \geq  B \\
+&\text{and } p_H^i (R^i-R_b^i) \geq I-A
+\end{align*}
+where the first constraint is the incentive compatability constraint on the borrower and the second constraint is the lender participation constraint. The LHS of the lender participation constraint declines in $R_b$ so our optimal allocation must satisfy that constraint with equality. Hence, $p_H^I(R^i-R_b^i) = I-A \Rightarrow R_b^i = R^i - \frac{I-A}{p_H^i}$. We do now have to check to see if the borrower has incentive to deviate. Our borrower will not deviate so long as:
+
+\begin{align*}
+\Delta p R_b^i &\geq B \\
+\iff \Delta p \left( R^i - \frac{I-A}{p_H^i}\right) &\geq B\\
+\iff A&\geq p_H^i \frac{B}{\Delta p} - (p_H^iR^i - I) = \bar{A}^i(B).
+\end{align*}
+
+Comparing asset constraints, $\bar{A}^A(B) - \bar{A}^B(B) = \frac{B}{\Delta p}(p_H^A -p_H^B) >0$ so project $A$ is more prone to rationing. Because project $B$ is riskier, the expected payoff of shirking is lower so it is easier for the firm to be convinced to put in high effort. Thus, project $B$ is less prone to credit rationing.
+
+\section{Question 2}
+In this case, the problem setup becomes:
+\begin{align*}
+&\max_{R_b} p_H R_b \\
+&\text{s.t. } \Delta p R_b \geq BI\\
+&\text{and } p_H(R(I) - R_b)\geq I-A,
+\end{align*}
+where as before the first constraint is the incentive compatibility constraint of the borrower, and the second constraint is the participation constraint of the lender.
+
+As before, the participation constraint must bind at the optimum:
+\begin{align*}
+R(I) - R_b &= \frac{I-A}{p_H}\\
+\Rightarrow R_b &= R(I) - \frac{I-A}{p_H}.
+\end{align*}
+
+Plugging into our IC constraint:
+
+\begin{align*}
+R(I) - \frac{I-A}{p_H} &\geq \frac{BI}{\Delta p}\\
+\Rightarrow A &\geq \left[\frac{p_H B}{\Delta p} + 1\right] I - p_H R(I)
+\end{align*}
+
+Noting that surplus maximizing $I$ will be set such that this equation will hold with equality, $$A =  \left[\frac{p_H B}{\Delta p} + 1\right] I - p_H R(I) $$.
+
+Here we apply total differentiation:
+\begin{align*}
+dA &=  \left[\frac{p_H B}{\Delta p} + 1 -p_H R'(I)\right] dI\\
+\Rightarrow \frac{dI}{dA} &= \frac{\Delta p}{p_H B}>0,
+\end{align*}
+where in the last line we have used the fact that $p_HR'(I) = 1$. The more cash on hand a firm has, the more it will invest in equilibrium.
+
+Now we are asked about the shadow price. The lender's utility in equilibrium is $U=p_H R_b - I+A$. Differentiating with respect to $A$, 
+\begin{align*}
+\frac{\partial I}{\partial A} &= [p_H R'(I) - 1]\frac{\partial I}{\partial A} + 1\\
+&=  1,
+\end{align*}
+
+where we again used our optimality condition, $p_HR'(I) = 1$. Thus, the shadow value of cash is constant and positive, and the lender's utility increases linearly in cash.
+
+\section{Question 3}
+\subsection{Part (i)}
+If a firm buys Treasuries then $(p_H - T)\leq p_0$, i.e. they must buy enough treasuries such that they avoid liquidity problems at $t=1$. Thus, a firm purchases $T=p_H-p_0$ Treasuries.
+
+For a firm to invest, two further conditions hold: the benefit exceeds the cose, and the cost is below pledgable income. These constraints are the following:
+\begin{align*}
+(1-\lambda)(p_0 - p_L) + \lambda(p_0 - p_H)&\geq (q-1)(p_H - p_0), \\
+\lambda(p_1 - p_H)&\geq  (q-1)(p_H - p_0).
+\end{align*}
+
+These are the constraints we are asked to solve for.
+\subsection{Part (ii)}
+
+Now $T<p_H - p_0$. Either (2) or (3) must bind because, if not, then firms will buy $(p_H-p_0)$ treasuries. This exceeds supply by assumption.
+
+Suppose (2) binds, so $(1-\lambda)(p_0 - p_L) + \lambda(p_0 - p_H)= (q-1)(p_H - p_0)$. Let $\lambda \approx 0$. Then, $(q-1)(p_H-p_0) = (p_L - p_0) - I + A>0$. But then if $\lambda(p_1 - p_H)\approx 0>  (q-1)(p_H - p_0)$ then $0>0$, a contradiction.
+
+So (3) binds, $\lambda(p_1 - p_H) =  (q-1)(p_H - p_0) \Rightarrow (q-1) = \lambda \left(\frac{p_1 - p_H}{p_H - p_0}\right)$.
+
+\subsection{Part (iii)}
+Since the new asset does not hedge against the liquidity shock, its price is its expected payoff, since firms are risk neutral. $q' = (1-\lambda).$
+
+\end{document}

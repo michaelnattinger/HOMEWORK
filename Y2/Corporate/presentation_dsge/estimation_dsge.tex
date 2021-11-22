@@ -1,0 +1,701 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This file is a template using the "beamer" package to create slides for a talk or presentation
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% MODIFIED by Jonathan Kew, 2008-07-06
+% The header comments and encoding in this file were modified for inclusion with TeXworks.
+% The content is otherwise unchanged from the original distributed with the beamer package.
+
+\documentclass{beamer}
+
+\usepackage{amsmath}
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+ % \usetheme{Warsaw}
+ \usetheme{Darmstadt}
+  % or ...
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+%\definecolor{kured}{RGB}{133,37,36}
+%\usecolortheme[named=kured]{structure}
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[utf8]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{graphicx}
+\graphicspath{ {./pings/} }
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title% (optional, use only with long paper titles)
+{Bayesian estimation of DSGE models using time series data}
+
+%\subtitle
+%{DFMs, BVARs, and VaR Constraints,\\ presented by Michael B. Nattinger}
+
+\author % (optional, use only with lots of authors)
+{Michael Nattinger}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+%{
+%  \inst{1}%
+%  Department of Economics\\
+%  University of Wisconsin-Madison
+%  \and
+%  \inst{2}%
+%  Department of Finance\\
+%Wisconsin School of Business}
+
+\date % (optional, should be abbreviation of conference name)
+{November, 2021}
+
+
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+\beamerdefaultoverlayspecification{<*>}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tiny{\tableofcontents}
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+
+
+\section{What is Dynare doing when we tell it to estimate the model, and why?}
+
+\subsection{Bayesian Estimation}
+
+\begin{frame}{General Model}
+Consider a solved (e.g. by Dynare), linearized model $\mathcal{M}_{\theta}$ with parameterization $\theta.$ Given states $S_t = (x_t, z_t)'$ (endogenous and exogenous),  $\mathcal{M}_{\theta}$ provides a potentially stochastic linear law of motion for the state variables:
+\begin{align}
+S_t &= A(\theta) S_{t-1} + B v_t\label{state} \tag{Transition}
+\end{align}
+
+For a variety of reasons, we may want to estimate the model. Let $Y_t$ be a vector of observables. We observe:
+\begin{align}
+Y_t &= D S_{t} +  w_t\label{meas} \tag{Measurement},
+\end{align}
+where $D$ is typically a matrix defined such that $DS_t$ will be a vector of model variables (e.g. $(q_t, k_t)'$) (and therefore does not depend on $\theta).$ We typically assume multivariate normal errors,
+\begin{align*}
+\begin{pmatrix} v_t \\ w_t \end{pmatrix} &\sim_{iid} N\left(0,\begin{bmatrix} Q(\theta) & 0 \\ 0 & R \end{bmatrix} \right).
+\end{align*}
+\end{frame}
+
+
+\begin{frame}{Estimating $\theta$}
+\begin{itemize}
+\item In general, we do not observe all states or shocks.
+\item However, given (\ref{state}), (\ref{meas}) equations we can apply the 'Kalman filter' and estimate $\{\hat{v}_t,\hat{w}_t,\hat{S}_t\}$.
+\item KF also yields a likelihood, $L(Y|\theta)$, since we have estimates of the shocks and know their distributions.
+\item Can we use ML to estimate $\theta$? Yes, but also no...
+\begin{itemize}
+\item Time series are usually short (50-500 observations)
+\item Time series data has peculiarities that make proper frequentist econometrics hard (autocorrelated errors etc.)
+\item Bayesian macroeconometric models typically perform much better out-of-sample than frequentist
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bayesian Posterior}
+What is Bayesian econometrics? Frequentist but with a \textit{prior} belief about the parameters $\pi(\theta).$
+\begin{itemize}
+\item Bayes' rule: Posterior $\pi(\theta|Y) = \frac{L(Y|\theta)\pi(\theta)}{\int L(Y|\theta)\pi(\theta)d\theta}$
+\item Numerator: Great! Can compute $L(Y|\theta)$ for any $\theta$, and $\pi(\theta)$ is our belief (so is known by definition).
+\item Denominator: ??? No analytical form in most cases. We want to ignore it.
+\item Solution: note that $\frac{\pi(\theta_1|Y)}{\pi(\theta_2|Y)} = \frac{L(Y|\theta_1)\pi(\theta_1)}{L(Y|\theta_2)\pi(\theta_2)}$.
+\begin{itemize}
+\item Posterior ratio does not depend on $\int  L(Y|\theta)\pi(\theta)d\theta$ !!!
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\subsection{Sampling from Posterior}
+
+\begin{frame}{Metropolis-Hastings Algorithm}
+\begin{itemize}
+\item We want to sample from the posterior distribution $\pi(\theta|Y)$ so we can find objects such as $\int \theta \pi(\theta|Y) d\theta$, and CIs.
+\item We do not know the posterior distribution because we can't calculate the pesky denominator
+\item Instead we  use Markov Chain Monte Carlo (MCMC) method:
+\begin{itemize}
+\item Compute posterior mode using numerical optimization routine $\theta_{m} = \argmax_{\theta} \pi(\theta|Y) =  \argmax_{\theta} L(Y|\theta)\pi(\theta) $
+\item Initialize $\theta^{1} = \theta_{m}$. Define $\Sigma_{m} = (\mathcal{H}( L(Y|\theta)\pi(\theta))|_{\theta = \theta_{m}})^{-1}$.
+\item Given $\theta^i,$ draw 'candidate' $\theta ' \sim N(\theta^i,c\Sigma_m)$
+\item Compute $w \sim U(0,1).$
+\item Set $\theta^{i+1} = \begin{cases} \theta' \text{ if } \frac{\pi(\theta'|Y)}{\pi(\theta^i|Y)} > w \\ \theta^i \text{ otherwise} \end{cases}$.
+\end{itemize}
+\item Resulting $\{\theta^i \}$ draws are weighted as if they were drawn from $\pi(\theta|Y)$.
+\end{itemize}
+\end{frame}
+
+\subsection{Discussion}
+
+\begin{frame}{Pros and Cons}
+Some pros:
+\begin{itemize}
+\item Works better than alternatives
+\item Dynare can do this automatically $\Rightarrow$ easy to implement
+\item Unobserved states at a particular point in time are estimated so can conduct counterfactuals, etc.
+\end{itemize}
+
+Some cons:
+\begin{itemize}
+\item Kalman filter requires linearized model
+\item Some people (especially at UW) dislike Bayesian priors
+\item Random walk MCMC needs lots of draws to properly sample distribution (often over a million)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Shocks \& Measurement errors}
+\begin{itemize}
+\item In general, need to write down model such that \\ \# observables $\leq$ \# shocks
+\item More observables than shocks results in a likelihood of \textit{zero}
+\begin{itemize}
+\item Shocks (in model + measurement) account for unexpected movements in real-world variables
+\item As many shocks as observables $\iff$ exact identification (shocks exactly account for unexpected changes in observables)
+\item More observables than shocks: Model cannot account simultaneously for all movements in observables, likelihood is zero
+\end{itemize}
+\item Can we have more shocks than unobservables? Yes. This method can handle it (without needing any extensions).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Measurement errors cont.}
+\begin{itemize}
+\item In practice econometricians often apply measurement error onto every observable (analogous to residual)
+\begin{itemize}
+\item Is this good practice? Almost feels like 'cheating', we want the model to predict reality well, not the measurement errors.
+\item On the other hand, have you ever seen an OLS regression have no errors? No.
+\item In some sense, maybe not the worst idea...
+\end{itemize}
+\item Some nonlinear filters actually \textit{require} measurement errors on every observable.
+\item In practice: usually write model and use as many observables in $Y$ as shocks in model
+\begin{itemize}
+\item Then sometimes add measurement error on each observable according to practitioner's preference/methodological necessity.
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\iffalse
+\begin{frame}{Model}
+Let $F_t$ be a vector of factors, in this case consisting of one global and several regional factors. The factors are not directly observable. Instead we observe $P_t$, a vector of observables (in our case, changes in risky asset prices). The observables take the following form:
+\begin{align}
+p_{i,t} &= \lambda_{i,g} f_{g,t} + \lambda_{i,m} f_{m,t} + \epsilon_t \label{obsF}
+\end{align}
+That is, changes in prices are a linear function of the global and relevant regional factor, as well as noise. The vector of factors $F_t$ follows a VAR(1) process:
+\begin{align}
+F_t &= \Phi F_{t-1} + \eta_t \label{FVAR}
+\end{align}
+
+We can solve for $\{F_t\}$ by casting the equations (\ref{obsF}),(\ref{FVAR}) into state space and applying maximum likelihood via the Kalman Filter.
+\end{frame}
+\subsubsection*{State-Space Representations}
+\begin{frame}{State-Space}
+Let $S_t$ be a vector of $n_s$ unobserved states, $Y_t$ be a vector of observables, and $z_t$ be a vector of exogenous variables (i.e. constants). We can write:
+\begin{align}
+S_t &= AS_{t-1} + B v_t\label{state} \tag{Transition}\\
+Y_t &= C z_t + D S_{t} +  w_t\label{state} \tag{Measurement}
+\end{align}
+where
+\begin{align*}
+\begin{pmatrix} v_t \\ w_t \end{pmatrix} &\sim_{iid} N\left(0,\begin{bmatrix} Q & 0 \\ 0 & R \end{bmatrix} \right)
+\end{align*}
+\end{frame}
+
+\subsection{DFM Estimation}
+\subsubsection*{Kalman Filter}
+\begin{frame}{Kalman Filter}
+We apply the following notation and a (very) weak, essentially flat prior, which yields simple closed-forms for posterior point estimates/uncertainty:
+\begin{align*}
+S_t|Y^{t-1} &\sim N(S_{t|t-1},P_{t|t-1}) \\
+S_t|Y^{t} &\sim N(S_{t|t},P_{t|t})\\
+Y_t|Y^{t-1} &\sim N(Y_{t|t-1},F_{t})
+\end{align*}
+\end{frame}
+\begin{frame}{Kalman Filter cont.}
+We assume $S_{1|0} = 0$ and let $P_{1|0} = cI_{n_s}$ for some large $c$. Repeated application of Bayes' law yields the following:
+\begin{align*}
+S_{t|t-1} &= AS_{t-1|t-1} \\
+P_{t|t-1} &= A P_{t-1|t-1}A' + B Q B' \\
+Y_{t|t-1} &= CZ_t + D S_{t|t-1} \\
+F_t &= D P_{t|t-1}D' + R \\
+S_{t|t} &= S_{t|t-1} + P_{t|t-1}D'F_t^{-1}(Y_t - Y_{t|t-1})\\
+P_{t|t} &= P_{t|t-1}D'F_t^{-1}DP_{t|t-1}
+\end{align*}
+
+Starting with our initialization $S_{1|0},P_{1|0}$ we iterate using the above steps to solve through the end of our time series sample.
+\end{frame}
+\begin{frame}{Kalman Smoothing}
+Our estimates for $S_{t|t}$ can be updated by the information we learned after the fact. This is called smoothing. Denote $E[S_t|Y^T]:= S_{t|T}.$ Notice that $S_{T|T}$ came out of the last step from the Kalman Filter. Then, the following formula gives us an algorithm to solve backwards for our final posterior estimates of the states: 
+\begin{align*}
+S_{t|T} &= S_{t|t} + P_{t|t}A'P_{t+1|t}^{-1}(S_{t+1|T} - S_{t+1|t}) 
+\end{align*}
+We can also use our forecast density $Y_t|Y^{t-1} \sim N(Y_{t|t-1},F_{t})$ to solve for the log likelihood of the model.
+\end{frame}
+
+\begin{frame}{Likelihood}
+The log likelihood can be shown to take the following form:
+\begin{align*}
+\mathbb{L} &= -\frac{T \cdot n_{y}}{2}log(2\pi) - \frac{1}{2} \sum_{t=1}^T\left[ log|F_t| + (Y_t - Y_{t|t-1})'F_{t}^{-1}(Y_t - Y_{t|t-1})\right]
+\end{align*}
+\begin{itemize}
+\item For small models the parameters $\{A,B,C,D,R,Q\}:=\theta$ can be estimated numerically
+\item Usually this is infeasible
+\item Solution: Quasi-ML (EM Algorithm)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{QML Estimation}
+\begin{enumerate}
+\item Guess $\{\hat{F}_t\}_0$ using principal components
+\begin{itemize}
+\item $\{\{F_t\}_{pc},\Lambda_{pc}\} = \argmin_{\{F_t\},\Lambda} \sum_{t=1}^{T}\sum_{i=1}^{n_y} (y_{i,t} - \lambda_{i}F_{t})^2$
+\end{itemize}
+\item Solve for $\hat{\theta}_{0}$ via OLS and MLE for covariance matrices
+\item Kalman Filter given $\hat{\theta}_{0}$ to retrieve $\{ \hat{F}_t\}_1$
+\item Repeat step (2) to retrieve $\hat{\theta}_{1}$, run through Kalman Filter again to retrieve $\{ \hat{F}_t\}_{2}$, etc. until convergence
+\end{enumerate}
+\begin{itemize}
+\item Analytical formulas make calculations very efficient
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Convergence} % add figures of factor in first differences
+\begin{center}
+ \includegraphics[scale=0.65]{DFM_ap}
+\end{center}
+\end{frame}
+
+\begin{frame}{Comparison} % add figures of factor in first differences
+\begin{center}
+ \includegraphics[scale=0.65]{DFM_comp}
+\end{center}
+\end{frame}
+
+%\begin{frame}{Regional Factors} % add figures of factor in first differences
+%\begin{center}
+% \includegraphics[scale=0.65]{DFM_gl}
+%\end{center}
+%\end{frame}
+
+\subsection{DFM Results}
+\begin{frame}{Global Factor}
+\begin{center}
+ \includegraphics[scale=0.4]{Rey_factor}
+\end{center}
+\end{frame}
+
+\begin{frame}{Global Factor Decomposition}
+\begin{center}
+ \includegraphics[scale=0.35]{Rey_fdec}
+\end{center}
+\end{frame} 
+
+\begin{frame}{Comments on Decomposition}
+\begin{itemize}
+\item Why decompose? Asset pricing literature.
+\item Statistical testing showed the presence of a single factor, not two...
+\item What about inflation?
+\item Why realized variance and not implied vol (i.e. VIX)?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
+\begin{center}
+\includegraphics[scale=0.65]{risk_aversion}
+\end{center}
+\end{frame}
+
+\begin{frame}{Deflating}
+\begin{center}
+\includegraphics[scale=0.65]{real_risk_aversion}
+\end{center}
+\end{frame}
+
+\section{Bayesian VAR Impulse Responses}
+\subsection{Vector Autoregressions}
+\begin{frame}{VAR introduction}
+Let $Y_t$ be a $n_y \times 1$ vector of time series variables. We can assume the following law of motion:
+\begin{align*}
+Y_t =   \beta X_t + \epsilon_t,
+\end{align*}
+where $X_t = \begin{pmatrix}Y_{t-1}', Y_{t-2}', \dots, Y_{t-p}', 1 \end{pmatrix}'$, and $\epsilon_t \sim N(0,\Sigma)$. System can be identified using OLS. Issues to consider:
+\begin{itemize}
+\item Large number of parameters
+\item Relatively small number of observations
+\item Assorted time series issues (autocorrelated errors, heteroskedasticity, etc.)
+\item High variance of estimator, biased under autocorrelation, generally poor forecasting performance out-of-sample
+\item Moreover, origin of residuals is unclear
+\end{itemize}
+\end{frame}
+\subsection{Structural VARs}
+\begin{frame}{SVARs}
+Endogenous response of $Y_{it}$ to $\epsilon_{jt}, i\neq j$  is captured by the following slight modification:
+\begin{align*}
+M Y_t &= \beta X_t + \epsilon_t
+\end{align*}
+We can premultiply by $M^{-1}$ to estimate the SVAR via OLS: 
+\begin{align*}
+ Y_t &= B X_t + M^{-1}\epsilon_t
+\end{align*}
+Now we have an identification issue. Common solution methods are a recursive ordering (Cholesky identification, covered in these slides), long-run zero restrictions (Blanchard-Quah),  sign restrictions, and IV (covered in these slides).
+\end{frame}
+
+\begin{frame}{Identification: Cholesky}
+\begin{itemize}
+\item Cholesky Decomposition: "matrix square root"
+\item $S = Q'Q$ where $Q'$ is lower triangular
+\item Identification: assume $\epsilon_t \sim N(0,I_{n_y})$
+\item Calculate residuals $\{r_t\}$, residual covariance matrix $\hat{\Sigma}$; assume $M^{-1}$ is lower triangular (recursive ordering)
+\item Calculate $\hat{M}^{-1} = chol(\hat{\Sigma})$
+\item Note: $\hat{M}^{-1} \epsilon_t \sim N(0,\hat{M}^{-1} I_{n_y} \hat{M}^{-1}\text{ }') \sim N(0,\hat{\Sigma})$
+\item Therefore: $i$th column of $\hat{M}^{-1}$ correspond to 1 s.d. structural shocks to variable $i$.
+\item Downsides: recursive ordering often hard to argue is reasonable, $\hat{\Sigma}$ may not be well identified
+\item Upsides: Very straightforward to compute; often used in practice; easy to automate
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identification: IV}
+\begin{itemize}
+\item External 'shock instrument' $\{s_t\}$
+\item Identification: calculate residuals $\{r_t\}$, map $\{s_t\}$ into each variable's $\{r_{i,t}\}$ using OLS.
+\item Normalize. Usually certain size shock of the most relevant variable to the instrument
+\item Downsides: requires standard IV assumptions; in many cases very difficult to find instrument
+\item Upsides: If assumptions are satisfied for a given instrument, very powerful \& easy to argue is reasonable identification
+\item This paper: high frequency asset price movements in small window around fed funds surprises
+\end{itemize}
+\end{frame}
+
+\begin{frame}{'Stacked' notation}
+We can stack our matrices appropriately: $Y = (Y_1, Y_2, \dots, Y_T)', X = (X_1, X_2, \dots, X_T)'. $ Then the model is the following:
+\begin{align*}
+Y &= XA + E
+\end{align*}
+Define also $\alpha = vec(A)$ for convenience. We will also use $\hat{A} = (X'X)^{-1}X'Y, S = (Y-X\hat{A})'(Y-X\hat{A}).$
+\end{frame}
+\subsection{Bayesian VARS}
+\begin{frame}{BVARs}
+\begin{itemize}
+\item Small samples, large models \& time series issues (heteroskedasticity, etc.) lead to large variance
+\item Introduce shrinkage: usually via Bayesian prior. In this paper: natural conjugate
+\end{itemize}
+Example Prior: Normal-Inverse Wishart (NIW, or natural conjugate prior). Let the prior have the following form:
+\begin{align}
+\alpha | \Sigma &\sim N(\alpha_{pr},\Sigma \otimes V_{pr}) \label{alphpr} \\
+\Sigma^{-1} &\sim W(S_{pr}^{-1},\nu_{pr}). \label{Sigpr}
+\end{align}
+
+The posterior of this prior is the following:
+\begin{align}
+\alpha | \Sigma,Y &\sim N(\alpha_{po},\Sigma \otimes V_{po}) \label{alphpo} \\
+\Sigma^{-1}| Y &\sim W(S_{po}^{-1},\nu_{po}). \label{Sigpo},
+\end{align}
+where
+\end{frame}
+\begin{frame}{Posterior}
+ % switch equations to kk
+\begin{align*}
+V_{po} &= [V_{pr}^{-1} + X'X]^{-1} \\
+A_{po} &= V_{po}[V_{pr}^{-1}A_{pr} + X'X\hat{A}] \\
+S_{po} &= S + S_{pr} + \hat{A}'X'X\hat{A} + A_{pr}' V_{pr}^{-1} A_{pr} - A_{po}' (V_{pr}^{-1} + X'X)A_{po} \\
+\nu_{po} &= T + \nu_{pr} \\
+\alpha_{po} &= vec(A_{po})
+\end{align*}
+
+But how do we choose a well-informed prior?
+\end{frame}
+\subsubsection*{Minnesota Prior}
+\begin{frame}{$A_{pr}$}
+\begin{itemize}
+\item Doan, Litterman \& Sims created the Minnesota Prior in the 1980s (Sims won Nobel Prize)
+\item Assume random walk (or noise, depending on data) is 'true' model \& shrink towards that
+\item Vastly improved forecasting out-of-sample \& better coverage intervals for IR
+\end{itemize}
+%\begin{align*}
+%A_{pr} = \begin{pmatrix} I_k\\0\\ \dots \\ 0 \end{pmatrix}
+%\end{align*}
+\begin{align*}
+Y_t &= C + A_{1}Y_{t-1} + A_{2}Y_{t-2} + \dots + A_{p}Y_{t-p} + r_t \\
+&=  Y_{t-1}  + r_t
+\end{align*}
+so
+\begin{align*}
+A_{pr} = \begin{pmatrix} I_k\\ \bar{0} \end{pmatrix}
+\end{align*} 
+\end{frame}
+
+\begin{frame}{$S_{pr},\nu_{pr},V_{pr}$}
+\begin{itemize}
+\item $\nu_{pr} = n_y+2$ to ensure $S_{pr}$ is mean of prior on $\Sigma$
+\item $S_{pr}$ diagonal, each element is residual variance of AR(p) regression of that variable, $\varphi_i$
+\item $V_{pr}$ chosen to be diagonal with elements  $\frac{\lambda^2}{L^2 \varphi_i}$
+\item  $Var\left[(A_L)_{j,k} \right]  = \frac{\lambda^2 \varphi_{j}}{L^2 \varphi_{k}}$
+\item What is $\lambda$? Shrinkage parameter.
+\item How do we choose $\lambda$?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Giannone, Lenza, \& Primiceri (2015)}
+\begin{itemize}
+\item Hierarchical modeling: consider $\lambda$ to be a hyperparameter, and condition on it in Bayesian calculations
+\item Use flat hyperprior so essentially choose $\lambda$ to maximize marginal predictive likelihood 
+\item Consider model to be a convenient closed-form likelihood over which we apply standard Macro priors in a linear model \& conduct frequentist ML over the degree to which the model shrinks towards that prior, as a parameter
+\item Usually done numerically
+\item Allows for very massive VARs - shrinkage goes up as necessary to best include more useful information
+\item This paper essentially just adapts BLP's code - this is recommended if you want to use this procedure
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Impulse responses}
+\begin{enumerate}
+\item Draw $\lambda,\Sigma|\lambda, \alpha|\lambda,\Sigma$ from posterior distributions
+\item Use $\alpha$ to calculate residuals
+\item Map monetary policy shock into residuals \& calculate shock with some normalization
+\item Norm: 1 year treasury moves 100 bp in response to shock
+\item Calculate how economy endogenously responds via $\alpha$ (assuming no more shocks)
+\item Store response. Repeat process until $N$ simulations have occurred.
+\item Calculate median and $\tau_q$ quantiles from draws at each time horizon, for each variable
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Importance of prior: Variables entering VAR}
+\includegraphics[scale=0.36]{model_2}
+\end{frame}
+
+\begin{frame}{Importance of prior: Variables entering VAR}
+\includegraphics[scale=0.36]{model_3}
+\end{frame}
+
+\begin{frame}{Priors and Posteriors}
+\includegraphics[scale=0.36]{pr_post_m1}
+\end{frame}
+
+\begin{frame}{Priors and Posteriors}
+\includegraphics[scale=0.36]{pr_post_m3}
+\end{frame}
+
+\begin{frame}{Priors and Posteriors}
+\includegraphics[scale=0.36]{pr_post_m5}
+\end{frame}
+
+\begin{frame}{Importance of prior: Baseline}
+\includegraphics[scale=0.36]{VAR_m1}
+\end{frame}
+
+\begin{frame}{Importance of prior: Baseline}
+\includegraphics[scale=0.36]{VAR_m2}
+\end{frame}
+
+\begin{frame}{Importance of prior: Tight prior}
+\includegraphics[scale=0.36]{VAR_m3}
+\end{frame}
+
+\begin{frame}{Importance of prior: Tight prior}
+\includegraphics[scale=0.36]{VAR_m4}
+\end{frame}
+
+\begin{frame}{Importance of prior: Very loose prior}
+\includegraphics[scale=0.36]{VAR_m5}
+\end{frame}
+
+\begin{frame}{Importance of prior: Very loose prior}
+\includegraphics[scale=0.36]{VAR_m6}
+\end{frame}
+
+\begin{frame}{Importance of prior: Flat prior}
+\includegraphics[scale=0.36]{VAR_m7}
+\end{frame}
+
+\begin{frame}{Importance of prior: Flat prior}
+\includegraphics[scale=0.36]{VAR_m8}
+\end{frame}
+
+\begin{frame}{Importance of prior: Baseline, Cholesky identification}
+\includegraphics[scale=0.36]{VAR_m9}
+\end{frame}
+
+\begin{frame}{Importance of prior: Baseline, Cholesky identification}
+\includegraphics[scale=0.36]{VAR_m10}
+\end{frame}
+
+%\subsection{Shock Identification}
+%\begin{frame}{IV}
+%\begin{itemize}
+%\item Essentially, just map external monetary policy shock variable into VAR residuals
+%\item Main shock: FOMC futures changes around announcements
+%\item Alternatively, narrative-based shock identification
+%\item Main shock is more relevant
+%\item Show short/medium/long term reaction of economy to monetary policy shocks via impulse responses
+%\end{itemize}
+%\end{frame}
+
+\subsection{BVAR Results}
+\subsubsection*{Closed Economy} % impulse responses here and next subsubsection
+\begin{frame}{Closed Economy IR}
+\begin{center}
+\includegraphics[scale=0.55]{cl_ir}
+\end{center}
+\end{frame}
+\subsubsection*{Global VARs}
+\begin{frame}{Global IRs - Factor}
+\begin{center}
+\includegraphics[scale=0.9]{gl_fac}
+\end{center}
+\end{frame}
+\begin{frame}{Global IRs - Flows \& Credit}
+\begin{center}
+\includegraphics[scale=0.7]{cl_flo}
+\end{center}
+\end{frame}
+\begin{frame}{Global IRs - Floaters \& Credit}
+\begin{center}
+\includegraphics[scale=0.9]{gl_floa}
+\end{center}
+\end{frame}
+\begin{frame}{Global IRs - Europe}
+\begin{center}
+\includegraphics[scale=0.7]{gl_eur}
+\end{center}
+\end{frame}
+\section{Model}
+\begin{frame}{Basic model setup}
+2 types of agents: Banks, Asset Managers. Banks with equity $w_t^B$ maximize expected return over world risky assets subject to a VaR constraint (upper limit on amount a bank is predicted to lose on a portfolio within some probability, as a fraction of equity):
+\begin{align*}
+&\max_{x_t^B} E_t(x_t^{B} \text{ }'R_{t+1})\\
+&\text{s.t. } \alpha w_t^B[Var_t(x_t^B \text{ }'R_{t+1})]^{1/2}\leq w_t^B
+\end{align*}
+The constraint binds since the Banks are risk neutral.
+\end{frame}
+\begin{frame}{Basic model setup cont.}
+Asset managers are risk averse with CARA preferences, risk aversion $\sigma$. Their maximization problem is to choose world assets (and hold all regional assets (note: banks cannot trade in regional asset markets)), and is equivalent to the following:
+\begin{align*}
+&\max_{x_t^I} E_t(x_t^{I} \text{ }'R_{t+1} + y_t^I\text{ }'R^N_{t+1}) - \frac{\sigma}{2}Var_t(x_t^{I} \text{ }'R_{t+1} + y_t^I\text{ }'R^N_{t+1})\\
+\end{align*}
+
+World market clearing conditions:
+\begin{align*}
+x_t^B \text{ }'\frac{w_t^B}{w_t^B + w_t^I}+x_t^I \text{ }'\frac{w_t^I}{w_t^B + w_t^I} = s_t,
+\end{align*}
+where $s_t$ is the net asset supplies for traded assets.
+\end{frame}
+
+\subsection{VaR Constraints}
+\begin{frame}{Solving}
+In this model VaR constraints serve to prevent risk-neutral firms from buying $\infty$ of the most profitable (and riskiest) asset, which they would do otherwise. It gives endogenous aggregate effective risk aversion which we solve for by taking FOCs:
+\begin{align*}
+\left[\text{FOC: B}\right]:  x_t^B &= \frac{1}{\alpha \lambda_t}\left[ Var_t(R_{t+1})\right]^{-1}E_t(R_{t+1}) \\
+\left[\text{FOC: I}\right]:  x_t^I &= \frac{1}{\sigma}\left[ Var_t(R_{t+1})\right]^{-1}[E_t(R_{t+1}) - \sigma Cov_t(R_{t+1},R^N_{t+1})y_t^I]
+\end{align*}
+We apply market clearing to solve:
+\end{frame}
+\begin{frame}{Solving}
+\begin{align*}
+E_t(R_{t+1}) &= \Gamma_t Var_t(R_{t+1})s_t + \Gamma_tCov_t(R_{t+1},R_{t+1}^N)y_t,
+\end{align*}
+where $\Gamma_t := \left[ \frac{w_t^B}{\alpha \lambda_t} + \frac{w_t^I}{\sigma}\right]^{-1}(w_t^B + w_t^I)$ is the aggregate degree of effective risk aversion, and $\lambda_t$ is the Lagrange multiplier on the Bank problem, which can be solved for as $\lambda_t = \left[E_t(R_{t+1})'[Var_t(R_{t+1})]^{-1}E_t(R_{t+1}) \right]^{-1/2}.$ Global bank returns can also be computed:
+\begin{align*}
+E_t(x_t^{B} \text{ }'R_{t+1}) &= \Gamma_t Cov_t(x_t^B \text{ }'R_{t+1},s_t' R_{t+1}) + \Gamma_t Cov_t(x_t^B \text{ }'R_{t+1},y_t' R^N_{t+1}) \\
+&= \beta_t \Gamma_t^{BW} Var_t(s_t' R_{t+1}) + \Gamma_t Cov_t(x_t^B \text{ }'R_{t+1},y_t' R^N_{t+1}),
+\end{align*}
+where $\beta_t^{BW}$ is the beta of a global bank with the world market portfolio. They informally demonstrate this finding with data:
+\end{frame}
+\begin{frame}{Beta correlations}
+\begin{center}
+\includegraphics[scale=0.8]{corr_returns}
+\end{center}
+\end{frame}
+
+\subsection{VaR More Generally}
+\begin{frame}{VaR constraints}
+\begin{itemize}
+\item Useful constraints on banks in macro environments
+\item Oftentimes they are used to generate endogenous procyclical leverage for banks which are evident in the data (Adrian and Shin 2010)
+\item Work well in modeling nonlinear financial shock propogations which are also evident in the data (Adrian, Boyarchenko, and Giannone 2018)
+\item Modern, flexible, useful tool in macrofinancial models
+\end{itemize}
+\end{frame}
+\section{Conclusion}
+\begin{frame}{Paper's findings}
+\begin{itemize}
+\item A single global factor drives risky asset prices around the globe, and is a function of both aggregate risk aversion and equity price realized volatility
+\item U.S. monetary policy drives significant movements in global economic and financial variables, including global financial flows and leverage of intermediaries
+\item A simple illustrative model uses VaR constraints to generate time-varying risk aversion in a heterogenous investor setting, and is predictive of micro evidence.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{This presentation}
+\begin{itemize}
+\item Findings of paper
+\item Overview of methods used in this paper, setup and estimation
+\item Brief overview of VaR constraints and their usage, in and out of the context of this paper
+\item Example Matlab code using similar data
+\end{itemize}
+\end{frame}
+\fi
+\end{document}
+
+

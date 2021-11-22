@@ -1,0 +1,2 @@
+using Parameters, Plots, Random, Distributions, Interpolations, Optim #import the libraries we want
+include("krusmith_model.jl") #import the functions that solve our growth model

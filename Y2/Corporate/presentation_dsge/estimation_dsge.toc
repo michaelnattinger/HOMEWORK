@@ -1,0 +1,5 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{What is Dynare doing when we tell it to estimate the model, and why?}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Bayesian Estimation}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Sampling from Posterior}{6}{0}{1}
+\beamer@subsectionintoc {1}{3}{Discussion}{7}{0}{1}

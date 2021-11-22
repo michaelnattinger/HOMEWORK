@@ -175,7 +175,7 @@ for is = 1:ns
         Cov = inv(Jacob'*Wst*Jacob)/P.T;
         SE3 = sqrt(diag(Cov))';
         Jtest = P.T*(P.H/(1+P.H))*J2_3;
-
+        ptest = chi2cdf(Jtest,1);
         tab = table(vars,b1_3(is,:)',b2_3(is,:)',SE3','VariableNames',{' ' 'b1' 'b2' 'SE'});
         jtab = table(Jacob(:,1),Jacob(:,2));
         table2latex(tab,'tab_ov');
@@ -196,3 +196,13 @@ suptitle(['Histogram of estimates from ' num2str(ns) ' bootstrap samples'])
 cd('pings')
 saveas(gcf,'boot.png')
 cd('..')
+
+figure
+subplot(2,1,1)
+histogram(b1_3(:,1),50)
+title('\rho estimates')
+subplot(2,1,2)
+histogram(b1_3(:,2),50)
+title('\sigma estimates')
+set(gcf,'Color',[1 1 1])
+suptitle(['Histogram of estimates from ' num2str(ns) ' bootstrap samples'])

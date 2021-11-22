@@ -131,7 +131,7 @@ We compute the equilibrium prices and quantities post-merger using the following
 \item Aggregate market shares $\hat{s}_{jt} = \frac{1}{20}\sum_{i=1}^{20} \hat{s}_{ijt}$
 \item Compute derivatives $\frac{\partial s_{jt}}{\partial p_{kt}}$ and form $\hat{\Omega}$
 \item Using new predicted markups $\hat{b} = \hat{\Omega}^{-1}\hat{s}_{jt}$, update prices $p_1 = \hat{mc} + \hat{b}$
-\item Check for convergence. If $||p_1 - p_0||<$tol, stop. Otherwise return to step 2. 
+\item Check for convergence. If $||p_1 - p_0||<$tol, stop. Otherwise set $p_0 = p_1$ and return to step 2. 
 \end{enumerate}
 
 Results follow. First: Post-Nabisco merger:
@@ -218,7 +218,7 @@ Markups and MC estimates are fairly in line with Brand FE specifications from be
 We recompute 3) using results from 5):
 
 \begin{center}
-\begin{tabular}{r |c }
+\begin{tabular}{r |c c}
 \hline \hline
 Mean Prices & 0.13 & 0.14 \\
 Median Prices & 0.13 & 0.13 \\
@@ -229,10 +229,8 @@ St. Dev Market Shares & 0.02 & 0.02 \\
 \hline
 \end{tabular}
 \end{center}
-The full model predicts higher prices than other specifications, with lower market shares as a natural consequence. We now move on to the PyBLP section:
+The full model predicts higher prices than other specifications, with lower market shares as a natural consequence. 
 
-\section{Question 8} % actually do these
-
-\section{Question 9}
-
+\section{Question 8: pyBLP}
+I have had time to play around some with PyBLP, but unfortunately not nearly enough time to complete both the first part of this problem set and the python portion. I will submit some python code but I haven't been able to match the exact same exercises as part 5-7.
 \end{document}
